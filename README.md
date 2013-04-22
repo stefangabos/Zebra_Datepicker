@@ -19,7 +19,7 @@ Zebra_Datepicker is a small, compact and highly configurable datepicker jQuery p
  - supports internationalization
  - works by automatically attaching a small calendar icon to the indicated input fields which displays the attached datepicker when clicked.
 
-![ScreenShot](https://raw.github.com/stefangabos/Zebra_Datepicker/master/public/css/themes.png)
+![Themes](https://raw.github.com/stefangabos/Zebra_Datepicker/master/public/css/themes.png)
 
 ## Requirements
 
