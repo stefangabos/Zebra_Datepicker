@@ -1,8 +1,6 @@
 ##Zebra_Datepicker
 
-####A lightweight datepicker jQuery plugin
-
-<img src="http://stefangabos.ro/wp-content/uploads/covers/zebra-datepicker-630x300.jpg" align="center" width="630" height="300" style="position: relative; width: 630px; height: 300px; margin-left: 111px; border: 2px solid #666; padding: 2px">
+####A super-lightweight, highly configurable, cross-browser date picker jQuery plugin
 
 Zebra_Datepicker is a small, compact and highly configurable datepicker jQuery plugin, meant to enrich forms by adding the datepicker functionality to them. This jQuery plugin will automatically add a calendar icon to the indicated input fields which, when clicked, will open the attached datepicker. Users can easily jump between months and years due to the datepicker’s intuitive interface. The selected date will be entered in the input field using the date format of choice, configurable in the datepicker’s options.
 
@@ -20,6 +18,8 @@ Zebra_Datepicker is a small, compact and highly configurable datepicker jQuery p
  - date pickers can be “paired” – where one or more date pickers will use the value of another date picker as starting date
  - supports internationalization
  - works by automatically attaching a small calendar icon to the indicated input fields which displays the attached datepicker when clicked.
+
+<img src="https://github.com/stefangabos/Zebra_Datepicker/blob/master/public/css/themes.png" align="center" width="630" height="300" style="position: relative; width: 630px; height: 300px; margin-left: 111px; border: 2px solid #666; padding: 2px">
 
 ## Requirements
 
