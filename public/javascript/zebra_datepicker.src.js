@@ -747,6 +747,10 @@
                 // if calendar icon exists
                 if (undefined != icon) {
 
+                    // needed when updating: remove any inlint style set previously by library, 
+                    // so we get the right values below
+                    icon.attr('style', '');
+
                     // if calendar icon is to be placed *inside* the element
                     // add an extra class to the icon
                     if (plugin.settings.inside) icon.addClass('Zebra_DatePicker_Icon_Inside');
