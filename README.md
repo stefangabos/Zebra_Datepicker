@@ -25,36 +25,48 @@ Zebra_Datepicker is a small, compact and highly configurable datepicker jQuery p
 
 Zebra_Datepicker has no dependencies other than jQuery 1.5.2+ but requires that the page you are using the plugin on to have a strict doctype like:
 
-    <!doctype html>
+```html
+<!doctype html>
+```
 
 ## How to use
 First, load the latest version of jQuery from a CDN and provide a fallback to a local source, like:
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="public/javascript/jquery-1.9.1.js"><\/script>')</script>
+```html
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="public/javascript/jquery-1.9.1.js"><\/script>')</script>
+```
 
 Load the Zebra_Datepicker jQuery plugin:
 
-    <script type="text/javascript" src="path/to/zebra_datepicker.js"></script>
+```html
+<script type="text/javascript" src="path/to/zebra_datepicker.js"></script>
+```
 
 Load the stylesheet:
 
-    <link rel="stylesheet" href="path/to/zebra_datepicker.css" type="text/css">
+```html
+<link rel="stylesheet" href="path/to/zebra_datepicker.css" type="text/css">
+```
 
 Now, within the DOM-ready event, attach the Zebra_Datepicker plugin to a &lt;input type=”text”> control
 
-    $(document).ready(function() {
+```javascript
+$(document).ready(function() {
 
-        // assuming the controls you want to attach the plugin to
-        // have the "datepicker" class set
-        $('input.datepicker').Zebra_DatePicker();
+    // assuming the controls you want to attach the plugin to
+    // have the "datepicker" class set
+    $('input.datepicker').Zebra_DatePicker();
 
-     });
+});
+```
 
 This will attach a calendar icon to the specified element(s). Clicking the icon, will make the date picker visible.
 
 To get a reference to the instance of Zebra_DatePicker attached to an element do:
 
-    var $zdp = $('#element').data('Zebra_DatePicker');
+```javascript
+var $zdp = $('#element').data('Zebra_DatePicker');
+```
 
 Configuration options and demos on the **[project's homepage](http://stefangabos.ro/jquery/zebra_datepicker/)**
