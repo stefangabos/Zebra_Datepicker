@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.7.0 (last revision: April 22, 2013)
+ *  @version    1.7.1 (last revision: April 26, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -168,7 +168,7 @@
             //  TRUE regardless of the actual value!
             //
             //  default is FALSE
-            select_other_months: true,
+            select_other_months: false,
 
             //  should a calendar icon be added to the elements the plugin is attached to?
             //
@@ -938,8 +938,14 @@
             // attach a click event for the cells in the day picker
             daypicker.delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', 'click', function() {
 
+                // if other months are selectable and currently clicked cell contains a class with the cell's date
+                if (plugin.settings.select_other_months && null != (matches = $(this).attr('class').match(/date\_([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])/)))
+
+                    // use the stored date
+                    select_date(matches[1], matches[2], matches[3], 'days', $(this));
+
                 // put selected date in the element the plugin is attached to, and hide the date picker
-                select_date(selected_year, selected_month, to_int($(this).html()), 'days', $(this));
+                else select_date(selected_year, selected_month, to_int($(this).html()), 'days', $(this));
 
             });
 
@@ -1609,15 +1615,30 @@
                 // the number of the day in month
                 var day = (i - days_from_previous_month + 1);
 
+                // if dates in previous/next month can be selected, and this is one of those days
+                if (plugin.settings.select_other_months && (i < days_from_previous_month || day > days_in_month)) {
+
+                    // use the Date object to normalize the date
+                    // for example, 2011 05 33 will be transformed to 2011 06 02
+                    var real_date = new Date(selected_year, selected_month, day),
+                        real_year = real_date.getFullYear(),
+                        real_month = real_date.getMonth(),
+                        real_day = real_date.getDate();
+
+                    // extract normalized date parts and merge them
+                    real_date =  real_year + str_pad(real_month, 2) + str_pad(real_day, 2);
+
+                }
+
                 // if this is a day from the previous month
                 if (i < days_from_previous_month)
 
-                    html += '<td class="' + (plugin.settings.select_other_months && !is_disabled(selected_year, selected_month, day) ? 'dp_not_in_month_selectable' : 'dp_not_in_month') + '">' + (plugin.settings.select_other_months || plugin.settings.show_other_months ? str_pad(days_in_previous_month - days_from_previous_month + i + 1, plugin.settings.zero_pad ? 2 : 0) : '&#032;') + '</td>';
+                    html += '<td class="' + (plugin.settings.select_other_months && !is_disabled(real_year, real_month, real_day) ? 'dp_not_in_month_selectable date_' + real_date : 'dp_not_in_month') + '">' + (plugin.settings.select_other_months || plugin.settings.show_other_months ? str_pad(days_in_previous_month - days_from_previous_month + i + 1, plugin.settings.zero_pad ? 2 : 0) : '&#032;') + '</td>';
 
                 // if this is a day from the next month
                 else if (day > days_in_month)
 
-                    html += '<td class="' + (plugin.settings.select_other_months && !is_disabled(selected_year, selected_month, day) ? 'dp_not_in_month_selectable' : 'dp_not_in_month') + '">' + (plugin.settings.select_other_months || plugin.settings.show_other_months ? str_pad(day - days_in_month, plugin.settings.zero_pad ? 2 : 0) : '&#032;') + '</td>';
+                    html += '<td class="' + (plugin.settings.select_other_months && !is_disabled(real_year, real_month, real_day) ? 'dp_not_in_month_selectable date_' + real_date : 'dp_not_in_month') + '">' + (plugin.settings.select_other_months || plugin.settings.show_other_months ? str_pad(day - days_in_month, plugin.settings.zero_pad ? 2 : 0) : '&#032;') + '</td>';
 
                 // if this is a day from the current month
                 else {
