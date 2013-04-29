@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.7.1 (last revision: April 26, 2013)
+ *  @version    1.7.2 (last revision: April 29, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -1285,9 +1285,10 @@
 
                         // check if date is a valid date (i.e. there's no February 31)
 
-                        var original_day,
-                            original_month,
-                            original_year,
+                        var tmpdate = new Date(),
+                            original_day = tmpdate.getDate(),
+                            original_month = tmpdate.getMonth() + 1,
+                            original_year = tmpdate.getFullYear(),
                             english_days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
                             english_months = ['January','February','March','April','May','June','July','August','September','October','November','December'],
                             iterable,
