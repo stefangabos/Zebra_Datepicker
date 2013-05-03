@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.7.2 (last revision: April 29, 2013)
+ *  @version    1.7.3 (last revision: May 03, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -328,15 +328,15 @@
             // parse the rules for disabling dates and turn them into arrays of arrays
 
             // array that will hold the rules for enabling/disabling dates
-            disabled_dates = enabled_dates = [];
+            disabled_dates = []; enabled_dates = [];
 
             var dates;
 
             // it's the same logic for preparing the enabled/disable dates...
-            for (var k = 0; k < 2; k++) {
+            for (var l = 0; l < 2; l++) {
 
                 // first time we're doing disabled dates,
-                if (k == 0) dates = plugin.settings.disabled_dates;
+                if (l == 0) dates = plugin.settings.disabled_dates;
 
                 // second time we're doing enabled_dates
                 else dates = plugin.settings.enabled_dates;
@@ -393,16 +393,14 @@
 
                         }
 
-                        // add to the list of processed rules
-                        dates.push(rules);
+                        // add to the correct list of processed rules
+                        // first time we're doing disabled dates,
+                        if (l == 0) disabled_dates.push(rules);
+
+                        // second time we're doing enabled_dates
+                        else enabled_dates.push(rules);
 
                     });
-
-                // first time we're doing disabled dates,
-                if (k == 0) disabled_dates = dates;
-
-                // second time we're doing enabled_dates
-                enabled_dates = dates;
 
             }
 
@@ -585,7 +583,55 @@
 
                 }
 
-            }
+            // if there are disabled dates
+            } else if ($.isArray(plugin.settings.disabled_dates) && plugin.settings.disabled_dates.length > 0)
+
+                // iterate through the rules for disabling dates
+                for (var interval in disabled_dates)
+
+                    // only if there is a rule that disables *everything*
+                    if (disabled_dates[interval][0] == '*' && disabled_dates[interval][1] == '*' && disabled_dates[interval][2] == '*' && disabled_dates[interval][3] == '*') {
+
+                        var tmpDates = [];
+
+                        // iterate through the rules for enabling dates
+                        // looking for the minimum/maximum selectable date (if it's the case)
+                        $.each(enabled_dates, function() {
+
+                            var rule = this;
+
+                            // if the rule doesn't apply to all years
+                            if (rule[2][0] != '*')
+
+                                // format date and store it in our stack
+                                tmpDates.push(parseInt(
+                                    rule[2][0] +
+                                    (rule[1][0] == '*' ? '12' : str_pad(rule[1][0], 2)) +
+                                    (rule[0][0] == '*' ? (rule[1][0] == '*' ? '31' : new Date(rule[2][0], rule[1][0], 0).getDate()) : str_pad(rule[0][0], 2))
+                                , 10));
+
+                        });
+
+                        // sort dates ascending
+                        tmpDates.sort();
+
+                        // if we have any rules
+                        if (tmpDates.length > 0) {
+
+                            // get date parts
+                            var matches = (tmpDates[0] + '').match(/([0-9]{4})([0-9]{2})([0-9]{2})/);
+
+                            // assign the date parts to the appropriate variables
+                            first_selectable_year = parseInt(matches[1], 10);
+                            first_selectable_month = parseInt(matches[2], 10) - 1;
+                            first_selectable_day = parseInt(matches[3], 10);
+
+                        }
+
+                        // don't look further
+                        break;
+
+                    }
 
             // if first selectable date exists but is disabled, find the actual first selectable date
             if (is_disabled(first_selectable_year, first_selectable_month, first_selectable_day)) {
@@ -625,7 +671,7 @@
                         first_selectable_month--;
 
                         // because we've changed months, reset the day to the last day of the month
-                        first_selectable_day = 31;
+                        first_selectable_day = new Date(first_selectable_year, first_selectable_month + 1, 0).getDate();
 
                     // otherwise
                     } else {
@@ -660,7 +706,7 @@
                         first_selectable_month = 11;
 
                         // because we've changed months, reset the day to the last day of the month
-                        first_selectable_day = 31;
+                        first_selectable_day = new Date(first_selectable_year, first_selectable_month + 1, 0).getDate();
 
                     }
 
@@ -747,7 +793,7 @@
                 // if calendar icon exists
                 if (undefined != icon) {
 
-                    // needed when updating: remove any inlint style set previously by library, 
+                    // needed when updating: remove any inline style set previously by library,
                     // so we get the right values below
                     icon.attr('style', '');
 
@@ -2043,14 +2089,14 @@
                                     // if day is not enabled
                                     } else enabled = false;
 
-                                } 
+                                }
 
                             // if month is not enabled
                             } else enabled = false;
 
                         }
 
-                    } 
+                    }
 
                 });
 
@@ -2095,8 +2141,8 @@
             // update the caption in the header
             $('.dp_caption', header).html(caption);
 
-            // if calendar has direction restrictions
-            if (!(!$.isArray(plugin.settings.direction) && to_int(plugin.settings.direction) === 0)) {
+            // if calendar has direction restrictions or we're looking only at months
+            if (!(!$.isArray(plugin.settings.direction) && to_int(plugin.settings.direction) === 0) || (views.length == 1 && views[0] == 'months')) {
 
                 // get the current year and month
                 var year = selected_year,
@@ -2138,8 +2184,9 @@
 
                 }
 
+                // if we're looking only at months or
                 // if the previous month/year is not selectable or, in case of years, if the list doesn't contain selectable years
-                if (is_disabled(previous)) {
+                if ((views.length == 1 && views[0] == 'months') || is_disabled(previous)) {
 
                     // disable the "previous" button
                     $('.dp_previous', header).addClass('dp_blocked');
@@ -2148,8 +2195,9 @@
                 // otherwise enable the "previous" button
                 } else $('.dp_previous', header).removeClass('dp_blocked');
 
+                // if we're looking only at months or
                 // if the next month/year is not selectable or, in case of years, if the list doesn't contain selectable years
-                if (is_disabled(next)) {
+                if ((views.length == 1 && views[0] == 'months') || is_disabled(next)) {
 
                     // disable the "next" button
                     $('.dp_next', header).addClass('dp_blocked');
