@@ -9,8 +9,13 @@
 
 */
 
-.Zebra_DatePicker *                          { margin: 0; padding: 0; color: #373737 }
-.Zebra_DatePicker                            { position: absolute; background: #FFF; border: 1px solid #999; display: none; z-index: 100; padding: 5px }
+.Zebra_DatePicker *,
+.Zebra_DatePicker *:after,
+.Zebra_DatePicker *:before  { -moz-box-sizing: content-box !important; -webkit-box-sizing: content-box !important; box-sizing: content-box !important }
+
+.Zebra_DatePicker           { position: absolute; background: #FFF; border: 1px solid #999; display: none; z-index: 100; padding: 5px }
+
+.Zebra_DatePicker *         { margin: 0; padding: 0; color: #373737; background: transparent; border: none }
 
 /* = GLOBALS
 ----------------------------------------------------------------------------------------------------------------------*/
@@ -80,7 +85,7 @@
 
 /* = ICON
 ----------------------------------------------------------------------------------------------------------------------*/
-button.Zebra_DatePicker_Icon                { position: relative; display: inline-block; width: 16px; height: 16px; background: url('calendar.png') no-repeat left top; text-indent: -9000px; border: none; cursor: pointer; padding: 0; line-height: 0; vertical-align: top; *display: inline; zoom: 1 }
+button.Zebra_DatePicker_Icon                { position: relative; display: block; width: 16px; height: 16px; background: url('calendar.png') no-repeat left top; text-indent: -9000px; border: none; cursor: pointer; padding: 0; line-height: 0; vertical-align: top }
 button.Zebra_DatePicker_Icon_Disabled       { background-image: url('calendar-disabled.png') }
 /* don't set vertical margins! */
 button.Zebra_DatePicker_Icon                { margin: 0 0 0 3px }
