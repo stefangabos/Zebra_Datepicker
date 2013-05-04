@@ -1470,13 +1470,13 @@
         var disable_text_select = function(el) {
 
             // if browser is Firefox
-			if (browser.name == 'firefox') el.css('MozUserSelect', 'none');
+            if (browser.name == 'firefox') el.css('MozUserSelect', 'none');
 
             // if browser is Internet Explorer
             else if (browser.name == 'explorer') el.bind('selectstart', function() { return false });
 
             // for the other browsers
-			else el.mousedown(function() { return false });
+            else el.mousedown(function() { return false });
 
         }
 
