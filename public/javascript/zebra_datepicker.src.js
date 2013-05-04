@@ -803,26 +803,35 @@
 
                     var
 
-                        // get element's width and height
+                        // get element's position, width, height and margins
+                        element_position = $element.position(),
+                        element_width = $element.outerWidth(false),
                         element_height = $element.outerHeight(false),
                         element_margin_top = parseInt($element.css('marginTop'), 10) || 0,
                         element_margin_right = parseInt($element.css('marginRight'), 10) || 0,
 
-                        // get icon's width and height
+                        // get icon's position, width, height and margins
+                        icon_position = icon.position(),
                         icon_width = icon.outerWidth(true),
                         icon_height = icon.outerHeight(true),
                         icon_margin_left = parseInt(icon.css('marginLeft'), 10) || 0;
 
                     // if icon is to be placed *inside* the element
                     // position the icon accordingly
-                    if (plugin.settings.inside) icon.css('marginLeft', -(element_margin_right + icon_width));
+                    if (plugin.settings.inside) icon.css('marginLeft',
+                        (icon_position.left <= element_position.left + element_width ? element_position.left + element_width - icon_position.left : 0) -
+                        (element_margin_right + icon_width));
 
                     // if icon is to be placed to the right of the element
                     // position the icon accordingly
-                    else icon.css('marginLeft', -(element_margin_right) + icon_margin_left);
+                    else icon.css('marginLeft',
+                        (icon_position.left <= element_position.left + element_width ? element_position.left + element_width - icon_position.left : 0) -(
+                        element_margin_right) + icon_margin_left);
 
                     // vertically center the icon
-                    icon.css('marginTop', element_margin_top + ((element_height - icon_height) / 2));
+                    icon.css('marginTop',
+                        (icon_position.top > element_position.top ? element_position.top - icon_position.top : icon_position.top - element_position.top) +
+                        element_margin_top + ((element_height - icon_height) / 2));
 
                 }
 
