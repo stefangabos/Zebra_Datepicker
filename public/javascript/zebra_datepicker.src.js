@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.7.3 (last revision: May 03, 2013)
+ *  @version    1.7.4 (last revision: May 04, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -818,20 +818,21 @@
 
                     // if icon is to be placed *inside* the element
                     // position the icon accordingly
-                    if (plugin.settings.inside) icon.css('marginLeft',
-                        (icon_position.left <= element_position.left + element_width ? element_position.left + element_width - icon_position.left : 0) -
-                        (element_margin_right + icon_width));
+                    if (plugin.settings.inside) icon.css({
+                        'marginLeft':   (icon_position.left <= element_position.left + element_width ? element_position.left + element_width - icon_position.left : 0) - (element_margin_right + icon_width),
+                        'marginRight':  -((icon_position.left <= element_position.left + element_width ? element_position.left + element_width - icon_position.left : 0) - (element_margin_right + icon_width))
+                    });
 
                     // if icon is to be placed to the right of the element
                     // position the icon accordingly
-                    else icon.css('marginLeft',
-                        (icon_position.left <= element_position.left + element_width ? element_position.left + element_width - icon_position.left : 0) -(
-                        element_margin_right) + icon_margin_left);
+                    else icon.css({
+                        'marginLeft':   (icon_position.left <= element_position.left + element_width ? element_position.left + element_width - icon_position.left : 0) - element_margin_right + icon_margin_left
+                    });
 
                     // vertically center the icon
-                    icon.css('marginTop',
-                        (icon_position.top > element_position.top ? element_position.top - icon_position.top : icon_position.top - element_position.top) +
-                        element_margin_top + ((element_height - icon_height) / 2));
+                    icon.css({
+                        'marginTop':    (icon_position.top > element_position.top ? element_position.top - icon_position.top : icon_position.top - element_position.top) + element_margin_top + ((element_height - icon_height) / 2)
+                    });
 
                 }
 
