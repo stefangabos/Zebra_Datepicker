@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.7.4 (last revision: May 04, 2013)
+ *  @version    1.7.5 (last revision: May 06, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -819,8 +819,7 @@
                     // if icon is to be placed *inside* the element
                     // position the icon accordingly
                     if (plugin.settings.inside) icon.css({
-                        'marginLeft':   (icon_position.left <= element_position.left + element_width ? element_position.left + element_width - icon_position.left : 0) - (element_margin_right + icon_width),
-                        'marginRight':  -((icon_position.left <= element_position.left + element_width ? element_position.left + element_width - icon_position.left : 0) - (element_margin_right + icon_width))
+                        'marginLeft':   (icon_position.left <= element_position.left + element_width ? element_position.left + element_width - icon_position.left : 0) - (element_margin_right + icon_width)
                     });
 
                     // if icon is to be placed to the right of the element
@@ -1272,7 +1271,7 @@
 
                     // prepare the format by removing white space from it
                     // and also escape characters that could have special meaning in a regular expression
-                    format = escape_regexp(plugin.settings.format.replace(/\s/g, '')),
+                    format = escape_regexp(plugin.settings.format),
 
                     // allowed characters in date's format
                     format_chars = ['d','D','j','l','N','S','w','F','m','M','n','Y','y'],
@@ -1337,7 +1336,7 @@
                     regexp = new RegExp('^' + format + '$', 'ig');
 
                     // if regular expression was matched
-                    if ((segments = regexp.exec(str_date.replace(/\s/g, '')))) {
+                    if ((segments = regexp.exec(str_date))) {
 
                         // check if date is a valid date (i.e. there's no February 31)
 
@@ -1502,7 +1501,7 @@
         var escape_regexp = function(str) {
 
             // return string with special characters escaped
-            return str.replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1');
+            return str.replace(/([-.,*+?^${}()|[\]\/\\])/g, '\\$1');
 
         }
 
