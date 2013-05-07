@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.7.5 (last revision: May 06, 2013)
+ *  @version    1.7.6 (last revision: May 07, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -455,21 +455,21 @@
                 // or direction is given as an array
                 ($.isArray(plugin.settings.direction) && (
 
-                    // and first entry is boolean TRUE
+                    // and first entry is a valid date
+                    (tmp_start_date = check_date(plugin.settings.direction[0])) ||
+                    // or a boolean TRUE
                     plugin.settings.direction[0] === true ||
                     // or an integer > 0
-                    (is_integer(plugin.settings.direction[0]) && plugin.settings.direction[0] > 0) ||
-                    // or a valid date
-                    (tmp_start_date = check_date(plugin.settings.direction[0]))
+                    (is_integer(plugin.settings.direction[0]) && plugin.settings.direction[0] > 0)
 
                 ) && (
 
-                    // and second entry is boolean FALSE
+                    // and second entry is a valid date
+                    (tmp_end_date = check_date(plugin.settings.direction[1])) ||
+                    // or a boolean FALSE
                     plugin.settings.direction[1] === false ||
                     // or integer >= 0
-                    (is_integer(plugin.settings.direction[1]) && plugin.settings.direction[1] >= 0) ||
-                    // or a valid date
-                    (tmp_end_date = check_date(plugin.settings.direction[1]))
+                    (is_integer(plugin.settings.direction[1]) && plugin.settings.direction[1] >= 0)
 
                 ))
 
@@ -535,10 +535,10 @@
 
                 ) && (
 
-                    // and second entry is integer >= 0
-                    (is_integer(plugin.settings.direction[1]) && plugin.settings.direction[1] >= 0) ||
-                    // or a valid date
-                    (tmp_start_date = check_date(plugin.settings.direction[1]))
+                    // and second entry is a valid date
+                    (tmp_start_date = check_date(plugin.settings.direction[1])) ||
+                    // or an integer >= 0
+                    (is_integer(plugin.settings.direction[1]) && plugin.settings.direction[1] >= 0)
 
                 ))
 
