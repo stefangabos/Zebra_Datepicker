@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.7.6 (last revision: May 07, 2013)
+ *  @version    1.7.7 (last revision: May 26, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -818,15 +818,22 @@
 
                     // if icon is to be placed *inside* the element
                     // position the icon accordingly
-                    if (plugin.settings.inside) icon.css({
-                        'marginLeft':   (icon_position.left <= element_position.left + element_width ? element_position.left + element_width - icon_position.left : 0) - (element_margin_right + icon_width)
-                    });
+                    if (plugin.settings.inside)
+
+                        icon.css({
+                            'marginLeft':   (icon_position.left <= element_position.left + element_width ? element_position.left + element_width - icon_position.left : 0) - (element_margin_right + icon_width)
+                        });
 
                     // if icon is to be placed to the right of the element
                     // position the icon accordingly
-                    else icon.css({
-                        'marginLeft':   (icon_position.left <= element_position.left + element_width ? element_position.left + element_width - icon_position.left : 0) - element_margin_right + icon_margin_left
-                    });
+                    else
+
+                        icon.css({
+                            'marginLeft':   (icon_position.left <= element_position.left + element_width ? element_position.left + element_width - icon_position.left : 0) - element_margin_right + icon_margin_left
+                        });
+
+                    // now adjust the right margin accordingly
+                    icon.css({'marginRight' : -parseInt(icon.css('marginLeft'), 10)});
 
                     // vertically center the icon
                     icon.css({
@@ -1203,6 +1210,8 @@
                     // get browser window's horizontal and vertical scroll offsets
                     window_scroll_top = $(window).scrollTop(),
                     window_scroll_left = $(window).scrollLeft();
+
+                console.log(icon.outerWidth(), left)
 
                 // if date picker is outside the viewport, adjust its position so that it is visible
                 if (left + datepicker_width > window_scroll_left + window_width) left = window_scroll_left + window_width - datepicker_width;
