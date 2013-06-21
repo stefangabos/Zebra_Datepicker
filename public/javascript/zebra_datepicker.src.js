@@ -1211,8 +1211,6 @@
                     window_scroll_top = $(window).scrollTop(),
                     window_scroll_left = $(window).scrollLeft();
 
-                console.log(icon.outerWidth(), left)
-
                 // if date picker is outside the viewport, adjust its position so that it is visible
                 if (left + datepicker_width > window_scroll_left + window_width) left = window_scroll_left + window_width - datepicker_width;
                 if (left < window_scroll_left) left = window_scroll_left;
