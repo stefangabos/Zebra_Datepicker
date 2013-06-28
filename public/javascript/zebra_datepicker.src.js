@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.7.7 (last revision: May 26, 2013)
+ *  @version    1.8.0 (last revision: June 28, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -19,17 +19,8 @@
 
         var defaults = {
 
-            //  by default, the button for clearing a previously selected date is shown only if a previously selected date
-            //  already exists; this means that if the input the date picker is attached to is empty, and the user selects
-            //  a date for the first time, this button will not be visible; once the user picked a date and opens the date
-            //  picker again, this time the button will be visible.
-            //
-            //  setting this property to TRUE will make this button visible all the time
-            always_show_clear: false,
-
             //  setting this property to a jQuery element, will result in the date picker being always visible, the indicated
             //  element being the date picker's container;
-            //  note that when this property is set to TRUE, the "always_show_clear" property will automatically be set to TRUE
             always_visible: false,
 
             //  days of the week; Sunday to Saturday
@@ -127,7 +118,7 @@
             inside: true,
 
             //  the caption for the "Clear" button
-            lang_clear_date: 'Clear',
+            lang_clear_date: 'Clear date',
 
             //  months names
             months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -170,6 +161,22 @@
             //  default is FALSE
             select_other_months: false,
 
+            //  should the "Clear date" button be visible?
+            //
+            //  accepted values are:
+            //
+            //  - 0 (zero) - the button for clearing a previously selected date is shown only if a previously selected date
+            //  already exists; this means that if the input the date picker is attached to is empty, and the user selects
+            //  a date for the first time, this button will not be visible; once the user picked a date and opens the date
+            //  picker again, this time the button will be visible.
+            //
+            //  - TRUE will make the button visible all the time
+            //
+            //  - FALSE will disable the button
+            //
+            //  default is "0" (without quotes)
+            show_clear_date: 0,
+
             //  should a calendar icon be added to the elements the plugin is attached to?
             //
             //  default is TRUE
@@ -179,6 +186,13 @@
             //
             //  default is TRUE
             show_other_months: true,
+
+            //  should the "Today" button be visible?
+            //  setting it to anything but boolean FALSE will enable the button and will use the property's value as
+            //  caption for the button; setting it to FALSE will disable the button
+            //
+            //  default is "Today"
+            show_select_today: 'Today',
 
             //  should an extra column be shown, showing the number of each week?
             //  anything other than FALSE will enable this feature, and use the given value as column title
@@ -246,10 +260,11 @@
         }
 
         // private properties
-        var view, datepicker, icon, header, daypicker, monthpicker, yearpicker, footer, current_system_month, current_system_year,
+        var view, datepicker, icon, header, daypicker, monthpicker, yearpicker, cleardate, current_system_month, current_system_year,
             current_system_day, first_selectable_month, first_selectable_year, first_selectable_day, selected_month, selected_year,
             default_day, default_month, default_year, enabled_dates, disabled_dates, shim, start_date, end_date, last_selectable_day,
-            last_selectable_year, last_selectable_month, daypicker_cells, monthpicker_cells, yearpicker_cells, views, clickables;
+            last_selectable_year, last_selectable_month, daypicker_cells, monthpicker_cells, yearpicker_cells, views, clickables,
+            selecttoday, footer;
 
         var plugin = this;
 
@@ -851,6 +866,10 @@
                 // element is hidden, so the element is not shown on the page), hide the icon, or show it otherwise
                 if (!($element.is(':visible'))) icon.hide(); else icon.show();
 
+            // if the "Today" button is to be shown and it makes sense to be shown
+            // (the "days" view is available and "today" is not a disabled date)
+            plugin.settings.show_select_today = (plugin.settings.show_select_today !== false && $.inArray('days', views) > -1 && !is_disabled(current_system_year, current_system_month, current_system_day) ? plugin.settings.show_select_today : false);
+
             // if we just needed to recompute the things above, return now
             if (update) return;
 
@@ -867,9 +886,11 @@
                     '<table class="dp_daypicker"></table>' +
                     '<table class="dp_monthpicker"></table>' +
                     '<table class="dp_yearpicker"></table>' +
-                    '<table class="dp_footer">' +
-                        '<tr><td>' + plugin.settings.lang_clear_date + '</td></tr>' +
-                    '</table>' +
+                    (plugin.settings.show_clear_date !== false || plugin.settings.show_select_today !== false ?
+                    '<table class="dp_footer"><tr>' +
+                        (plugin.settings.show_select_today !== false ? '<td class="dp_today"' + (plugin.settings.show_clear_date !== false ? ' style="width:50%"' : '') + '>' + plugin.settings.show_select_today + '</td>' : '') +
+                        (plugin.settings.show_clear_date !== false ? '<td class="dp_clear"' + (plugin.settings.show_select_today !== false ? ' style="width:50%"' : '') + '>' + plugin.settings.lang_clear_date + '</td>' : '') +
+                    '</tr></table>' : '') +
                 '</div>';
 
             // create a jQuery object out of the HTML above and create a reference to it
@@ -884,6 +905,8 @@
             monthpicker = $('table.dp_monthpicker', datepicker);
             yearpicker = $('table.dp_yearpicker', datepicker);
             footer = $('table.dp_footer', datepicker);
+            selecttoday = $('td.dp_today', footer)
+            cleardate = $('td.dp_clear', footer);
 
             // if date picker is not always visible
             if (!plugin.settings.always_visible)
@@ -1070,8 +1093,30 @@
 
             });
 
-            // bind a function to the onClick event on the table cell in the footer (the "Clear" button)
-            $('td', footer).bind('click', function(e) {
+            // if the "Today" button is visible
+            if (plugin.settings.show_select_today)
+
+                // function to execute when the "Today" button is clicked
+                $(selecttoday).bind('click', function(e) {
+
+                    e.preventDefault();
+
+                    // select the current date
+                    select_date(current_system_year, current_system_month, current_system_day, 'days', $('.dp_current', daypicker));
+
+                    // if date picker is always visible
+                    if (plugin.settings.always_visible)
+
+                        // repaint the datepicker so it centers on the currently selected date
+                        plugin.show();
+
+                    // hide the date picker
+                    plugin.hide();
+
+                });
+
+            // function to execute when the "Clear" button is clicked
+            $(cleardate).bind('click', function(e) {
 
                 e.preventDefault();
 
@@ -1084,8 +1129,14 @@
                     // reset these values
                     default_day = null; default_month = null; default_year = null; selected_month = null; selected_year = null;
 
-                    // remove the footer element
-                    footer.css('display', 'none');
+                    // hide the "Clear" button
+                    cleardate.hide();
+
+                    // if the "Today" button is visible, it will now take up all the available space
+                    if (plugin.settings.show_select_today) selecttoday.css('width', '100%');
+
+                    // if the "Today" button is also not visible, hide the footer entirely
+                    else footer.hide();
 
                 }
 
@@ -1131,7 +1182,7 @@
                 iframeShim('hide');
 
                 // hide the date picker
-                datepicker.css('display', 'none');
+                datepicker.hide();
 
             }
 
@@ -1231,7 +1282,7 @@
                 iframeShim();
 
             // if date picker is always visible, show it
-            } else datepicker.css('display', 'block');
+            } else datepicker.show();
 
         }
 
@@ -1760,7 +1811,7 @@
                 daypicker_cells = $('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_blocked, .dp_week_number)', daypicker);
 
             // make the day picker visible
-            daypicker.css('display', '');
+            daypicker.show();
 
         }
 
@@ -1815,7 +1866,7 @@
                 monthpicker_cells = $('td:not(.dp_disabled)', monthpicker);
 
             // make the month picker visible
-            monthpicker.css('display', '');
+            monthpicker.show();
 
         }
 
@@ -1870,7 +1921,7 @@
                 yearpicker_cells = $('td:not(.dp_disabled)', yearpicker);
 
             // make the year picker visible
-            yearpicker.css('display', '');
+            yearpicker.show();
 
         }
 
@@ -1923,7 +1974,7 @@
                     case 'hide':
 
                         // set the iFrame's display property to "none"
-                        shim.css('display', 'none');
+                        shim.hide();
 
                         break;
 
@@ -2168,41 +2219,34 @@
                 // if current view is showing days
                 if (view == 'days') {
 
-                    // clicking on "previous" should take us to the previous month
-                    // (will check later if that particular month is available)
-                    previous = (month - 1 < 0 ? str_concat(year - 1, '11') : str_concat(year, str_pad(month - 1, 2)));
+                    // check if we can click on the "previous" button
+                    previous = !is_disabled(month - 1 < 0 ? str_concat(year - 1, '11') : str_concat(year, str_pad(month - 1, 2)));
 
-                    // clicking on "next" should take us to the next month
-                    // (will check later if that particular month is available)
-                    next = (month + 1 > 11 ? str_concat(year + 1, '00') : str_concat(year, str_pad(month + 1, 2)));
+                    // check if we can click on the "next" button
+                    next = !is_disabled(month + 1 > 11 ? str_concat(year + 1, '00') : str_concat(year, str_pad(month + 1, 2)));
 
                 // if current view is showing months
                 } else if (view == 'months') {
 
-                    // clicking on "previous" should take us to the previous year
-                    // (will check later if that particular year is available)
-                    previous = year - 1;
+                    // check if we can click on the "previous" button
+                    if (!start_date || start_date.getFullYear() <= year - 1) previous = true;
 
-                    // clicking on "next" should take us to the next year
-                    // (will check later if that particular year is available)
-                    next = year + 1;
+                    // check if we can click on the "next" button
+                    if (!end_date || end_date.getFullYear() >= year + 1) next = true;
 
                 // if current view is showing years
                 } else if (view == 'years') {
 
-                    // clicking on "previous" should show a list with some previous years
-                    // (will check later if that particular list of years contains selectable years)
-                    previous = year - 7;
+                    // check if we can click on the "previous" button
+                    if (!start_date || start_date.getFullYear() < year - 7) previous = true;
 
-                    // clicking on "next" should show a list with some following years
-                    // (will check later if that particular list of years contains selectable years)
-                    next = year + 7;
+                    // check if we can click on the "next" button
+                    if (!end_date || end_date.getFullYear() > year + 4) next = true;
 
                 }
 
-                // if we're looking only at months or
-                // if the previous month/year is not selectable or, in case of years, if the list doesn't contain selectable years
-                if ((views.length == 1 && views[0] == 'months') || is_disabled(previous)) {
+                // if we cannot click on the "previous" button
+                if (!previous) {
 
                     // disable the "previous" button
                     $('.dp_previous', header).addClass('dp_blocked');
@@ -2211,9 +2255,8 @@
                 // otherwise enable the "previous" button
                 } else $('.dp_previous', header).removeClass('dp_blocked');
 
-                // if we're looking only at months or
-                // if the next month/year is not selectable or, in case of years, if the list doesn't contain selectable years
-                if ((views.length == 1 && views[0] == 'months') || is_disabled(next)) {
+                // if we cannot click on the "next" button
+                if (!next) {
 
                     // disable the "next" button
                     $('.dp_next', header).addClass('dp_blocked');
@@ -2250,9 +2293,7 @@
 
                     // temporarily make the date picker visible
                     // so that we can later grab its width and height
-                    datepicker.css({
-                        'display':  'block'
-                    });
+                    datepicker.show();
 
     				// generate the day picker
     				generate_daypicker();
@@ -2260,9 +2301,6 @@
                     // get the day picker's width and height
                     var width = daypicker.outerWidth(),
                         height = daypicker.outerHeight();
-
-                    // adjust the size of the header
-                    header.css('width', width);
 
                     // make the month picker have the same size as the day picker
                     monthpicker.css({
@@ -2276,21 +2314,20 @@
                         'height':   height
                     });
 
-                    // adjust the size of the footer
-                    footer.css('width', width);
+                    // make the header and the footer have the same size as the day picker
+                    header.css('width', width)
+                    footer.css('width', width)
 
                     // hide the date picker again
-                    datepicker.css({
-                        'display':  'none'
-                    });
+                    datepicker.hide();
 
                 // if the day picker was previously generated at least once
 				// generate the day picker
                 } else generate_daypicker();
 
                 // hide the year and the month pickers
-                monthpicker.css('display', 'none');
-                yearpicker.css('display', 'none');
+                monthpicker.hide();
+                yearpicker.hide();
 
             // if the view is "months"
             } else if (view == 'months') {
@@ -2299,8 +2336,8 @@
                 generate_monthpicker();
 
                 // hide the day and the year pickers
-                daypicker.css('display', 'none');
-                yearpicker.css('display', 'none');
+                daypicker.hide();
+                yearpicker.hide();
 
             // if the view is "years"
             } else if (view == 'years') {
@@ -2309,8 +2346,8 @@
                 generate_yearpicker();
 
                 // hide the day and the month pickers
-                daypicker.css('display', 'none');
-                monthpicker.css('display', 'none');
+                daypicker.hide();
+                monthpicker.hide();
 
             }
 
@@ -2362,16 +2399,39 @@
             }
 
             // if the button for clearing a previously selected date needs to be visible all the time,
-            // or the date picker is always visible - case in which the "clear" button is always visible -
-            // or there is content in the element the date picker is attached to
-            // and the footer is not visible
-            if ((plugin.settings.always_show_clear || plugin.settings.always_visible || $element.val() != ''))
+            // or the "Clear" button needs to be shown only when a date was previously selected, and now it's the case,
+            // or the date picker is always visible and the "Clear" button was not explicitly disabled
+            if (
+                plugin.settings.show_clear_date === true ||
+                (plugin.settings.show_clear_date === 0 && $element.val() != '') ||
+                (plugin.settings.always_visible && plugin.settings.show_clear_date !== false)
+            ) {
 
-                // show the footer
-                footer.css('display', '');
+                // make sure the footer is not hidden
+                footer.show();
 
-            // hide the footer otherwise
-            else footer.css('display', 'none');
+                // show the "Clear" button
+                cleardate.show();
+
+                // if the "Today" button is visible, it needs to take up only 50% of the available space
+                if (plugin.settings.show_select_today) selecttoday.css('width', '50%');
+
+            // otherwise
+            } else {
+
+                // hide the "Clear" button
+                cleardate.hide();
+
+                // we assume the footer is visible...
+                footer.show();
+
+                // if the "Today" button is visible, it will now take up all the available space
+                if (plugin.settings.show_select_today) selecttoday.css('width', '100%');
+
+                // if the "Today" button is also not visible, hide the footer entirely
+                else footer.hide();
+
+            }
 
 		}
 
@@ -2439,6 +2499,7 @@
                 // execute the callback function
                 plugin.settings.onSelect(selected_value, year + '-' + str_pad(month + 1, 2) + '-' + str_pad(day, 2), default_date, $element);
 
+            // move focus to the element the plugin is attached to
             $element.focus();
 
         }
