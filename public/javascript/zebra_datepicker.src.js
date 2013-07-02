@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.1 (last revision: June 29, 2013)
+ *  @version    1.8.2 (last revision: July 02, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -769,11 +769,30 @@
                     // if a calendar icon should be added to the element the plugin is attached to, create the icon now
                     if (plugin.settings.show_icon) {
 
-                        // create the calendar icon (show a disabled icon if the element is disabled)
-                        var html = '<button type="button" class="Zebra_DatePicker_Icon' + ($element.attr('disabled') == 'disabled' ? ' Zebra_DatePicker_Icon_Disabled' : '') + '">Pick a date</button>';
+                        // we create a wrapper for the parent element so that we can later position the icon
+                        // also, make sure the wrapper inherits some important css properties of the parent element
+                        var icon_wrapper = jQuery('<span class="Zebra_DatePicker_Icon_Wrapper"></span>').css({
+                            'display':  $element.css('display'),
+                            'position': $element.css('position') == 'static' ? 'relative' : $element.css('position'),
+                            'float':    $element.css('float'),
+                            'top':      $element.css('top'),
+                            'right':    $element.css('right'),
+                            'bottom':   $element.css('bottom'),
+                            'left':     $element.css('left')
+                        });
 
-                        // convert to a jQuery object
-                        icon = $(html);
+                        // replace the parent element with the wrapper and then place it inside the wrapper
+                        // also, make sure we set some important css properties for it
+                        $element = $element.replaceWith(icon_wrapper).css({
+                            'position': 'relative',
+                            'top':      'auto',
+                            'right':    'auto',
+                            'bottom':   'auto',
+                            'left':     'auto'
+                        }).appendTo(icon_wrapper);
+
+                        // create the actual calendar icon (show a disabled icon if the element is disabled)
+                        icon = jQuery('<button type="button" class="Zebra_DatePicker_Icon' + ($element.attr('disabled') == 'disabled' ? ' Zebra_DatePicker_Icon_Disabled' : '') + '">Pick a date</button>');
 
                         // a reference to the icon, as a global property
                         plugin.icon = icon;
@@ -800,8 +819,8 @@
 
                     });
 
-                    // if icon exists, inject it into the DOM
-                    if (undefined != icon) icon.insertAfter(element);
+                    // if icon exists, inject it into the DOM, right after the parent element (and inside the wrapper)
+                    if (undefined != icon) icon.insertAfter($element);
 
                 }
 
@@ -818,25 +837,23 @@
 
                     var
 
-                        // get element's position, width, height and margins
-                        element_position = $element.position(),
-                        element_width = $element.outerWidth(false),
-                        element_height = $element.outerHeight(false),
-                        element_margin_top = parseInt($element.css('marginTop'), 10) || 0,
-                        element_margin_right = parseInt($element.css('marginRight'), 10) || 0,
+                        // get element' width and height (including margins)
+                        element_width = $element.outerWidth(true),
+                        element_height = $element.outerHeight(true),
 
-                        // get icon's position, width, height and margins
-                        icon_position = icon.position(),
-                        icon_width = icon.outerWidth(true),
-                        icon_height = icon.outerHeight(true),
-                        icon_margin_left = parseInt(icon.css('marginLeft'), 10) || 0;
+                        // get icon's width, height and margins
+                        icon_width = icon.outerWidth(false),
+                        icon_height = icon.outerHeight(false),
+                        icon_margin_left = parseInt(icon.css('marginLeft'), 10) || 0,
+                        icon_margin_right = parseInt(icon.css('marginRight'), 10) || 0;
 
                     // if icon is to be placed *inside* the element
                     // position the icon accordingly
                     if (plugin.settings.inside)
 
                         icon.css({
-                            'marginLeft':   (icon_position.left <= element_position.left + element_width ? element_position.left + element_width - icon_position.left : 0) - (element_margin_right + icon_width)
+                            'top':  ((element_height - icon_height) / 2),
+                            'left': element_width - icon_width - icon_margin_right
                         });
 
                     // if icon is to be placed to the right of the element
@@ -844,16 +861,9 @@
                     else
 
                         icon.css({
-                            'marginLeft':   (icon_position.left <= element_position.left + element_width ? element_position.left + element_width - icon_position.left : 0) - element_margin_right + icon_margin_left
+                            'top':  (element_height - icon_height) / 2,
+                            'left': element_width + icon_margin_left
                         });
-
-                    // now adjust the right margin accordingly
-                    icon.css({'marginRight' : -parseInt(icon.css('marginLeft'), 10)});
-
-                    // vertically center the icon
-                    icon.css({
-                        'marginTop':    (icon_position.top > element_position.top ? element_position.top - icon_position.top : icon_position.top - element_position.top) + element_margin_top + ((element_height - icon_height) / 2)
-                    });
 
                 }
 
@@ -872,6 +882,9 @@
 
             // if we just needed to recompute the things above, return now
             if (update) return;
+
+            // if icon exists, update its position when the page is resized
+            if (icon) $(window).bind('resize', plugin.update);
 
             // generate the container that will hold everything
             var html = '' +
