@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.2 (last revision: July 02, 2013)
+ *  @version    1.8.2 (last revision: July 03, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -838,12 +838,14 @@
                     var
 
                         // get element' width and height (including margins)
-                        element_width = $element.outerWidth(true),
-                        element_height = $element.outerHeight(true),
+                        element_width = $element.outerWidth(),
+                        element_height = $element.outerHeight(),
+                        element_margin_left = parseInt($element.css('marginLeft'), 10) || 0,
+                        element_margin_top = parseInt($element.css('marginTop'), 10) || 0,
 
                         // get icon's width, height and margins
-                        icon_width = icon.outerWidth(false),
-                        icon_height = icon.outerHeight(false),
+                        icon_width = icon.outerWidth(),
+                        icon_height = icon.outerHeight(),
                         icon_margin_left = parseInt(icon.css('marginLeft'), 10) || 0,
                         icon_margin_right = parseInt(icon.css('marginRight'), 10) || 0;
 
@@ -852,8 +854,8 @@
                     if (plugin.settings.inside)
 
                         icon.css({
-                            'top':  ((element_height - icon_height) / 2),
-                            'left': element_width - icon_width - icon_margin_right
+                            'top':  element_margin_top + ((element_height - icon_height) / 2),
+                            'left': element_margin_left + (element_width - icon_width - icon_margin_right)
                         });
 
                     // if icon is to be placed to the right of the element
@@ -861,8 +863,8 @@
                     else
 
                         icon.css({
-                            'top':  (element_height - icon_height) / 2,
-                            'left': element_width + icon_margin_left
+                            'top':  element_margin_top + ((element_height - icon_height) / 2),
+                            'left': element_margin_left + element_width + icon_margin_left
                         });
 
                 }
