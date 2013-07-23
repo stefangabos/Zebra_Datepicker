@@ -303,7 +303,8 @@
                 // some defaults
                 has_days = false,
                 has_months = false,
-                has_years = false;
+                has_years = false,
+                type = null;
 
             // iterate through all the character blocks
             for (type in date_chars)
@@ -1353,7 +1354,13 @@
                     matches = new Array,
 
                     // "regexp" will contain the regular expression built for each of the characters used in the date's format
-                    regexp = new Array;
+                    regexp = new Array,
+
+                    // "position" will contain the position of the caracter found in the date's format
+                    position = null,
+
+                    // "segments" will contain the matches of the regular expression
+                    segments = null;
 
                 // iterate through the allowed characters in date's format
                 for (var i = 0; i < format_chars.length; i++)
@@ -1950,7 +1957,7 @@
         var iframeShim = function(action) {
 
             // this is necessary only if browser is Internet Explorer 6
-    		if (browser.name == 'explorer' && browser.version == 6) {
+            if (browser.name == 'explorer' && browser.version == 6) {
 
                 // if the iFrame was not yet created
                 // "undefined" evaluates as FALSE
@@ -2291,7 +2298,7 @@
          *
          *  @access private
          */
-		var manage_views = function() {
+        var manage_views = function() {
 
             // if the day picker was not yet generated
             if (daypicker.text() == '' || view == 'days') {
@@ -2310,8 +2317,8 @@
                     // so that we can later grab its width and height
                     datepicker.show();
 
-    				// generate the day picker
-    				generate_daypicker();
+                    // generate the day picker
+                    generate_daypicker();
 
                     // get the day picker's width and height
                     var width = daypicker.outerWidth(),
@@ -2337,7 +2344,7 @@
                     datepicker.hide();
 
                 // if the day picker was previously generated at least once
-				// generate the day picker
+                // generate the day picker
                 } else generate_daypicker();
 
                 // hide the year and the month pickers
@@ -2448,7 +2455,7 @@
 
             }
 
-		}
+        }
 
         /**
          *  Puts the specified date in the element the plugin is attached to, and hides the date picker.
@@ -2732,43 +2739,43 @@
         // since with jQuery 1.9.0 the $.browser object was removed, we rely on this piece of code from
         // http://www.quirksmode.org/js/detect.html to detect the browser
         var browser = {
-        	init: function () {
-        		this.name = this.searchString(this.dataBrowser) || '';
-        		this.version = this.searchVersion(navigator.userAgent)
-        			|| this.searchVersion(navigator.appVersion)
-        			|| '';
-        	},
-        	searchString: function (data) {
-        		for (var i=0;i<data.length;i++)	{
-        			var dataString = data[i].string;
-        			var dataProp = data[i].prop;
-        			this.versionSearchString = data[i].versionSearch || data[i].identity;
-        			if (dataString) {
-        				if (dataString.indexOf(data[i].subString) != -1)
-        					return data[i].identity;
-        			}
-        			else if (dataProp)
-        				return data[i].identity;
-        		}
-        	},
-        	searchVersion: function (dataString) {
-        		var index = dataString.indexOf(this.versionSearchString);
-        		if (index == -1) return;
-        		return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
-        	},
-        	dataBrowser: [
-        		{
-        			string: navigator.userAgent,
-        			subString: 'Firefox',
-        			identity: 'firefox'
-        		},
-        		{
-        			string: navigator.userAgent,
-        			subString: 'MSIE',
-        			identity: 'explorer',
-        			versionSearch: 'MSIE'
-        		}
-        	]
+            init: function () {
+                this.name = this.searchString(this.dataBrowser) || '';
+                this.version = this.searchVersion(navigator.userAgent)
+                    || this.searchVersion(navigator.appVersion)
+                    || '';
+            },
+            searchString: function (data) {
+                for (var i=0;i<data.length;i++) {
+                    var dataString = data[i].string;
+                    var dataProp = data[i].prop;
+                    this.versionSearchString = data[i].versionSearch || data[i].identity;
+                    if (dataString) {
+                        if (dataString.indexOf(data[i].subString) != -1)
+                            return data[i].identity;
+                    }
+                    else if (dataProp)
+                        return data[i].identity;
+                }
+            },
+            searchVersion: function (dataString) {
+                var index = dataString.indexOf(this.versionSearchString);
+                if (index == -1) return;
+                return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
+            },
+            dataBrowser: [
+                {
+                    string: navigator.userAgent,
+                    subString: 'Firefox',
+                    identity: 'firefox'
+                },
+                {
+                    string: navigator.userAgent,
+                    subString: 'MSIE',
+                    identity: 'explorer',
+                    versionSearch: 'MSIE'
+                }
+            ]
         }
         browser.init();
 
