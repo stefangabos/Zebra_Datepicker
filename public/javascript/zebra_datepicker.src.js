@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.2 (last revision: July 03, 2013)
+ *  @version    1.8.3 (last revision: August 04, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -257,18 +257,18 @@
             //  -   a reference to the element the date picker is attached to, as a jQuery object
             onSelect: null
 
-        }
+        };
 
         // private properties
         var view, datepicker, icon, header, daypicker, monthpicker, yearpicker, cleardate, current_system_month, current_system_year,
             current_system_day, first_selectable_month, first_selectable_year, first_selectable_day, selected_month, selected_year,
             default_day, default_month, default_year, enabled_dates, disabled_dates, shim, start_date, end_date, last_selectable_day,
             last_selectable_year, last_selectable_month, daypicker_cells, monthpicker_cells, yearpicker_cells, views, clickables,
-            selecttoday, footer;
+            selecttoday, footer, show_select_today;
 
         var plugin = this;
 
-        plugin.settings = {}
+        plugin.settings = {};
 
         // the jQuery version of the element
         // "element" (without the $) will point to the DOM element
@@ -352,7 +352,7 @@
             for (var l = 0; l < 2; l++) {
 
                 // first time we're doing disabled dates,
-                if (l == 0) dates = plugin.settings.disabled_dates;
+                if (l === 0) dates = plugin.settings.disabled_dates;
 
                 // second time we're doing enabled_dates
                 else dates = plugin.settings.enabled_dates;
@@ -387,7 +387,7 @@
                                     var limits = rules[i][j].match(/^([0-9]+)\-([0-9]+)/);
 
                                     // if range is valid
-                                    if (null != limits) {
+                                    if (null !== limits) {
 
                                         // iterate through the range
                                         for (var k = to_int(limits[1]); k <= to_int(limits[2]); k++)
@@ -411,7 +411,7 @@
 
                         // add to the correct list of processed rules
                         // first time we're doing disabled dates,
-                        if (l == 0) disabled_dates.push(rules);
+                        if (l === 0) disabled_dates.push(rules);
 
                         // second time we're doing enabled_dates
                         else enabled_dates.push(rules);
@@ -429,7 +429,7 @@
                 // set by the other date picker
                 // this value will be used as base for all calculations (if not set, will be the same as the current
                 // system date)
-                reference_date = (!plugin.settings.reference_date ? ($element.data('zdp_reference_date') && undefined != $element.data('zdp_reference_date') ? $element.data('zdp_reference_date') : date) : plugin.settings.reference_date),
+                reference_date = (!plugin.settings.reference_date ? ($element.data('zdp_reference_date') && undefined !== $element.data('zdp_reference_date') ? $element.data('zdp_reference_date') : date) : plugin.settings.reference_date),
 
                 tmp_start_date, tmp_end_date;
 
@@ -623,8 +623,7 @@
                                 tmpDates.push(parseInt(
                                     rule[2][0] +
                                     (rule[1][0] == '*' ? '12' : str_pad(rule[1][0], 2)) +
-                                    (rule[0][0] == '*' ? (rule[1][0] == '*' ? '31' : new Date(rule[2][0], rule[1][0], 0).getDate()) : str_pad(rule[0][0], 2))
-                                , 10));
+                                    (rule[0][0] == '*' ? (rule[1][0] == '*' ? '31' : new Date(rule[2][0], rule[1][0], 0).getDate()) : str_pad(rule[0][0], 2)), 10));
 
                         });
 
@@ -729,13 +728,25 @@
                 }
 
                 // loop until we find the first selectable day
-                while (is_disabled(first_selectable_year, first_selectable_month, first_selectable_day))
+                while (is_disabled(first_selectable_year, first_selectable_month, first_selectable_day)) {
 
                     // if calendar is past-only, decrement the day
                     if (!start_date) first_selectable_day--;
 
                     // otherwise, increment the day
                     else first_selectable_day++;
+
+                    // use the Date object to normalize the date
+                    // for example, 2011 05 33 will be transformed to 2011 06 02
+                    date = new Date(first_selectable_year, first_selectable_month, first_selectable_day);
+
+                    // re-extract date parts from the normalized date
+                    // as we use them in the current loop
+                    first_selectable_year = date.getFullYear();
+                    first_selectable_month = date.getMonth();
+                    first_selectable_day = date.getDate();
+
+                }
 
                 // use the Date object to normalize the date
                 // for example, 2011 05 33 will be transformed to 2011 06 02
@@ -782,15 +793,15 @@
                             'left':     $element.css('left')
                         });
 
-                        // replace the parent element with the wrapper and then place it inside the wrapper
+                        // put wrapper around the element
                         // also, make sure we set some important css properties for it
-                        $element = $element.replaceWith(icon_wrapper).css({
+                        $element.wrap(icon_wrapper).css({
                             'position': 'relative',
                             'top':      'auto',
                             'right':    'auto',
                             'bottom':   'auto',
                             'left':     'auto'
-                        }).appendTo(icon_wrapper);
+                        });
 
                         // create the actual calendar icon (show a disabled icon if the element is disabled)
                         icon = jQuery('<button type="button" class="Zebra_DatePicker_Icon' + ($element.attr('disabled') == 'disabled' ? ' Zebra_DatePicker_Icon_Disabled' : '') + '">Pick a date</button>');
@@ -821,12 +832,12 @@
                     });
 
                     // if icon exists, inject it into the DOM, right after the parent element (and inside the wrapper)
-                    if (undefined != icon) icon.insertAfter($element);
+                    if (undefined !== icon) icon.insertAfter($element);
 
                 }
 
                 // if calendar icon exists
-                if (undefined != icon) {
+                if (undefined !== icon) {
 
                     // needed when updating: remove any inline style set previously by library,
                     // so we get the right values below
@@ -873,7 +884,7 @@
             }
 
             // if calendar icon exists (there's no icon if the date picker is always visible or it is specifically hidden)
-            if (undefined != icon)
+            if (undefined !== icon)
 
                 // if parent element is not visible (has display: none, width and height are explicitly set to 0, an ancestor
                 // element is hidden, so the element is not shown on the page), hide the icon, or show it otherwise
@@ -881,7 +892,7 @@
 
             // if the "Today" button is to be shown and it makes sense to be shown
             // (the "days" view is available and "today" is not a disabled date)
-            plugin.settings.show_select_today = (plugin.settings.show_select_today !== false && $.inArray('days', views) > -1 && !is_disabled(current_system_year, current_system_month, current_system_day) ? plugin.settings.show_select_today : false);
+            show_select_today = (plugin.settings.show_select_today !== false && $.inArray('days', views) > -1 && !is_disabled(current_system_year, current_system_month, current_system_day) ? plugin.settings.show_select_today : false);
 
             // if we just needed to recompute the things above, return now
             if (update) return;
@@ -902,11 +913,10 @@
                     '<table class="dp_daypicker"></table>' +
                     '<table class="dp_monthpicker"></table>' +
                     '<table class="dp_yearpicker"></table>' +
-                    (plugin.settings.show_clear_date !== false || plugin.settings.show_select_today !== false ?
                     '<table class="dp_footer"><tr>' +
-                        (plugin.settings.show_select_today !== false ? '<td class="dp_today"' + (plugin.settings.show_clear_date !== false ? ' style="width:50%"' : '') + '>' + plugin.settings.show_select_today + '</td>' : '') +
-                        (plugin.settings.show_clear_date !== false ? '<td class="dp_clear"' + (plugin.settings.show_select_today !== false ? ' style="width:50%"' : '') + '>' + plugin.settings.lang_clear_date + '</td>' : '') +
-                    '</tr></table>' : '') +
+                        '<td class="dp_today"' + (plugin.settings.show_clear_date !== false ? ' style="width:50%"' : '') + '>' + show_select_today + '</td>' +
+                        '<td class="dp_clear"' + (show_select_today !== false ? ' style="width:50%"' : '') + '>' + plugin.settings.lang_clear_date + '</td>' +
+                    '</tr></table>' +
                 '</div>';
 
             // create a jQuery object out of the HTML above and create a reference to it
@@ -921,7 +931,7 @@
             monthpicker = $('table.dp_monthpicker', datepicker);
             yearpicker = $('table.dp_yearpicker', datepicker);
             footer = $('table.dp_footer', datepicker);
-            selecttoday = $('td.dp_today', footer)
+            selecttoday = $('td.dp_today', footer);
             cleardate = $('td.dp_clear', footer);
 
             // if date picker is not always visible
@@ -1040,7 +1050,7 @@
             daypicker.delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', 'click', function() {
 
                 // if other months are selectable and currently clicked cell contains a class with the cell's date
-                if (plugin.settings.select_other_months && null != (matches = $(this).attr('class').match(/date\_([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])/)))
+                if (plugin.settings.select_other_months && null !== (matches = $(this).attr('class').match(/date\_([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])/)))
 
                     // use the stored date
                     select_date(matches[1], matches[2], matches[3], 'days', $(this));
@@ -1109,27 +1119,24 @@
 
             });
 
-            // if the "Today" button is visible
-            if (plugin.settings.show_select_today)
+            // function to execute when the "Today" button is clicked
+            $(selecttoday).bind('click', function(e) {
 
-                // function to execute when the "Today" button is clicked
-                $(selecttoday).bind('click', function(e) {
+                e.preventDefault();
 
-                    e.preventDefault();
+                // select the current date
+                select_date(current_system_year, current_system_month, current_system_day, 'days', $('.dp_current', daypicker));
 
-                    // select the current date
-                    select_date(current_system_year, current_system_month, current_system_day, 'days', $('.dp_current', daypicker));
+                // if date picker is always visible
+                if (plugin.settings.always_visible)
 
-                    // if date picker is always visible
-                    if (plugin.settings.always_visible)
+                    // repaint the datepicker so it centers on the currently selected date
+                    plugin.show();
 
-                        // repaint the datepicker so it centers on the currently selected date
-                        plugin.show();
+                // hide the date picker
+                plugin.hide();
 
-                    // hide the date picker
-                    plugin.hide();
-
-                });
+            });
 
             // function to execute when the "Clear" button is clicked
             $(cleardate).bind('click', function(e) {
@@ -1144,15 +1151,6 @@
 
                     // reset these values
                     default_day = null; default_month = null; default_year = null; selected_month = null; selected_year = null;
-
-                    // hide the "Clear" button
-                    cleardate.hide();
-
-                    // if the "Today" button is visible, it will now take up all the available space
-                    if (plugin.settings.show_select_today) selecttoday.css('width', '100%');
-
-                    // if the "Today" button is also not visible, hide the footer entirely
-                    else footer.hide();
 
                 }
 
@@ -1182,7 +1180,7 @@
             // last thing is to pre-render some of the date picker right away
             manage_views();
 
-        }
+        };
 
         /**
          *  Hides the date picker.
@@ -1202,7 +1200,7 @@
 
             }
 
-        }
+        };
 
         /**
          *  Shows the date picker.
@@ -1267,8 +1265,8 @@
                     // this will be computed relative to the icon's top-right corner (if the calendar icon exists), or
                     // relative to the element's top-right corner otherwise, to which the offsets given at initialization
                     // are added/subtracted
-                    left = (undefined != icon ? icon.offset().left + icon.outerWidth(true) : $element.offset().left + $element.outerWidth(true)) + plugin.settings.offset[0],
-                    top = (undefined != icon ? icon.offset().top : $element.offset().top) - datepicker_height + plugin.settings.offset[1],
+                    left = (undefined !== icon ? icon.offset().left + icon.outerWidth(true) : $element.offset().left + $element.outerWidth(true)) + plugin.settings.offset[0],
+                    top = (undefined !== icon ? icon.offset().top : $element.offset().top) - datepicker_height + plugin.settings.offset[1],
 
                     // get browser window's width and height
                     window_width = $(window).width(),
@@ -1300,7 +1298,7 @@
             // if date picker is always visible, show it
             } else datepicker.show();
 
-        }
+        };
 
         /**
          *  Updates the configuration options given as argument
@@ -1320,7 +1318,7 @@
             // reinitialize the object with the new options
             init(true);
 
-        }
+        };
 
         /**
          *  Checks if a string represents a valid date according to the format defined by the "format" property.
@@ -1339,7 +1337,7 @@
             str_date += '';
 
             // if value is given
-            if ($.trim(str_date) != '') {
+            if ($.trim(str_date) !== '') {
 
                 var
 
@@ -1351,10 +1349,10 @@
                     format_chars = ['d','D','j','l','N','S','w','F','m','M','n','Y','y'],
 
                     // "matches" will contain the characters defining the date's format
-                    matches = new Array,
+                    matches = [],
 
                     // "regexp" will contain the regular expression built for each of the characters used in the date's format
-                    regexp = new Array,
+                    regexp = [],
 
                     // "position" will contain the position of the caracter found in the date's format
                     position = null,
@@ -1372,7 +1370,7 @@
                         matches.push({character: format_chars[i], position: position});
 
                 // sort characters defining the date's format based on their position, ascending
-                matches.sort(function(a, b){ return a.position - b.position });
+                matches.sort(function(a, b){ return a.position - b.position; });
 
                 // iterate through the characters defining the date's format
                 $.each(matches, function(index, match) {
@@ -1542,7 +1540,7 @@
 
             }
 
-        }
+        };
 
         /**
          *  Prevents the possibility of selecting text on a given element. Used on the "previous" and "next" buttons
@@ -1562,12 +1560,12 @@
             if (browser.name == 'firefox') el.css('MozUserSelect', 'none');
 
             // if browser is Internet Explorer
-            else if (browser.name == 'explorer') el.bind('selectstart', function() { return false });
+            else if (browser.name == 'explorer') el.bind('selectstart', function() { return false; });
 
             // for the other browsers
-            else el.mousedown(function() { return false });
+            else el.mousedown(function() { return false; });
 
-        }
+        };
 
         /**
          *  Escapes special characters in a string, preparing it for use in a regular expression.
@@ -1583,7 +1581,7 @@
             // return string with special characters escaped
             return str.replace(/([-.,*+?^${}()|[\]\/\\])/g, '\\$1');
 
-        }
+        };
 
         /**
          *  Formats a JavaScript date object to the format specified by the "format" property.
@@ -1687,7 +1685,7 @@
             // return formated date
             return result;
 
-        }
+        };
 
         /**
          *  Generates the day picker view, and displays it
@@ -1732,18 +1730,18 @@
             // and also, take in account the value of the "first_day_of_week" property
             for (var i = 0; i < 7; i++)
 
-                html += '<th>' + ($.isArray(plugin.settings.days_abbr) && undefined != plugin.settings.days_abbr[(plugin.settings.first_day_of_week + i) % 7] ? plugin.settings.days_abbr[(plugin.settings.first_day_of_week + i) % 7] : plugin.settings.days[(plugin.settings.first_day_of_week + i) % 7].substr(0, 2)) + '</th>';
+                html += '<th>' + ($.isArray(plugin.settings.days_abbr) && undefined !== plugin.settings.days_abbr[(plugin.settings.first_day_of_week + i) % 7] ? plugin.settings.days_abbr[(plugin.settings.first_day_of_week + i) % 7] : plugin.settings.days[(plugin.settings.first_day_of_week + i) % 7].substr(0, 2)) + '</th>';
 
             html += '</tr><tr>';
 
             // the calendar shows a total of 42 days
-            for (var i = 0; i < 42; i++) {
+            for (i = 0; i < 42; i++) {
 
                 // seven days per row
-                if (i > 0 && i % 7 == 0) html += '</tr><tr>';
+                if (i > 0 && i % 7 === 0) html += '</tr><tr>';
 
                 // if week number is to be shown
-                if (i % 7 == 0 && plugin.settings.show_week_number)
+                if (i % 7 === 0 && plugin.settings.show_week_number)
 
                     // show ISO 8601 week number
                     html += '<td class="dp_week_number">' + getWeekNumber(new Date(selected_year, selected_month, (i - days_from_previous_month + 1))) + '</td>';
@@ -1813,7 +1811,7 @@
                     }
 
                     // print the day of the month
-                    html += '<td' + (class_name != '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + (plugin.settings.zero_pad ? str_pad(day, 2) : day) + '</td>';
+                    html += '<td' + (class_name !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + (plugin.settings.zero_pad ? str_pad(day, 2) : day) + '</td>';
 
                 }
 
@@ -1835,7 +1833,7 @@
             // make the day picker visible
             daypicker.show();
 
-        }
+        };
 
         /**
          *  Generates the month picker view, and displays it
@@ -1856,7 +1854,7 @@
             for (var i = 0; i < 12; i++) {
 
                 // three month per row
-                if (i > 0 && i % 3 == 0) html += '</tr><tr>';
+                if (i > 0 && i % 3 === 0) html += '</tr><tr>';
 
                 var class_name = 'dp_month_' + i;
 
@@ -1870,7 +1868,7 @@
                 else if (current_system_month == i && current_system_year == selected_year) class_name += ' dp_current';
 
                 // first three letters of the month's name
-                html += '<td class="' + $.trim(class_name) + '">' + ($.isArray(plugin.settings.months_abbr) && undefined != plugin.settings.months_abbr[i] ? plugin.settings.months_abbr[i] : plugin.settings.months[i].substr(0, 3)) + '</td>';
+                html += '<td class="' + $.trim(class_name) + '">' + ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[i] ? plugin.settings.months_abbr[i] : plugin.settings.months[i].substr(0, 3)) + '</td>';
 
             }
 
@@ -1890,7 +1888,7 @@
             // make the month picker visible
             monthpicker.show();
 
-        }
+        };
 
         /**
          *  Generates the year picker view, and displays it
@@ -1911,7 +1909,7 @@
             for (var i = 0; i < 12; i++) {
 
                 // three years per row
-                if (i > 0 && i % 3 == 0) html += '</tr><tr>';
+                if (i > 0 && i % 3 === 0) html += '</tr><tr>';
 
                 var class_name = '';
 
@@ -1919,13 +1917,13 @@
                 if (is_disabled(selected_year - 7 + i)) class_name += ' dp_disabled';
 
                 // else, if a date is already selected and this is that particular year, highlight it
-                else if (default_year && default_year == selected_year - 7 + i) class_name += ' dp_selected'
+                else if (default_year && default_year == selected_year - 7 + i) class_name += ' dp_selected';
 
                 // else, if this is the current system year, highlight it
                 else if (current_system_year == (selected_year - 7 + i)) class_name += ' dp_current';
 
                 // first three letters of the month's name
-                html += '<td' + ($.trim(class_name) != '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + (selected_year - 7 + i) + '</td>';
+                html += '<td' + ($.trim(class_name) !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + (selected_year - 7 + i) + '</td>';
 
             }
 
@@ -1945,7 +1943,7 @@
             // make the year picker visible
             yearpicker.show();
 
-        }
+        };
 
         /**
          *  Generates an iFrame shim in Internet Explorer 6 so that the date picker appears above select boxes.
@@ -2018,7 +2016,7 @@
 
             }
 
-        }
+        };
 
         /**
          *  Checks if, according to the restrictions of the calendar and/or the values defined by the "disabled_dates"
@@ -2035,7 +2033,7 @@
         var is_disabled = function(year, month, day) {
 
             // don't check bogus values
-            if ((undefined == year || isNaN(year)) && (undefined == month || isNaN(month)) && (undefined == day || isNaN(day))) return false;
+            if ((undefined === year || isNaN(year)) && (undefined === month || isNaN(month)) && (undefined === day || isNaN(day))) return false;
 
             // if calendar has direction restrictions
             if (!(!$.isArray(plugin.settings.direction) && to_int(plugin.settings.direction) === 0)) {
@@ -2198,7 +2196,7 @@
             // if script gets this far it means that the day/month/year doesn't need to be disabled
             return false;
 
-        }
+        };
 
         /**
          *  Checks whether a value is an integer number.
@@ -2214,7 +2212,7 @@
             // return TRUE if value represents an integer number, or FALSE otherwise
             return (value + '').match(/^\-?[0-9]+$/) ? true : false;
 
-        }
+        };
 
         /**
          *  Sets the caption in the header of the date picker and enables or disables navigation buttons when necessary.
@@ -2289,7 +2287,7 @@
 
             }
 
-        }
+        };
 
         /**
          *  Shows the appropriate view (days, months or years) according to the current value of the "view" property.
@@ -2301,10 +2299,10 @@
         var manage_views = function() {
 
             // if the day picker was not yet generated
-            if (daypicker.text() == '' || view == 'days') {
+            if (daypicker.text() === '' || view == 'days') {
 
                 // if the day picker was not yet generated
-                if (daypicker.text() == '') {
+                if (daypicker.text() === '') {
 
                     // if date picker is not always visible
                     if (!plugin.settings.always_visible)
@@ -2337,8 +2335,8 @@
                     });
 
                     // make the header and the footer have the same size as the day picker
-                    header.css('width', width)
-                    footer.css('width', width)
+                    header.css('width', width);
+                    footer.css('width', width);
 
                     // hide the date picker again
                     datepicker.hide();
@@ -2374,7 +2372,7 @@
             }
 
             // if a callback function exists for when navigating through months/years
-            if (plugin.settings.onChange && typeof plugin.settings.onChange == 'function' && undefined != view) {
+            if (plugin.settings.onChange && typeof plugin.settings.onChange == 'function' && undefined !== view) {
 
                 // get the "active" elements in the view (ignoring the disabled ones)
                 var elements = (view == 'days' ?
@@ -2420,23 +2418,40 @@
 
             }
 
+            // assume the footer is visible
+            footer.show();
+
             // if the button for clearing a previously selected date needs to be visible all the time,
             // or the "Clear" button needs to be shown only when a date was previously selected, and now it's the case,
             // or the date picker is always visible and the "Clear" button was not explicitly disabled
             if (
                 plugin.settings.show_clear_date === true ||
-                (plugin.settings.show_clear_date === 0 && $element.val() != '') ||
+                (plugin.settings.show_clear_date === 0 && $element.val() !== '') ||
                 (plugin.settings.always_visible && plugin.settings.show_clear_date !== false)
             ) {
-
-                // make sure the footer is not hidden
-                footer.show();
 
                 // show the "Clear" button
                 cleardate.show();
 
-                // if the "Today" button is visible, it needs to take up only 50% of the available space
-                if (plugin.settings.show_select_today) selecttoday.css('width', '50%');
+                // if the "Today" button is visible
+                if (show_select_today) {
+
+                    // show it, and set it's width to 50% of the available space
+                    selecttoday.css('width', '50%');
+
+                    // the "Clear date" button only takes up 50% of the available space
+                    cleardate.css('width', '50%');
+
+                // if the "Today" button is not visible
+                } else {
+
+                    // hide the "Today" button
+                    selecttoday.hide();
+
+                    // the "Clear date" button takes up 100% of the available space
+                    cleardate.css('width', '100%');
+
+                }
 
             // otherwise
             } else {
@@ -2444,18 +2459,16 @@
                 // hide the "Clear" button
                 cleardate.hide();
 
-                // we assume the footer is visible...
-                footer.show();
-
                 // if the "Today" button is visible, it will now take up all the available space
-                if (plugin.settings.show_select_today) selecttoday.css('width', '100%');
+                if (show_select_today) selecttoday.show().css('width', '100%');
 
                 // if the "Today" button is also not visible, hide the footer entirely
                 else footer.hide();
 
             }
 
-        }
+
+        };
 
         /**
          *  Puts the specified date in the element the plugin is attached to, and hides the date picker.
@@ -2524,7 +2537,7 @@
             // move focus to the element the plugin is attached to
             $element.focus();
 
-        }
+        };
 
         /**
          *  Concatenates any number of arguments and returns them as string.
@@ -2543,7 +2556,7 @@
             // return the concatenated values
             return str;
 
-        }
+        };
 
         /**
          *  Left-pad a string to a certain length with zeroes.
@@ -2567,7 +2580,7 @@
             // return padded string
             return str;
 
-        }
+        };
 
         /**
          *  Returns the integer representation of a string
@@ -2581,7 +2594,7 @@
             // return the integer representation of the string given as argument
             return parseInt(str , 10);
 
-        }
+        };
 
         /**
          *  Updates the paired date picker (whose starting date depends on the value of the current date picker)
@@ -2623,11 +2636,11 @@
                         // (also, if the pair date picker does not have a direction, set it to 1)
                         dp.update({
                             'reference_date':   date,
-                            'direction':        dp.settings.direction == 0 ? 1 : dp.settings.direction
+                            'direction':        dp.settings.direction === 0 ? 1 : dp.settings.direction
                         });
 
                         // if the other date picker is always visible, update the visuals now
-                        if (dp.settings.always_visible) dp.show()
+                        if (dp.settings.always_visible) dp.show();
 
                     }
 
@@ -2635,7 +2648,7 @@
 
             }
 
-        }
+        };
 
         /**
          *  Calculate the ISO 8601 week number for a given date.
@@ -2647,7 +2660,7 @@
             var y = date.getFullYear(),
                 m = date.getMonth() + 1,
                 d = date.getDate(),
-                a, b, c, s, e, f, g, d, n, w;
+                a, b, c, s, e, f, g, n, w;
 
             // If month jan. or feb.
             if (m < 3) {
@@ -2684,7 +2697,7 @@
 
             return w;
 
-        }
+        };
 
         /**
          *  Function to be called when the "onKeyUp" event occurs
@@ -2705,7 +2718,7 @@
 
             return true;
 
-        }
+        };
 
         /**
          *  Function to be called when the "onMouseDown" event occurs
@@ -2728,22 +2741,20 @@
 
                 // if what's clicked is not inside the date picker
                 // hide the date picker
-                if ($(e.target).parents().filter('.Zebra_DatePicker').length == 0) plugin.hide();
+                if ($(e.target).parents().filter('.Zebra_DatePicker').length === 0) plugin.hide();
 
             }
 
             return true;
 
-        }
+        };
 
         // since with jQuery 1.9.0 the $.browser object was removed, we rely on this piece of code from
         // http://www.quirksmode.org/js/detect.html to detect the browser
         var browser = {
             init: function () {
                 this.name = this.searchString(this.dataBrowser) || '';
-                this.version = this.searchVersion(navigator.userAgent)
-                    || this.searchVersion(navigator.appVersion)
-                    || '';
+                this.version = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion) || '';
             },
             searchString: function (data) {
                 for (var i=0;i<data.length;i++) {
@@ -2776,26 +2787,27 @@
                     versionSearch: 'MSIE'
                 }
             ]
-        }
+        };
+
         browser.init();
 
         // initialize the plugin
         init();
 
-    }
+    };
 
     $.fn.Zebra_DatePicker = function(options) {
 
         return this.each(function() {
 
             // if element has a date picker already attached
-            if (undefined != $(this).data('Zebra_DatePicker')) {
+            if (undefined !== $(this).data('Zebra_DatePicker')) {
 
                 // get reference to the previously attached date picker
                 var plugin = $(this).data('Zebra_DatePicker');
 
                 // remove the attached icon (if it exists)...
-                if (undefined != plugin.icon) plugin.icon.remove();
+                if (undefined !== plugin.icon) plugin.icon.remove();
                 // ...and the calendar
                 plugin.datepicker.remove();
 
@@ -2813,6 +2825,6 @@
 
         });
 
-    }
+    };
 
 })(jQuery);
