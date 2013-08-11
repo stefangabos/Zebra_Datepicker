@@ -2792,7 +2792,7 @@
             // hide the date picker
             plugin.hide();
 
-            // we use timeouts so that we do not call the "update" method on *every* set of the resize event
+            // we use timeouts so that we do not call the "update" method on *every* step of the resize event
 
             // clear a previously set timeout
             clearTimeout(timeout);
