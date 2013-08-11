@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.3 (last revision: August 04, 2013)
+ *  @version    1.8.4 (last revision: August 11, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -141,7 +141,7 @@
             //  default is [5, -5]
             offset: [5, -5],
 
-            //  if set as a jQuery element with a Zebra_Datepicker attached, that particular date picker will use the
+            //  if set as a jQuery element with a Zebra_DatePicker attached, that particular date picker will use the
             //  current date picker's value as starting date
             //  note that the rules set in the "direction" property will still apply, only that the reference date will
             //  not be the current system date but the value selected in the current date picker
@@ -898,7 +898,7 @@
             if (update) return;
 
             // if icon exists, update its position when the page is resized
-            if (icon) $(window).bind('resize', plugin.update);
+            if (icon) $(document).bind('resize', plugin.update);
 
             // generate the container that will hold everything
             var html = '' +
@@ -1181,6 +1181,32 @@
             manage_views();
 
         };
+
+        /**
+         *  Destroys the date picker.
+         *
+         *  @return void
+         */
+        plugin.destroy = function() {
+
+            // remove the attached icon (if it exists)...
+            if (undefined !== plugin.icon) plugin.icon.remove();
+
+            // ...and the calendar
+            plugin.datepicker.remove();
+
+            // remove associated event handlers from the document
+            $(document).unbind('keyup', plugin._keyup);
+            $(document).unbind('mousedown', plugin._mousedown);
+            $(document).unbind('resize', plugin.update);
+
+            // remove association with the element
+            $element.removeData('Zebra_DatePicker')
+
+            // completely delete object
+            delete plugin;
+
+        }
 
         /**
          *  Hides the date picker.
@@ -1638,7 +1664,7 @@
                     case 'n': result += n; break;
 
                     // month name, three letters
-                    case 'M': f = ($.isArray(plugin.settings.months_abbr) && undefined != plugin.settings.months_abbr[n - 1] ? plugin.settings.months_abbr[n - 1] : plugin.settings.months[n - 1].substr(0, 3));
+                    case 'M': f = ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[n - 1] ? plugin.settings.months_abbr[n - 1] : plugin.settings.months[n - 1].substr(0, 3));
 
                     // full month name
                     case 'F': result += f; break;
@@ -1650,7 +1676,7 @@
                     case 'j': result += j; break;
 
                     // day name, three letters
-                    case 'D': l = ($.isArray(plugin.settings.days_abbr) && undefined != plugin.settings.days_abbr[w] ? plugin.settings.days_abbr[w] : plugin.settings.days[w].substr(0, 3));
+                    case 'D': l = ($.isArray(plugin.settings.days_abbr) && undefined !== plugin.settings.days_abbr[w] ? plugin.settings.days_abbr[w] : plugin.settings.days[w].substr(0, 3));
 
                     // full day name
                     case 'l': result += l; break;
@@ -2798,26 +2824,16 @@
 
     $.fn.Zebra_DatePicker = function(options) {
 
+        // iterate through all the elements to which we need to attach the date picker to
         return this.each(function() {
 
             // if element has a date picker already attached
-            if (undefined !== $(this).data('Zebra_DatePicker')) {
+            if (undefined !== $(this).data('Zebra_DatePicker'))
 
-                // get reference to the previously attached date picker
-                var plugin = $(this).data('Zebra_DatePicker');
+                // remove the attached date picker
+                $(this).data('Zebra_DatePicker').destroy();
 
-                // remove the attached icon (if it exists)...
-                if (undefined !== plugin.icon) plugin.icon.remove();
-                // ...and the calendar
-                plugin.datepicker.remove();
-
-                // remove associated event handlers from the document
-                $(document).unbind('keyup', plugin._keyup);
-                $(document).unbind('mousedown', plugin._mousedown);
-
-            }
-
-            // create a new instance of the plugin
+            // create an instance of the plugin
             var plugin = new $.Zebra_DatePicker(this, options);
 
             // save a reference to the newly created object
