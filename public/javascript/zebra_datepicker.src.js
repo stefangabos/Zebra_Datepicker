@@ -781,6 +781,12 @@
                     // if a calendar icon should be added to the element the plugin is attached to, create the icon now
                     if (plugin.settings.show_icon) {
 
+                        // strangely, in Firefox 21+ (or maybe even earlier) input elements have their "display" property
+                        // set to "inline" instead of "inline-block" as do all the other browsers.
+                        // because this behavior brakes the positioning of the icon, we'll set the "display" property to
+                        // "inline-block" before anything else;
+                        if (browser.name == 'firefox' && $element.is('input[type="text"]') && $element.css('display') == 'inline') $element.css('display', 'inline-block');
+
                         // we create a wrapper for the parent element so that we can later position the icon
                         // also, make sure the wrapper inherits some important css properties of the parent element
                         var icon_wrapper = jQuery('<span class="Zebra_DatePicker_Icon_Wrapper"></span>').css({
