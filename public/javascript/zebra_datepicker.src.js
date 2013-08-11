@@ -264,7 +264,7 @@
             current_system_day, first_selectable_month, first_selectable_year, first_selectable_day, selected_month, selected_year,
             default_day, default_month, default_year, enabled_dates, disabled_dates, shim, start_date, end_date, last_selectable_day,
             last_selectable_year, last_selectable_month, daypicker_cells, monthpicker_cells, yearpicker_cells, views, clickables,
-            selecttoday, footer, show_select_today;
+            selecttoday, footer, show_select_today, timeout;
 
         var plugin = this;
 
@@ -898,7 +898,7 @@
             if (update) return;
 
             // if icon exists, update its position when the page is resized
-            if (icon) $(document).bind('resize', plugin.update);
+            if (icon) $(window).bind('resize', _resize);
 
             // generate the container that will hold everything
             var html = '' +
@@ -1172,8 +1172,8 @@
                 $(document).bind({
 
                     //whenever anything is clicked on the page or a key is pressed
-                    'mousedown': plugin._mousedown,
-                    'keyup': plugin._keyup
+                    'mousedown': _mousedown,
+                    'keyup': _keyup
 
                 });
 
@@ -1196,9 +1196,9 @@
             plugin.datepicker.remove();
 
             // remove associated event handlers from the document
-            $(document).unbind('keyup', plugin._keyup);
-            $(document).unbind('mousedown', plugin._mousedown);
-            $(document).unbind('resize', plugin.update);
+            $(document).unbind('keyup', _keyup);
+            $(document).unbind('mousedown', _mousedown);
+            $(window).unbind('resize', _resize);
 
             // remove association with the element
             $element.removeData('Zebra_DatePicker')
@@ -2735,7 +2735,7 @@
          *
          *  @access private
          */
-        plugin._keyup = function(e) {
+        var _keyup = function(e) {
 
             // if the date picker is visible
             // and the pressed key is ESC
@@ -2756,7 +2756,7 @@
          *
          *  @access private
          */
-        plugin._mousedown = function(e) {
+        var _mousedown = function(e) {
 
             // if the date picker is visible
             if (datepicker.css('display') == 'block') {
@@ -2774,6 +2774,38 @@
             return true;
 
         };
+
+        /**
+         *  Function to be called when the "onResize" event occurs
+         *
+         *  Why as a separate function and not inline when binding the event? Because only this way we can "unbind" it
+         *  if the date picker is destroyed
+         *
+         *  @return boolean     Returns TRUE
+         *
+         *  @access private
+         */
+        var _resize = function() {
+
+            // hide the date picker
+            plugin.hide();
+
+            // we use timeouts so that we do not call the "update" method on *every* set of the resize event
+
+            // clear a previously set timeout
+            clearTimeout(timeout);
+
+            // set timeout again
+            timeout = setTimeout(function() {
+
+                // update the date picker
+                plugin.update();
+
+            }, 100);
+
+            return true;
+
+        }
 
         // since with jQuery 1.9.0 the $.browser object was removed, we rely on this piece of code from
         // http://www.quirksmode.org/js/detect.html to detect the browser
