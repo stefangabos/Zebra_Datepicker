@@ -1207,12 +1207,12 @@
             $(window).unbind('resize', _resize);
 
             // remove association with the element
-            $element.removeData('Zebra_DatePicker')
+            $element.removeData('Zebra_DatePicker');
 
             // completely delete object
             delete plugin;
 
-        }
+        };
 
         /**
          *  Hides the date picker.
@@ -2737,7 +2737,7 @@
          *  Why as a separate function and not inline when binding the event? Because only this way we can "unbind" it
          *  if the date picker is destroyed
          *
-         *  @return boolean     Returns TRUE
+         *  @return void
          *
          *  @access private
          */
@@ -2748,8 +2748,6 @@
             // hide the date picker
             if (datepicker.css('display') == 'block' || e.which == 27) plugin.hide();
 
-            return true;
-
         };
 
         /**
@@ -2758,7 +2756,7 @@
          *  Why as a separate function and not inline when binding the event? Because only this way we can "unbind" it
          *  if the date picker is destroyed
          *
-         *  @return boolean     Returns TRUE
+         *  @return void
          *
          *  @access private
          */
@@ -2777,8 +2775,6 @@
 
             }
 
-            return true;
-
         };
 
         /**
@@ -2787,7 +2783,7 @@
          *  Why as a separate function and not inline when binding the event? Because only this way we can "unbind" it
          *  if the date picker is destroyed
          *
-         *  @return boolean     Returns TRUE
+         *  @return void
          *
          *  @access private
          */
@@ -2809,9 +2805,7 @@
 
             }, 100);
 
-            return true;
-
-        }
+        };
 
         // since with jQuery 1.9.0 the $.browser object was removed, we rely on this piece of code from
         // http://www.quirksmode.org/js/detect.html to detect the browser
