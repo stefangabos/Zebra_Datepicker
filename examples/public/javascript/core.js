@@ -60,8 +60,8 @@ $(document).ready(function() {
                 elements.each(function() {
                     if ($(this).data('date').match(/\-24$/))
                         $(this).css({
-                            backgroundColor:    '#C40000',
-                            color:              '#FFF'
+                            background: '#C40000',
+                            color:      '#FFF'
                         });
                 });
             }
