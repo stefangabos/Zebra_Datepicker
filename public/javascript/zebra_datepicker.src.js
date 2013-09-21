@@ -903,8 +903,8 @@
             // if we just needed to recompute the things above, return now
             if (update) return;
 
-            // if icon exists, update its position when the page is resized
-            if (icon) $(window).bind('resize', _resize);
+            // update icon/date picker position on resize
+            $(window).bind('resize', _resize);
 
             // generate the container that will hold everything
             var html = '' +
@@ -2792,18 +2792,23 @@
             // hide the date picker
             plugin.hide();
 
-            // we use timeouts so that we do not call the "update" method on *every* step of the resize event
+            // if the icon is visible, update its position as the parent element might have changed position
+            if (icon !== undefined) {
 
-            // clear a previously set timeout
-            clearTimeout(timeout);
+                  // we use timeouts so that we do not call the "update" method on *every* step of the resize event
 
-            // set timeout again
-            timeout = setTimeout(function() {
+                  // clear a previously set timeout
+                  clearTimeout(timeout);
 
-                // update the date picker
-                plugin.update();
+                  // set timeout again
+                  timeout = setTimeout(function() {
 
-            }, 100);
+                      // update the date picker
+                      plugin.update();
+
+                  }, 100);
+
+            }
 
         };
 
