@@ -17,6 +17,7 @@
         <script type="text/javascript" src="libraries/syntaxhighlighter/public/javascript/shCore.js"></script>
         <script type="text/javascript" src="libraries/syntaxhighlighter/public/javascript/shLegacy.js"></script>
         <script type="text/javascript" src="libraries/syntaxhighlighter/public/javascript/shBrushJScript.js"></script>
+        <script type="text/javascript" src="libraries/syntaxhighlighter/public/javascript/shBrushXML.js"></script>
 
         <script type="text/javascript">
             SyntaxHighlighter.defaults['toolbar'] = false;
@@ -266,7 +267,31 @@
             <form action="javascript:void(0)" method="post">
             <div>
             <input id="datepicker-example13" type="text">
-            <div id="container" style="margin: 10px 0 0 0"></div>
+            <div id="container" style="margin: 10px 0 0 0; height: 250px"></div>
+            </div>
+
+            </form>
+
+            <p>&nbsp;</p>
+
+            <p><strong>14.</strong> Using data attributes</p>
+
+            <p>Any property of the date picker can also be set via data-attributes. All you have to do is take any property
+            described in the "Configuration" section and prefix it with "data-zdp_". One important thing to remember is that
+            if the value of the property is an array you'll have to use <strong>double quotes</strong> inside the square
+            brackets and therefore single quotes around the attribute - see the example below:</p>
+
+            <pre class="brush:xml">
+            &lt;input type="text" id="datepicker-example14" data-zdp_direction="1" data-zdp_disabled_dates='["* * * 0,6"]'>
+            </pre>
+
+            <pre class="brush:js">
+            $('#datepicker-example14').Zebra_DatePicker();
+            </pre>
+
+            <form action="javascript:void(0)" method="post">
+            <div>
+            <input id="datepicker-example14" type="text" data-zdp_direction="1" data-zdp_disabled_dates='["* * * 0,6"]'>
             </div>
 
             </form>

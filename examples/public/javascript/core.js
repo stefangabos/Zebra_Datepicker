@@ -72,4 +72,6 @@ $(document).ready(function() {
         always_visible: $('#container')
     });
 
+    $('#datepicker-example14').Zebra_DatePicker();
+
 });
