@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.4 (last revision: August 11, 2013)
+ *  @version    1.8.5 (last revision: September 21, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -281,8 +281,30 @@
          */
         var init = function(update) {
 
-            // merge default settings with user-settings (unless we're just updating settings)
-            if (!update) plugin.settings = $.extend({}, defaults, options);
+            // unless we're just updating settings
+            if (!update) {
+
+                // merge default settings with user-settings (
+                plugin.settings = $.extend({}, defaults, options);
+
+                // iterate through the element's data attributes (if any)
+                for (var data in $element.data())
+
+                    // if data attribute's name starts with "zdp_"
+                    if (data.indexOf('zdp_') === 0) {
+
+                        // remove the "zdp_" prefix
+                        data = data.replace(/^zdp\_/, '');
+
+                        // if such a property exists
+                        if (undefined !== defaults[data])
+
+                            // update the property's value
+                            plugin.settings[data] = $element.data('zdp_' + data);
+
+                    }
+
+            }
 
             // if the element should be read-only, set the "readonly" attribute
             if (plugin.settings.readonly_element) $element.attr('readonly', 'readonly');
