@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.5 (last revision: September 21, 2013)
+ *  @version    1.8.6 (last revision: September 28, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -1814,7 +1814,7 @@
                         real_day = real_date.getDate();
 
                     // extract normalized date parts and merge them
-                    real_date =  real_year + str_pad(real_month, 2) + str_pad(real_day, 2);
+                    real_date =  real_year + str_pad(real_month + 1, 2) + str_pad(real_day, 2);
 
                 }
 
