@@ -1180,6 +1180,15 @@
                     // reset these values
                     default_day = null; default_month = null; default_year = null; selected_month = null; selected_year = null;
 
+                // if date picker is always visible
+                } else {
+
+                    // reset these values
+                    default_day = null; default_month = null; default_year = null;
+
+                    // remove the "selected" class from all cells that have it
+                    $('td.dp_selected', datepicker).removeClass('dp_selected');
+
                 }
 
                 // hide the date picker
@@ -2585,6 +2594,10 @@
 
                 // add the "selected" class to the currently selected cell
                 cell.addClass('dp_selected');
+
+                // if we're on the "days" view and days from other months are selectable and one of those days was
+                // selected, repaint the datepicker so it will take us to the selected month
+                if (view == 'days' && cell.hasClass('dp_not_in_month_selectable')) plugin.show();
 
             }
 
