@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.6 (last revision: September 28, 2013)
+ *  @version    1.8.6 (last revision: September 29, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -1081,7 +1081,7 @@
                 if (plugin.settings.select_other_months && null !== (matches = $(this).attr('class').match(/date\_([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])/)))
 
                     // use the stored date
-                    select_date(matches[1], matches[2], matches[3], 'days', $(this));
+                    select_date(matches[1], matches[2] - 1, matches[3], 'days', $(this));
 
                 // put selected date in the element the plugin is attached to, and hide the date picker
                 else select_date(selected_year, selected_month, to_int($(this).html()), 'days', $(this));
@@ -2444,13 +2444,25 @@
                 elements.each(function() {
 
                     // if view is "days"
-                    if (view == 'days')
+                    if (view == 'days') {
 
-                        // attach a "date" data attribute to each element in the form of of YYYY-MM-DD for easily identifying sought elements
-                        $(this).data('date', selected_year + '-' + str_pad(selected_month + 1, 2) + '-' + str_pad(to_int($(this).text()), 2));
+                        // if date is from a next/previous month and is selectable
+                        if ($(this).hasClass('dp_not_in_month_selectable')) {
+
+                            // extract date from the attached class
+                            var matches = $(this).attr('class').match(/date\_([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])/);
+
+                            // attach a "date" data attribute to each element in the form of of YYYY-MM-DD for easily identifying sought elements
+                            $(this).data('date', matches[1] + '-' + matches[2] + '-' + matches[3]);
+
+                        // if date is from the currently selected month
+                        } else
+
+                            // attach a "date" data attribute to each element in the form of of YYYY-MM-DD for easily identifying sought elements
+                            $(this).data('date', selected_year + '-' + str_pad(selected_month + 1, 2) + '-' + str_pad(to_int($(this).text()), 2));
 
                     // if view is "months"
-                    else if (view == 'months') {
+                    } else if (view == 'months') {
 
                         // get the month's number for the element's class
                         var matches = $(this).attr('class').match(/dp\_month\_([0-9]+)/);
