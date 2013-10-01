@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.6 (last revision: September 29, 2013)
+ *  @version    1.8.6 (last revision: October 01, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -910,13 +910,6 @@
                 }
 
             }
-
-            // if calendar icon exists (there's no icon if the date picker is always visible or it is specifically hidden)
-            if (undefined !== icon)
-
-                // if parent element is not visible (has display: none, width and height are explicitly set to 0, an ancestor
-                // element is hidden, so the element is not shown on the page), hide the icon, or show it otherwise
-                if (!($element.is(':visible'))) icon.hide(); else icon.show();
 
             // if the "Today" button is to be shown and it makes sense to be shown
             // (the "days" view is available and "today" is not a disabled date)
