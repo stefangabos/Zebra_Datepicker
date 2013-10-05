@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.6 (last revision: October 01, 2013)
+ *  @version    1.8.6 (last revision: October 05, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -205,6 +205,12 @@
             //  must be specified in the format defined by the "format" property, or it will be ignored!
             //  note that this value is used only if there is no value in the field the date picker is attached to!
             start_date: false,
+
+            //  should defaut values, in the input field the date picker is attached to, be deleted if they are not valid
+            //  according to "direction" and/or "disabled_dates"?
+            //
+            //  default is FALSE
+            strict: false,
 
             //  how should the date picker start; valid values are "days", "months" and "years"
             //  note that the date picker is always cycling days-months-years when clicking in the date picker's header,
@@ -785,8 +791,8 @@
             // get the default date, from the element, and check if it represents a valid date, according to the required format
             var default_date = check_date($element.val() || (plugin.settings.start_date ? plugin.settings.start_date : ''));
 
-            // if there is a default date but it is disabled
-            if (default_date && is_disabled(default_date.getFullYear(), default_date.getMonth(), default_date.getDate()))
+            // if there is a default date, date picker is in "strict" mode, and the default date is disabled
+            if (default_date && plugin.settings.strict && is_disabled(default_date.getFullYear(), default_date.getMonth(), default_date.getDate()))
 
                 // clear the value of the parent element
                 $element.val('');
@@ -1287,8 +1293,8 @@
                 // if the default date represents a disabled date
                 if (is_disabled(default_year, default_month, default_day)) {
 
-                    // clear the value of the parent element
-                    $element.val('');
+                    // if date picker is in "strict" mode, clear the value of the parent element
+                    if (plugin.settings.strict) $element.val('');
 
                     // the calendar will start with the first selectable year/month
                     selected_month = first_selectable_month;
