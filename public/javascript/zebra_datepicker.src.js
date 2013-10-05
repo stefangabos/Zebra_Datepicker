@@ -206,7 +206,7 @@
             //  note that this value is used only if there is no value in the field the date picker is attached to!
             start_date: false,
 
-            //  should defaut values, in the input field the date picker is attached to, be deleted if they are not valid
+            //  should default values, in the input field the date picker is attached to, be deleted if they are not valid
             //  according to "direction" and/or "disabled_dates"?
             //
             //  default is FALSE
