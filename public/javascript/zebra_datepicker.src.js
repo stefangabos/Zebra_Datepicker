@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.6 (last revision: October 05, 2013)
+ *  @version    1.8.7 (last revision: October 12, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -110,10 +110,10 @@
             //  default is Y-m-d
             format: 'Y-m-d',
 
-            //  html-content of previous month button and next month button
+            //  HTML to be used for the previous month/next month buttons
             //
             //  default is ['&#171;','&#187;']
-            header_buttons: ['&#171;','&#187;'],
+            header_navigation: ['&#171;', '&#187;'],
 
             //  should the icon for opening the datepicker be inside the element?
             //  if set to FALSE, the icon will be placed to the right of the parent element, while if set to TRUE it will
@@ -937,9 +937,9 @@
                 '<div class="Zebra_DatePicker">' +
                     '<table class="dp_header">' +
                         '<tr>' +
-                            '<td class="dp_previous">' + plugin.settings.header_buttons[0] + '</td>' +
+                            '<td class="dp_previous">' + plugin.settings.header_navigation[0] + '</td>' +
                             '<td class="dp_caption">&#032;</td>' +
-                            '<td class="dp_next">' + plugin.settings.header_buttons[1] + '</td>' +
+                            '<td class="dp_next">' + plugin.settings.header_navigation[1] + '</td>' +
                         '</tr>' +
                     '</table>' +
                     '<table class="dp_daypicker"></table>' +
