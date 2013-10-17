@@ -22,6 +22,10 @@
             //  setting this property to a jQuery element, will result in the date picker being always visible, the indicated
             //  element being the date picker's container;
             always_visible: false,
+            
+            //(***)  this flag will activate, if set to true, an inner container for days, months, and years (it is useful in case we want
+            // use our datepicker with a larger layout and highlight the selected days/month/or years as circles;
+            inner_box: false,
 
             //  days of the week; Sunday to Saturday
             days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -1088,7 +1092,13 @@
                     select_date(matches[1], matches[2] - 1, matches[3], 'days', $(this));
 
                 // put selected date in the element the plugin is attached to, and hide the date picker
-                else select_date(selected_year, selected_month, to_int($(this).html()), 'days', $(this));
+                else
+                // **** ADDED
+                    if (plugin.settings.inner_box === false)
+                        select_date(selected_year, selected_month, to_int($(this).html()), 'days', $(this));
+                    else
+                        select_date(selected_year, selected_month, to_int($(this).children('div').html()), 'days', $(this));
+                    // **** ADDED END
 
             });
 
@@ -1127,7 +1137,12 @@
             yearpicker.delegate('td:not(.dp_disabled)', 'click', function() {
 
                 // set the selected year
-                selected_year = to_int($(this).html());
+                // **** ADDED
+                if (plugin.settings.inner_box === false)
+                    selected_year = to_int($(this).html());
+                else
+                    selected_year = to_int($(this).children('div').html());
+                // **** ADDED END
 
                 // if user can select only years
                 if ($.inArray('months', views) == -1)
@@ -1834,13 +1849,23 @@
                 // if this is a day from the previous month
                 if (i < days_from_previous_month)
 
-                    html += '<td class="' + (plugin.settings.select_other_months && !is_disabled(real_year, real_month, real_day) ? 'dp_not_in_month_selectable date_' + real_date : 'dp_not_in_month') + '">' + (plugin.settings.select_other_months || plugin.settings.show_other_months ? str_pad(days_in_previous_month - days_from_previous_month + i + 1, plugin.settings.zero_pad ? 2 : 0) : '&nbsp;') + '</td>';
-
+                    // **** ADDED
+                    if (plugin.settings.inner_box === false)
+                        html += '<td class="' + (plugin.settings.select_other_months && !is_disabled(real_year, real_month, real_day) ? 'dp_not_in_month_selectable date_' + real_date : 'dp_not_in_month') + '">' + (plugin.settings.select_other_months || plugin.settings.show_other_months ? str_pad(days_in_previous_month - days_from_previous_month + i + 1, plugin.settings.zero_pad ? 2 : 0) : '&nbsp;') + '</td>';
+                    else
+                        html += '<td class="' + (plugin.settings.select_other_months && !is_disabled(real_year, real_month, real_day) ? 'dp_not_in_month_selectable date_' + real_date : 'dp_not_in_month') + '">' + '<div class="day_box">' + (plugin.settings.select_other_months || plugin.settings.show_other_months ? str_pad(days_in_previous_month - days_from_previous_month + i + 1, plugin.settings.zero_pad ? 2 : 0) : '&nbsp;') + '</div>' + '</td>';
+                    // **** ADDED END
+                    
                 // if this is a day from the next month
                 else if (day > days_in_month)
 
-                    html += '<td class="' + (plugin.settings.select_other_months && !is_disabled(real_year, real_month, real_day) ? 'dp_not_in_month_selectable date_' + real_date : 'dp_not_in_month') + '">' + (plugin.settings.select_other_months || plugin.settings.show_other_months ? str_pad(day - days_in_month, plugin.settings.zero_pad ? 2 : 0) : '&nbsp;') + '</td>';
-
+                    // **** ADDED
+                    if (plugin.settings.inner_box === false)
+                        html += '<td class="' + (plugin.settings.select_other_months && !is_disabled(real_year, real_month, real_day) ? 'dp_not_in_month_selectable date_' + real_date : 'dp_not_in_month') + '">' + (plugin.settings.select_other_months || plugin.settings.show_other_months ? str_pad(day - days_in_month, plugin.settings.zero_pad ? 2 : 0) : '&nbsp;') + '</td>';
+                    else
+                        html += '<td class="' + (plugin.settings.select_other_months && !is_disabled(real_year, real_month, real_day) ? 'dp_not_in_month_selectable date_' + real_date : 'dp_not_in_month') + '">' + '<div class="day_box">' + (plugin.settings.select_other_months || plugin.settings.show_other_months ? str_pad(day - days_in_month, plugin.settings.zero_pad ? 2 : 0) : '&nbsp;') + '</div>' + '</td>';
+                    // **** ADDED END
+                    
                 // if this is a day from the current month
                 else {
 
@@ -1878,8 +1903,13 @@
                     }
 
                     // print the day of the month
-                    html += '<td' + (class_name !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + (plugin.settings.zero_pad ? str_pad(day, 2) : day) + '</td>';
-
+                    // **** ADDED
+                    if (plugin.settings.inner_box === false)
+                        html += '<td' + (class_name !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + (plugin.settings.zero_pad ? str_pad(day, 2) : day) + '</td>';
+                    else
+                        html += '<td' + (class_name !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + '<div class="day_box">' + (plugin.settings.zero_pad ? str_pad(day, 2) : day) + '</div>' + '</td>';
+                    // **** ADDED END
+                    
                 }
 
             }
@@ -1935,8 +1965,12 @@
                 else if (current_system_month == i && current_system_year == selected_year) class_name += ' dp_current';
 
                 // first three letters of the month's name
-                html += '<td class="' + $.trim(class_name) + '">' + ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[i] ? plugin.settings.months_abbr[i] : plugin.settings.months[i].substr(0, 3)) + '</td>';
-
+                // **** ADDED
+                if (plugin.settings.inner_box === false)
+                    html += '<td class="' + $.trim(class_name) + '">' + ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[i] ? plugin.settings.months_abbr[i] : plugin.settings.months[i].substr(0, 3)) + '</td>';
+                else
+                    html += '<td class="' + $.trim(class_name) + '">' + '<div class="month_box">' +  ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[i] ? plugin.settings.months_abbr[i] : plugin.settings.months[i].substr(0, 3)) + '</div>' + '</td>';
+                // **** ADDED END
             }
 
             // wrap up
@@ -1990,8 +2024,12 @@
                 else if (current_system_year == (selected_year - 7 + i)) class_name += ' dp_current';
 
                 // first three letters of the month's name
-                html += '<td' + ($.trim(class_name) !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + (selected_year - 7 + i) + '</td>';
-
+                // **** ADDED
+                if (plugin.settings.inner_box === false)
+                    html += '<td' + ($.trim(class_name) !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + (selected_year - 7 + i) + '</td>';
+                else
+                    html += '<td' + ($.trim(class_name) !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + '<div class="year_box">' + (selected_year - 7 + i) + '</div>' + '</td>';
+                // **** ADDED END
             }
 
             // wrap up
