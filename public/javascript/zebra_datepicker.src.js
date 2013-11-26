@@ -930,7 +930,30 @@
             if (update) return;
 
             // update icon/date picker position on resize
-            $(window).bind('resize', _resize);
+            $(window).bind('resize.Zebra_DatePicker', function() {
+
+                // hide the date picker
+                plugin.hide();
+
+                // if the icon is visible, update its position as the parent element might have changed position
+                if (icon !== undefined) {
+
+                      // we use timeouts so that we do not call the "update" method on *every* step of the resize event
+
+                      // clear a previously set timeout
+                      clearTimeout(timeout);
+
+                      // set timeout again
+                      timeout = setTimeout(function() {
+
+                          // update the date picker
+                          plugin.update();
+
+                      }, 100);
+
+                }
+
+            });
 
             // generate the container that will hold everything
             var html = '' +
@@ -1212,9 +1235,33 @@
                 // bind some events to the document
                 $(document).bind({
 
-                    //whenever anything is clicked on the page or a key is pressed
-                    'mousedown': _mousedown,
-                    'keyup': _keyup
+                    //whenever anything is clicked on the page
+                    'mousedown.Zebra_DatePicker': function(e) {
+
+                        // if the date picker is visible
+                        if (datepicker.css('display') == 'block') {
+
+                            // if the calendar icon is visible and we clicked it, let the onClick event of the icon to handle the event
+                            // (we want it to toggle the date picker)
+                            if (plugin.settings.show_icon && $(e.target).get(0) === icon.get(0)) return true;
+
+                            // if what's clicked is not inside the date picker
+                            // hide the date picker
+                            if ($(e.target).parents().filter('.Zebra_DatePicker').length === 0) plugin.hide();
+
+                        }
+
+                    },
+
+                    //whenever a key is pressed on the page
+                    'keyup.Zebra_DatePicker': function(e) {
+
+                        // if the date picker is visible
+                        // and the pressed key is ESC
+                        // hide the date picker
+                        if (datepicker.css('display') == 'block' || e.which == 27) plugin.hide();
+
+                    }
 
                 });
 
@@ -1237,9 +1284,9 @@
             plugin.datepicker.remove();
 
             // remove associated event handlers from the document
-            $(document).unbind('keyup', _keyup);
-            $(document).unbind('mousedown', _mousedown);
-            $(window).unbind('resize', _resize);
+            $(document).unbind('keyup.Zebra_DatePicker');
+            $(document).unbind('mousedown.Zebra_DatePicker');
+            $(window).unbind('resize.Zebra_DatePicker');
 
             // remove association with the element
             $element.removeData('Zebra_DatePicker');
@@ -2779,87 +2826,6 @@
             else w = (n / 7 | 0) + 1;
 
             return w;
-
-        };
-
-        /**
-         *  Function to be called when the "onKeyUp" event occurs
-         *
-         *  Why as a separate function and not inline when binding the event? Because only this way we can "unbind" it
-         *  if the date picker is destroyed
-         *
-         *  @return void
-         *
-         *  @access private
-         */
-        var _keyup = function(e) {
-
-            // if the date picker is visible
-            // and the pressed key is ESC
-            // hide the date picker
-            if (datepicker.css('display') == 'block' || e.which == 27) plugin.hide();
-
-        };
-
-        /**
-         *  Function to be called when the "onMouseDown" event occurs
-         *
-         *  Why as a separate function and not inline when binding the event? Because only this way we can "unbind" it
-         *  if the date picker is destroyed
-         *
-         *  @return void
-         *
-         *  @access private
-         */
-        var _mousedown = function(e) {
-
-            // if the date picker is visible
-            if (datepicker.css('display') == 'block') {
-
-                // if the calendar icon is visible and we clicked it, let the onClick event of the icon to handle the event
-                // (we want it to toggle the date picker)
-                if (plugin.settings.show_icon && $(e.target).get(0) === icon.get(0)) return true;
-
-                // if what's clicked is not inside the date picker
-                // hide the date picker
-                if ($(e.target).parents().filter('.Zebra_DatePicker').length === 0) plugin.hide();
-
-            }
-
-        };
-
-        /**
-         *  Function to be called when the "onResize" event occurs
-         *
-         *  Why as a separate function and not inline when binding the event? Because only this way we can "unbind" it
-         *  if the date picker is destroyed
-         *
-         *  @return void
-         *
-         *  @access private
-         */
-        var _resize = function() {
-
-            // hide the date picker
-            plugin.hide();
-
-            // if the icon is visible, update its position as the parent element might have changed position
-            if (icon !== undefined) {
-
-                  // we use timeouts so that we do not call the "update" method on *every* step of the resize event
-
-                  // clear a previously set timeout
-                  clearTimeout(timeout);
-
-                  // set timeout again
-                  timeout = setTimeout(function() {
-
-                      // update the date picker
-                      plugin.update();
-
-                  }, 100);
-
-            }
 
         };
 
