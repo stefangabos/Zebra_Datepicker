@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.7 (last revision: October 12, 2013)
+ *  @version    1.8.7 (last revision: November 27, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -803,7 +803,7 @@
                 $element.val('');
 
             // updates value for the date picker whose starting date depends on the selected date (if any)
-            update_dependent(default_date);
+            update_dependent(start_date);
 
             // if date picker is not always visible
             if (!plugin.settings.always_visible) {
