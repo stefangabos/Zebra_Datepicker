@@ -8,12 +8,14 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.7 (last revision: November 28, 2013)
+ *  @version    1.8.8 (last revision: December 09, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
  */
 ;(function($) {
+
+    'use strict';
 
     $.Zebra_DatePicker = function(element, options) {
 
@@ -1290,9 +1292,6 @@
 
             // remove association with the element
             $element.removeData('Zebra_DatePicker');
-
-            // completely delete object
-            delete plugin;
 
         };
 
