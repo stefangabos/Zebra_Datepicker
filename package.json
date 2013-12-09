@@ -1,0 +1,39 @@
+{
+  "name": "Zebra_Datepicker",
+  "description": "A super-lightweight, highly configurable, cross-browser date picker jQuery plugin",
+  "author": {
+    "name": "Stefan Gabos",
+    "email": "contact@stefangabos.ro"
+  },
+  "homepage": "http://www.stefangabos.ro/jquery/zebra-datepicker/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stefangabos/Zebra_Datepicker.git"
+  },
+  "licenses": [
+    {
+      "type": "LGPL",
+      "url": "https://www.gnu.org/licenses/lgpl-3.0.txt"
+    }
+  ],
+  "version": "1.8.8",
+  "keywords": [
+    "calendar",
+    "date",
+    "datepicker",
+    "form",
+    "iso-8601",
+    "ui"
+  ],
+  "bugs": {
+    "url": "http://github.com/stefangabos/Zebra_Datepicker/issues",
+    "email": "contact@stefangabos.ro"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-cli": "~0.1.11",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}
