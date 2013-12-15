@@ -1261,7 +1261,7 @@
                         // if the date picker is visible
                         // and the pressed key is ESC
                         // hide the date picker
-                        if (datepicker.css('display') == 'block' || e.which == 27) plugin.hide();
+                        if (datepicker.css('display') == 'block' && e.which == 27) plugin.hide();
 
                     }
 
