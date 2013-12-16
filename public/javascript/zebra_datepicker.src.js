@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.8 (last revision: December 09, 2013)
+ *  @version    1.8.8 (last revision: December 16, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -1975,7 +1975,7 @@
                 if (is_disabled(selected_year, i)) class_name += ' dp_disabled';
 
                 // else, if a date is already selected and this is that particular month, highlight it
-                else if (default_month !== false && default_month == i) class_name += ' dp_selected';
+                else if (default_month !== false && default_month == i && selected_year == default_year) class_name += ' dp_selected';
 
                 // else, if this the current system month, highlight it
                 else if (current_system_month == i && current_system_year == selected_year) class_name += ' dp_current';
