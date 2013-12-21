@@ -26,7 +26,9 @@ module.exports = function(grunt) {
                 strict: true,
                 trailing: true,
                 loopfunc: true,
-                scripturl: true
+                scripturl: true,
+                boss: true,
+                sub: true
             }
         },
 
