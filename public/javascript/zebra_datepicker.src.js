@@ -132,7 +132,7 @@
             //      'days':     'Departure:<br>F, Y',
             //      'months':   'Departure:<br>Y',
             //      'years':    'Departure:<br>Y1 - Y2'
-            //  },
+            //  }
             //
             //  Default is
             //
@@ -140,7 +140,7 @@
             //      'days':     'F, Y',
             //      'months':   'Y',
             //      'years':    'Y1 - Y2'
-            //  },
+            //  }
             header_captions: {
                 'days':     'F, Y',
                 'months':   'Y',
