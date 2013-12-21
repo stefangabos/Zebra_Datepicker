@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.8 (last revision: December 16, 2013)
+ *  @version    1.8.8 (last revision: December 21, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -99,7 +99,7 @@
             //  format of the returned date
             //
             //  accepts the following characters for date formatting: d, D, j, l, N, w, S, F, m, M, n, Y, y borrowing
-            //  syntax from (PHP's date function)
+            //  syntax from PHP's "date" function.
             //
             //  note that when setting a date format without days ('d', 'j'), the users will be able to select only years
             //  and months, and when setting a format without months and days ('F', 'm', 'M', 'n', 'd', 'j'), the
@@ -111,6 +111,41 @@
             //
             //  default is Y-m-d
             format: 'Y-m-d',
+
+            //  captions in the datepicker's header, for the 3 possible views: days, months, years
+            //
+            //  for each of the 3 views the following special characters may be used borrowing from PHP's "date" function's
+            //  syntax: m, n, F, M, y and Y; any of these will be replaced at runtime with the appropriate date fragment,
+            //  depending on the currently viewed date. two more special characters are also available Y1 and Y2 (upper
+            //  case representing years with 4 digits, lowercase representing years with 2 digits) which represent
+            //  "currently selected year - 7" and "currently selected year + 4" and which only make sense used in the
+            //  "years" view.
+            //
+            //  even though any of these special characters may be used in any of the 3 views, you should use m, n, F, M
+            //  for the "days" view and y, Y, Y1, Y2, y1, y2 for the "months" and "years" view or you may get unexpected
+            //  results!
+            //
+            //  Text and HTML can also be used, and will be rendered as it is, as in the example below (the library is
+            //  smart enough to not replace special characters when used in words or HTML tags):
+            //
+            //  header_captions: {
+            //      'days':     'Departure:<br>F, Y',
+            //      'months':   'Departure:<br>Y',
+            //      'years':    'Departure:<br>Y1 - Y2'
+            //  },
+            //
+            //  Default is
+            //
+            //  header_captions: {
+            //      'days':     'F, Y',
+            //      'months':   'Y',
+            //      'years':    'Y1 - Y2'
+            //  },
+            header_captions: {
+                'days':     'F, Y',
+                'months':   'Y',
+                'years':    'Y1 - Y2'
+            },
 
             //  HTML to be used for the previous month/next month buttons
             //
@@ -1827,7 +1862,7 @@
             days_from_previous_month = days_from_previous_month < 0 ? 7 + days_from_previous_month : days_from_previous_month;
 
             // manage header caption and enable/disable navigation buttons if necessary
-            manage_header(plugin.settings.months[selected_month] + ', ' + selected_year);
+            manage_header(plugin.settings.header_captions['days']);
 
             // start generating the HTML
             var html = '<tr>';
@@ -1958,7 +1993,7 @@
         var generate_monthpicker = function() {
 
             // manage header caption and enable/disable navigation buttons if necessary
-            manage_header(selected_year);
+            manage_header(plugin.settings.header_captions['months']);
 
             // start generating the HTML
             var html = '<tr>';
@@ -2013,7 +2048,7 @@
         var generate_yearpicker = function() {
 
             // manage header caption and enable/disable navigation buttons if necessary
-            manage_header(selected_year - 7 + ' - ' + (selected_year + 4));
+            manage_header(plugin.settings.header_captions['years']);
 
             // start generating the HTML
             var html = '<tr>';
@@ -2337,6 +2372,46 @@
          *  @access private
          */
         var manage_header = function(caption) {
+
+            // if "selected_month" has a value
+            if ($.isNumeric(selected_month))
+
+                // replace month-related patterns
+                caption =
+
+                    caption.
+
+                    // month number, prefixed with 0
+                    replace(/\bm\b/, str_pad(selected_month + 1, 2)).
+
+                    // month number, not prefixed with 0
+                    replace(/\bn\b/, selected_month + 1).
+
+                    // full month name
+                    replace(/\bF\b/, plugin.settings.months[selected_month]).
+
+                    // month name, three letters
+                    replace(/\bM\b/, ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[selected_month] ? plugin.settings.months_abbr[selected_month] : plugin.settings.months[selected_month].substr(0, 3)));
+
+            // if "selected_year" has a value
+            if ($.isNumeric(selected_year))
+
+                // replace year-related patterns
+                caption =
+
+                    caption.
+
+                    // year as four digits
+                    replace(/\bY\b/, selected_year).
+
+                    // year as two digits
+                    replace(/\by\b/, (selected_year + '').substr(2)).
+
+                    // lower limit of year as two or four digits
+                    replace(/\bY1\b/i, selected_year - 7).
+
+                    // upper limit of year as two or four digits
+                    replace(/\bY2\b/i, selected_year + 4);
 
             // update the caption in the header
             $('.dp_caption', header).html(caption);
