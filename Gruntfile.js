@@ -34,7 +34,7 @@ module.exports = function(grunt) {
 
         'watch': {
             files: source_files,
-            tasks: ['jshint', 'uglify']
+            tasks: ['uglify']
         }
 
     });
