@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.8 (last revision: December 21, 2013)
+ *  @version    1.8.8 (last revision: December 25, 2013)
  *  @copyright  (c) 2011 - 2013 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -283,18 +283,24 @@
             //  view (can be "days", "months" or "years"), the second argument represents an array containing the "active"
             //  elements (not disabled) from the view, as jQuery elements, allowing for easy customization and interaction
             //  with particular cells in the date picker's view, while the third argument is a reference to the element
-            //  the date picker is attached to, as a jQuery object
+            //  the date picker is attached to, as a jQuery object (deprecated - use the "this" keyword inside the callback
+            //  function to refer to the element the date picker is attached to)
             //
             //  for simplifying searching for particular dates, each element in the second argument will also have a
             //  "date" data attribute whose format depends on the value of the "view" argument:
             //  - YYYY-MM-DD for elements in the "days" view
             //  - YYYY-MM for elements in the "months" view
             //  - YYYY for elements in the "years" view
+            //
+            //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
             onChange: null,
 
             //  callback function to be executed when the user clicks the "Clear" button
             //  the callback function takes a single argument:
-            //  -   a reference to the element the date picker is attached to, as a jQuery object
+            //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
+            //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
+            //
+            //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
             onClear: null,
 
             //  callback function to be executed when a date is selected
@@ -302,7 +308,10 @@
             //  -   the date in the format specified by the "format" attribute;
             //  -   the date in YYYY-MM-DD format
             //  -   the date as a JavaScript Date object
-            //  -   a reference to the element the date picker is attached to, as a jQuery object
+            //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
+            //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
+            //
+            //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
             onSelect: null
 
         };
@@ -1262,7 +1271,7 @@
                 if (plugin.settings.onClear && typeof plugin.settings.onClear == 'function')
 
                     // execute the callback function and pass as argument the element the plugin is attached to
-                    plugin.settings.onClear($element);
+                    plugin.settings.onClear.call($element, $element);
 
             });
 
@@ -2614,7 +2623,7 @@
 
                 // execute the callback function and send as arguments the current view, the elements in the view, and
                 // the element the plugin is attached to
-                plugin.settings.onChange(view, elements, $element);
+                plugin.settings.onChange.call($element, view, elements, $element);
 
             }
 
@@ -2736,8 +2745,9 @@
             if (plugin.settings.onSelect && typeof plugin.settings.onSelect == 'function')
 
                 // execute the callback function
-                plugin.settings.onSelect(selected_value, year + '-' + str_pad(month + 1, 2) + '-' + str_pad(day, 2), default_date, $element);
-
+                // make "this" inside the callback function refer to the element the date picker is attached to
+                plugin.settings.onSelect.call($element, selected_value, year + '-' + str_pad(month + 1, 2) + '-' + str_pad(day, 2), default_date, $element);
+                
             // move focus to the element the plugin is attached to
             $element.focus();
 
