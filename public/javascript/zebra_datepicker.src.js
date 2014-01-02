@@ -8,8 +8,8 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.8 (last revision: December 25, 2013)
- *  @copyright  (c) 2011 - 2013 Stefan Gabos
+ *  @version    1.8.8 (last revision: January 02, 2014)
+ *  @copyright  (c) 2011 - 2014 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
  */
@@ -2126,7 +2126,6 @@
                         'src':                  'javascript:document.write("")',
                         'scrolling':            'no',
                         'frameborder':          0,
-                        'allowtransparency':    'true',
                         css: {
                             'zIndex':       zIndex,
                             'position':     'absolute',
