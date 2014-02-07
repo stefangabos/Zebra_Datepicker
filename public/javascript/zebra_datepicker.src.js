@@ -304,12 +304,13 @@
             onClear: null,
 
             //  callback function to be executed when a date is selected
-            //  the callback function takes 4 arguments:
+            //  the callback function takes 5 arguments:
             //  -   the date in the format specified by the "format" attribute;
             //  -   the date in YYYY-MM-DD format
             //  -   the date as a JavaScript Date object
             //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
             //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
+            //  -   the ISO 8601 week number of the selected date
             //
             //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
             onSelect: null
@@ -2746,7 +2747,7 @@
 
                 // execute the callback function
                 // make "this" inside the callback function refer to the element the date picker is attached to
-                plugin.settings.onSelect.call($element, selected_value, year + '-' + str_pad(month + 1, 2) + '-' + str_pad(day, 2), default_date, $element);
+                plugin.settings.onSelect.call($element, selected_value, year + '-' + str_pad(month + 1, 2) + '-' + str_pad(day, 2), default_date, $element, getWeekNumber(default_date));
                 
             // move focus to the element the plugin is attached to
             $element.focus();
