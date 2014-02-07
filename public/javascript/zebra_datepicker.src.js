@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.8 (last revision: January 02, 2014)
+ *  @version    1.8.8 (last revision: February 07, 2014)
  *  @copyright  (c) 2011 - 2014 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -357,7 +357,8 @@
                         if (undefined !== defaults[data])
 
                             // update the property's value
-                            plugin.settings[data] = $element.data('zdp_' + data);
+                            // (note that for the "pair" property we need to convert the property to an element)
+                            plugin.settings[data] = (data == 'pair' ? $($element.data('zdp_' + data)) : $element.data('zdp_' + data));
 
                     }
 
