@@ -96,6 +96,18 @@
             //  default is 1, Monday
             first_day_of_week: 1,
 
+            //  if set to TRUE, full day names will be displayed in the header of the date picker
+            //  instead of the abbreviated ones
+            //
+            //  default is FALSE
+            full_day_names_in_header: false,
+
+            //  if set to TRUE, full month names will be displayed in the cells of the month picker
+            //  instead of the abbreviated ones
+            //
+            //  default is FALSE
+            full_month_names_in_month_picker: false,
+
             //  format of the returned date
             //
             //  accepts the following characters for date formatting: d, D, j, l, N, w, S, F, m, M, n, Y, y borrowing
@@ -1885,11 +1897,16 @@
                 html += '<th>' + plugin.settings.show_week_number + '</th>';
 
             // name of week days
+            // if full_day_names_in_header is set to TRUE, then show the full day names, else
             // show the abbreviated day names (or only the first two letters of the full name if no abbreviations are specified)
             // and also, take in account the value of the "first_day_of_week" property
             for (var i = 0; i < 7; i++)
 
-                html += '<th>' + ($.isArray(plugin.settings.days_abbr) && undefined !== plugin.settings.days_abbr[(plugin.settings.first_day_of_week + i) % 7] ? plugin.settings.days_abbr[(plugin.settings.first_day_of_week + i) % 7] : plugin.settings.days[(plugin.settings.first_day_of_week + i) % 7].substr(0, 2)) + '</th>';
+                html += '<th>' +
+                    (plugin.settings.full_day_names_in_header === true
+                        ? plugin.settings.days[(plugin.settings.first_day_of_week + i) % 7]
+                        : ($.isArray(plugin.settings.days_abbr) && undefined !== plugin.settings.days_abbr[(plugin.settings.first_day_of_week + i) % 7] ? plugin.settings.days_abbr[(plugin.settings.first_day_of_week + i) % 7] : plugin.settings.days[(plugin.settings.first_day_of_week + i) % 7].substr(0, 2))
+                    ) + '</th>';
 
             html += '</tr><tr>';
 
@@ -2026,8 +2043,14 @@
                 // else, if this the current system month, highlight it
                 else if (current_system_month == i && current_system_year == selected_year) class_name += ' dp_current';
 
-                // first three letters of the month's name
-                html += '<td class="' + $.trim(class_name) + '">' + ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[i] ? plugin.settings.months_abbr[i] : plugin.settings.months[i].substr(0, 3)) + '</td>';
+                // full month name if full_month_names_in_month_picker is set to TRUE
+                // short name of the month from the months_abbr array if it is set
+                // else first three letters of the month's name
+                html += '<td class="' + $.trim(class_name) + '">' +
+                    (plugin.full_month_names_in_month_picker === true
+                        ? plugin.settings.months[i]
+                        : ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[i] ? plugin.settings.months_abbr[i] : plugin.settings.months[i].substr(0, 3))
+                    ) + '</td>';
 
             }
 
