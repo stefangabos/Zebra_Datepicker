@@ -25,6 +25,11 @@
             //  element being the date picker's container;
             always_visible: false,
 
+            // the base css class of the date picker container div. you have to replace all occurrences (or add duplicates
+            // with the new name) of the default Zebra_DatePicker class name in your CSS stylesheet if you change this.
+            // enables the use of different styled date pickers on a single page
+            base_css_class: 'Zebra_DatePicker',
+
             //  days of the week; Sunday to Saturday
             days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 
@@ -870,7 +875,7 @@
 
                         // we create a wrapper for the parent element so that we can later position the icon
                         // also, make sure the wrapper inherits some important css properties of the parent element
-                        var icon_wrapper = jQuery('<span class="Zebra_DatePicker_Icon_Wrapper"></span>').css({
+                        var icon_wrapper = jQuery('<span class="' + plugin.settings.base_css_class + '_Icon_Wrapper"></span>').css({
                             'display':  $element.css('display'),
                             'position': $element.css('position') == 'static' ? 'relative' : $element.css('position'),
                             'float':    $element.css('float'),
@@ -891,7 +896,7 @@
                         });
 
                         // create the actual calendar icon (show a disabled icon if the element is disabled)
-                        icon = jQuery('<button type="button" class="Zebra_DatePicker_Icon' + ($element.attr('disabled') == 'disabled' ? ' Zebra_DatePicker_Icon_Disabled' : '') + '">Pick a date</button>');
+                        icon = jQuery('<button type="button" class="' + plugin.settings.base_css_class + '_Icon' + ($element.attr('disabled') == 'disabled' ? ' ' + plugin.settings.base_css_class + '_Icon_Disabled' : '') + '">Pick a date</button>');
 
                         // a reference to the icon, as a global property
                         plugin.icon = icon;
@@ -932,7 +937,7 @@
 
                     // if calendar icon is to be placed *inside* the element
                     // add an extra class to the icon
-                    if (plugin.settings.inside) icon.addClass('Zebra_DatePicker_Icon_Inside');
+                    if (plugin.settings.inside) icon.addClass(plugin.settings.base_css_class + '_Icon_Inside');
 
                     var
 
@@ -1005,7 +1010,7 @@
 
             // generate the container that will hold everything
             var html = '' +
-                '<div class="Zebra_DatePicker">' +
+                '<div class="' + plugin.settings.base_css_class + '">' +
                     '<table class="dp_header">' +
                         '<tr>' +
                             '<td class="dp_previous">' + plugin.settings.header_navigation[0] + '</td>' +
@@ -1295,7 +1300,7 @@
 
                             // if what's clicked is not inside the date picker
                             // hide the date picker
-                            if ($(e.target).parents().filter('.Zebra_DatePicker').length === 0) plugin.hide();
+                            if ($(e.target).parents().filter('.' + plugin.settings.base_css_class).length === 0) plugin.hide();
 
                         }
 
