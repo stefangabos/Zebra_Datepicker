@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.8 (last revision: February 07, 2014)
+ *  @version    1.8.8 (last revision: March 04, 2014)
  *  @copyright  (c) 2011 - 2014 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -2386,22 +2386,33 @@
             // if "selected_month" has a value
             if ($.isNumeric(selected_month))
 
-                // replace month-related patterns
-                caption =
+                caption = caption.replace(/\bm\b|\bn\b|\bF\b|\bM\b/, function (match) {
 
-                    caption.
+                    switch (match) {
 
-                    // month number, prefixed with 0
-                    replace(/\bm\b/, str_pad(selected_month + 1, 2)).
+                        // month number, prefixed with 0
+                        case 'm':
+                            return str_pad(selected_month + 1, 2);
 
-                    // month number, not prefixed with 0
-                    replace(/\bn\b/, selected_month + 1).
+                        // month number, not prefixed with 0
+                        case 'n':
+                            return selected_month + 1;
 
-                    // full month name
-                    replace(/\bF\b/, plugin.settings.months[selected_month]).
+                        // full month name
+                        case 'F':
+                            return plugin.settings.months[selected_month];
 
-                    // month name, three letters
-                    replace(/\bM\b/, ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[selected_month] ? plugin.settings.months_abbr[selected_month] : plugin.settings.months[selected_month].substr(0, 3)));
+                        // month name, three letters
+                        case 'M':
+                            return ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[selected_month] ? plugin.settings.months_abbr[selected_month] : plugin.settings.months[selected_month].substr(0, 3))
+
+                        // unknown replace
+                        default:
+                            return match;
+
+                    }
+
+                });
 
             // if "selected_year" has a value
             if ($.isNumeric(selected_year))
