@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.8 (last revision: March 04, 2014)
+ *  @version    1.8.8 (last revision: May 19, 2014)
  *  @copyright  (c) 2011 - 2014 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -408,6 +408,9 @@
 
             // if user can cycle only through year and months, set the flag accordingly
             else if (!has_days && has_months && has_years) views = ['years', 'months'];
+
+            // if user can cycle only through months and days, set the flag accordingly
+            else if (has_days && has_months && !has_years) views = ['months', 'days'];
 
             // if user can only see the year picker, set the flag accordingly
             else if (!has_days && !has_months && has_years) views = ['years'];
@@ -2404,7 +2407,7 @@
 
                         // month name, three letters
                         case 'M':
-                            return ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[selected_month] ? plugin.settings.months_abbr[selected_month] : plugin.settings.months[selected_month].substr(0, 3))
+                            return ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[selected_month] ? plugin.settings.months_abbr[selected_month] : plugin.settings.months[selected_month].substr(0, 3));
 
                         // unknown replace
                         default:
