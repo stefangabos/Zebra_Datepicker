@@ -873,7 +873,7 @@
 
                         // we create a wrapper for the parent element so that we can later position the icon
                         // also, make sure the wrapper inherits some important css properties of the parent element
-                        var icon_wrapper = jQuery('<span class="Zebra_DatePicker_Icon_Wrapper"></span>').css({
+                        var icon_wrapper = $('<span class="Zebra_DatePicker_Icon_Wrapper"></span>').css({
                             'display':  $element.css('display'),
                             'position': $element.css('position') == 'static' ? 'relative' : $element.css('position'),
                             'float':    $element.css('float'),
@@ -894,7 +894,7 @@
                         });
 
                         // create the actual calendar icon (show a disabled icon if the element is disabled)
-                        icon = jQuery('<button type="button" class="Zebra_DatePicker_Icon' + ($element.attr('disabled') == 'disabled' ? ' Zebra_DatePicker_Icon_Disabled' : '') + '">Pick a date</button>');
+                        icon = $('<button type="button" class="Zebra_DatePicker_Icon' + ($element.attr('disabled') == 'disabled' ? ' Zebra_DatePicker_Icon_Disabled' : '') + '">Pick a date</button>');
 
                         // a reference to the icon, as a global property
                         plugin.icon = icon;
@@ -2117,7 +2117,7 @@
                     var zIndex = to_int(datepicker.css('zIndex')) - 1;
 
                     // create the iFrame
-                    shim = jQuery('<iframe>', {
+                    shim = $('<iframe>', {
                         'src':                  'javascript:document.write("")',
                         'scrolling':            'no',
                         'frameborder':          0,
