@@ -303,6 +303,14 @@
             //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
             onClear: null,
 
+            //  callback function to be executed when the date picker is shown
+            //  the callback function takes a single argument:
+            //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
+            //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
+            //
+            //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
+            onOpen: null,
+
             //  callback function to be executed when a date is selected
             //  the callback function takes 5 arguments:
             //  -   the date in the format specified by the "format" attribute;
@@ -1449,6 +1457,12 @@
 
             // if date picker is always visible, show it
             } else datepicker.show();
+
+            // if a callback function exists for when showing the date picker
+            if (plugin.settings.onOpen && typeof plugin.settings.onOpen == 'function')
+
+                // execute the callback function and pass as argument the element the plugin is attached to
+                plugin.settings.onOpen.call($element, $element);
 
         };
 
