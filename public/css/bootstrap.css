@@ -50,7 +50,6 @@
 
 .Zebra_DatePicker .dp_header .dp_caption    { font-weight: bold }
 .Zebra_DatePicker .dp_header .dp_hover      { background: #DEDEDE; color: #373737 }
-.Zebra_DatePicker .dp_header .dp_blocked    { color: #DEDEDE; cursor: default }
 
 /* = DATEPICKER
 ----------------------------------------------------------------------------------------------------------------------*/
