@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.9 (last revision: May 20, 2014)
+ *  @version    1.8.9 (last revision: May 21, 2014)
  *  @copyright  (c) 2011 - 2014 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -2391,7 +2391,8 @@
         var manage_header = function(caption) {
 
             // if "selected_month" has a value
-            if ($.isNumeric(selected_month))
+            // $.isNumeric is available only from jQuery 1.7 - thanks to birla for the fix!
+            if (!isNaN(parseFloat(selected_month)) && isFinite(selected_month))
 
                 caption = caption.replace(/\bm\b|\bn\b|\bF\b|\bM\b/, function (match) {
 
@@ -2422,7 +2423,8 @@
                 });
 
             // if "selected_year" has a value
-            if ($.isNumeric(selected_year))
+            // $.isNumeric is available only from jQuery 1.7 - thanks to birla for the fix!
+            if (!isNaN(parseFloat(selected_year)) && isFinite(selected_year))
 
                 // replace year-related patterns
                 caption =
