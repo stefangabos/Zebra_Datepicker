@@ -55,11 +55,13 @@
 .Zebra_DatePicker .dp_daypicker th              { background: #F1F1F1; font-size: 9px; padding-top: 7px }
 
 .Zebra_DatePicker td.dp_weekend_disabled,
+.Zebra_DatePicker td.dp_holiday_disabled,
 .Zebra_DatePicker td.dp_not_in_month,
 .Zebra_DatePicker td.dp_not_in_month_selectable { background: #ECECEC url('metallic/disabled-date.png'); color: #CCC; cursor: default }
 .Zebra_DatePicker td.dp_not_in_month_selectable { cursor: pointer }
 
 .Zebra_DatePicker td.dp_weekend                 { background: #DEDEDE url('metallic/default-date.png') repeat-x top; color: #666 }
+.Zebra_DatePicker td.dp_holiday                 { background: #F292A2; color: #F9F9F9; }
 
 .Zebra_DatePicker td.dp_selected                { background: #E26262; color: #E0E0E0 !important }
 
