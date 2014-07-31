@@ -922,7 +922,7 @@
                         if (!$element.attr('disabled'))
 
                             // if the date picker is visible, hide it
-                            if (datepicker.css('display') != 'none') plugin.hide();
+                            if (datepicker.hasClass('dp_visible')) plugin.hide();
 
                             // if the date picker is not visible, show it
                             else plugin.show();
@@ -1288,7 +1288,7 @@
                     'mousedown.Zebra_DatePicker': function(e) {
 
                         // if the date picker is visible
-                        if (datepicker.css('display') == 'block') {
+                        if (datepicker.hasClass('dp_visible')) {
 
                             // if the calendar icon is visible and we clicked it, let the onClick event of the icon to handle the event
                             // (we want it to toggle the date picker)
@@ -1308,7 +1308,7 @@
                         // if the date picker is visible
                         // and the pressed key is ESC
                         // hide the date picker
-                        if (datepicker.css('display') == 'block' && e.which == 27) plugin.hide();
+                        if (datepicker.hasClass('dp_visible') && e.which == 27) plugin.hide();
 
                     }
 
@@ -1356,7 +1356,7 @@
                 iframeShim('hide');
 
                 // hide the date picker
-                datepicker.hide();
+                datepicker.removeClass('dp_visible').addClass('dp_hidden');
 
             }
 
@@ -1450,13 +1450,13 @@
 
                 // fade-in the date picker
                 // for Internet Explorer < 9 show the date picker instantly or fading alters the font's weight
-                datepicker.fadeIn(browser.name == 'explorer' && browser.version < 9 ? 0 : 150, 'linear');
+                datepicker.removeClass('dp_hidden').addClass('dp_visible');
 
                 // show the iFrameShim in Internet Explorer 6
                 iframeShim();
 
             // if date picker is always visible, show it
-            } else datepicker.show();
+            } else datepicker.removeClass('dp_hidden').addClass('dp_visible');
 
             // if a callback function exists for when showing the date picker
             if (plugin.settings.onOpen && typeof plugin.settings.onOpen == 'function')
@@ -2472,7 +2472,7 @@
 
                     // temporarily make the date picker visible
                     // so that we can later grab its width and height
-                    datepicker.show();
+                    datepicker.css('visibility', 'visible');
 
                     // generate the day picker
                     generate_daypicker();
@@ -2498,7 +2498,7 @@
                     footer.css('width', width);
 
                     // hide the date picker again
-                    datepicker.hide();
+                    datepicker.css('visibility', '').addClass('dp_hidden');
 
                 // if the day picker was previously generated at least once
                 // generate the day picker
