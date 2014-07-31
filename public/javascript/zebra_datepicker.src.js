@@ -1585,7 +1585,7 @@
                         // check if date is a valid date (i.e. there's no February 31)
 
                         var tmpdate = new Date(),
-                            original_day = tmpdate.getDate(),
+                            original_day = 1,
                             original_month = tmpdate.getMonth() + 1,
                             original_year = tmpdate.getFullYear(),
                             english_days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
