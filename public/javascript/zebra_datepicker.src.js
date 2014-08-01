@@ -36,6 +36,14 @@
             //  default is FALSE
             days_abbr: false,
 
+            //  the position of the date picker relative to the element it is attached to. note that, regardless of this
+            //  setting, the date picker's position will be automatically adjusted to fit in the viewport, if needed.
+            //
+            //  possible values are "above" and "below"
+            //
+            //  default is "above"
+            default_position: 'above',
+
             //  direction of the calendar
             //
             //  a positive or negative integer: n (a positive integer) creates a future-only calendar beginning at n days
@@ -1437,9 +1445,13 @@
                     window_scroll_top = $(window).scrollTop(),
                     window_scroll_left = $(window).scrollLeft();
 
+                if (plugin.settings.default_position == 'below')
+                    top = (undefined !== icon ? icon.offset().top : $element.offset().top) + plugin.settings.offset[1];
+
                 // if date picker is outside the viewport, adjust its position so that it is visible
                 if (left + datepicker_width > window_scroll_left + window_width) left = window_scroll_left + window_width - datepicker_width;
                 if (left < window_scroll_left) left = window_scroll_left;
+
                 if (top + datepicker_height > window_scroll_top + window_height) top = window_scroll_top + window_height - datepicker_height;
                 if (top < window_scroll_top) top = window_scroll_top;
 
