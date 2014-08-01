@@ -862,7 +862,8 @@
                 $element.val('');
 
             // updates value for the date picker whose starting date depends on the selected date (if any)
-            if (!update) update_dependent(start_date);
+            if (!update && (undefined !== start_date || undefined !== default_date))
+                update_dependent(undefined !== start_date ? start_date : default_date);
 
             // if date picker is not always visible
             if (!plugin.settings.always_visible) {
