@@ -4,7 +4,7 @@
 
     Twitter Bootstrap theme
 
-    copyright (c) 2011 - 2013 Stefan Gabos
+    copyright (c) 2011 - 2014 Stefan Gabos
     http://stefangabos.ro/jquery/zebra-datepicker/
 
 */
@@ -19,7 +19,7 @@
 
 /* = GLOBALS
 ----------------------------------------------------------------------------------------------------------------------*/
-.Zebra_DatePicker table                      { border-collapse: collapse; border-spacing: 0 }
+.Zebra_DatePicker table                      { border-collapse: collapse; border-spacing: 0; width: auto; table-layout: auto; }
 
 .Zebra_DatePicker td,
 .Zebra_DatePicker th                         { text-align: center; padding: 5px 0 }
