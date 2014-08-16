@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.8.9 (last revision: August 01, 2014)
+ *  @version    1.8.9 (last revision: August 16, 2014)
  *  @copyright  (c) 2011 - 2014 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -985,6 +985,12 @@
                             'top':  element_margin_top + ((element_height - icon_height) / 2),
                             'left': element_margin_left + element_width + icon_margin_left
                         });
+
+                    // assume the datepicker is not disabled
+                    icon.removeClass(' Zebra_DatePicker_Icon_Disabled');
+
+                    // if element the datepicker is attached to became disabled, disable the calendar icon, too
+                    if ($element.attr('disabled') == 'disabled') icon.addClass('Zebra_DatePicker_Icon_Disabled');
 
                 }
 
