@@ -41,8 +41,8 @@
 
 /* = VISIBLE/HIDDEN STATES (USE TRANSITIONS FOR EFFECTS)
 ----------------------------------------------------------------------------------------------------------------------*/
-.Zebra_DatePicker.dp_visible               { visibility: visible; filter: alpha(opacity=100); -khtml-opacity: 1; -moz-opacity: 1; opacity: 1; transition: opacity 0.2s ease-in-out }
-.Zebra_DatePicker.dp_hidden                { visibility: hidden; filter: alpha(opacity=0); -khtml-opacity: 0; -moz-opacity: 0; opacity: 0 }
+.Zebra_DatePicker.dp_visible               { display: block; visibility: visible; filter: alpha(opacity=100); -khtml-opacity: 1; -moz-opacity: 1; opacity: 1; transition: opacity 0.2s ease-in-out }
+.Zebra_DatePicker.dp_hidden                { display: none; visibility: hidden; filter: alpha(opacity=0); -khtml-opacity: 0; -moz-opacity: 0; opacity: 0 }
 
 /* = HEADER
 ----------------------------------------------------------------------------------------------------------------------*/
