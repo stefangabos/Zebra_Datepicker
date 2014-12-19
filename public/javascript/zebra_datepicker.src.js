@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.0 (last revision: November 14, 2014)
+ *  @version    1.9.0 (last revision: December 19, 2014)
  *  @copyright  (c) 2011 - 2014 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -24,6 +24,14 @@
             //  setting this property to a jQuery element, will result in the date picker being always visible, the indicated
             //  element being the date picker's container;
             always_visible: false,
+
+            //  by default, the date picker is injected into the <body>; use this property to tell the library to inject
+            //  the date picker into a custom element - useful when you want the date picker to open at a specific position
+            //
+            //  must be a jQuery element
+            //
+            //  default is $('body')
+            container: $('body'),
 
             //  days of the week; Sunday to Saturday
             days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -1067,7 +1075,7 @@
             if (!plugin.settings.always_visible)
 
                 // inject the container into the DOM
-                $('body').append(datepicker);
+                plugin.settings.container.append(datepicker);
 
             // otherwise, if element is not disabled
             else if (!$element.attr('disabled')) {
@@ -1430,42 +1438,53 @@
             // if date picker is not always visible and the calendar icon is visible
             if (!plugin.settings.always_visible) {
 
-                var
+                // if date picker is to be injected into the <body>
+                if (plugin.settings.container.is('body')) {
 
-                    // get the date picker width and height
-                    datepicker_width = datepicker.outerWidth(),
-                    datepicker_height = datepicker.outerHeight(),
+                    var
 
-                    // compute the date picker's default left and top
-                    // this will be computed relative to the icon's top-right corner (if the calendar icon exists), or
-                    // relative to the element's top-right corner otherwise, to which the offsets given at initialization
-                    // are added/subtracted
-                    left = (undefined !== icon ? icon.offset().left + icon.outerWidth(true) : $element.offset().left + $element.outerWidth(true)) + plugin.settings.offset[0],
-                    top = (undefined !== icon ? icon.offset().top : $element.offset().top) - datepicker_height + plugin.settings.offset[1],
+                        // get the date picker width and height
+                        datepicker_width = datepicker.outerWidth(),
+                        datepicker_height = datepicker.outerHeight(),
 
-                    // get browser window's width and height
-                    window_width = $(window).width(),
-                    window_height = $(window).height(),
+                        // compute the date picker's default left and top
+                        // this will be computed relative to the icon's top-right corner (if the calendar icon exists), or
+                        // relative to the element's top-right corner otherwise, to which the offsets given at initialization
+                        // are added/subtracted
+                        left = (undefined !== icon ? icon.offset().left + icon.outerWidth(true) : $element.offset().left + $element.outerWidth(true)) + plugin.settings.offset[0],
+                        top = (undefined !== icon ? icon.offset().top : $element.offset().top) - datepicker_height + plugin.settings.offset[1],
 
-                    // get browser window's horizontal and vertical scroll offsets
-                    window_scroll_top = $(window).scrollTop(),
-                    window_scroll_left = $(window).scrollLeft();
+                        // get browser window's width and height
+                        window_width = $(window).width(),
+                        window_height = $(window).height(),
 
-                if (plugin.settings.default_position == 'below')
-                    top = (undefined !== icon ? icon.offset().top : $element.offset().top) + plugin.settings.offset[1];
+                        // get browser window's horizontal and vertical scroll offsets
+                        window_scroll_top = $(window).scrollTop(),
+                        window_scroll_left = $(window).scrollLeft();
 
-                // if date picker is outside the viewport, adjust its position so that it is visible
-                if (left + datepicker_width > window_scroll_left + window_width) left = window_scroll_left + window_width - datepicker_width;
-                if (left < window_scroll_left) left = window_scroll_left;
+                    if (plugin.settings.default_position == 'below')
+                        top = (undefined !== icon ? icon.offset().top : $element.offset().top) + plugin.settings.offset[1];
 
-                if (top + datepicker_height > window_scroll_top + window_height) top = window_scroll_top + window_height - datepicker_height;
-                if (top < window_scroll_top) top = window_scroll_top;
+                    // if date picker is outside the viewport, adjust its position so that it is visible
+                    if (left + datepicker_width > window_scroll_left + window_width) left = window_scroll_left + window_width - datepicker_width;
+                    if (left < window_scroll_left) left = window_scroll_left;
 
-                // make the date picker visible
-                datepicker.css({
-                    'left':     left,
-                    'top':      top
-                });
+                    if (top + datepicker_height > window_scroll_top + window_height) top = window_scroll_top + window_height - datepicker_height;
+                    if (top < window_scroll_top) top = window_scroll_top;
+
+                    // make the date picker visible
+                    datepicker.css({
+                        'left': left,
+                        'top':  top
+                    });
+
+                // if date picker is to be injected into a custom container element
+                } else
+
+                    datepicker.css({
+                        'left': 0,
+                        'top':  0
+                    });
 
                 // fade-in the date picker
                 // for Internet Explorer < 9 show the date picker instantly or fading alters the font's weight
