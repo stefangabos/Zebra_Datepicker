@@ -105,6 +105,37 @@
             //  say, "[* * * 0,6]" to enable just weekends.
             enabled_dates: false,
 
+            //  an array of holiday dates in the following format: 'day month year weekday' where "weekday" is optional
+            //  and can be 0-6 (Saturday to Sunday); the syntax is similar to cron's syntax: the values are separated by
+            //  spaces and may contain * (asterisk) - (dash) and , (comma) delimiters:
+            //
+            //  ['1 1 2012'] would make January 1, 2012 a holiday;
+            //  ['* 1 2012'] would make all days in January 2012 holidays;
+            //  ['1-10 1 2012'] would make January 1 through 10 in 2012 holidays;
+            //  ['1,10 1 2012'] would make January 1 and 10 in 2012 holidays;
+            //  ['1-10,20,22,24 1-3 *'] would make 1 through 10, plus the 22nd and 24th of January through March holidays for every year;
+            //  ['* * * 0,6'] would make all Saturdays (6) and Sundays (0) holidays;
+            //  ['01 07 2012', '02 07 2012', '* 08 2012'] would make 1st and 2nd of July 2012, and all of August of 2012 holidays
+            //
+            //  default is FALSE, no holiday dates
+            holiday_dates: false,
+
+            //  a dictionary of arrays in the following format: 'day month year weekday' where "weekday" is optional
+            //  and can be 0-6 (Saturday to Sunday); the syntax is similar to cron's syntax: the values are separated by
+            //  spaces and may contain * (asterisk) - (dash) and , (comma) delimiters:
+            //
+            //  'offline':['1 1 2012'] would add January 1, 2012 class "offline";
+            //  'offline':['* 1 2012'] would make all days in January 2012 "offline";
+            //  'offline':['1-10 1 2012'] would make January 1 through 10 in 2012 "offline";
+            //  'offline':['1,10 1 2012'] would make January 1 and 10 in 2012 "offline";
+            //  'offline':['1-10,20,22,24 1-3 *'] would make 1 through 10, plus the 22nd and 24th of January through March "offline" for every year;
+            //  'offline':['* * * 0,6'] would make all Saturdays and Sundays "offline";
+            //  'offline':['01 07 2012', '02 07 2012', '* 08 2012'] would make 1st and 2nd of July 2012, and all of August of 2012 "offline"
+			//  'offline':['1 1 2012'],'online':['2 1 2012','3 1 2012'] would make 1st of January 2012 "offline", and 2nd to 3rd of January 2012 "online"
+            //
+            //  default is FALSE, no custom classes
+            class_by_dates: false,
+
             //  week's starting day
             //
             //  valid values are 0 to 6, Sunday to Saturday
@@ -344,8 +375,9 @@
         // private properties
         var view, datepicker, icon, header, daypicker, monthpicker, yearpicker, cleardate, current_system_month, current_system_year,
             current_system_day, first_selectable_month, first_selectable_year, first_selectable_day, selected_month, selected_year,
-            default_day, default_month, default_year, enabled_dates, disabled_dates, shim, start_date, end_date, last_selectable_day,
+            default_day, default_month, default_year, enabled_dates, disabled_dates, holiday_dates, shim, start_date, end_date, last_selectable_day,
             last_selectable_year, last_selectable_month, daypicker_cells, monthpicker_cells, yearpicker_cells, views, clickables,
+			class_by_dates,
             selecttoday, footer, show_select_today, timeout;
 
         var plugin = this;
@@ -453,17 +485,26 @@
 
             // array that will hold the rules for enabling/disabling dates
             disabled_dates = []; enabled_dates = [];
+			
+			// array that will hold the rules for holiday dates
+			holiday_dates = [];
+			
+			// dictionary that will hold the rules for custom classes
+			class_by_dates = {};
 
             var dates;
 
-            // it's the same logic for preparing the enabled/disable dates...
-            for (var l = 0; l < 2; l++) {
+            // it's the same logic for preparing the enabled/disabled, and holiday dates...
+            for (var l = 0; l < 3; l++) {
 
                 // first time we're doing disabled dates,
                 if (l === 0) dates = plugin.settings.disabled_dates;
 
                 // second time we're doing enabled_dates
-                else dates = plugin.settings.enabled_dates;
+                else if (l === 1) dates = plugin.settings.enabled_dates;
+				
+				// third time - holiday dates
+				else dates = plugin.settings.holiday_dates;
 
                 // if we have a non-empty array
                 if ($.isArray(dates) && dates.length > 0)
@@ -522,12 +563,82 @@
                         if (l === 0) disabled_dates.push(rules);
 
                         // second time we're doing enabled_dates
-                        else enabled_dates.push(rules);
+                        else if (l === 1) enabled_dates.push(rules);
+						
+						// third time - holiday dates
+						else holiday_dates.push(rules);
 
                     });
 
             }
 
+			// custom classes for dates
+            var dates;
+			
+				$.each(plugin.settings.class_by_dates, function(key, vals) {
+
+					// first time we're doing disabled dates,
+					dates = plugin.settings.class_by_dates[key];
+					class_by_dates[key] = [];
+					// if we have a non-empty array
+					if ($.isArray(dates) && dates.length > 0)
+
+						// iterate through the rules
+						$.each(dates, function() {
+
+							// split the values in rule by white space
+							var rules = this.split(' ');
+
+							// there can be a maximum of 4 rules (days, months, years and, optionally, day of the week)
+							for (var i = 0; i < 4; i++) {
+
+								// if one of the values is not available
+								// replace it with a * (wildcard)
+								if (!rules[i]) rules[i] = '*';
+
+								// if rule contains a comma, create a new array by splitting the rule by commas
+								// if there are no commas create an array containing the rule's string
+								rules[i] = (rules[i].indexOf(',') > -1 ? rules[i].split(',') : new Array(rules[i]));
+
+								// iterate through the items in the rule
+								for (var j = 0; j < rules[i].length; j++)
+
+									// if item contains a dash (defining a range)
+									if (rules[i][j].indexOf('-') > -1) {
+
+										// get the lower and upper limits of the range
+										var limits = rules[i][j].match(/^([0-9]+)\-([0-9]+)/);
+
+										// if range is valid
+										if (null !== limits) {
+
+											// iterate through the range
+											for (var k = to_int(limits[1]); k <= to_int(limits[2]); k++)
+
+												// if value is not already among the values of the rule
+												// add it to the rule
+												if ($.inArray(k, rules[i]) == -1) rules[i].push(k + '');
+
+											// remove the range indicator
+											rules[i].splice(j, 1);
+
+										}
+
+									}
+
+								// iterate through the items in the rule
+								// and make sure that numbers are numbers
+								for (j = 0; j < rules[i].length; j++) rules[i][j] = (isNaN(to_int(rules[i][j])) ? rules[i][j] : to_int(rules[i][j]));
+
+							}
+
+							// add to the correct list of processed rules
+							class_by_dates[key].push(rules);
+
+						});
+			});
+			
+			
             var
 
                 // cache the current system date
@@ -1091,10 +1202,10 @@
             // add the mouseover/mousevents to all to the date picker's cells
             // except those that are not selectable
             datepicker.
-                delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', 'mouseover', function() {
+                delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_holiday_disabled, .dp_not_in_month, .dp_week_number)', 'mouseover', function() {
                     $(this).addClass('dp_hover');
                 }).
-                delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', 'mouseout', function() {
+                delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_holiday_disabled, .dp_not_in_month, .dp_week_number)', 'mouseout', function() {
                     $(this).removeClass('dp_hover');
                 });
 
@@ -1174,7 +1285,7 @@
             });
 
             // attach a click event for the cells in the day picker
-            daypicker.delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', 'click', function() {
+            daypicker.delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_holiday_disabled, .dp_not_in_month, .dp_week_number)', 'click', function() {
 
                 // if other months are selectable and currently clicked cell contains a class with the cell's date
                 if (plugin.settings.select_other_months && null !== (matches = $(this).attr('class').match(/date\_([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])/)))
@@ -1991,11 +2102,17 @@
                     // if date needs to be disabled
                     if (is_disabled(selected_year, selected_month, day)) {
 
-                        // if day is in weekend
-                        if ($.inArray(weekday, plugin.settings.weekend_days) > -1) class_name = 'dp_weekend_disabled';
+						// if day is a holiday
+						if (is_holiday(selected_year, selected_month, day)) class_name = 'dp_holiday_disabled';
 
+                        // if day is in weekend
+                        else if ($.inArray(weekday, plugin.settings.weekend_days) > -1) class_name = 'dp_weekend_disabled';
+						
                         // if work day
                         else class_name += ' dp_disabled';
+
+						// try to add custom class(es)
+						class_name += set_class_by_date(selected_year, selected_month, day, '_disabled');
 
                         // highlight the current system date
                         if (selected_month == current_system_month && selected_year == current_system_year && current_system_day == day) class_name += ' dp_disabled_current';
@@ -2003,8 +2120,14 @@
                     // if there are no restrictions
                     } else {
 
+						// if day is a holiday
+						if (is_holiday(selected_year, selected_month, day)) class_name = 'dp_holiday';
+						
                         // if day is in weekend
-                        if ($.inArray(weekday, plugin.settings.weekend_days) > -1) class_name = 'dp_weekend';
+                        else if ($.inArray(weekday, plugin.settings.weekend_days) > -1) class_name = 'dp_weekend';
+						
+						// try to add custom class(es)
+						class_name += set_class_by_date(selected_year, selected_month, day, '');
 
                         // highlight the currently selected date
                         if (selected_month == default_month && selected_year == default_year && default_day == day) class_name += ' dp_selected';
@@ -2032,7 +2155,7 @@
 
                 // cache all the cells
                 // (we need them so that we can easily remove the "dp_selected" class from all of them when user selects a date)
-                daypicker_cells = $('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', daypicker);
+                daypicker_cells = $('td:not(.dp_disabled, .dp_weekend_disabled, .dp_holiday_disabled, .dp_not_in_month, .dp_week_number)', daypicker);
 
             // make the day picker visible
             daypicker.show();
@@ -2402,6 +2525,65 @@
         };
 
         /**
+         *  Checks if, according to the values defined by the "holiday_dates"
+         *  property, a day is a holiday.
+         *
+         *  @param  integer     year    The year to check
+         *  @param  integer     month   The month to check
+         *  @param  integer     day     The day to check
+         *
+         *  @return boolean         Returns TRUE if the given value is not disabled or FALSE otherwise
+         *
+         *  @access private
+         */
+        var is_holiday = function(year, month, day) {
+	
+			var holiday = false;
+			
+            // if there are rules for holiday dates, and year, month, and day are given
+            if (holiday_dates && !(undefined === year || isNaN(year) || undefined === month || isNaN(month) || undefined === day || isNaN(day))) {
+
+				// increment month (as JavaScript uses 0 for January, 1 for February...)
+				month = month + 1;
+
+                // iterate through the rules for disabling dates
+                $.each(holiday_dates, function() {
+
+                    var rule = this;
+
+                    // if the rules apply for the current year
+                    if ($.inArray(year, rule[2]) > -1 || $.inArray('*', rule[2]) > -1)
+
+						// if the rules apply for the current month
+                        if ((typeof month != 'undefined' && $.inArray(month, rule[1]) > -1) || $.inArray('*', rule[1]) > -1)
+
+                            // if the rules apply for the current day
+                            if ((typeof day != 'undefined' && $.inArray(day, rule[0]) > -1) || $.inArray('*', rule[0]) > -1) {
+
+                                // if day is to be holiday whatever the day
+                                // don't look any further
+                                if (rule[3] == '*') return (holiday = true);
+
+                                // get the weekday
+                                var weekday = new Date(year, month - 1, day).getDay();
+
+                                // if weekday is to be holiday
+                                // don't look any further
+                                if ($.inArray(weekday, rule[3]) > -1) {
+									return (holiday = true);
+								}
+
+                            }
+
+                });
+			}
+
+            // if script gets this far it means that the day/month/year doesn't need to be holidays
+            return holiday;
+
+        };
+
+        /**
          *  Checks whether a value is an integer number.
          *
          *  @param  mixed   value   Value to check
@@ -2414,6 +2596,68 @@
 
             // return TRUE if value represents an integer number, or FALSE otherwise
             return (value + '').match(/^\-?[0-9]+$/) ? true : false;
+
+        };
+
+        /**
+         *  Checks if, according to the values defined by the "class_by_dates"
+         *  property, a day should get a custom class.
+         *
+         *  @param  integer     year    The year to check
+         *  @param  integer     month   The month to check
+         *  @param  integer     day     The day to check
+		 *  @param  string      suffix  An optional suffix to be added to class (for example, "_disabled" for disabled classes)
+         *
+         *  @return string         Returns the custom class(es) to be added to the date, or an empty string if none found.
+         *
+         *  @access private
+         */
+        var set_class_by_date = function(year, month, day, suffix) {
+			if (undefined === suffix) suffix = '';
+	
+			var result = '';
+			
+            // if there are rules for holiday dates, and year, month, and day are given
+            if (class_by_dates && !(undefined === year || isNaN(year) || undefined === month || isNaN(month) || undefined === day || isNaN(day))) {
+
+				// increment month (as JavaScript uses 0 for January, 1 for February...)
+				month = month + 1;
+
+                // iterate through the rules for disabling dates
+                $.each(class_by_dates, function(key, vals) {
+					$.each(vals, function() {
+						var rule = this;
+
+						// if the rules apply for the current year
+						if ($.inArray(year, rule[2]) > -1 || $.inArray('*', rule[2]) > -1)
+
+							// if the rules apply for the current month
+							if ((typeof month != 'undefined' && $.inArray(month, rule[1]) > -1) || $.inArray('*', rule[1]) > -1)
+
+								// if the rules apply for the current day
+								if ((typeof day != 'undefined' && $.inArray(day, rule[0]) > -1) || $.inArray('*', rule[0]) > -1) {
+
+									// if day is in the list
+									// don't look any further with this class
+									if (rule[3] == '*') return (result += ' '+key+suffix);
+
+									// get the weekday
+									var weekday = new Date(year, month - 1, day).getDay();
+
+									// if weekday is in the list
+									// don't look any further with this class
+									if ($.inArray(weekday, rule[3]) > -1) {
+										return (result += ' '+key+suffix);
+									}
+
+								}
+					});
+
+                });
+			}
+
+            // if script gets this far it means that the day/month/year doesn't need to be holidays
+            return result;
 
         };
 
@@ -2573,10 +2817,10 @@
 
                 // get the "active" elements in the view (ignoring the disabled ones)
                 var elements = (view == 'days' ?
-                                    daypicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)') :
+                                    daypicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_holiday_disabled, .dp_not_in_month)') :
                                         (view == 'months' ?
-                                            monthpicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)') :
-                                                yearpicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)')));
+                                            monthpicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_holiday_disabled, .dp_not_in_month)') :
+                                                yearpicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_holiday_disabled, .dp_not_in_month)')));
 
                 // iterate through the active elements
                 // and attach a "date" data attribute to each element in the form of

@@ -61,6 +61,8 @@
 .Zebra_DatePicker td.dp_not_in_month_selectable { background: #F3F3F3; color: #CDCDCD; cursor: pointer }
 .Zebra_DatePicker td.dp_weekend                 { background: #D8D8D8 }
 .Zebra_DatePicker td.dp_weekend_disabled        { color: #CCC; cursor: default }
+.Zebra_DatePicker td.dp_holiday                 { background: #ffD8D8; color: #ff4848; }
+.Zebra_DatePicker td.dp_holiday_disabled        { background: #f3eaea; color: #ff9898; cursor: default }
 .Zebra_DatePicker td.dp_selected                { background: #5A4B4B; color: #FFF !important }
 .Zebra_DatePicker td.dp_week_number             { background: #FFCC33; color: #555; cursor: text; font-style: italic }
 
