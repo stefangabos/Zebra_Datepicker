@@ -18,20 +18,53 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="app.css" />
-    <Content Include="index.html" />
+    <Content Include="examples\bootstrap.html" />
+    <Content Include="examples\index.html" />
+    <Content Include="examples\libraries\index.html" />
+    <Content Include="examples\libraries\syntaxhighlighter\index.html" />
+    <Content Include="examples\libraries\syntaxhighlighter\public\css\index.html" />
+    <Content Include="examples\libraries\syntaxhighlighter\public\css\shCoreDefault.css" />
+    <Content Include="examples\libraries\syntaxhighlighter\public\index.html" />
+    <Content Include="examples\libraries\syntaxhighlighter\public\javascript\index.html" />
+    <Content Include="examples\libraries\syntaxhighlighter\public\javascript\shBrushJScript.js" />
+    <Content Include="examples\libraries\syntaxhighlighter\public\javascript\shBrushXml.js" />
+    <Content Include="examples\libraries\syntaxhighlighter\public\javascript\shCore.js" />
+    <Content Include="examples\libraries\syntaxhighlighter\public\javascript\shLegacy.js" />
+    <Content Include="examples\libraries\syntaxhighlighter\public\javascript\XRegExp.js" />
+    <Content Include="examples\metallic.html" />
+    <Content Include="examples\public\css\index.html" />
+    <Content Include="examples\public\css\reset.css" />
+    <Content Include="examples\public\css\style.css" />
+    <Content Include="examples\public\index.html" />
+    <Content Include="examples\public\javascript\core.js" />
+    <Content Include="examples\public\javascript\index.html" />
+    <Content Include="examples\public\javascript\jquery-1.11.1.js" />
+    <Content Include="public\css\bootstrap.css" />
+    <Content Include="public\css\calendar-disabled.png" />
+    <Content Include="public\css\calendar.png" />
+    <Content Include="public\css\default.css" />
+    <Content Include="public\css\metallic.css" />
+    <Content Include="public\css\metallic\default-date.png" />
+    <Content Include="public\css\metallic\disabled-date.png" />
+    <Content Include="public\css\metallic\header.png" />
+    <Content Include="public\css\metallic\selected-date.png" />
+    <Content Include="public\css\themes.png" />
+    <Content Include="public\javascript\zebra_datepicker.js" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app.ts" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="examples\libraries\syntaxhighlighter\GPL-LICENSE" />
+    <Content Include="examples\libraries\syntaxhighlighter\MIT-LICENSE" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
     <None Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="public\javascript\typings\jquery.d.ts" />
+    <TypeScriptCompile Include="public\javascript\zebra_datepicker.src.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>

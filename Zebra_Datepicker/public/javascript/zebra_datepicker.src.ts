@@ -13,6 +13,7 @@
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
  */
+/// <reference path="typings/jquery.d.ts" />
 ;(function($) {
 
     'use strict';
@@ -580,7 +581,7 @@
                 ($.isArray(plugin.settings.direction) && (
 
                     // and first entry is a valid date
-                    (tmp_start_date = check_date(plugin.settings.direction[0])) ||
+                    ((tmp_start_date = check_date(plugin.settings.direction[0])) != null) ||
                     // or a boolean TRUE
                     plugin.settings.direction[0] === true ||
                     // or an integer > 0
@@ -589,7 +590,7 @@
                 ) && (
 
                     // and second entry is a valid date
-                    (tmp_end_date = check_date(plugin.settings.direction[1])) ||
+                    ((tmp_end_date = check_date(plugin.settings.direction[1])) != null) ||
                     // or a boolean FALSE
                     plugin.settings.direction[1] === false ||
                     // or integer >= 0
@@ -600,7 +601,7 @@
             ) {
 
                 // if an exact starting date was given, use that as a starting date
-                if (tmp_start_date) start_date = tmp_start_date;
+                if (tmp_start_date != null) start_date = tmp_start_date;
 
                 // otherwise
                 else
@@ -620,10 +621,10 @@
                 first_selectable_day = start_date.getDate();
 
                 // if an exact ending date was given and the date is after the starting date, use that as a ending date
-                if (tmp_end_date && +tmp_end_date >= +start_date) end_date = tmp_end_date;
+                if (tmp_end_date != null && +tmp_end_date >= +start_date) end_date = tmp_end_date;
 
                 // if have information about the ending date
-                else if (!tmp_end_date && plugin.settings.direction[1] !== false && $.isArray(plugin.settings.direction))
+                else if (!tmp_end_date != null && plugin.settings.direction[1] !== false && $.isArray(plugin.settings.direction))
 
                     // figure out the ending date
                     // use the Date object to normalize the date
@@ -660,7 +661,7 @@
                 ) && (
 
                     // and second entry is a valid date
-                    (tmp_start_date = check_date(plugin.settings.direction[1])) ||
+                    ((tmp_start_date = check_date(plugin.settings.direction[1])) != null) ||
                     // or an integer >= 0
                     (is_integer(plugin.settings.direction[1]) && plugin.settings.direction[1] >= 0)
 
@@ -683,10 +684,10 @@
                 last_selectable_day = end_date.getDate();
 
                 // if an exact starting date was given, and the date is before the ending date, use that as a starting date
-                if (tmp_start_date && +tmp_start_date < +end_date) start_date = tmp_start_date;
+                if (tmp_start_date != null && +tmp_start_date < +end_date) start_date = tmp_start_date;
 
                 // if have information about the starting date
-                else if (!tmp_start_date && $.isArray(plugin.settings.direction))
+                else if (!tmp_start_date != null && $.isArray(plugin.settings.direction))
 
                     // figure out the staring date
                     // use the Date object to normalize the date
@@ -731,7 +732,7 @@
                                 tmpDates.push(parseInt(
                                     rule[2][0] +
                                     (rule[1][0] == '*' ? '12' : str_pad(rule[1][0], 2)) +
-                                    (rule[0][0] == '*' ? (rule[1][0] == '*' ? 31 : new Date(rule[2][0], rule[1][0], 0).getDate()) : str_pad(rule[0][0], 2)), 10));
+                                    (rule[0][0] == '*' ? (rule[1][0] == '*' ? 31 : new Date(rule[2][0], rule[1][0], 0).getDate()).toString() : str_pad(rule[0][0], 2)), 10));
 
                         });
 
@@ -872,13 +873,13 @@
             var default_date = check_date($element.val() || (plugin.settings.start_date ? plugin.settings.start_date : ''));
 
             // if there is a default date, date picker is in "strict" mode, and the default date is disabled
-            if (default_date && plugin.settings.strict && is_disabled(default_date.getFullYear(), default_date.getMonth(), default_date.getDate()))
+            if (default_date != null && plugin.settings.strict && is_disabled(default_date.getFullYear(), default_date.getMonth(), default_date.getDate()))
 
                 // clear the value of the parent element
                 $element.val('');
 
             // updates value for the date picker whose starting date depends on the selected date (if any)
-            if (!update && (undefined !== start_date || undefined !== default_date))
+            if (!update && (undefined !== start_date || default_date != null))
                 update_dependent(undefined !== start_date ? start_date : default_date);
 
             // if date picker is not always visible
@@ -1180,7 +1181,7 @@
                 if (plugin.settings.select_other_months && null !== (matches = $(this).attr('class').match(/date\_([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])/)))
 
                     // use the stored date
-                    select_date(matches[1], matches[2] - 1, matches[3], 'days', $(this));
+                    select_date(matches[1], parseInt(matches[2]) - 1, matches[3], 'days', $(this));
 
                 // put selected date in the element the plugin is attached to, and hide the date picker
                 else select_date(selected_year, selected_month, to_int($(this).html()), 'days', $(this));
@@ -1399,7 +1400,7 @@
             var default_date = check_date($element.val() || (plugin.settings.start_date ? plugin.settings.start_date : ''));
 
             // if the value represents a valid date
-            if (default_date) {
+            if (default_date != null) {
 
                 // extract the date parts
                 // we'll use these to highlight the default date in the date picker and as starting point to
@@ -1530,8 +1531,8 @@
          *  @param  string  str_date    A string representing a date, formatted accordingly to the "format" property.
          *                              For example, if "format" is "Y-m-d" the string should look like "2011-06-01"
          *
-         *  @return mixed               Returns a JavaScript Date object if string represents a valid date according
-         *                              formatted according to the "format" property, or FALSE otherwise.
+         *  @return Date               Returns a JavaScript Date object if string represents a valid date according
+         *                              formatted according to the "format" property, or NULL otherwise.
          *
          *  @access private
          */
@@ -1556,7 +1557,7 @@
                     matches = [],
 
                     // "regexp" will contain the regular expression built for each of the characters used in the date's format
-                    regexp = [],
+                    regexp : RegExp[] = [],
 
                     // "position" will contain the position of the caracter found in the date's format
                     position = null,
@@ -1582,19 +1583,19 @@
                     // add to the array of regular expressions, based on the character
                     switch (match.character) {
 
-                        case 'd': regexp.push('0[1-9]|[12][0-9]|3[01]'); break;
-                        case 'D': regexp.push('[a-z]{3}'); break;
-                        case 'j': regexp.push('[1-9]|[12][0-9]|3[01]'); break;
-                        case 'l': regexp.push('[a-z]+'); break;
-                        case 'N': regexp.push('[1-7]'); break;
-                        case 'S': regexp.push('st|nd|rd|th'); break;
-                        case 'w': regexp.push('[0-6]'); break;
-                        case 'F': regexp.push('[a-z]+'); break;
-                        case 'm': regexp.push('0[1-9]|1[012]+'); break;
-                        case 'M': regexp.push('[a-z]{3}'); break;
-                        case 'n': regexp.push('[1-9]|1[012]'); break;
-                        case 'Y': regexp.push('[0-9]{4}'); break;
-                        case 'y': regexp.push('[0-9]{2}'); break;
+                        case 'd': regexp.push(/0[1-9]|[12][0-9]|3[01]/); break;
+                        case 'D': regexp.push(/[a-z]{3}/); break;
+                        case 'j': regexp.push(/[1-9]|[12][0-9]|3[01]/); break;
+                        case 'l': regexp.push(/[a-z]+/); break;
+                        case 'N': regexp.push(/[1-7]/); break;
+                        case 'S': regexp.push(/st|nd|rd|th/); break;
+                        case 'w': regexp.push(/[0-6]/); break;
+                        case 'F': regexp.push(/[a-z]+/); break;
+                        case 'm': regexp.push(/0[1-9]|1[012]+/); break;
+                        case 'M': regexp.push(/[a-z]{3}/); break;
+                        case 'n': regexp.push(/[1-9]|1[012]/); break;
+                        case 'Y': regexp.push(/[0-9]{4}/); break;
+                        case 'y': regexp.push(/[0-9]{2}/); break;
 
                     }
 
@@ -1615,10 +1616,10 @@
                     });
 
                     // the final regular expression
-                    regexp = new RegExp('^' + format + '$', 'ig');
+                    var finalregexp = new RegExp('^' + format + '$', 'ig');
 
                     // if regular expression was matched
-                    if ((segments = regexp.exec(str_date))) {
+                    if ((segments = finalregexp.exec(str_date))) {
 
                         // check if date is a valid date (i.e. there's no February 31)
 
@@ -1713,7 +1714,7 @@
                                 case 'y':
 
                                     // extract the year from the value entered by the user
-                                    original_year = '19' + to_int(segments[index + 1]);
+                                    original_year = parseInt('19' + to_int(segments[index + 1]).toString());
 
                                     break;
 
@@ -1740,7 +1741,7 @@
                 }
 
                 // if script gets this far, return false as something must've went wrong
-                return false;
+                return null;
 
             }
 
@@ -1964,19 +1965,19 @@
                         real_day = real_date.getDate();
 
                     // extract normalized date parts and merge them
-                    real_date =  real_year + str_pad(real_month + 1, 2) + str_pad(real_day, 2);
-
+                    //real_date =  real_year + str_pad((real_month + 1).toString(), 2) + str_pad(real_day.toString(), 2);
+                    //TODO: above line is never used
                 }
 
                 // if this is a day from the previous month
                 if (i < days_from_previous_month)
 
-                    html += '<td class="' + (plugin.settings.select_other_months && !is_disabled(real_year, real_month, real_day) ? 'dp_not_in_month_selectable date_' + real_date : 'dp_not_in_month') + '">' + (plugin.settings.select_other_months || plugin.settings.show_other_months ? str_pad(days_in_previous_month - days_from_previous_month + i + 1, plugin.settings.zero_pad ? 2 : 0) : '&nbsp;') + '</td>';
+                    html += '<td class="' + (plugin.settings.select_other_months && !is_disabled(real_year, real_month, real_day) ? 'dp_not_in_month_selectable date_' + real_date : 'dp_not_in_month') + '">' + (plugin.settings.select_other_months || plugin.settings.show_other_months ? str_pad((days_in_previous_month - days_from_previous_month + i + 1).toString(), plugin.settings.zero_pad ? 2 : 0) : '&nbsp;') + '</td>';
 
                 // if this is a day from the next month
                 else if (day > days_in_month)
 
-                    html += '<td class="' + (plugin.settings.select_other_months && !is_disabled(real_year, real_month, real_day) ? 'dp_not_in_month_selectable date_' + real_date : 'dp_not_in_month') + '">' + (plugin.settings.select_other_months || plugin.settings.show_other_months ? str_pad(day - days_in_month, plugin.settings.zero_pad ? 2 : 0) : '&nbsp;') + '</td>';
+                    html += '<td class="' + (plugin.settings.select_other_months && !is_disabled(real_year, real_month, real_day) ? 'dp_not_in_month_selectable date_' + real_date : 'dp_not_in_month') + '">' + (plugin.settings.select_other_months || plugin.settings.show_other_months ? str_pad((day - days_in_month).toString(), plugin.settings.zero_pad ? 2 : 0) : '&nbsp;') + '</td>';
 
                 // if this is a day from the current month
                 else {
@@ -2015,7 +2016,7 @@
                     }
 
                     // print the day of the month
-                    html += '<td' + (class_name !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + (plugin.settings.zero_pad ? str_pad(day, 2) : day) + '</td>';
+                    html += '<td' + (class_name !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + (plugin.settings.zero_pad ? str_pad(day.toString(), 2) : day.toString()) + '</td>';
 
                 }
 
@@ -2156,7 +2157,7 @@
          *
          *  @access private
          */
-        var iframeShim = function(action) {
+        var iframeShim = function(action = undefined) {
 
             // this is necessary only if browser is Internet Explorer 6
             if (browser.name == 'explorer' && browser.version == 6) {
@@ -2233,7 +2234,7 @@
          *
          *  @access private
          */
-        var is_disabled = function(year, month, day) {
+        var is_disabled = function (year: number = undefined, month: number = undefined, day : number = undefined) {
 
             // don't check bogus values
             if ((undefined === year || isNaN(year)) && (undefined === month || isNaN(month)) && (undefined === day || isNaN(day))) return false;
@@ -2243,7 +2244,7 @@
 
                 var
                     // normalize and merge arguments then transform the result to an integer
-                    now = to_int(str_concat(year, (typeof month != 'undefined' ? str_pad(month, 2) : ''), (typeof day != 'undefined' ? str_pad(day, 2) : ''))),
+                    now = to_int(str_concat(year.toString(), (typeof month != 'undefined' ? str_pad(month.toString(), 2) : ''), (typeof day != 'undefined' ? str_pad(day.toString(), 2) : ''))),
 
                     // get the length of the argument
                     len = (now + '').length;
@@ -2602,7 +2603,7 @@
                         } else
 
                             // attach a "date" data attribute to each element in the form of of YYYY-MM-DD for easily identifying sought elements
-                            $(this).data('date', selected_year + '-' + str_pad(selected_month + 1, 2) + '-' + str_pad(to_int($(this).text()), 2));
+                            $(this).data('date', selected_year + '-' + str_pad(selected_month + 1, 2) + '-' + str_pad(to_int($(this).text()).toString(), 2));
 
                     // if view is "months"
                     } else if (view == 'months') {
@@ -2611,7 +2612,7 @@
                         var matches = $(this).attr('class').match(/dp\_month\_([0-9]+)/);
 
                         // attach a "date" data attribute to each element in the form of of YYYY-MM for easily identifying sought elements
-                        $(this).data('date', selected_year + '-' + str_pad(to_int(matches[1]) + 1, 2));
+                        $(this).data('date', selected_year + '-' + str_pad((to_int(matches[1]) + 1).toString(), 2));
 
                     // if view is "years"
                     } else
@@ -2760,12 +2761,12 @@
          *
          *  @access private
          */
-        var str_concat = function() {
+        var str_concat = function (...params:string[]) : string {
 
             var str = '';
 
             // concatenate as string
-            for (var i = 0; i < arguments.length; i++) str += (arguments[i] + '');
+            for (var i = 0; i < params.length; i++) str += (params[i] + '');
 
             // return the concatenated values
             return str;
@@ -2783,7 +2784,7 @@
          *
          *  @access private
          */
-        var str_pad = function(str, len) {
+        var str_pad = function(str : string, len : number) : string {
 
             // make sure argument is a string
             str += '';
@@ -2803,7 +2804,7 @@
          *
          *  @access private
          */
-        var to_int = function(str) {
+        var to_int = function(str : string) : number {
 
             // return the integer representation of the string given as argument
             return parseInt(str , 10);
@@ -2913,50 +2914,7 @@
 
         };
 
-        // since with jQuery 1.9.0 the $.browser object was removed, we rely on this piece of code from
-        // http://www.quirksmode.org/js/detect.html to detect the browser
-        var browser = {
-            init: function () {
-                this.name = this.searchString(this.dataBrowser) || '';
-                this.version = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion) || '';
-            },
-            searchString: function (data) {
-                for (var i=0;i<data.length;i++) {
-                    var dataString = data[i].string;
-                    var dataProp = data[i].prop;
-                    this.versionSearchString = data[i].versionSearch || data[i].identity;
-                    if (dataString) {
-                        if (dataString.indexOf(data[i].subString) != -1)
-                            return data[i].identity;
-                    }
-                    else if (dataProp)
-                        return data[i].identity;
-                }
-            },
-            searchVersion: function (dataString) {
-                var index = dataString.indexOf(this.versionSearchString);
-                if (index == -1) return;
-                return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
-            },
-            dataBrowser: [
-                {
-                    string: navigator.userAgent,
-                    subString: 'Firefox',
-                    identity: 'firefox'
-                },
-                {
-                    string: navigator.userAgent,
-                    subString: 'MSIE',
-                    identity: 'explorer',
-                    versionSearch: 'MSIE'
-                }
-            ]
-        };
-
-        browser.init();
-
-        // initialize the plugin
-        init();
+        
 
     };
 
@@ -2982,3 +2940,50 @@
     };
 
 })(jQuery);
+
+
+// since with jQuery 1.9.0 the $.browser object was removed, we rely on this piece of code from
+// http://www.quirksmode.org/js/detect.html to detect the browser
+class Browser {
+    public name: string;
+    public version: number;
+    private versionSearchString: string;
+
+    constructor() {
+        this.name = this.searchString(this.dataBrowser) || '';
+        this.version = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion) || -1;
+    }
+    searchString(data) {
+        for (var i = 0; i < data.length; i++) {
+            var dataString = data[i].string;
+            var dataProp = data[i].prop;
+            this.versionSearchString = data[i].versionSearch || data[i].identity;
+            if (dataString) {
+                if (dataString.toLower().indexOf(data[i].subString.toLower()) != -1)
+                    return data[i].identity;
+            }
+            else if (dataProp)
+                return data[i].identity;
+        }
+    }
+    searchVersion(dataString): number {
+        var index = dataString.indexOf(this.versionSearchString);
+        if (index == -1) return;
+        return parseFloat(dataString.substring(index + this.versionSearchString.length + 1));
+    }
+            private dataBrowser = [
+        {
+            string: navigator.userAgent,
+            subString: 'Firefox',
+            identity: 'firefox'
+        },
+        {
+            string: navigator.userAgent,
+            subString: 'MSIE',
+            identity: 'explorer',
+            versionSearch: 'MSIE'
+        }
+    ]
+        };
+
+var browser = new Browser();
