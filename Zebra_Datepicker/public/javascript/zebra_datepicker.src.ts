@@ -731,7 +731,7 @@
                                 tmpDates.push(parseInt(
                                     rule[2][0] +
                                     (rule[1][0] == '*' ? '12' : str_pad(rule[1][0], 2)) +
-                                    (rule[0][0] == '*' ? (rule[1][0] == '*' ? '31' : new Date(rule[2][0], rule[1][0], 0).getDate()) : str_pad(rule[0][0], 2)), 10));
+                                    (rule[0][0] == '*' ? (rule[1][0] == '*' ? 31 : new Date(rule[2][0], rule[1][0], 0).getDate()) : str_pad(rule[0][0], 2)), 10));
 
                         });
 

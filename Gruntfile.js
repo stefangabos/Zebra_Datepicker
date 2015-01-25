@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
 
-    var source_files = ['public/javascript/zebra_datepicker.src.js'];
+    var source_files = ['Zebra_Datepicker/public/javascript/zebra_datepicker.src.js'];
 
     grunt.initConfig({
 
@@ -13,7 +13,7 @@ module.exports = function(grunt) {
             },
             build: {
                 src: source_files,
-                dest: 'public/javascript/zebra_datepicker.js'
+                dest: 'Zebra_Datepicker/public/javascript/zebra_datepicker.js'
             }
         },
 

@@ -3,7 +3,7 @@
   "description": "A super-lightweight, highly configurable, cross-browser date picker jQuery plugin",
   "version": "1.9.0",
   "license": "LGPL",
-  "main": "public/javascript/zebra_datepicker.js",
+  "main": "Zebra_Datepicker/public/javascript/zebra_datepicker.js",
   "ignore": [
     ".gitignore",
     "bower.json",
