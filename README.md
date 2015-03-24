@@ -69,4 +69,4 @@ To get a reference to the instance of Zebra_DatePicker attached to an element do
 var $zdp = $('#element').data('Zebra_DatePicker');
 ```
 
-Configuration options and demos on the **[project's homepage](http://stefangabos.ro/jquery/zebra_datepicker/)**
+Configuration options and demos on the **[project's homepage](http://stefangabos.ro/jquery/zebra-datepicker/)**
