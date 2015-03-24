@@ -13,7 +13,18 @@
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
  */
-;(function($) {
+;(function(factory) {
+
+    // AMD
+    if (typeof define === 'function' && define.amd) define(['jquery'], factory);
+
+    // CommonJS
+    else if (typeof exports === 'object') factory(require('jquery'));
+        
+    // browser globals
+    else factory(jQuery);
+        
+}(function($) {
 
     'use strict';
 
@@ -2995,4 +3006,4 @@
 
     };
 
-})(jQuery);
+}));
