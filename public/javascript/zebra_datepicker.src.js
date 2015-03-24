@@ -8,8 +8,8 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.0 (last revision: December 19, 2014)
- *  @copyright  (c) 2011 - 2014 Stefan Gabos
+ *  @version    1.9.0 (last revision: March 24, 2015)
+ *  @copyright  (c) 2011 - 2015 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
  */
@@ -327,8 +327,8 @@
             //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
             onOpen: null,
 
-            //  callback function to be executed when the date picker is closed, but only when the always_visible property
-            //  is false
+            //  callback function to be executed when the date picker is closed, but only when the "always_visible"
+            //  property is set to FALSE
             //  the callback function takes a single argument:
             //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
             //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
@@ -1186,7 +1186,7 @@
             daypicker.delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', 'click', function() {
 
                 // if other months are selectable and currently clicked cell contains a class with the cell's date
-                if (plugin.settings.select_other_months && null !== (matches = $(this).attr('class').match(/date\_([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])/)))
+                if (plugin.settings.select_other_months && $(this).attr('class') && null !== (matches = $(this).attr('class').match(/date\_([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])/)))
 
                     // use the stored date
                     select_date(matches[1], matches[2] - 1, matches[3], 'days', $(this));
@@ -1390,7 +1390,7 @@
                 // hide the date picker
                 datepicker.removeClass('dp_visible').addClass('dp_hidden');
 
-                // if a callback function exists for when showing the date picker
+                // if a callback function exists for when hiding the date picker
                 if (plugin.settings.onClose && typeof plugin.settings.onClose == 'function')
 
                     // execute the callback function and pass as argument the element the plugin is attached to
