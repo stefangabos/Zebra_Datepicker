@@ -346,7 +346,19 @@
             //  -   the ISO 8601 week number of the selected date
             //
             //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
-            onSelect: null
+            onSelect: null,
+
+            // callback function to be executed when the datepicker view was changed so that the selected month,
+            // year or year range was changed
+            //
+            // the callback function takes 4 arguments
+            // -    string that represents the changed view (can be "days", "months" or "years")
+            // -    object containing the current year, minimal year, maximal year and month that was selected before the view was updated
+            // -    object containing the current year, minimal year, maximal year and month that was selected after the view was changed
+            // -    a reference to the element that made the call for the view update
+            //
+            // the "this" keyword inside the callback function refers to the element the date picker is attached to!
+            onViewChanged: null
 
         };
 
@@ -355,7 +367,7 @@
             current_system_day, first_selectable_month, first_selectable_year, first_selectable_day, selected_month, selected_year,
             default_day, default_month, default_year, enabled_dates, disabled_dates, shim, start_date, end_date, last_selectable_day,
             last_selectable_year, last_selectable_month, daypicker_cells, monthpicker_cells, yearpicker_cells, views, clickables,
-            selecttoday, footer, show_select_today, timeout;
+            selecttoday, footer, show_select_today, timeout, prev_selected_month, prev_selected_year, prev_selected_year_range;
 
         var plugin = this;
 
@@ -1113,6 +1125,8 @@
 
             // event for when clicking the "previous" button
             $('.dp_previous', header).bind('click', function() {
+                // Store the date values before we update the view
+                set_previous_date();
 
                 // if view is "months"
                 // decrement year by one
@@ -1134,12 +1148,14 @@
                 }
 
                 // generate the appropriate view
-                manage_views();
+                manage_views(this);
 
             });
 
             // attach a click event to the caption in header
             $('.dp_caption', header).bind('click', function() {
+                // Store the date values before we update the view
+                set_previous_date();
 
                 // if current view is "days", take the user to the next view, depending on the format
                 if (view == 'days') view = ($.inArray('months', views) > -1 ? 'months' : ($.inArray('years', views) > -1 ? 'years' : 'days'));
@@ -1151,12 +1167,14 @@
                 else view = ($.inArray('days', views) > -1 ? 'days' : ($.inArray('months', views) > -1 ? 'months' : 'years'));
 
                 // generate the appropriate view
-                manage_views();
+                manage_views(this);
 
             });
 
             // event for when clicking the "next" button
             $('.dp_next', header).bind('click', function() {
+                // Store the date values before we update the view
+                set_previous_date();
 
                 // if view is "months"
                 // increment year by 1
@@ -1178,7 +1196,7 @@
                 }
 
                 // generate the appropriate view
-                manage_views();
+                manage_views(this);
 
             });
 
@@ -1186,7 +1204,7 @@
             daypicker.delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', 'click', function() {
 
                 // if other months are selectable and currently clicked cell contains a class with the cell's date
-                if (plugin.settings.select_other_months && null !== (matches = $(this).attr('class').match(/date\_([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])/)))
+                if (plugin.settings.select_other_months && null !== (matches = ($(this).attr('class') || '').match(/date\_([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])/)))
 
                     // use the stored date
                     select_date(matches[1], matches[2] - 1, matches[3], 'days', $(this));
@@ -1198,6 +1216,8 @@
 
             // attach a click event for the cells in the month picker
             monthpicker.delegate('td:not(.dp_disabled)', 'click', function() {
+                // Store the date values before we update the view
+                set_previous_date();
 
                 // get the month we've clicked on
                 var matches = $(this).attr('class').match(/dp\_month\_([0-9]+)/);
@@ -1221,7 +1241,7 @@
                     if (plugin.settings.always_visible) $element.val('');
 
                     // generate the appropriate view
-                    manage_views();
+                    manage_views(this);
 
                 }
 
@@ -1229,6 +1249,8 @@
 
             // attach a click event for the cells in the year picker
             yearpicker.delegate('td:not(.dp_disabled)', 'click', function() {
+                // Store the date values before we update the view
+                set_previous_date();
 
                 // set the selected year
                 selected_year = to_int($(this).html());
@@ -1249,7 +1271,7 @@
                     if (plugin.settings.always_visible) $element.val('');
 
                     // generate the appropriate view
-                    manage_views();
+                    manage_views(this);
 
                 }
 
@@ -2500,6 +2522,37 @@
 
         };
 
+        var set_previous_date = function() {
+            prev_selected_month = selected_month;
+            prev_selected_year = selected_year;
+            prev_selected_year_range = {
+                min: (selected_year - 7),
+                max: (selected_year + 4)
+            };
+        };
+
+        var handle_view_change = function(view, $callerElement) {
+            var callback,
+                oldValue = {
+                    year: prev_selected_year,
+                    month: prev_selected_month,
+                    year_min: prev_selected_year_range.min,
+                    year_max: prev_selected_year_range.max
+                },
+                newValue = {
+                    year: selected_year,
+                    month: selected_month,
+                    year_min: (selected_year - 7),
+                    year_max: (selected_year + 4)
+                };
+
+            // Check if the callback is defined and the olValue differs from the newValue
+            if (plugin.settings.onViewChanged && typeof plugin.settings.onViewChanged == 'function' &&
+                JSON.stringify(oldValue) !== JSON.stringify(newValue)
+            )
+                plugin.settings.onViewChanged.call($element, view, oldValue, newValue, $callerElement);
+        }
+
         /**
          *  Shows the appropriate view (days, months or years) according to the current value of the "view" property.
          *
@@ -2507,8 +2560,7 @@
          *
          *  @access private
          */
-        var manage_views = function() {
-
+        var manage_views = function(caller) {
             // if the day picker was not yet generated
             if (daypicker.text() === '' || view == 'days') {
 
@@ -2581,6 +2633,9 @@
                 monthpicker.hide();
 
             }
+
+            if(undefined !== caller)
+                handle_view_change(view, $(caller));
 
             // if a callback function exists for when navigating through months/years
             if (plugin.settings.onChange && typeof plugin.settings.onChange == 'function' && undefined !== view) {
@@ -2761,7 +2816,7 @@
                 // execute the callback function
                 // make "this" inside the callback function refer to the element the date picker is attached to
                 plugin.settings.onSelect.call($element, selected_value, year + '-' + str_pad(month + 1, 2) + '-' + str_pad(day, 2), default_date, $element, getWeekNumber(default_date));
-                
+
             // move focus to the element the plugin is attached to
             $element.focus();
 
