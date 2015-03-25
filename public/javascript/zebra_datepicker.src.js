@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.0 (last revision: March 24, 2015)
+ *  @version    1.9.0 (last revision: March 25, 2015)
  *  @copyright  (c) 2011 - 2015 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -366,7 +366,7 @@
             current_system_day, first_selectable_month, first_selectable_year, first_selectable_day, selected_month, selected_year,
             default_day, default_month, default_year, enabled_dates, disabled_dates, shim, start_date, end_date, last_selectable_day,
             last_selectable_year, last_selectable_month, daypicker_cells, monthpicker_cells, yearpicker_cells, views, clickables,
-            selecttoday, footer, show_select_today, timeout;
+            selecttoday, footer, show_select_today, timeout, uniqueid;
 
         var plugin = this;
 
@@ -382,6 +382,11 @@
          *  @return void
          */
         var init = function(update) {
+
+            // generate a random ID for each date picker (we'll use this if later a certain date picker is destroyed to
+            // remove related events)
+            // the code is taken from http://stackoverflow.com/a/105074
+            uniqueid = Math.floor((1 + Math.random()) * 0x10000).toString(16);
 
             // unless we're just updating settings
             if (!update) {
@@ -1032,7 +1037,7 @@
             if (update) return;
 
             // update icon/date picker position on resize
-            $(window).bind('resize.Zebra_DatePicker', function() {
+            $(window).bind('resize.Zebra_DatePicker_' + uniqueid, function() {
 
                 // hide the date picker
                 plugin.hide();
@@ -1322,40 +1327,37 @@
             });
 
             // if date picker is not always visible
-            if (!plugin.settings.always_visible)
+            if (!plugin.settings.always_visible) {
 
-                // bind some events to the document
-                $(document).bind({
+                //whenever anything is clicked on the page
+                $(document).bind('mousedown.Zebra_DatePicker_' + uniqueid, function(e) {
 
-                    //whenever anything is clicked on the page
-                    'mousedown.Zebra_DatePicker': function(e) {
+                    // if the date picker is visible
+                    if (datepicker.hasClass('dp_visible')) {
 
-                        // if the date picker is visible
-                        if (datepicker.hasClass('dp_visible')) {
+                        // if the calendar icon is visible and we clicked it, let the onClick event of the icon to handle the event
+                        // (we want it to toggle the date picker)
+                        if (plugin.settings.show_icon && $(e.target).get(0) === icon.get(0)) return true;
 
-                            // if the calendar icon is visible and we clicked it, let the onClick event of the icon to handle the event
-                            // (we want it to toggle the date picker)
-                            if (plugin.settings.show_icon && $(e.target).get(0) === icon.get(0)) return true;
-
-                            // if what's clicked is not inside the date picker
-                            // hide the date picker
-                            if ($(e.target).parents().filter('.Zebra_DatePicker').length === 0) plugin.hide();
-
-                        }
-
-                    },
-
-                    //whenever a key is pressed on the page
-                    'keyup.Zebra_DatePicker': function(e) {
-
-                        // if the date picker is visible
-                        // and the pressed key is ESC
+                        // if what's clicked is not inside the date picker
                         // hide the date picker
-                        if (datepicker.hasClass('dp_visible') && e.which == 27) plugin.hide();
+                        if ($(e.target).parents().filter('.Zebra_DatePicker').length === 0) plugin.hide();
 
                     }
 
                 });
+
+                //whenever a key is pressed on the page
+                $(document).bind('keyup.Zebra_DatePicker_' + uniqueid, function(e) {
+
+                    // if the date picker is visible
+                    // and the pressed key is ESC
+                    // hide the date picker
+                    if (datepicker.hasClass('dp_visible') && e.which == 27) plugin.hide();
+
+                });
+
+            }
 
             // last thing is to pre-render some of the date picker right away
             manage_views();
@@ -1376,9 +1378,9 @@
             plugin.datepicker.remove();
 
             // remove associated event handlers from the document
-            $(document).unbind('keyup.Zebra_DatePicker');
-            $(document).unbind('mousedown.Zebra_DatePicker');
-            $(window).unbind('resize.Zebra_DatePicker');
+            $(document).unbind('keyup.Zebra_DatePicker_' + uniqueid);
+            $(document).unbind('mousedown.Zebra_DatePicker_' + uniqueid);
+            $(window).unbind('resize.Zebra_DatePicker_' + uniqueid);
 
             // remove association with the element
             $element.removeData('Zebra_DatePicker');
