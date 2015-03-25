@@ -13,7 +13,7 @@
 .Zebra_DatePicker *:after,
 .Zebra_DatePicker *:before  { -moz-box-sizing: content-box !important; -webkit-box-sizing: content-box !important; box-sizing: content-box !important }
 
-.Zebra_DatePicker           { position: absolute; background: #666; border: 3px solid #666; z-index: 100; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 13px; top: 0 }
+.Zebra_DatePicker           { position: absolute; background: #666; border: 3px solid #666; z-index: 1200; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 13px; top: 0 }
 
 .Zebra_DatePicker *         { margin: 0; padding: 0; color: #000; background: transparent; border: none }
 
