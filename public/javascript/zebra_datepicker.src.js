@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.0 (last revision: March 25, 2015)
+ *  @version    1.9.0 (last revision: March 24, 2015)
  *  @copyright  (c) 2011 - 2015 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -365,7 +365,7 @@
         var view, datepicker, icon, header, daypicker, monthpicker, yearpicker, cleardate, current_system_month, current_system_year,
             current_system_day, first_selectable_month, first_selectable_year, first_selectable_day, selected_month, selected_year,
             default_day, default_month, default_year, enabled_dates, disabled_dates, shim, start_date, end_date, last_selectable_day,
-            last_selectable_year, last_selectable_month, daypicker_cells, monthpicker_cells, yearpicker_cells, views,
+            last_selectable_year, last_selectable_month, daypicker_cells, monthpicker_cells, yearpicker_cells, views, clickables,
             selecttoday, footer, show_select_today, timeout;
 
         var plugin = this;
@@ -941,40 +941,28 @@
                         // create the actual calendar icon (show a disabled icon if the element is disabled)
                         icon = $('<button type="button" class="Zebra_DatePicker_Icon' + ($element.attr('disabled') == 'disabled' ? ' Zebra_DatePicker_Icon_Disabled' : '') + '">Pick a date</button>');
 
-                        // attach the click event to the icon
-                        icon.bind('click', function(e) {
-
-                            e.preventDefault();
-
-                            // if element is not disabled
-                            if (!$element.attr('disabled'))
-
-                                // if the date picker is visible, hide it
-                                if (datepicker.hasClass('dp_visible')) plugin.hide();
-
-                                // if the date picker is not visible, show it
-                                else plugin.show();
-
-                        });
-
                         // a reference to the icon, as a global property
                         plugin.icon = icon;
 
-                    }
+                        // the date picker will open when clicking both the icon and the element the plugin is attached to
+                        clickables = icon.add($element);
 
-                    // attach the focus event to the element
-                    $element.bind('focus', function() {
+                    // if calendar icon is not visible, the date picker will open when clicking the element
+                    } else clickables = $element;
 
-                        // if element is not disabled, show it
-                        if (!$element.attr('disabled')) plugin.show();
+                    // attach the click event to the clickable elements (icon and/or element)
+                    clickables.bind('click', function(e) {
 
-                    });
+                        e.preventDefault();
 
-                    // attach the blur event to the element
-                    $element.bind('blur', function() {
+                        // if element is not disabled
+                        if (!$element.attr('disabled'))
 
-                        // if element is not disabled, hide it
-                        if (!$element.attr('disabled')) plugin.hide();
+                            // if the date picker is visible, hide it
+                            if (datepicker.hasClass('dp_visible')) plugin.hide();
+
+                            // if the date picker is not visible, show it
+                            else plugin.show();
 
                     });
 
