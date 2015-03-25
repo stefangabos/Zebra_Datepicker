@@ -108,6 +108,9 @@
             //  ['01 07 2012', '02 07 2012', '* 08 2012'] would disable 1st and 2nd of July 2012, and all of August of 2012
             //
             //  default is FALSE, no disabled dates
+            //
+            //  DISABLING ALL DATES AND NOT SPECIFYING AT LEAST ONE ENABLED DATE WILL SEND THE SCRIPT INTO AN INFINITE
+            //  LOOP SEARCHING FOR AN ENABLED DATE TO DISPLAY!
             disabled_dates: false,
 
             //  an array of enabled dates in the same format as required for "disabled_dates" property.
