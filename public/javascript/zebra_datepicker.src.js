@@ -1348,9 +1348,9 @@
                             // (we want it to toggle the date picker)
                             if (plugin.settings.show_icon && $(e.target).get(0) === icon.get(0)) return true;
 
-                            // If the calender icon is not visible and we clicked the opener element, let the onClick event of the element to handle the event
+                            // If we clicked the opener element, let the onClick event of the element to handle the event
                             // (we want it to toggle the date picker)
-                            if (!plugin.settings.show_icon && $(e.target).get(0) === $element.get(0)) return true;
+                            if ($(e.target).get(0) === $element.get(0)) return true;
 
 
                             // if what's clicked is not inside the date picker
