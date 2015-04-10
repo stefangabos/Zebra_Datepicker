@@ -1326,6 +1326,11 @@
                             // (we want it to toggle the date picker)
                             if (plugin.settings.show_icon && $(e.target).get(0) === icon.get(0)) return true;
 
+                            // If the calender icon is not visible and we clicked the opener element, let the onClick event of the element to handle the event
+                            // (we want it to toggle the date picker)
+                            if (!plugin.settings.show_icon && $(e.target).get(0) === $element.get(0)) return true;
+
+
                             // if what's clicked is not inside the date picker
                             // hide the date picker
                             if ($(e.target).parents().filter('.Zebra_DatePicker').length === 0) plugin.hide();
@@ -2761,7 +2766,7 @@
                 // execute the callback function
                 // make "this" inside the callback function refer to the element the date picker is attached to
                 plugin.settings.onSelect.call($element, selected_value, year + '-' + str_pad(month + 1, 2) + '-' + str_pad(day, 2), default_date, $element, getWeekNumber(default_date));
-                
+
             // move focus to the element the plugin is attached to
             $element.focus();
 
