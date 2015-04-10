@@ -15,15 +15,17 @@
  */
 ;(function(factory) {
 
+    'use strict';
+
     // AMD
     if (typeof define === 'function' && define.amd) define(['jquery'], factory);
 
     // CommonJS
     else if (typeof exports === 'object') factory(require('jquery'));
-        
+
     // browser globals
     else factory(jQuery);
-        
+
 }(function($) {
 
     'use strict';
@@ -1930,6 +1932,9 @@
          */
         var generate_daypicker = function() {
 
+            // if date picker was never shown, ignore
+            if (undefined === selected_year) return;
+
             var
 
                 // get the number of days in the selected month
@@ -2078,6 +2083,9 @@
          */
         var generate_monthpicker = function() {
 
+            // if date picker was never shown, ignore
+            if (undefined === selected_year) return;
+
             // manage header caption and enable/disable navigation buttons if necessary
             manage_header(plugin.settings.header_captions['months']);
 
@@ -2132,6 +2140,9 @@
          *  @access private
          */
         var generate_yearpicker = function() {
+
+            // if date picker was never shown, ignore
+            if (undefined === selected_years) return;
 
             // manage header caption and enable/disable navigation buttons if necessary
             manage_header(plugin.settings.header_captions['years']);
@@ -2777,7 +2788,7 @@
                 // execute the callback function
                 // make "this" inside the callback function refer to the element the date picker is attached to
                 plugin.settings.onSelect.call($element, selected_value, year + '-' + str_pad(month + 1, 2) + '-' + str_pad(day, 2), default_date, $element, getWeekNumber(default_date));
-                
+
             // move focus to the element the plugin is attached to
             $element.focus();
 
