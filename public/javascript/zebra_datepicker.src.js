@@ -1038,6 +1038,12 @@
             // (the "days" view is available and "today" is not a disabled date)
             show_select_today = (plugin.settings.show_select_today !== false && $.inArray('days', views) > -1 && !is_disabled(current_system_year, current_system_month, current_system_day) ? plugin.settings.show_select_today : false);
 
+            // update language settings
+            if (update) {
+                plugin.datepicker.find('.dp_today').text(show_select_today);
+                plugin.datepicker.find('.dp_clear').text(plugin.settings.lang_clear_date);
+            }
+
             // if we just needed to recompute the things above, return now
             if (update) return;
 
