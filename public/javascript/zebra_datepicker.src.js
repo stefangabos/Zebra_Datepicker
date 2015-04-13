@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.0 (last revision: March 25, 2015)
+ *  @version    1.9.0 (last revision: April 13, 2015)
  *  @copyright  (c) 2011 - 2015 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -1335,7 +1335,7 @@
             if (!plugin.settings.always_visible) {
 
                 //whenever anything is clicked on the page
-                $(document).bind('mousedown.Zebra_DatePicker_' + uniqueid, function(e) {
+                $(document).bind('mousedown.Zebra_DatePicker_' + uniqueid + ', touchstart.Zebra_DatePicker_' + uniqueid, function(e) {
 
                     // if the date picker is visible
                     if (datepicker.hasClass('dp_visible')) {
