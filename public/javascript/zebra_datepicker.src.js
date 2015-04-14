@@ -1339,7 +1339,7 @@
                 $(document).bind({
 
                     //whenever anything is clicked on the page
-                    'mousedown.Zebra_DatePicker': function(e) {
+                    'mousedown.Zebra_DatePicker, touchstart.Zebra_DatePicker': function(e) {
 
                         // if the date picker is visible
                         if (datepicker.hasClass('dp_visible')) {
