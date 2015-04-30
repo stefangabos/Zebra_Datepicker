@@ -1932,9 +1932,6 @@
          */
         var generate_daypicker = function() {
 
-            // if date picker was never shown, ignore
-            if (undefined === selected_year) return;
-
             var
 
                 // get the number of days in the selected month
@@ -2049,8 +2046,8 @@
 
                     }
 
-                    // print the day of the month
-                    html += '<td' + (class_name !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + (plugin.settings.zero_pad ? str_pad(day, 2) : day) + '</td>';
+                    // print the day of the month (if "day" is NaN, use an empty string instead)
+                    html += '<td' + (class_name !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + ((plugin.settings.zero_pad ? str_pad(day, 2) : day) || '') + '</td>';
 
                 }
 
@@ -2082,9 +2079,6 @@
          *  @access private
          */
         var generate_monthpicker = function() {
-
-            // if date picker was never shown, ignore
-            if (undefined === selected_year) return;
 
             // manage header caption and enable/disable navigation buttons if necessary
             manage_header(plugin.settings.header_captions['months']);
@@ -2140,9 +2134,6 @@
          *  @access private
          */
         var generate_yearpicker = function() {
-
-            // if date picker was never shown, ignore
-            if (undefined === selected_years) return;
 
             // manage header caption and enable/disable navigation buttons if necessary
             manage_header(plugin.settings.header_captions['years']);
