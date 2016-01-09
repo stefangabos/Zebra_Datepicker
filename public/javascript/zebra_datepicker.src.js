@@ -909,7 +909,7 @@
 
             // updates value for the date picker whose starting date depends on the selected date (if any)
             if (!update && (undefined !== start_date || undefined !== default_date))
-                update_dependent(undefined !== start_date ? start_date : default_date);
+                update_dependent(undefined !== default_date ? default_date : start_date);
 
             // if date picker is not always visible
             if (!plugin.settings.always_visible) {
