@@ -1038,8 +1038,19 @@
             // (the "days" view is available and "today" is not a disabled date)
             show_select_today = (plugin.settings.show_select_today !== false && $.inArray('days', views) > -1 && !is_disabled(current_system_year, current_system_month, current_system_day) ? plugin.settings.show_select_today : false);
 
-            // if we just needed to recompute the things above, return now
-            if (update) return;
+            // if we just needed to recompute the things above
+            if (update) {
+
+                // make sure we update these strings, in case they've changed
+                $('.dp_previous', datepicker).html(plugin.settings.header_navigation[0]);
+                $('.dp_next', datepicker).html(plugin.settings.header_navigation[1]);
+                $('.dp_clear', datepicker).html(plugin.settings.lang_clear_date);
+                $('.dp_today', datepicker).html(plugin.settings.show_select_today);
+
+                // don't go further
+                return;
+
+            }
 
             // update icon/date picker position on resize
             $(window).bind('resize.Zebra_DatePicker_' + uniqueid, function() {
@@ -2838,7 +2849,7 @@
         var to_int = function(str) {
 
             // return the integer representation of the string given as argument
-            return parseInt(str , 10);
+            return parseInt(str, 10);
 
         };
 
