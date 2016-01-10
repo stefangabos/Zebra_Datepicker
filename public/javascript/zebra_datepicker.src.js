@@ -1393,6 +1393,17 @@
         };
 
         /**
+         *  Clears the selected date.
+         *
+         *  @return void
+         */
+        plugin.clear_date = function() {
+
+            $(cleardate).trigger('click');
+
+        };
+
+        /**
          *  Destroys the date picker.
          *
          *  @return void
