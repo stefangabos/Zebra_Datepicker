@@ -983,8 +983,9 @@
                         $element.bind('blur.Zebra_DatePicker_' + uniqueid, function() {
 
                             var date;
+
                             // if a valid date was entered, update the paired date picker
-                            if (date = check_date($(this).val())) update_dependent(date);
+                            if ((date = check_date($(this).val())) && !is_disabled(date.getFullYear(), date.getMonth(), date.getDate())) update_dependent(date);
 
                         });
 
@@ -1451,6 +1452,30 @@
             }
 
         };
+
+        /**
+         *  Set the date picker's value
+         *
+         *  Must be in the format set by the "format" property!
+         *
+         *  @return void
+         */
+        plugin.set_date = function(date) {
+
+            var dateObj;
+
+            // if a valid date was entered, and date is not disabled
+            if ((dateObj = check_date(date)) && !is_disabled(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate())) {
+
+                // set the element's value
+                $element.val(date);
+
+                // update the paired date picker (if any)
+                update_dependent(date);
+
+            }
+
+        }
 
         /**
          *  Shows the date picker.
