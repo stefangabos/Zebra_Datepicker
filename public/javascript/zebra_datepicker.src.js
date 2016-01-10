@@ -2337,6 +2337,9 @@
             // don't check bogus values
             if ((undefined === year || isNaN(year)) && (undefined === month || isNaN(month)) && (undefined === day || isNaN(day))) return false;
 
+            // this date picker cannot handle years before 1000, so we return false in this case
+            else if (year < 1000) return true;
+
             // if calendar has direction restrictions
             if (!(!$.isArray(plugin.settings.direction) && to_int(plugin.settings.direction) === 0)) {
 
@@ -2392,7 +2395,7 @@
             var disabled = false, enabled = false;
 
             // if there are rules for disabling dates
-            if (disabled_dates)
+            if ($.isArray(disabled_dates) && disabled_dates.length)
 
                 // iterate through the rules for disabling dates
                 $.each(disabled_dates, function() {
