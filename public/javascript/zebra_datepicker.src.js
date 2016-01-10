@@ -976,6 +976,18 @@
 
                     });
 
+                    // if users can manually enter dates and a pair date element exists
+                    if (!plugin.settings.readonly_element && plugin.settings.pair)
+
+                        // whenever the element looses focus
+                        $element.bind('blur.Zebra_DatePicker_' + uniqueid, function() {
+
+                            var date;
+                            // if a valid date was entered, update the paired date picker
+                            if (date = check_date($(this).val())) update_dependent(date);
+
+                        });
+
                     // if icon exists, inject it into the DOM, right after the parent element (and inside the wrapper)
                     if (undefined !== icon) icon.insertAfter($element);
 
