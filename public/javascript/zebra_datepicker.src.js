@@ -215,6 +215,12 @@
             //  default is [5, -5]
             offset: [5, -5],
 
+            //  set whether the date picker should be shown *only* when clicking the icon
+            //  note that if you set the "show_icon" property to FALSE, you will not be able to show the date picker anymore!
+            //
+            //  default is FALSE
+            open_icon_only: false,
+
             //  if set as a jQuery element with a Zebra_DatePicker attached, that particular date picker will use the
             //  current date picker's value as starting date
             //  note that the rules set in the "direction" property will still apply, only that the reference date will
@@ -955,7 +961,8 @@
                         plugin.icon = icon;
 
                         // the date picker will open when clicking both the icon and the element the plugin is attached to
-                        clickables = icon.add($element);
+                        // (or the icon only, if set so)
+                        clickables = plugin.settings.open_icon_only ? icon : icon.add($element);
 
                     // if calendar icon is not visible, the date picker will open when clicking the element
                     } else clickables = $element;
