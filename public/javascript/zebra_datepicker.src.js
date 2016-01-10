@@ -1064,8 +1064,8 @@
 
             }
 
-            // update icon/date picker position on resize
-            $(window).bind('resize.Zebra_DatePicker_' + uniqueid, function() {
+            // update icon/date picker position on resize and/or changing orientation
+            $(window).bind('resize.Zebra_DatePicker_' + uniqueid + ', orientationchange.Zebra_DatePicker_' + uniqueid, function() {
 
                 // hide the date picker
                 plugin.hide();
@@ -1409,6 +1409,7 @@
             $(document).unbind('keyup.Zebra_DatePicker_' + uniqueid);
             $(document).unbind('mousedown.Zebra_DatePicker_' + uniqueid);
             $(window).unbind('resize.Zebra_DatePicker_' + uniqueid);
+            $(window).unbind('orientationchange.Zebra_DatePicker_' + uniqueid);
 
             // remove association with the element
             $element.removeData('Zebra_DatePicker');
