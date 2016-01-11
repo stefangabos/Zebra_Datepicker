@@ -1,7 +1,7 @@
 {
   "name": "zebra_datepicker",
   "description": "A super-lightweight, highly configurable, cross-browser date picker jQuery plugin",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "license": "LGPL",
   "main": "public/javascript/zebra_datepicker.js",
   "ignore": [

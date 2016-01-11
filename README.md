@@ -6,7 +6,7 @@ Zebra_Datepicker is a small, compact and highly configurable datepicker jQuery p
 
 ##Features
 
- - it is small – it weights around 21KB minified offering the best ratio of features per used bytes
+ - it is small – it weights around 23KB minified offering the best ratio of features per used bytes
  - it’s compact – unlike other datepickers, this datepicker is one-file only
  - it’s cross-browser – works in every major browser; works also in Internet Explorer 6 where it uses an iFrameShim to stay above select controls
  - it’s compatible with AMD and CommonJS
