@@ -47,6 +47,6 @@ module.exports = function(grunt) {
 
     // register tasks
 
-    grunt.registerTask('default', ['uglify']);
+    grunt.registerTask('default', ['uglify', 'watch']);
 
 };
