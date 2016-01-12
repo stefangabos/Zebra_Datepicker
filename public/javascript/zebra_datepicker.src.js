@@ -1482,7 +1482,7 @@
 
             }
 
-        }
+        };
 
         /**
          *  Shows the date picker.
@@ -2688,6 +2688,8 @@
                 // so it's easy to identify elements in the list
                 elements.each(function() {
 
+                    var matches;
+
                     // if view is "days"
                     if (view == 'days') {
 
@@ -2695,7 +2697,7 @@
                         if ($(this).hasClass('dp_not_in_month_selectable')) {
 
                             // extract date from the attached class
-                            var matches = $(this).attr('class').match(/date\_([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])/);
+                            matches = $(this).attr('class').match(/date\_([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])/);
 
                             // attach a "date" data attribute to each element in the form of of YYYY-MM-DD for easily identifying sought elements
                             $(this).data('date', matches[1] + '-' + matches[2] + '-' + matches[3]);
@@ -2710,7 +2712,7 @@
                     } else if (view == 'months') {
 
                         // get the month's number for the element's class
-                        var matches = $(this).attr('class').match(/dp\_month\_([0-9]+)/);
+                        matches = $(this).attr('class').match(/dp\_month\_([0-9]+)/);
 
                         // attach a "date" data attribute to each element in the form of of YYYY-MM for easily identifying sought elements
                         $(this).data('date', selected_year + '-' + str_pad(to_int(matches[1]) + 1, 2));
