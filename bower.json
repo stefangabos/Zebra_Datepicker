@@ -4,14 +4,8 @@
   "version": "1.9.3",
   "license": "LGPL",
   "main": "public/javascript/zebra_datepicker.js",
-  "ignore": [
-    ".gitignore",
-    "bower.json",
-    "Gruntfile.js",
-    "package.json",
-    "zebra-datepicker.jquery.json",
-    "*.md"
-  ],
+  "authors": ["Stefan Gabos"],
+  "ignore": {},
   "keywords": [
     "calendar",
     "date",
@@ -19,7 +13,7 @@
     "form",
     "iso-8601",
     "ui"
-  ]
+  ],
   "dependencies": {
     "jquery": ">= 1.5.2"
   }
