@@ -184,6 +184,12 @@
             //  default is ['&#171;','&#187;']
             header_navigation: ['&#171;', '&#187;'],
 
+            //  icon's position
+            //  accepted values are "left" and "right"
+            //
+            //  default is "right"
+            icon_position: 'right',
+
             //  should the icon for opening the datepicker be inside the element?
             //  if set to FALSE, the icon will be placed to the right of the parent element, while if set to TRUE it will
             //  be placed to the right of the parent element, but *inside* the element itself
@@ -1010,11 +1016,11 @@
 
                     // if calendar icon is to be placed *inside* the element
                     // add an extra class to the icon
-                    if (plugin.settings.inside) icon.addClass('Zebra_DatePicker_Icon_Inside');
+                    if (plugin.settings.inside) icon.addClass('Zebra_DatePicker_Icon_Inside_' + (plugin.settings.icon_position == 'right' ? 'Right' : 'Left'));
 
                     var
 
-                        // get element' width and height (including margins)
+                        // get element's width and height (including margins)
                         element_width = $element.outerWidth(),
                         element_height = $element.outerHeight(),
                         element_margin_left = parseInt($element.css('marginLeft'), 10) || 0,
@@ -1028,16 +1034,18 @@
 
                     // if icon is to be placed *inside* the element
                     // position the icon accordingly
-                    if (plugin.settings.inside)
+                    if (plugin.settings.inside) {
 
-                        icon.css({
-                            'top':  element_margin_top + ((element_height - icon_height) / 2),
-                            'left': element_margin_left + (element_width - icon_width - icon_margin_right)
-                        });
+                        // set icon's top
+                        icon.css('top', element_margin_top + ((element_height - icon_height) / 2));
+
+                        // place icon to the right or to the left, according to the settings
+                        if (plugin.settings.icon_position == 'right') icon.css('right', 0);
+                        else icon.css('left', 0);
 
                     // if icon is to be placed to the right of the element
                     // position the icon accordingly
-                    else
+                    } else
 
                         icon.css({
                             'top':  element_margin_top + ((element_height - icon_height) / 2),
