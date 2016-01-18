@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.3 (last revision: January 11, 2016)
+ *  @version    1.9.3 (last revision: January 18, 2016)
  *  @copyright  (c) 2011 - 2016 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -45,6 +45,27 @@
             //
             //  default is $('body')
             container: $('body'),
+
+            //  dates that should have custom classes applied to them
+            //  an object in the form of
+            //  {
+            //      'myclass1': [dates_to_apply_the_custom_class_to],
+            //      'myclass2': [dates_to_apply_the_custom_class_to]
+            //  }
+            //  where "dates_to_apply_the_custom_class_to" is an array of dates in the same format as required for
+            //  "disabled_dates" property.
+            //
+            //  custom classes will be applied *only* in the day picker view and not on month/year views!
+            //  also note that the class name will have the "_disabled" suffix added if the day the class is applied to
+            //  is disabled
+            //
+            //  in order for the styles in your custom classes to be applied, make sure you are using the following syntax:
+            //
+            //  .Zebra_DatePicker .dp_daypicker td.myclass1 { .. }
+            //  .Zebra_DatePicker .dp_daypicker td.myclass1_disabled { .. }
+            //
+            //  default is FALSE, no custom classes
+            custom_classes: false,
 
             //  days of the week; Sunday to Saturday
             days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -383,7 +404,7 @@
             current_system_day, first_selectable_month, first_selectable_year, first_selectable_day, selected_month, selected_year,
             default_day, default_month, default_year, enabled_dates, disabled_dates, shim, start_date, end_date, last_selectable_day,
             last_selectable_year, last_selectable_month, daypicker_cells, monthpicker_cells, yearpicker_cells, views, clickables,
-            selecttoday, footer, show_select_today, timeout, uniqueid;
+            selecttoday, footer, show_select_today, timeout, uniqueid, custom_classes, custom_class_names;
 
         var plugin = this;
 
@@ -494,18 +515,23 @@
             // parse the rules for disabling dates and turn them into arrays of arrays
 
             // array that will hold the rules for enabling/disabling dates
-            disabled_dates = []; enabled_dates = [];
+            disabled_dates = []; enabled_dates = []; custom_classes = {}; custom_class_names = [];
 
             var dates;
 
-            // it's the same logic for preparing the enabled/disable dates...
-            for (var l = 0; l < 2; l++) {
+            for (var k in plugin.settings.custom_classes) if (plugin.settings.custom_classes.hasOwnProperty(k)) custom_class_names.push(k);
+
+            // it's the same logic for preparing the enabled/disable dates, as well as dates that have custom classes
+            for (var l = 0; l < 2 + custom_class_names.length; l++) {
 
                 // first time we're doing disabled dates,
                 if (l === 0) dates = plugin.settings.disabled_dates;
 
                 // second time we're doing enabled_dates
-                else dates = plugin.settings.enabled_dates;
+                else if (l == 1) dates = plugin.settings.enabled_dates;
+
+                // otherwise, we're doing dates that will have custom classes
+                else dates = plugin.settings.custom_classes[custom_class_names[l - 2]];
 
                 // if we have a non-empty array
                 if ($.isArray(dates) && dates.length > 0)
@@ -564,7 +590,15 @@
                         if (l === 0) disabled_dates.push(rules);
 
                         // second time we're doing enabled_dates
-                        else enabled_dates.push(rules);
+                        else if (l == 1) enabled_dates.push(rules);
+
+                        // otherwise, we're doing the dates to which custom classes need to be applied
+                        else {
+
+                            if (undefined === custom_classes[custom_class_names[l - 2]]) custom_classes[custom_class_names[l - 2]] = [];
+                            custom_classes[custom_class_names[l - 2]].push(rules);
+
+                        }
 
                     });
 
@@ -2093,7 +2127,10 @@
                         // get the week day (0 to 6, Sunday to Saturday)
                         weekday = (plugin.settings.first_day_of_week + i) % 7,
 
-                        class_name = '';
+                        class_name = '',
+
+                        // custom class, if any
+                        custom_class_name = get_custom_class(selected_year, selected_month, day);
 
                     // if date needs to be disabled
                     if (is_disabled(selected_year, selected_month, day)) {
@@ -2107,6 +2144,9 @@
                         // highlight the current system date
                         if (selected_month == current_system_month && selected_year == current_system_year && current_system_day == day) class_name += ' dp_disabled_current';
 
+                        // apply custom class, with the "_disabled" suffix, if a custom class exists
+                        if (custom_class_name != '') class_name += ' ' + custom_class_name + '_disabled';
+
                     // if there are no restrictions
                     } else {
 
@@ -2118,6 +2158,9 @@
 
                         // highlight the current system date
                         if (selected_month == current_system_month && selected_year == current_system_year && current_system_day == day) class_name += ' dp_current';
+
+                        // apply custom class, if a custom class exists
+                        if (custom_class_name != '') class_name += ' ' + custom_class_name;
 
                     }
 
@@ -2253,6 +2296,73 @@
 
             // make the year picker visible
             yearpicker.show();
+
+        };
+
+        /**
+         *  Return the name of a custom class to be applied to the given date.
+         *
+         *  @return string  The name of a custom class to be applied to the given date, or an empty string if no custom
+         *                  class needs to be applied.
+         *
+         *  @param  integer     year    The year to check
+         *  @param  integer     month   The month to check
+         *  @param  integer     day     The day to check
+         *
+         *  @access private
+         */
+        var get_custom_class = function(year, month, day) {
+
+            var class_name, i, found;
+
+            // if month is given as argument, increment it (as JavaScript uses 0 for January, 1 for February...)
+            if (typeof month != 'undefined') month = month + 1;
+
+            // iterate through the custom classes
+            for (i in custom_class_names) {
+
+                // the class name we're currently checking
+                class_name = custom_class_names[i]; found = false;
+
+                // iterate through the rules for which the custom class to be applied
+                $.each(custom_classes[class_name], function() {
+
+                    // if a custom class needs to be applied to the date we're checking, don't look further
+                    if (found) return;
+
+                    var rule = this;
+
+                    // if the rules apply for the current year
+                    if ($.inArray(year, rule[2]) > -1 || $.inArray('*', rule[2]) > -1)
+
+                        // if the rules apply for the current month
+                        if ((typeof month != 'undefined' && $.inArray(month, rule[1]) > -1) || $.inArray('*', rule[1]) > -1)
+
+                            // if the rules apply for the current day
+                            if ((typeof day != 'undefined' && $.inArray(day, rule[0]) > -1) || $.inArray('*', rule[0]) > -1) {
+
+                                // if custom class is to be applied whatever the day
+                                // don't look any further
+                                if (rule[3] == '*') return (found = class_name);
+
+                                // get the weekday
+                                var weekday = new Date(year, month - 1, day).getDay();
+
+                                // if custom class is to be applied to weekday 
+                                // don't look any further
+                                if ($.inArray(weekday, rule[3]) > -1) return (found = class_name);
+
+                            }
+
+                });
+
+                // if a custom class needs to be applied to the date we're checking, don't look further
+                if (found) return found;
+
+            }
+
+            // return what we've found
+            return found || '';
 
         };
 
