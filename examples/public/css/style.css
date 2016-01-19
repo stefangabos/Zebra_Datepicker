@@ -8,6 +8,20 @@ h3 { font-size: 31px }
 h3, p, pre { margin: 10px 0 }
 .syntaxhighlighter { padding: 5px 0 }
 
+.Zebra_DatePicker .dp_daypicker td.myclass {
+}
+.Zebra_DatePicker .dp_daypicker td.myclass_disabled {
+    background: #E8E8E8 url('../images/close.png') no-repeat center center;
+    text-indent: -9999px;
+}
+
+.bootstrap .Zebra_DatePicker .dp_daypicker td.myclass {
+}
+.bootstrap .Zebra_DatePicker .dp_daypicker td.myclass_disabled {
+    background: #FFF url('../images/close.png') no-repeat center center;
+    text-indent: -9999px;
+}
+
 /* = MISCELLANEOUS
 ----------------------------------------------------------------------------------------------------------------------*/
 .align-center   { text-align: center }

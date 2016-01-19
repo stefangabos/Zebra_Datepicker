@@ -202,7 +202,24 @@
 
             <p>&nbsp;</p>
 
-            <p><strong>12.</strong> Handle the "onChange" event. If a callback function is attached to the "onChange"
+            <p><strong>12.</strong> Disable weekends, but apply a custom class to Saturdays and Sundays</p>
+
+            <pre class="brush:js">
+            $('#datepicker-example12').Zebra_DatePicker({
+                disabled_dates: ['* * * 0,6'],
+                custom_classes: {
+                    'myclass':  ['* * * 0,6']
+                }
+            });
+            </pre>
+
+            <form action="javascript:void(0)" method="post">
+            <div><input id="datepicker-example12" type="text"></div>
+            </form>
+
+            <p>&nbsp;</p>
+
+            <p><strong>13.</strong> Handle the "onChange" event. If a callback function is attached to the "onChange"
             event, it will be called whenever the user changes the view (days/months/years), as well as when the user
             navigates by clicking on the "next"/"previous" icons in any of the views. The callback function called by
             this event takes two arguments - the view (days/months/years) and the "active" elements (not disabled) in
@@ -210,7 +227,7 @@
             date picker's view:</p>
 
             <pre class="brush:js">
-            $('#datepicker-example12').Zebra_DatePicker({
+            $('#datepicker-example13').Zebra_DatePicker({
 
                 // execute a function whenever the user changes the view (days/months/years),
                 // as well as when the user navigates by clicking on the "next"/"previous"
@@ -250,23 +267,23 @@
             </pre>
 
             <form action="javascript:void(0)" method="post">
-            <div><input id="datepicker-example12" type="text"></div>
+            <div><input id="datepicker-example13" type="text"></div>
             </form>
 
             <p>&nbsp;</p>
 
-            <p><strong>13.</strong> Calendar is always visible. Set the "always_visible" property to point to a jQuery
+            <p><strong>14.</strong> Calendar is always visible. Set the "always_visible" property to point to a jQuery
             element which to contain the date picker</p>
 
             <pre class="brush:js">
-            $('#datepicker-example13').Zebra_DatePicker({
+            $('#datepicker-example14').Zebra_DatePicker({
                 always_visible: $('#container')
             });
             </pre>
 
             <form action="javascript:void(0)" method="post">
             <div>
-            <input id="datepicker-example13" type="text">
+            <input id="datepicker-example14" type="text">
             <div id="container" style="margin: 10px 0 0 0; height: 250px"></div>
             </div>
 
@@ -274,7 +291,7 @@
 
             <p>&nbsp;</p>
 
-            <p><strong>14.</strong> Using data attributes</p>
+            <p><strong>15.</strong> Using data attributes</p>
 
             <p>Any property of the date picker can also be set via data-attributes. All you have to do is take any property
             described in the "Configuration" section and prefix it with "data-zdp_". One important thing to remember is that
@@ -282,16 +299,16 @@
             brackets and therefore single quotes around the attribute - see the example below:</p>
 
             <pre class="brush:xml">
-            &lt;input type="text" id="datepicker-example14" data-zdp_direction="1" data-zdp_disabled_dates='["* * * 0,6"]'>
+            &lt;input type="text" id="datepicker-example15" data-zdp_direction="1" data-zdp_disabled_dates='["* * * 0,6"]'>
             </pre>
 
             <pre class="brush:js">
-            $('#datepicker-example14').Zebra_DatePicker();
+            $('#datepicker-example15').Zebra_DatePicker();
             </pre>
 
             <form action="javascript:void(0)" method="post">
             <div>
-            <input id="datepicker-example14" type="text" data-zdp_direction="1" data-zdp_disabled_dates='["* * * 0,6"]'>
+            <input id="datepicker-example15" type="text" data-zdp_direction="1" data-zdp_disabled_dates='["* * * 0,6"]'>
             </div>
 
             </form>

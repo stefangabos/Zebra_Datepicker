@@ -55,6 +55,13 @@ $(document).ready(function() {
     });
 
     $('#datepicker-example12').Zebra_DatePicker({
+        disabled_dates: ['* * * 0,6'],
+        custom_classes: {
+            'myclass':  ['* * * 0,6']
+        }
+    });
+
+    $('#datepicker-example13').Zebra_DatePicker({
         onChange: function(view, elements) {
             if (view == 'days') {
                 elements.each(function() {
@@ -68,10 +75,10 @@ $(document).ready(function() {
         }
     });
 
-    $('#datepicker-example13').Zebra_DatePicker({
+    $('#datepicker-example14').Zebra_DatePicker({
         always_visible: $('#container')
     });
 
-    $('#datepicker-example14').Zebra_DatePicker();
+    $('#datepicker-example15').Zebra_DatePicker();
 
 });
