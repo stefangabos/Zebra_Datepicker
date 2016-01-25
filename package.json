@@ -1,23 +1,21 @@
 {
   "name": "zebra_datepicker",
-  "description": "A super-lightweight, highly configurable, cross-browser date picker jQuery plugin",
+  "version": "1.9.4",
+  "main": "public/javascript/zebra_datepicker.js",
+  "homepage": "http://www.stefangabos.ro/jquery/zebra-datepicker/",
   "author": {
     "name": "Stefan Gabos",
     "email": "contact@stefangabos.ro"
   },
-  "homepage": "http://www.stefangabos.ro/jquery/zebra-datepicker/",
-  "main": "public/javascript/zebra_datepicker.js",
+  "description": "A super-lightweight, highly configurable, cross-browser date picker jQuery plugin",
   "repository": {
     "type": "git",
     "url": "https://github.com/stefangabos/Zebra_Datepicker.git"
   },
-  "licenses": [
-    {
-      "type": "LGPL",
-      "url": "https://www.gnu.org/licenses/lgpl-3.0.txt"
-    }
-  ],
-  "version": "1.9.3",
+  "bugs": {
+    "url": "http://github.com/stefangabos/Zebra_Datepicker/issues",
+    "email": "contact@stefangabos.ro"
+  },
   "keywords": [
     "calendar",
     "date",
@@ -26,10 +24,12 @@
     "iso-8601",
     "ui"
   ],
-  "bugs": {
-    "url": "http://github.com/stefangabos/Zebra_Datepicker/issues",
-    "email": "contact@stefangabos.ro"
-  },
+  "licenses": [
+    {
+      "type": "LGPL",
+      "url": "https://www.gnu.org/licenses/lgpl-3.0.txt"
+    }
+  ],
   "devDependencies": {
     "grunt": "*",
     "grunt-cli": "*",

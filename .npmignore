@@ -1,0 +1,6 @@
+todo.txt
+node_modules/*
+.gitattributes
+.npmignore
+bower.json
+Gruntfile.js
