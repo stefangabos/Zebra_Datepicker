@@ -1,11 +1,12 @@
 {
   "name": "zebra_datepicker",
-  "description": "A super-lightweight, highly configurable, cross-browser date picker jQuery plugin",
-  "version": "1.9.3",
-  "license": "LGPL",
+  "version": "1.9.4",
   "main": "public/javascript/zebra_datepicker.js",
-  "authors": ["Stefan Gabos"],
-  "ignore": {},
+  "homepage": "https://github.com/stefangabos/Zebra_Datepicker",
+  "authors": [
+    "Stefan Gabos <contact@stefangabos.ro>"
+  ],
+  "description": "A super-lightweight, highly configurable, cross-browser date picker jQuery plugin",
   "keywords": [
     "calendar",
     "date",
@@ -15,6 +16,16 @@
     "ui"
   ],
   "dependencies": {
-    "jquery": ">= 1.5.2"
-  }
+    "jquery": ">=1.5.2 <2.x"
+  },
+  "license": "LGPL",
+  "ignore": [
+    ".gitattributes",
+    ".gitignore",
+    ".npmignore",
+    "Gruntfile.js",
+    "package.json",
+    "README.md",
+    "bower.json"
+  ]
 }
