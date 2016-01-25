@@ -31,11 +31,24 @@ Zebra_Datepicker has no dependencies other than jQuery 1.5.2+ but requires that 
 ```
 
 ## How to use
-First, load the latest version of jQuery from a CDN and provide a fallback to a local source, like:
+
+Zebra_Datepicker is available as a [Bower package](http://bower.io/). To install it use:
+
+```
+bower install zebra_datepicker
+```
+
+Zebra_Datepicker is also available as a [npm package](https://www.npmjs.com/). To install it use:
+
+```
+npm install zebra_datepicker
+```
+
+Load the latest version of jQuery from a CDN and provide a fallback to a local source, like:
 
 ```html
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="public/javascript/jquery.min.js"><\/script>')</script>
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script>window.jQuery || document.write('<script src="path/to/jquery-1.12.0.js"><\/script>')</script>
 ```
 
 Load the Zebra_Datepicker jQuery plugin:
