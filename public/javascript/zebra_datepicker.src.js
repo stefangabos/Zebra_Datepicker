@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.4 (last revision: January 25, 2016)
+ *  @version    1.9.4 (last revision: January 29, 2016)
  *  @copyright  (c) 2011 - 2016 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -983,6 +983,10 @@
                             'bottom':   $element.css('bottom'),
                             'left':     $element.css('left')
                         });
+
+                        // if parent element has its "display" property set to "block"
+                        // the wrapper has to have its "width" set
+                        if ($element.css('display') == 'block') icon_wrapper.css('width', $element.outerWidth(true));
 
                         // put wrapper around the element
                         // also, make sure we set some important css properties for it
