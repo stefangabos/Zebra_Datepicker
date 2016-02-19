@@ -1524,7 +1524,7 @@
                 $element.val(date);
 
                 // update the paired date picker (if any)
-                update_dependent(date);
+                update_dependent(dateObj);
 
             }
 
