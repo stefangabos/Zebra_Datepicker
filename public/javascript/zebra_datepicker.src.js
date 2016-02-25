@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.4 (last revision: January 29, 2016)
+ *  @version    1.9.5 (last revision: February 25, 2016)
  *  @copyright  (c) 2011 - 2016 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -2328,7 +2328,8 @@
                 // the class name we're currently checking
                 class_name = custom_class_names[i]; found = false;
 
-                if (custom_classes && custom_classes.length > 0) {
+                // if there are any custom classes defined
+                if ($.isArray(custom_classes))
 
                     // iterate through the rules for which the custom class to be applied
                     $.each(custom_classes[class_name], function() {
@@ -2362,8 +2363,6 @@
     
                     });
                     
-                }
-
                 // if a custom class needs to be applied to the date we're checking, don't look further
                 if (found) return found;
 
