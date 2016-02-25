@@ -2328,37 +2328,41 @@
                 // the class name we're currently checking
                 class_name = custom_class_names[i]; found = false;
 
-                // iterate through the rules for which the custom class to be applied
-                $.each(custom_classes[class_name], function() {
+                if (custom_classes && custom_classes.length > 0) {
 
-                    // if a custom class needs to be applied to the date we're checking, don't look further
-                    if (found) return;
-
-                    var rule = this;
-
-                    // if the rules apply for the current year
-                    if ($.inArray(year, rule[2]) > -1 || $.inArray('*', rule[2]) > -1)
-
-                        // if the rules apply for the current month
-                        if ((typeof month != 'undefined' && $.inArray(month, rule[1]) > -1) || $.inArray('*', rule[1]) > -1)
-
-                            // if the rules apply for the current day
-                            if ((typeof day != 'undefined' && $.inArray(day, rule[0]) > -1) || $.inArray('*', rule[0]) > -1) {
-
-                                // if custom class is to be applied whatever the day
-                                // don't look any further
-                                if (rule[3] == '*') return (found = class_name);
-
-                                // get the weekday
-                                var weekday = new Date(year, month - 1, day).getDay();
-
-                                // if custom class is to be applied to weekday 
-                                // don't look any further
-                                if ($.inArray(weekday, rule[3]) > -1) return (found = class_name);
-
-                            }
-
-                });
+                    // iterate through the rules for which the custom class to be applied
+                    $.each(custom_classes[class_name], function() {
+    
+                        // if a custom class needs to be applied to the date we're checking, don't look further
+                        if (found) return;
+    
+                        var rule = this;
+    
+                        // if the rules apply for the current year
+                        if ($.inArray(year, rule[2]) > -1 || $.inArray('*', rule[2]) > -1)
+    
+                            // if the rules apply for the current month
+                            if ((typeof month != 'undefined' && $.inArray(month, rule[1]) > -1) || $.inArray('*', rule[1]) > -1)
+    
+                                // if the rules apply for the current day
+                                if ((typeof day != 'undefined' && $.inArray(day, rule[0]) > -1) || $.inArray('*', rule[0]) > -1) {
+    
+                                    // if custom class is to be applied whatever the day
+                                    // don't look any further
+                                    if (rule[3] == '*') return (found = class_name);
+    
+                                    // get the weekday
+                                    var weekday = new Date(year, month - 1, day).getDay();
+    
+                                    // if custom class is to be applied to weekday 
+                                    // don't look any further
+                                    if ($.inArray(weekday, rule[3]) > -1) return (found = class_name);
+    
+                                }
+    
+                    });
+                    
+                }
 
                 // if a custom class needs to be applied to the date we're checking, don't look further
                 if (found) return found;
