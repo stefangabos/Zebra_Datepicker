@@ -1448,7 +1448,7 @@
             plugin.hide();
 
             //check whether event should be fired, default: true
-            if (fireEvent === undefined || fireEvent === null || fireEvent === true
+            if (fireEvent === undefined || fireEvent === null || fireEvent === true)
 
                 // if a callback function exists for when clearing a date
                 if (plugin.settings.onClear && typeof plugin.settings.onClear == 'function')
