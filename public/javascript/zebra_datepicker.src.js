@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.5 (last revision: February 25, 2016)
+ *  @version    1.9.6 (last revision: April 27, 2016)
  *  @copyright  (c) 2011 - 2016 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -404,7 +404,7 @@
             current_system_day, first_selectable_month, first_selectable_year, first_selectable_day, selected_month, selected_year,
             default_day, default_month, default_year, enabled_dates, disabled_dates, shim, start_date, end_date, last_selectable_day,
             last_selectable_year, last_selectable_month, daypicker_cells, monthpicker_cells, yearpicker_cells, views, clickables,
-            selecttoday, footer, show_select_today, timeout, uniqueid, custom_classes, custom_class_names;
+            selecttoday, footer, show_select_today, timeout, uniqueid, custom_classes, custom_class_names, original_attributes = {};
 
         var plugin = this;
 
@@ -426,11 +426,15 @@
             // the code is taken from http://stackoverflow.com/a/105074
             uniqueid = Math.floor((1 + Math.random()) * 0x10000).toString(16);
 
-            // unless we're just updating settings
+            // unless we're not just updating settings
             if (!update) {
 
                 // merge default settings with user-settings (
                 plugin.settings = $.extend({}, defaults, options);
+
+                // preserve some of element's original attributes
+                original_attributes['readonly'] = $element.attr('readonly');
+                original_attributes['style'] = $element.attr('style');
 
                 // iterate through the element's data attributes (if any)
                 for (var data in $element.data())
@@ -1012,7 +1016,7 @@
                     } else clickables = $element;
 
                     // attach the click event to the clickable elements (icon and/or element)
-                    clickables.bind('click', function(e) {
+                    clickables.bind('click.Zebra_DatePicker_' + uniqueid, function(e) {
 
                         e.preventDefault();
 
@@ -1470,6 +1474,14 @@
             // ...and the calendar
             plugin.datepicker.remove();
 
+            // if calendar icon was shown and the date picker was not always visible,
+            // also remove the wrapper needed for positioning it
+            if (plugin.settings.show_icon && !plugin.settings.always_visible) $element.unwrap();
+
+            // remove associated event handlers from the element
+            $element.unbind('click.Zebra_DatePicker_' + uniqueid);
+            $element.unbind('blur.Zebra_DatePicker_' + uniqueid);
+
             // remove associated event handlers from the document
             $(document).unbind('keyup.Zebra_DatePicker_' + uniqueid);
             $(document).unbind('mousedown.Zebra_DatePicker_' + uniqueid);
@@ -1478,6 +1490,10 @@
 
             // remove association with the element
             $element.removeData('Zebra_DatePicker');
+
+            // restore element's modified attributes
+            $element.attr('readonly', original_attributes['readonly'] ? true : false);
+            $element.attr('style', original_attributes['style'] ? original_attributes['style'] : '');
 
         };
 
