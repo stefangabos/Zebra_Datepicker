@@ -2345,7 +2345,7 @@
                 class_name = custom_class_names[i]; found = false;
 
                 // if there are any custom classes defined
-                if ($.isArray(custom_classes))
+                if ($.isArray(custom_classes[class_name]))
 
                     // iterate through the rules for which the custom class to be applied
                     $.each(custom_classes[class_name], function() {
@@ -2378,7 +2378,7 @@
                                 }
     
                     });
-                    
+
                 // if a custom class needs to be applied to the date we're checking, don't look further
                 if (found) return found;
 
