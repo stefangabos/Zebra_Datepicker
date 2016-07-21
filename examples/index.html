@@ -316,6 +316,24 @@
 
             </form>
 
+            <p>&nbsp;</p>
+
+            <p><strong>16.</strong> Using attribute today_date</p>
+
+            <pre class="brush:js">
+              var date = new Date();
+              $('#datepicker-example16').Zebra_DatePicker({
+                today_date:new Date(date.getFullYear(), date.getMonth(), 1)//Attribute to set  the current date
+                                                                           // of Zebra_DatePicker using the date of the server
+              });
+            </pre>
+
+            <form action="javascript:void(0)" method="post">
+            <div>
+                <input id="datepicker-example16" type="text">
+            </div>
+            </form>
+
             <br><br><br>
 
         </div>

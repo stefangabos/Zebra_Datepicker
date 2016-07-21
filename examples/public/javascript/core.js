@@ -81,4 +81,9 @@ $(document).ready(function() {
 
     $('#datepicker-example15').Zebra_DatePicker();
 
+    var date = new Date();
+    $('#datepicker-example16').Zebra_DatePicker({
+      today_date:new Date(date.getFullYear(), date.getMonth(), 1)//Attribute to set the current date
+                                                                 // of Zebra_DatePicker using the date of the server
+    });
 });

@@ -8,7 +8,7 @@
  *  For more resources visit {@link http://stefangabos.ro/}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.5 (last revision: May 13, 2016)
+ *  @version    1.9.6 (last revision: Jul 21, 2016)
  *  @copyright  (c) 2011 - 2016 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -37,6 +37,15 @@
             //  setting this property to a jQuery element, will result in the date picker being always visible, the indicated
             //  element being the date picker's container;
             always_visible: false,
+
+            /** This property is the current date
+             * Attribute to set the current date of Zebra_DatePicker using the date of the server
+             * @author     Jefferson Borges <jeffersonbfs@gmail.ro>
+             * @version    1.9.6 (last revision: Jul 21, 2016)
+             *
+             * default is new Date() 
+             */
+            today_date: new Date(),
 
             //  by default, the date picker is injected into the <body>; use this property to tell the library to inject
             //  the date picker into a custom element - useful when you want the date picker to open at a specific position
@@ -609,15 +618,11 @@
             }
 
             var
-
-                // cache the current system date
-                date = new Date(),
-
                 // when the date picker's starting date depends on the value of another date picker, this value will be
                 // set by the other date picker
                 // this value will be used as base for all calculations (if not set, will be the same as the current
                 // system date)
-                reference_date = (!plugin.settings.reference_date ? ($element.data('zdp_reference_date') && undefined !== $element.data('zdp_reference_date') ? $element.data('zdp_reference_date') : date) : plugin.settings.reference_date),
+                reference_date = (!plugin.settings.reference_date ? ($element.data('zdp_reference_date') && undefined !== $element.data('zdp_reference_date') ? $element.data('zdp_reference_date') : plugin.settings.today_date) : plugin.settings.reference_date),
 
                 tmp_start_date, tmp_end_date;
 
@@ -628,11 +633,11 @@
             // extract the date parts
             // also, save the current system month/day/year - we'll use them to highlight the current system date
             first_selectable_month = reference_date.getMonth();
-            current_system_month = date.getMonth();
+            current_system_month = plugin.settings.today_date.getMonth();
             first_selectable_year = reference_date.getFullYear();
-            current_system_year = date.getFullYear();
+            current_system_year = plugin.settings.today_date.getFullYear();
             first_selectable_day = reference_date.getDate();
-            current_system_day = date.getDate();
+            current_system_day = plugin.settings.today_date.getDate();
 
             // check if the calendar has any restrictions
 
@@ -2349,34 +2354,34 @@
 
                     // iterate through the rules for which the custom class to be applied
                     $.each(custom_classes[class_name], function() {
-    
+
                         // if a custom class needs to be applied to the date we're checking, don't look further
                         if (found) return;
-    
+
                         var rule = this;
-    
+
                         // if the rules apply for the current year
                         if ($.inArray(year, rule[2]) > -1 || $.inArray('*', rule[2]) > -1)
-    
+
                             // if the rules apply for the current month
                             if ((typeof month != 'undefined' && $.inArray(month, rule[1]) > -1) || $.inArray('*', rule[1]) > -1)
-    
+
                                 // if the rules apply for the current day
                                 if ((typeof day != 'undefined' && $.inArray(day, rule[0]) > -1) || $.inArray('*', rule[0]) > -1) {
-    
+
                                     // if custom class is to be applied whatever the day
                                     // don't look any further
                                     if (rule[3] == '*') return (found = class_name);
-    
+
                                     // get the weekday
                                     var weekday = new Date(year, month - 1, day).getDay();
-    
-                                    // if custom class is to be applied to weekday 
+
+                                    // if custom class is to be applied to weekday
                                     // don't look any further
                                     if ($.inArray(weekday, rule[3]) > -1) return (found = class_name);
-    
+
                                 }
-    
+
                     });
 
                 // if a custom class needs to be applied to the date we're checking, don't look further
