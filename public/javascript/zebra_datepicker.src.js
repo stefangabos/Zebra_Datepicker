@@ -43,7 +43,7 @@
              * @author     Jefferson Borges <jeffersonbfs@gmail.ro>
              * @version    1.9.6 (last revision: Jul 21, 2016)
              *
-             * default is new Date() 
+             * default is new Date()
              */
             today_date: new Date(),
 
@@ -618,11 +618,12 @@
             }
 
             var
+                date = plugin.settings.today_date,
                 // when the date picker's starting date depends on the value of another date picker, this value will be
                 // set by the other date picker
                 // this value will be used as base for all calculations (if not set, will be the same as the current
                 // system date)
-                reference_date = (!plugin.settings.reference_date ? ($element.data('zdp_reference_date') && undefined !== $element.data('zdp_reference_date') ? $element.data('zdp_reference_date') : plugin.settings.today_date) : plugin.settings.reference_date),
+                reference_date = (!plugin.settings.reference_date ? ($element.data('zdp_reference_date') && undefined !== $element.data('zdp_reference_date') ? $element.data('zdp_reference_date') : date) : plugin.settings.reference_date),
 
                 tmp_start_date, tmp_end_date;
 
@@ -633,11 +634,11 @@
             // extract the date parts
             // also, save the current system month/day/year - we'll use them to highlight the current system date
             first_selectable_month = reference_date.getMonth();
-            current_system_month = plugin.settings.today_date.getMonth();
+            current_system_month = date.getMonth();
             first_selectable_year = reference_date.getFullYear();
-            current_system_year = plugin.settings.today_date.getFullYear();
+            current_system_year = date.getFullYear();
             first_selectable_day = reference_date.getDate();
-            current_system_day = plugin.settings.today_date.getDate();
+            current_system_day = date.getDate();
 
             // check if the calendar has any restrictions
 
