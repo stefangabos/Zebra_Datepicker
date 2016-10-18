@@ -1,5 +1,6 @@
 ##Zebra_Datepicker
 
+[![CDNJS](https://img.shields.io/cdnjs/v/Zebra_datepicker.svg)](https://cdnjs.com/libraries/Zebra_datepicker)
 ####A super-lightweight, highly configurable, cross-browser date picker jQuery plugin
 
 Zebra_Datepicker is a small, compact and highly configurable datepicker jQuery plugin, meant to enrich forms by adding the datepicker functionality to them. This jQuery plugin will automatically add a calendar icon to the indicated input fields which, when clicked, will open the attached datepicker. Users can easily jump between months and years due to the datepicker’s intuitive interface. The selected date will be entered in the input field using the date format of choice, configurable in the datepicker’s options.
