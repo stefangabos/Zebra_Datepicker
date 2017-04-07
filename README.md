@@ -1,4 +1,4 @@
-## Zebra_Datepicker
+# Zebra_Datepicker
 
 #### A super-lightweight, highly configurable, cross-browser date picker jQuery plugin
 
