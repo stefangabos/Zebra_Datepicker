@@ -13,7 +13,7 @@
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
  */
-;(function(factory) {
+(function(factory) {
 
     'use strict';
 
@@ -450,7 +450,7 @@
 
                             // update the property's value
                             // (note that for the "pair" property we need to convert the property to an element)
-                            plugin.settings[data] = (data == 'pair' ? $($element.data('zdp_' + data)) : $element.data('zdp_' + data));
+                            plugin.settings[data] = (data === 'pair' ? $($element.data('zdp_' + data)) : $element.data('zdp_' + data));
 
                     }
 
@@ -488,9 +488,9 @@
                     if (plugin.settings.format.indexOf(character) > -1)
 
                         // set to TRUE the appropriate flag
-                        if (type == 'days') has_days = true;
-                        else if (type == 'months') has_months = true;
-                        else if (type == 'years') has_years = true;
+                        if (type === 'days') has_days = true;
+                        else if (type === 'months') has_months = true;
+                        else if (type === 'years') has_years = true;
 
                 });
 
@@ -514,7 +514,7 @@
             else views = ['years', 'months', 'days'];
 
             // if the starting view is not amongst the views the user can cycle through, set the correct starting view
-            if ($.inArray(plugin.settings.view, views) == -1) plugin.settings.view = views[views.length - 1];
+            if ($.inArray(plugin.settings.view, views) === -1) plugin.settings.view = views[views.length - 1];
 
             // parse the rules for disabling dates and turn them into arrays of arrays
 
@@ -532,7 +532,7 @@
                 if (l === 0) dates = plugin.settings.disabled_dates;
 
                 // second time we're doing enabled_dates
-                else if (l == 1) dates = plugin.settings.enabled_dates;
+                else if (l === 1) dates = plugin.settings.enabled_dates;
 
                 // otherwise, we're doing dates that will have custom classes
                 else dates = plugin.settings.custom_classes[custom_class_names[l - 2]];
@@ -544,10 +544,10 @@
                     $.each(dates, function() {
 
                         // split the values in rule by white space
-                        var rules = this.split(' ');
+                        var rules = this.split(' '), i, j, k, limits;
 
                         // there can be a maximum of 4 rules (days, months, years and, optionally, day of the week)
-                        for (var i = 0; i < 4; i++) {
+                        for (i = 0; i < 4; i++) {
 
                             // if one of the values is not available
                             // replace it with a * (wildcard)
@@ -558,23 +558,23 @@
                             rules[i] = (rules[i].indexOf(',') > -1 ? rules[i].split(',') : new Array(rules[i]));
 
                             // iterate through the items in the rule
-                            for (var j = 0; j < rules[i].length; j++)
+                            for ( j = 0; j < rules[i].length; j++)
 
                                 // if item contains a dash (defining a range)
                                 if (rules[i][j].indexOf('-') > -1) {
 
                                     // get the lower and upper limits of the range
-                                    var limits = rules[i][j].match(/^([0-9]+)\-([0-9]+)/);
+                                    limits = rules[i][j].match(/^([0-9]+)\-([0-9]+)/);
 
                                     // if range is valid
                                     if (null !== limits) {
 
                                         // iterate through the range
-                                        for (var k = to_int(limits[1]); k <= to_int(limits[2]); k++)
+                                        for (k = to_int(limits[1]); k <= to_int(limits[2]); k++)
 
                                             // if value is not already among the values of the rule
                                             // add it to the rule
-                                            if ($.inArray(k, rules[i]) == -1) rules[i].push(k + '');
+                                            if ($.inArray(k, rules[i]) === -1) rules[i].push(k + '');
 
                                         // remove the range indicator
                                         rules[i].splice(j, 1);
@@ -594,7 +594,7 @@
                         if (l === 0) disabled_dates.push(rules);
 
                         // second time we're doing enabled_dates
-                        else if (l == 1) enabled_dates.push(rules);
+                        else if (l === 1) enabled_dates.push(rules);
 
                         // otherwise, we're doing the dates to which custom classes need to be applied
                         else {
@@ -794,7 +794,7 @@
                 for (var interval in disabled_dates)
 
                     // only if there is a rule that disables *everything*
-                    if (disabled_dates[interval][0] == '*' && disabled_dates[interval][1] == '*' && disabled_dates[interval][2] == '*' && disabled_dates[interval][3] == '*') {
+                    if (disabled_dates[interval][0] === '*' && disabled_dates[interval][1] === '*' && disabled_dates[interval][2] === '*' && disabled_dates[interval][3] === '*') {
 
                         var tmpDates = [];
 
@@ -805,13 +805,13 @@
                             var rule = this;
 
                             // if the rule doesn't apply to all years
-                            if (rule[2][0] != '*')
+                            if (rule[2][0] !== '*')
 
                                 // format date and store it in our stack
                                 tmpDates.push(parseInt(
                                     rule[2][0] +
-                                    (rule[1][0] == '*' ? '12' : str_pad(rule[1][0], 2)) +
-                                    (rule[0][0] == '*' ? (rule[1][0] == '*' ? '31' : new Date(rule[2][0], rule[1][0], 0).getDate()) : str_pad(rule[0][0], 2)), 10));
+                                    (rule[1][0] === '*' ? '12' : str_pad(rule[1][0], 2)) +
+                                    (rule[0][0] === '*' ? (rule[1][0] === '*' ? '31' : new Date(rule[2][0], rule[1][0], 0).getDate()) : str_pad(rule[0][0], 2)), 10));
 
                         });
 
@@ -974,13 +974,13 @@
                         // set to "inline" instead of "inline-block" as do all the other browsers.
                         // because this behavior brakes the positioning of the icon, we'll set the "display" property to
                         // "inline-block" before anything else;
-                        if (browser.name == 'firefox' && $element.is('input[type="text"]') && $element.css('display') == 'inline') $element.css('display', 'inline-block');
+                        if (browser.name === 'firefox' && $element.is('input[type="text"]') && $element.css('display') === 'inline') $element.css('display', 'inline-block');
 
                         // we create a wrapper for the parent element so that we can later position the icon
                         // also, make sure the wrapper inherits some important css properties of the parent element
                         var icon_wrapper = $('<span class="Zebra_DatePicker_Icon_Wrapper"></span>').css({
                             'display':  $element.css('display'),
-                            'position': $element.css('position') == 'static' ? 'relative' : $element.css('position'),
+                            'position': $element.css('position') === 'static' ? 'relative' : $element.css('position'),
                             'float':    $element.css('float'),
                             'top':      $element.css('top'),
                             'right':    $element.css('right'),
@@ -990,7 +990,7 @@
 
                         // if parent element has its "display" property set to "block"
                         // the wrapper has to have its "width" set
-                        if ($element.css('display') == 'block') icon_wrapper.css('width', $element.outerWidth(true));
+                        if ($element.css('display') === 'block') icon_wrapper.css('width', $element.outerWidth(true));
 
                         // put wrapper around the element
                         // also, make sure we set some important css properties for it
@@ -1003,7 +1003,7 @@
                         });
 
                         // create the actual calendar icon (show a disabled icon if the element is disabled)
-                        icon = $('<button type="button" class="Zebra_DatePicker_Icon' + ($element.attr('disabled') == 'disabled' ? ' Zebra_DatePicker_Icon_Disabled' : '') + '">Pick a date</button>');
+                        icon = $('<button type="button" class="Zebra_DatePicker_Icon' + ($element.attr('disabled') === 'disabled' ? ' Zebra_DatePicker_Icon_Disabled' : '') + '">Pick a date</button>');
 
                         // a reference to the icon, as a global property
                         plugin.icon = icon;
@@ -1058,7 +1058,7 @@
 
                     // if calendar icon is to be placed *inside* the element
                     // add an extra class to the icon
-                    if (plugin.settings.inside) icon.addClass('Zebra_DatePicker_Icon_Inside_' + (plugin.settings.icon_position == 'right' ? 'Right' : 'Left'));
+                    if (plugin.settings.inside) icon.addClass('Zebra_DatePicker_Icon_Inside_' + (plugin.settings.icon_position === 'right' ? 'Right' : 'Left'));
 
                     var
 
@@ -1082,7 +1082,7 @@
                         icon.css('top', element_margin_top + ((element_height - icon_height) / 2));
 
                         // place icon to the right or to the left, according to the settings
-                        if (plugin.settings.icon_position == 'right') icon.css('right', 0);
+                        if (plugin.settings.icon_position === 'right') icon.css('right', 0);
                         else icon.css('left', 0);
 
                     // if icon is to be placed to the right of the element
@@ -1098,7 +1098,7 @@
                     icon.removeClass(' Zebra_DatePicker_Icon_Disabled');
 
                     // if element the datepicker is attached to became disabled, disable the calendar icon, too
-                    if ($element.attr('disabled') == 'disabled') icon.addClass('Zebra_DatePicker_Icon_Disabled');
+                    if ($element.attr('disabled') === 'disabled') icon.addClass('Zebra_DatePicker_Icon_Disabled');
 
                 }
 
@@ -1218,11 +1218,11 @@
 
                 // if view is "months"
                 // decrement year by one
-                if (view == 'months') selected_year--;
+                if (view === 'months') selected_year--;
 
                 // if view is "years"
                 // decrement years by 12
-                else if (view == 'years') selected_year -= 12;
+                else if (view === 'years') selected_year -= 12;
 
                 // if view is "days"
                 // decrement the month and
@@ -1244,10 +1244,10 @@
             $('.dp_caption', header).bind('click', function() {
 
                 // if current view is "days", take the user to the next view, depending on the format
-                if (view == 'days') view = ($.inArray('months', views) > -1 ? 'months' : ($.inArray('years', views) > -1 ? 'years' : 'days'));
+                if (view === 'days') view = ($.inArray('months', views) > -1 ? 'months' : ($.inArray('years', views) > -1 ? 'years' : 'days'));
 
                 // if current view is "months", take the user to the next view, depending on the format
-                else if (view == 'months') view = ($.inArray('years', views) > -1 ? 'years' : ($.inArray('days', views) > -1 ? 'days' : 'months'));
+                else if (view === 'months') view = ($.inArray('years', views) > -1 ? 'years' : ($.inArray('days', views) > -1 ? 'days' : 'months'));
 
                 // if current view is "years", take the user to the next view, depending on the format
                 else view = ($.inArray('days', views) > -1 ? 'days' : ($.inArray('months', views) > -1 ? 'months' : 'years'));
@@ -1262,16 +1262,16 @@
 
                 // if view is "months"
                 // increment year by 1
-                if (view == 'months') selected_year++;
+                if (view === 'months') selected_year++;
 
                 // if view is "years"
                 // increment years by 12
-                else if (view == 'years') selected_year += 12;
+                else if (view === 'years') selected_year += 12;
 
                 // if view is "days"
                 // increment the month and
                 // if month is out of range
-                else if (++selected_month == 12) {
+                else if (++selected_month === 12) {
 
                     // go to the first month of the next year
                     selected_month = 0;
@@ -1308,7 +1308,7 @@
                 selected_month = to_int(matches[1]);
 
                 // if user can select only years and months
-                if ($.inArray('days', views) == -1)
+                if ($.inArray('days', views) === -1)
 
                     // put selected date in the element the plugin is attached to, and hide the date picker
                     select_date(selected_year, selected_month, 1, 'months', $(this));
@@ -1336,7 +1336,7 @@
                 selected_year = to_int($(this).html());
 
                 // if user can select only years
-                if ($.inArray('months', views) == -1)
+                if ($.inArray('months', views) === -1)
 
                     // put selected date in the element the plugin is attached to, and hide the date picker
                     select_date(selected_year, 1, 1, 'years', $(this));
@@ -1405,7 +1405,7 @@
                 plugin.hide();
 
                 // if a callback function exists for when clearing a date
-                if (plugin.settings.onClear && typeof plugin.settings.onClear == 'function')
+                if (plugin.settings.onClear && typeof plugin.settings.onClear === 'function')
 
                     // execute the callback function and pass as argument the element the plugin is attached to
                     plugin.settings.onClear.call($element, $element);
@@ -1415,7 +1415,7 @@
             // if date picker is not always visible
             if (!plugin.settings.always_visible) {
 
-                //whenever anything is clicked on the page
+                // whenever anything is clicked on the page
                 $(document).bind('mousedown.Zebra_DatePicker_' + uniqueid + ', touchstart.Zebra_DatePicker_' + uniqueid, function(e) {
 
                     // if the date picker is visible
@@ -1433,13 +1433,13 @@
 
                 });
 
-                //whenever a key is pressed on the page
+                // whenever a key is pressed on the page
                 $(document).bind('keyup.Zebra_DatePicker_' + uniqueid, function(e) {
 
                     // if the date picker is visible
                     // and the pressed key is ESC
                     // hide the date picker
-                    if (datepicker.hasClass('dp_visible') && e.which == 27) plugin.hide();
+                    if (datepicker.hasClass('dp_visible') && e.which === 27) plugin.hide();
 
                 });
 
@@ -1492,7 +1492,7 @@
             $element.removeData('Zebra_DatePicker');
 
             // restore element's modified attributes
-            $element.attr('readonly', original_attributes['readonly'] ? true : false);
+            $element.attr('readonly', original_attributes['readonly']);
             $element.attr('style', original_attributes['style'] ? original_attributes['style'] : '');
 
         };
@@ -1514,7 +1514,7 @@
                 datepicker.removeClass('dp_visible').addClass('dp_hidden');
 
                 // if a callback function exists for when hiding the date picker
-                if (plugin.settings.onClose && typeof plugin.settings.onClose == 'function')
+                if (plugin.settings.onClose && typeof plugin.settings.onClose === 'function')
 
                     // execute the callback function and pass as argument the element the plugin is attached to
                     plugin.settings.onClose.call($element, $element);
@@ -1623,7 +1623,7 @@
                         window_scroll_top = $(window).scrollTop(),
                         window_scroll_left = $(window).scrollLeft();
 
-                    if (plugin.settings.default_position == 'below')
+                    if (plugin.settings.default_position === 'below')
                         top = (undefined !== icon ? icon.offset().top : $element.offset().top) + plugin.settings.offset[1];
 
                     // if date picker is outside the viewport, adjust its position so that it is visible
@@ -1658,7 +1658,7 @@
             } else datepicker.removeClass('dp_hidden').addClass('dp_visible');
 
             // if a callback function exists for when showing the date picker
-            if (plugin.settings.onOpen && typeof plugin.settings.onOpen == 'function')
+            if (plugin.settings.onOpen && typeof plugin.settings.onOpen === 'function')
 
                 // execute the callback function and pass as argument the element the plugin is attached to
                 plugin.settings.onOpen.call($element, $element);
@@ -1711,7 +1711,7 @@
                     format = escape_regexp(plugin.settings.format),
 
                     // allowed characters in date's format
-                    format_chars = ['d','D','j','l','N','S','w','F','m','M','n','Y','y'],
+                    format_chars = ['d', 'D', 'j', 'l', 'N', 'S', 'w', 'F', 'm', 'M', 'n', 'Y', 'y'],
 
                     // "matches" will contain the characters defining the date's format
                     matches = [],
@@ -1719,7 +1719,7 @@
                     // "regexp" will contain the regular expression built for each of the characters used in the date's format
                     regexp = [],
 
-                    // "position" will contain the position of the caracter found in the date's format
+                    // "position" will contain the position of the character found in the date's format
                     position = null,
 
                     // "segments" will contain the matches of the regular expression
@@ -1732,10 +1732,13 @@
                     if ((position = format.indexOf(format_chars[i])) > -1)
 
                         // save it, alongside the character's position
-                        matches.push({character: format_chars[i], position: position});
+                        matches.push({
+                            character: format_chars[i],
+                            position: position
+                        });
 
                 // sort characters defining the date's format based on their position, ascending
-                matches.sort(function(a, b){ return a.position - b.position; });
+                matches.sort(function(a, b) { return a.position - b.position; });
 
                 // iterate through the characters defining the date's format
                 $.each(matches, function(index, match) {
@@ -1787,8 +1790,8 @@
                             original_day = 1,
                             original_month = tmpdate.getMonth() + 1,
                             original_year = tmpdate.getFullYear(),
-                            english_days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-                            english_months = ['January','February','March','April','May','June','July','August','September','October','November','December'],
+                            english_days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                            english_months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                             iterable,
 
                             // by default, we assume the date is valid
@@ -1828,7 +1831,7 @@
                                 case 'M':
 
                                     // if day is given as day name, we'll check against the names in the used language
-                                    if (match.character == 'D' || match.character == 'l') iterable = plugin.settings.days;
+                                    if (match.character === 'D' || match.character === 'l') iterable = plugin.settings.days;
 
                                     // if month is given as month name, we'll check against the names in the used language
                                     else iterable = plugin.settings.months;
@@ -1843,7 +1846,7 @@
                                         if (valid) return true;
 
                                         // if month/day was entered correctly
-                                        if (segments[index + 1].toLowerCase() == value.substring(0, (match.character == 'D' || match.character == 'M' ? 3 : value.length)).toLowerCase()) {
+                                        if (segments[index + 1].toLowerCase() === value.substring(0, (match.character === 'D' || match.character === 'M' ? 3 : value.length)).toLowerCase()) {
 
                                             // extract the day/month from the value entered by the user
                                             switch (match.character) {
@@ -1889,7 +1892,7 @@
                             var date = new Date(original_year, (original_month || 1) - 1, original_day || 1);
 
                             // if, after that, the date is the same as the date entered by the user
-                            if (date.getFullYear() == original_year && date.getDate() == (original_day || 1) && date.getMonth() == ((original_month || 1) - 1))
+                            if (date.getFullYear() === original_year && date.getDate() === (original_day || 1) && date.getMonth() === ((original_month || 1) - 1))
 
                                 // return the date as JavaScript date object
                                 return date;
@@ -1922,10 +1925,10 @@
         var disable_text_select = function(el) {
 
             // if browser is Firefox
-            if (browser.name == 'firefox') el.css('MozUserSelect', 'none');
+            if (browser.name === 'firefox') el.css('MozUserSelect', 'none');
 
             // if browser is Internet Explorer
-            else if (browser.name == 'explorer') el.bind('selectstart', function() { return false; });
+            else if (browser.name === 'explorer') el.bind('selectstart', function() { return false; });
 
             // for the other browsers
             else el.mousedown(function() { return false; });
@@ -2030,11 +2033,11 @@
                     // (st, nd, rd or th (works well with j))
                     case 'S':
 
-                        if (j % 10 == 1 && j != '11') result += 'st';
+                        if (j % 10 === 1 && j !== '11') result += 'st';
 
-                        else if (j % 10 == 2 && j != '12') result += 'nd';
+                        else if (j % 10 === 2 && j !== '12') result += 'nd';
 
-                        else if (j % 10 == 3 && j != '13') result += 'rd';
+                        else if (j % 10 === 3 && j !== '13') result += 'rd';
 
                         else result += 'th';
 
@@ -2162,10 +2165,10 @@
                         else class_name += ' dp_disabled';
 
                         // highlight the current system date
-                        if (selected_month == current_system_month && selected_year == current_system_year && current_system_day == day) class_name += ' dp_disabled_current';
+                        if (selected_month === current_system_month && selected_year === current_system_year && current_system_day === day) class_name += ' dp_disabled_current';
 
                         // apply custom class, with the "_disabled" suffix, if a custom class exists
-                        if (custom_class_name != '') class_name += ' ' + custom_class_name + '_disabled';
+                        if (custom_class_name !== '') class_name += ' ' + custom_class_name + '_disabled';
 
                     // if there are no restrictions
                     } else {
@@ -2174,13 +2177,13 @@
                         if ($.inArray(weekday, plugin.settings.weekend_days) > -1) class_name = 'dp_weekend';
 
                         // highlight the currently selected date
-                        if (selected_month == default_month && selected_year == default_year && default_day == day) class_name += ' dp_selected';
+                        if (selected_month === default_month && selected_year === default_year && default_day === day) class_name += ' dp_selected';
 
                         // highlight the current system date
-                        if (selected_month == current_system_month && selected_year == current_system_year && current_system_day == day) class_name += ' dp_current';
+                        if (selected_month === current_system_month && selected_year === current_system_year && current_system_day === day) class_name += ' dp_current';
 
                         // apply custom class, if a custom class exists
-                        if (custom_class_name != '') class_name += ' ' + custom_class_name;
+                        if (custom_class_name !== '') class_name += ' ' + custom_class_name;
 
                     }
 
@@ -2236,10 +2239,10 @@
                 if (is_disabled(selected_year, i)) class_name += ' dp_disabled';
 
                 // else, if a date is already selected and this is that particular month, highlight it
-                else if (default_month !== false && default_month == i && selected_year == default_year) class_name += ' dp_selected';
+                else if (default_month !== false && default_month === i && selected_year === default_year) class_name += ' dp_selected';
 
                 // else, if this the current system month, highlight it
-                else if (current_system_month == i && current_system_year == selected_year) class_name += ' dp_current';
+                else if (current_system_month === i && current_system_year === selected_year) class_name += ' dp_current';
 
                 // first three letters of the month's name
                 html += '<td class="' + $.trim(class_name) + '">' + ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[i] ? plugin.settings.months_abbr[i] : plugin.settings.months[i].substr(0, 3)) + '</td>';
@@ -2291,10 +2294,10 @@
                 if (is_disabled(selected_year - 7 + i)) class_name += ' dp_disabled';
 
                 // else, if a date is already selected and this is that particular year, highlight it
-                else if (default_year && default_year == selected_year - 7 + i) class_name += ' dp_selected';
+                else if (default_year && default_year === selected_year - 7 + i) class_name += ' dp_selected';
 
                 // else, if this is the current system year, highlight it
-                else if (current_system_year == (selected_year - 7 + i)) class_name += ' dp_current';
+                else if (current_system_year === (selected_year - 7 + i)) class_name += ' dp_current';
 
                 // first three letters of the month's name
                 html += '<td' + ($.trim(class_name) !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + (selected_year - 7 + i) + '</td>';
@@ -2336,7 +2339,7 @@
             var class_name, i, found;
 
             // if month is given as argument, increment it (as JavaScript uses 0 for January, 1 for February...)
-            if (typeof month != 'undefined') month = month + 1;
+            if (typeof month !== 'undefined') month = month + 1;
 
             // iterate through the custom classes
             for (i in custom_class_names) {
@@ -2349,34 +2352,34 @@
 
                     // iterate through the rules for which the custom class to be applied
                     $.each(custom_classes[class_name], function() {
-    
+
                         // if a custom class needs to be applied to the date we're checking, don't look further
                         if (found) return;
-    
+
                         var rule = this;
-    
+
                         // if the rules apply for the current year
                         if ($.inArray(year, rule[2]) > -1 || $.inArray('*', rule[2]) > -1)
-    
+
                             // if the rules apply for the current month
-                            if ((typeof month != 'undefined' && $.inArray(month, rule[1]) > -1) || $.inArray('*', rule[1]) > -1)
-    
+                            if ((typeof month !== 'undefined' && $.inArray(month, rule[1]) > -1) || $.inArray('*', rule[1]) > -1)
+
                                 // if the rules apply for the current day
-                                if ((typeof day != 'undefined' && $.inArray(day, rule[0]) > -1) || $.inArray('*', rule[0]) > -1) {
-    
+                                if ((typeof day !== 'undefined' && $.inArray(day, rule[0]) > -1) || $.inArray('*', rule[0]) > -1) {
+
                                     // if custom class is to be applied whatever the day
                                     // don't look any further
-                                    if (rule[3] == '*') return (found = class_name);
-    
+                                    if (rule[3] === '*') return (found = class_name);
+
                                     // get the weekday
                                     var weekday = new Date(year, month - 1, day).getDay();
-    
-                                    // if custom class is to be applied to weekday 
+
+                                    // if custom class is to be applied to weekday
                                     // don't look any further
                                     if ($.inArray(weekday, rule[3]) > -1) return (found = class_name);
-    
+
                                 }
-    
+
                     });
 
                 // if a custom class needs to be applied to the date we're checking, don't look further
@@ -2399,7 +2402,7 @@
         var iframeShim = function(action) {
 
             // this is necessary only if browser is Internet Explorer 6
-            if (browser.name == 'explorer' && browser.version == 6) {
+            if (browser.name === 'explorer' && browser.version === 6) {
 
                 // if the iFrame was not yet created
                 // "undefined" evaluates as FALSE
@@ -2486,43 +2489,43 @@
 
                 var
                     // normalize and merge arguments then transform the result to an integer
-                    now = to_int(str_concat(year, (typeof month != 'undefined' ? str_pad(month, 2) : ''), (typeof day != 'undefined' ? str_pad(day, 2) : ''))),
+                    now = to_int(str_concat(year, (typeof month !== 'undefined' ? str_pad(month, 2) : ''), (typeof day !== 'undefined' ? str_pad(day, 2) : ''))),
 
                     // get the length of the argument
                     len = (now + '').length;
 
                 // if we're checking days
-                if (len == 8 && (
+                if (len === 8 && (
 
                     // day is before the first selectable date
-                    (typeof start_date != 'undefined' && now < to_int(str_concat(first_selectable_year, str_pad(first_selectable_month, 2), str_pad(first_selectable_day, 2)))) ||
+                    (typeof start_date !== 'undefined' && now < to_int(str_concat(first_selectable_year, str_pad(first_selectable_month, 2), str_pad(first_selectable_day, 2)))) ||
 
                     // or day is after the last selectable date
-                    (typeof end_date != 'undefined' && now > to_int(str_concat(last_selectable_year, str_pad(last_selectable_month, 2), str_pad(last_selectable_day, 2))))
+                    (typeof end_date !== 'undefined' && now > to_int(str_concat(last_selectable_year, str_pad(last_selectable_month, 2), str_pad(last_selectable_day, 2))))
 
                 // day needs to be disabled
                 )) return true;
 
                 // if we're checking months
-                else if (len == 6 && (
+                else if (len === 6 && (
 
                     // month is before the first selectable month
-                    (typeof start_date != 'undefined' && now < to_int(str_concat(first_selectable_year, str_pad(first_selectable_month, 2)))) ||
+                    (typeof start_date !== 'undefined' && now < to_int(str_concat(first_selectable_year, str_pad(first_selectable_month, 2)))) ||
 
                     // or day is after the last selectable date
-                    (typeof end_date != 'undefined' && now > to_int(str_concat(last_selectable_year, str_pad(last_selectable_month, 2))))
+                    (typeof end_date !== 'undefined' && now > to_int(str_concat(last_selectable_year, str_pad(last_selectable_month, 2))))
 
                 // month needs to be disabled
                 )) return true;
 
                 // if we're checking years
-                else if (len == 4 && (
+                else if (len === 4 && (
 
                     // year is before the first selectable year
-                    (typeof start_date != 'undefined' && now < first_selectable_year) ||
+                    (typeof start_date !== 'undefined' && now < first_selectable_year) ||
 
                     // or day is after the last selectable date
-                    (typeof end_date != 'undefined'  && now > last_selectable_year)
+                    (typeof end_date !== 'undefined' && now > last_selectable_year)
 
                 // year needs to be disabled
                 )) return true;
@@ -2530,7 +2533,7 @@
             }
 
             // if month is given as argument, increment it (as JavaScript uses 0 for January, 1 for February...)
-            if (typeof month != 'undefined') month = month + 1;
+            if (typeof month !== 'undefined') month = month + 1;
 
             // by default, we assume the day/month/year is not enabled nor disabled
             var disabled = false, enabled = false;
@@ -2550,14 +2553,14 @@
                     if ($.inArray(year, rule[2]) > -1 || $.inArray('*', rule[2]) > -1)
 
                         // if the rules apply for the current month
-                        if ((typeof month != 'undefined' && $.inArray(month, rule[1]) > -1) || $.inArray('*', rule[1]) > -1)
+                        if ((typeof month !== 'undefined' && $.inArray(month, rule[1]) > -1) || $.inArray('*', rule[1]) > -1)
 
                             // if the rules apply for the current day
-                            if ((typeof day != 'undefined' && $.inArray(day, rule[0]) > -1) || $.inArray('*', rule[0]) > -1) {
+                            if ((typeof day !== 'undefined' && $.inArray(day, rule[0]) > -1) || $.inArray('*', rule[0]) > -1) {
 
                                 // if day is to be disabled whatever the day
                                 // don't look any further
-                                if (rule[3] == '*') return (disabled = true);
+                                if (rule[3] === '*') return (disabled = true);
 
                                 // get the weekday
                                 var weekday = new Date(year, month - 1, day).getDay();
@@ -2588,7 +2591,7 @@
                         enabled = true;
 
                         // if we're also checking months
-                        if (typeof month != 'undefined') {
+                        if (typeof month !== 'undefined') {
 
                             // we assume the month is enabled
                             enabled = true;
@@ -2597,7 +2600,7 @@
                             if ($.inArray(month, rule[1]) > -1 || $.inArray('*', rule[1]) > -1) {
 
                                 // if we're also checking days
-                                if (typeof day != 'undefined') {
+                                if (typeof day !== 'undefined') {
 
                                     // we assume the day is enabled
                                     enabled = true;
@@ -2607,7 +2610,7 @@
 
                                         // if day is to be enabled whatever the day
                                         // don't look any further
-                                        if (rule[3] == '*') return (enabled = true);
+                                        if (rule[3] === '*') return (enabled = true);
 
                                         // get the weekday
                                         var weekday = new Date(year, month - 1, day).getDay();
@@ -2656,7 +2659,7 @@
         var is_integer = function(value) {
 
             // return TRUE if value represents an integer number, or FALSE otherwise
-            return (value + '').match(/^\-?[0-9]+$/) ? true : false;
+            return (value + '').match(/^\-?[0-9]+$/);
 
         };
 
@@ -2675,7 +2678,7 @@
             // $.isNumeric is available only from jQuery 1.7 - thanks to birla for the fix!
             if (!isNaN(parseFloat(selected_month)) && isFinite(selected_month))
 
-                caption = caption.replace(/\bm\b|\bn\b|\bF\b|\bM\b/, function (match) {
+                caption = caption.replace(/\bm\b|\bn\b|\bF\b|\bM\b/, function(match) {
 
                     switch (match) {
 
@@ -2710,19 +2713,19 @@
                 // replace year-related patterns
                 caption =
 
-                    caption.
+                    caption
 
                     // year as four digits
-                    replace(/\bY\b/, selected_year).
+                    .replace(/\bY\b/, selected_year)
 
                     // year as two digits
-                    replace(/\by\b/, (selected_year + '').substr(2)).
+                    .replace(/\by\b/, (selected_year + '').substr(2))
 
                     // lower limit of year as two or four digits
-                    replace(/\bY1\b/i, selected_year - 7).
+                    .replace(/\bY1\b/i, selected_year - 7)
 
                     // upper limit of year as two or four digits
-                    replace(/\bY2\b/i, selected_year + 4);
+                    .replace(/\bY2\b/i, selected_year + 4);
 
             // update the caption in the header
             $('.dp_caption', header).html(caption);
@@ -2739,7 +2742,7 @@
         var manage_views = function() {
 
             // if the day picker was not yet generated
-            if (daypicker.text() === '' || view == 'days') {
+            if (daypicker.text() === '' || view === 'days') {
 
                 // if the day picker was not yet generated
                 if (daypicker.text() === '') {
@@ -2790,7 +2793,7 @@
                 yearpicker.hide();
 
             // if the view is "months"
-            } else if (view == 'months') {
+            } else if (view === 'months') {
 
                 // generate the month picker
                 generate_monthpicker();
@@ -2800,7 +2803,7 @@
                 yearpicker.hide();
 
             // if the view is "years"
-            } else if (view == 'years') {
+            } else if (view === 'years') {
 
                 // generate the year picker
                 generate_yearpicker();
@@ -2812,12 +2815,12 @@
             }
 
             // if a callback function exists for when navigating through months/years
-            if (plugin.settings.onChange && typeof plugin.settings.onChange == 'function' && undefined !== view) {
+            if (plugin.settings.onChange && typeof plugin.settings.onChange === 'function' && undefined !== view) {
 
                 // get the "active" elements in the view (ignoring the disabled ones)
-                var elements = (view == 'days' ?
+                var elements = (view === 'days' ?
                                     daypicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)') :
-                                        (view == 'months' ?
+                                        (view === 'months' ?
                                             monthpicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)') :
                                                 yearpicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)')));
 
@@ -2832,7 +2835,7 @@
                     var matches;
 
                     // if view is "days"
-                    if (view == 'days') {
+                    if (view === 'days')
 
                         // if date is from a next/previous month and is selectable
                         if ($(this).hasClass('dp_not_in_month_selectable')) {
@@ -2850,7 +2853,7 @@
                             $(this).data('date', selected_year + '-' + str_pad(selected_month + 1, 2) + '-' + str_pad(to_int($(this).text()), 2));
 
                     // if view is "months"
-                    } else if (view == 'months') {
+                    else if (view === 'months') {
 
                         // get the month's number for the element's class
                         matches = $(this).attr('class').match(/dp\_month\_([0-9]+)/);
@@ -2921,7 +2924,6 @@
 
             }
 
-
         };
 
         /**
@@ -2949,7 +2951,7 @@
                 default_date = new Date(year, month, day, 12, 0, 0),
 
                 // pointer to the cells in the current view
-                view_cells = (view == 'days' ? daypicker_cells : (view == 'months' ? monthpicker_cells : yearpicker_cells)),
+                view_cells = (view === 'days' ? daypicker_cells : (view === 'months' ? monthpicker_cells : yearpicker_cells)),
 
                 // the selected date, formatted correctly
                 selected_value = format(default_date);
@@ -2976,7 +2978,7 @@
 
                 // if we're on the "days" view and days from other months are selectable and one of those days was
                 // selected, repaint the datepicker so it will take us to the selected month
-                if (view == 'days' && cell.hasClass('dp_not_in_month_selectable')) plugin.show();
+                if (view === 'days' && cell.hasClass('dp_not_in_month_selectable')) plugin.show();
 
             }
 
@@ -2987,7 +2989,7 @@
             update_dependent(default_date);
 
             // if a callback function exists for when selecting a date
-            if (plugin.settings.onSelect && typeof plugin.settings.onSelect == 'function')
+            if (plugin.settings.onSelect && typeof plugin.settings.onSelect === 'function')
 
                 // execute the callback function
                 // make "this" inside the callback function refer to the element the date picker is attached to
@@ -3067,7 +3069,7 @@
         var update_dependent = function(date) {
 
             // if the pair element exists
-            if (plugin.settings.pair) {
+            if (plugin.settings.pair)
 
                 // iterate through the pair elements (as there may be more than just one)
                 $.each(plugin.settings.pair, function() {
@@ -3104,8 +3106,6 @@
                     }
 
                 });
-
-            }
 
         };
 
@@ -3161,27 +3161,30 @@
         // since with jQuery 1.9.0 the $.browser object was removed, we rely on this piece of code from
         // http://www.quirksmode.org/js/detect.html to detect the browser
         var browser = {
-            init: function () {
+            init: function() {
                 this.name = this.searchString(this.dataBrowser) || '';
                 this.version = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion) || '';
             },
-            searchString: function (data) {
-                for (var i=0;i<data.length;i++) {
-                    var dataString = data[i].string;
-                    var dataProp = data[i].prop;
+            searchString: function(data) {
+                var i, dataString, dataProp;
+
+                for (i = 0; i < data.length; i++) {
+                    dataString = data[i].string;
+                    dataProp = data[i].prop;
                     this.versionSearchString = data[i].versionSearch || data[i].identity;
                     if (dataString) {
-                        if (dataString.indexOf(data[i].subString) != -1)
+                        if (dataString.indexOf(data[i].subString) !== -1)
                             return data[i].identity;
-                    }
-                    else if (dataProp)
+                    } else if (dataProp)
                         return data[i].identity;
                 }
             },
-            searchVersion: function (dataString) {
+            searchVersion: function(dataString) {
                 var index = dataString.indexOf(this.versionSearchString);
-                if (index == -1) return;
-                return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
+
+                if (index === -1) return;
+
+                return parseFloat(dataString.substring(index + this.versionSearchString.length + 1));
             },
             dataBrowser: [
                 {
