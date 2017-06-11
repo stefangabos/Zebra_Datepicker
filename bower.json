@@ -1,7 +1,6 @@
 {
   "name": "zebra_datepicker",
-  "version": "1.9.5",
-  "main": "public/javascript/zebra_datepicker.js",
+  "main": "dist/zebra_datepicker.min.js",
   "homepage": "https://github.com/stefangabos/Zebra_Datepicker",
   "authors": [
     "Stefan Gabos <contact@stefangabos.ro>"
@@ -16,16 +15,20 @@
     "ui"
   ],
   "dependencies": {
-    "jquery": ">=1.5.2 <2.x"
+    "jquery": ">=1.7.0"
   },
   "license": "LGPL",
   "ignore": [
+    "examples/README.md",
+    "examples/screenshot.png",
+    "examples/screenshot-flat.png",
+    "src/*",
     ".gitattributes",
     ".gitignore",
     ".npmignore",
+    "bower.json",
+    "eslint.json",
     "Gruntfile.js",
-    "package.json",
-    "README.md",
-    "bower.json"
+    "package.json"
   ]
 }
