@@ -5,19 +5,22 @@
     <head>
 
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Zebra_Datepicker is a super-lightweight, highly configurable, cross-browser date picker jQuery plugin">
+        <title>Zebra_Datepicker - a super-lightweight, highly configurable, cross-browser date picker jQuery plugin</title>
 
-        <title>Zebra_DatePicker examples</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCoreDefault.css" />
 
-        <link rel="stylesheet" href="public/css/reset.css" type="text/css">
-        <link rel="stylesheet" href="../public/css/metallic.css" type="text/css">
-        <link rel="stylesheet" href="public/css/style.css" type="text/css">
-        <link type="text/css" rel="stylesheet" href="libraries/syntaxhighlighter/public/css/shCoreDefault.css">
+        <link rel="stylesheet" href="../dist/css/metallic/zebra_datepicker.min.css" type="text/css">
+        <link rel="stylesheet" href="examples.css" type="text/css">
 
-        <script type="text/javascript" src="libraries/syntaxhighlighter/public/javascript/XRegExp.js"></script>
-        <script type="text/javascript" src="libraries/syntaxhighlighter/public/javascript/shCore.js"></script>
-        <script type="text/javascript" src="libraries/syntaxhighlighter/public/javascript/shLegacy.js"></script>
-        <script type="text/javascript" src="libraries/syntaxhighlighter/public/javascript/shBrushJScript.js"></script>
-        <script type="text/javascript" src="libraries/syntaxhighlighter/public/javascript/shBrushXML.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
 
         <script type="text/javascript">
             SyntaxHighlighter.defaults['toolbar'] = false;
@@ -28,298 +31,248 @@
 
     <body>
 
-        <div class="main-wrapper">
+        <a href="https://github.com/stefangabos/Zebra_Datepicker"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
 
-            <h3>Zebra_DatePicker Demos (using the "Metallic" theme)</h3>
+        <div class="container">
 
-            <p>Click <a href="bootstrap.html">here</a> to use the "Bootstrap" theme or <a href="index.html">here</a> to use the default theme.</p><br><br>
+            <div class="row">
 
-            <strong>1.</strong> A date picker with defaults settings.
+                <div class="col-xs-12">
 
-            <pre class="brush:js">
-            $('#datepicker-example1').Zebra_DatePicker();
-            </pre>
+                    <div class="page-header">
+                        <h1>Zebra_Datepicker Demos</h1>
+                    </div>
 
-            <form action="javascript:void(0)" method="post">
-            <div><input id="datepicker-example1" type="text"></div>
-            </form>
+                    <blockquote>See the examples using the <a href="index.html">default</a> theme or the <a href="bootstrap.html">bootstrap</a> theme.</blockquote>
 
-            <p>&nbsp;</p>
+                    <p>Zebra_Datepicker is a small, compact and highly configurable datepicker jQuery plugin, meant to
+                    enrich forms by adding the datepicker functionality to them. This jQuery plugin will automatically add
+                    a calendar icon to the indicated input fields which, when clicked, will open the attached datepicker.
+                    Users can easily jump between months and years due to the datepicker’s intuitive interface. The selected
+                    date will be entered in the input field using the date format of choice, configurable in the datepicker’s options.</p>
 
-            <strong>2.</strong> Dates can be selected only in the future, starting one day in the future.
+                    <p><strong>1.</strong> A date picker with defaults settings.</p>
 
-            <pre class="brush:js">
-            $('#datepicker-example2').Zebra_DatePicker({
-                direction: 1    // boolean true would've made the date picker future only
-                                // but starting from today, rather than tomorrow
-            });
-            </pre>
+                    <pre class="brush:js">
+                    $('#datepicker-example1').Zebra_DatePicker();
+                    </pre>
 
-            <form action="javascript:void(0)" method="post">
-            <div><input id="datepicker-example2" type="text"></div>
-            </form>
+                    <div class="form-group"><input id="datepicker-example1" type="text"></div>
 
-            <p>&nbsp;</p>
+                    <p><strong>2.</strong> Dates can be selected only in the future, starting one day in the future.</p>
 
-            <p><strong>3.</strong> Dates can be selected only in the future, starting today. Also, Saturday and Sundays are always disabled.</p>
+                    <pre class="brush:js">
+                    $('#datepicker-example2').Zebra_DatePicker({
+                        direction: 1    // boolean true would've made the date picker future only
+                                        // but starting from today, rather than tomorrow
+                    });
+                    </pre>
 
-            <pre class="brush:js">
-            $('#datepicker-example3').Zebra_DatePicker({
-                direction: true,
-                disabled_dates: ['* * * 0,6']   // all days, all monts, all years as long
-                                                // as the weekday is 0 or 6 (Sunday or Saturday)
-            });
-            </pre>
+                    <div class="form-group"><input id="datepicker-example2" type="text"></div>
 
-            <form action="javascript:void(0)" method="post">
-            <div><input id="datepicker-example3" type="text"></div>
-            </form>
+                    <p><strong>3.</strong> Dates can be selected only in the future, starting today. Also, Saturday and Sundays are always disabled.</p>
 
-            <p>&nbsp;</p>
+                    <pre class="brush:js">
+                    $('#datepicker-example3').Zebra_DatePicker({
+                        direction: true,
+                        disabled_dates: ['* * * 0,6']   // all days, all monts, all years as long
+                                                        // as the weekday is 0 or 6 (Sunday or Saturday)
+                    });
+                    </pre>
 
-            <p><strong>4.</strong> The selectable dates are in the interval starting tomorrow and ending 10 days from tomorrow.</p>
+                    <div class="form-group"><input id="datepicker-example3" type="text"></div>
 
-            <pre class="brush:js">
-            $('#datepicker-example4').Zebra_DatePicker({
-                direction: [1, 10]
-            });
-            </pre>
+                    <p><strong>4.</strong> The selectable dates are in the interval starting tomorrow and ending 10 days from tomorrow.</p>
 
-            <form action="javascript:void(0)" method="post">
-            <div><input id="datepicker-example4" type="text"></div>
-            </form>
+                    <pre class="brush:js">
+                    $('#datepicker-example4').Zebra_DatePicker({
+                        direction: [1, 10]
+                    });
+                    </pre>
 
-            <p>&nbsp;</p>
+                    <div class="form-group"><input id="datepicker-example4" type="text"></div>
 
-            <p><strong>5.</strong> Dates can be selected between 2 specific dates</p>
+                    <p><strong>5.</strong> Dates can be selected between 2 specific dates</p>
 
-            <pre class="brush:js">
-            $('#datepicker-example5').Zebra_DatePicker({
-                // remember that the way you write down dates
-                // depends on the value of the "format" property!
-                direction: ['2012-08-01', '2012-08-12']
-            });
-            </pre>
+                    <pre class="brush:js">
+                    $('#datepicker-example5').Zebra_DatePicker({
+                        // remember that the way you write down dates
+                        // depends on the value of the "format" property!
+                        direction: ['2012-08-01', '2012-08-12']
+                    });
+                    </pre>
 
-            <form action="javascript:void(0)" method="post">
-            <div><input id="datepicker-example5" type="text"></div>
-            </form>
+                    <div class="form-group"><input id="datepicker-example5" type="text"></div>
 
-            <p>&nbsp;</p>
+                    <p><strong>6.</strong> Dates can be selected in the future, starting with a specific date</p>
 
-            <p><strong>6.</strong> Dates can be selected in the future, starting with a specific date</p>
+                    <pre class="brush:js">
+                    $('#datepicker-example6').Zebra_DatePicker({
+                        // remember that the way you write down dates
+                        // depends on the value of the "format" property!
+                        direction: ['2012-08-01', false]
+                    });
+                    </pre>
 
-            <pre class="brush:js">
-            $('#datepicker-example6').Zebra_DatePicker({
-                // remember that the way you write down dates
-                // depends on the value of the "format" property!
-                direction: ['2012-08-01', false]
-            });
-            </pre>
+                    <div class="form-group"><input id="datepicker-example6" type="text"></div>
 
-            <form action="javascript:void(0)" method="post">
-            <div><input id="datepicker-example6" type="text"></div>
-            </form>
+                    <p><strong>7.</strong> The second date picker's starting date is the value of the first date picker + 1</p>
 
-            <p>&nbsp;</p>
+                    <pre class="brush:js">
+                    $('#datepicker-example7-start').Zebra_DatePicker({
+                        direction: true,
+                        pair: $('#datepicker-example7-end')
+                    });
 
-            <p><strong>7.</strong> The second date picker's starting date is the value of the first date picker + 1</p>
+                    $('#datepicker-example7-end').Zebra_DatePicker({
+                        direction: 1
+                    });
+                    </pre>
 
-            <pre class="brush:js">
-            $('#datepicker-example7-start').Zebra_DatePicker({
-                direction: true,
-                pair: $('#datepicker-example7-end')
-            });
+                    <div class="form-group"><input id="datepicker-example7-start" type="text"></div>
+                    <div class="form-group"><input id="datepicker-example7-end" type="text"></div>
 
-            $('#datepicker-example7-end').Zebra_DatePicker({
-                direction: 1
-            });
-            </pre>
+                    <p><strong>8.</strong> Set the format of the returned date:</p>
 
-            <form action="javascript:void(0)" method="post">
-            <div>
-            <input id="datepicker-example7-start" type="text">
-            <input id="datepicker-example7-end" type="text">
-            </div>
-            </form>
+                    <pre class="brush:js">
+                    $('#datepicker-example8').Zebra_DatePicker({
+                        format: 'M d, Y'
+                    });
+                    </pre>
 
-            <p>&nbsp;</p>
+                    <div class="form-group"><input id="datepicker-example8" type="text"></div>
 
-            <p><strong>8.</strong> Set the format of the returned date:</p>
+                    <p><strong>9.</strong> Show week number</p>
 
-            <pre class="brush:js">
-            $('#datepicker-example8').Zebra_DatePicker({
-                format: 'M d, Y'
-            });
-            </pre>
+                    <pre class="brush:js">
+                    $('#datepicker-example9').Zebra_DatePicker({
+                        show_week_number: 'Wk'
+                    });
+                    </pre>
 
-            <form action="javascript:void(0)" method="post">
-            <div><input id="datepicker-example8" type="text"></div>
-            </form>
+                    <div class="form-group"><input id="datepicker-example9" type="text"></div>
 
-            <p>&nbsp;</p>
+                    <p><strong>10.</strong> Start with the &#8220;years&#8221; view &#8211; recommended for when users need to select their birth date. Remember that you can always switch between views by clicking in the header of the date picker between the &#8220;previous&#8221; and &#8220;next&#8221; buttons!</p>
 
-            <p><strong>9.</strong> Show week number</p>
+                    <pre class="brush:js">
+                    $('#datepicker-example10').Zebra_DatePicker({
+                        view: 'years'
+                    });
+                    </pre>
 
-            <pre class="brush:js">
-            $('#datepicker-example9').Zebra_DatePicker({
-                show_week_number: 'Wk'
-            });
-            </pre>
+                    <div class="form-group"><input id="datepicker-example10" type="text"></div>
 
-            <form action="javascript:void(0)" method="post">
-            <div><input id="datepicker-example9" type="text"></div>
-            </form>
+                    <p><strong>11.</strong> Stop after month selection</p>
 
-            <p>&nbsp;</p>
+                    <pre class="brush:js">
+                    $('#datepicker-example11').Zebra_DatePicker({
+                        format: 'm Y'   //  note that because there's no day in the format
+                                        //  users will not be able to select a day!
+                    });
+                    </pre>
 
-            <p><strong>10.</strong> Start with the &#8220;years&#8221; view &#8211; recommended for when users need to select their birth date. Remember that you can always switch between views by clicking in the header of the date picker between the &#8220;previous&#8221; and &#8220;next&#8221; buttons!</p>
+                    <div class="form-group"><input id="datepicker-example11" type="text"></div>
 
-            <pre class="brush:js">
-            $('#datepicker-example10').Zebra_DatePicker({
-                view: 'years'
-            });
-            </pre>
+                    <p><strong>12.</strong> Disable weekends, but apply a custom class to Saturdays and Sundays</p>
 
-            <form action="javascript:void(0)" method="post">
-            <div><input id="datepicker-example10" type="text"></div>
-            </form>
+                    <pre class="brush:js">
+                    $('#datepicker-example12').Zebra_DatePicker({
+                        disabled_dates: ['* * * 0,6'],
+                        custom_classes: {
+                            'myclass':  ['* * * 0,6']
+                        }
+                    });
+                    </pre>
 
-            <p>&nbsp;</p>
+                    <div class="form-group"><input id="datepicker-example12" type="text"></div>
 
-            <p><strong>11.</strong> Stop after month selection</p>
+                    <p><strong>13.</strong> Handle the "onChange" event. If a callback function is attached to the "onChange"
+                    event, it will be called whenever the user changes the view (days/months/years), as well as when the user
+                    navigates by clicking on the "next"/"previous" icons in any of the views. The callback function called by
+                    this event takes two arguments - the view (days/months/years) and the "active" elements (not disabled) in
+                    that view, as jQuery elements allowing for easy customization and interaction with particular cells in the
+                    date picker's view:</p>
 
-            <pre class="brush:js">
-            $('#datepicker-example11').Zebra_DatePicker({
-                format: 'm Y'   //  note that because there's no day in the format
-                                //  users will not be able to select a day!
-            });
-            </pre>
+                    <pre class="brush:js">
+                    $('#datepicker-example13').Zebra_DatePicker({
 
-            <form action="javascript:void(0)" method="post">
-            <div><input id="datepicker-example11" type="text"></div>
-            </form>
+                        // execute a function whenever the user changes the view (days/months/years),
+                        // as well as when the user navigates by clicking on the "next"/"previous"
+                        // icons in any of the views
+                        onChange: function(view, elements) {
 
-            <p>&nbsp;</p>
+                            // on the "days" view...
+                            if (view == 'days') {
 
-            <p><strong>12.</strong> Disable weekends, but apply a custom class to Saturdays and Sundays</p>
+                                // iterate through the active elements in the view
+                                elements.each(function() {
 
-            <pre class="brush:js">
-            $('#datepicker-example12').Zebra_DatePicker({
-                disabled_dates: ['* * * 0,6'],
-                custom_classes: {
-                    'myclass':  ['* * * 0,6']
-                }
-            });
-            </pre>
+                                    // to simplify searching for particular dates, each element gets a
+                                    // "date" data attribute which is the form of:
+                                    // - YYYY-MM-DD for elements in the "days" view
+                                    // - YYYY-MM for elements in the "months" view
+                                    // - YYYY for elements in the "years" view
 
-            <form action="javascript:void(0)" method="post">
-            <div><input id="datepicker-example12" type="text"></div>
-            </form>
+                                    // so, because we're on a "days" view,
+                                    // let's find the 24th day using a regular expression
+                                    // (notice that this will apply to every 24th day
+                                    // of every month of every year)
+                                    if ($(this).data('date').match(/\-24$/))
 
-            <p>&nbsp;</p>
+                                        // and highlight it!
+                                        $(this).css({
+                                            background: '#C40000',
+                                            color:      '#FFF'
+                                        });
 
-            <p><strong>13.</strong> Handle the "onChange" event. If a callback function is attached to the "onChange"
-            event, it will be called whenever the user changes the view (days/months/years), as well as when the user
-            navigates by clicking on the "next"/"previous" icons in any of the views. The callback function called by
-            this event takes two arguments - the view (days/months/years) and the "active" elements (not disabled) in
-            that view, as jQuery elements allowing for easy customization and interaction with particular cells in the
-            date picker's view:</p>
-
-            <pre class="brush:js">
-            $('#datepicker-example13').Zebra_DatePicker({
-
-                // execute a function whenever the user changes the view (days/months/years),
-                // as well as when the user navigates by clicking on the "next"/"previous"
-                // icons in any of the views
-                onChange: function(view, elements) {
-
-                    // on the "days" view...
-                    if (view == 'days') {
-
-                        // iterate through the active elements in the view
-                        elements.each(function() {
-
-                            // to simplify searching for particular dates, each element gets a
-                            // "date" data attribute which is the form of:
-                            // - YYYY-MM-DD for elements in the "days" view
-                            // - YYYY-MM for elements in the "months" view
-                            // - YYYY for elements in the "years" view
-
-                            // so, because we're on a "days" view,
-                            // let's find the 24th day using a regular expression
-                            // (notice that this will apply to every 24th day
-                            // of every month of every year)
-                            if ($(this).data('date').match(/\-24$/))
-
-                                // and highlight it!
-                                $(this).css({
-                                    background: '#C40000',
-                                    color:      '#FFF'
                                 });
 
-                        });
+                            }
 
-                    }
+                        }
+                    });
+                    </pre>
 
-                }
-            });
-            </pre>
+                    <div class="form-group"><input id="datepicker-example13" type="text"></div>
 
-            <form action="javascript:void(0)" method="post">
-            <div><input id="datepicker-example13" type="text"></div>
-            </form>
+                    <p><strong>14.</strong> Calendar is always visible. Set the "always_visible" property to point to a jQuery
+                    element which to contain the date picker</p>
 
-            <p>&nbsp;</p>
+                    <pre class="brush:js">
+                    $('#datepicker-example14').Zebra_DatePicker({
+                        always_visible: $('#container')
+                    });
+                    </pre>
 
-            <p><strong>14.</strong> Calendar is always visible. Set the "always_visible" property to point to a jQuery
-            element which to contain the date picker</p>
+                    <div class="form-group"><input id="datepicker-example14" type="text"></div>
+                    <div id="container" style="margin: 10px 0 0 0; height: 250px; position: relative"></div>
 
-            <pre class="brush:js">
-            $('#datepicker-example14').Zebra_DatePicker({
-                always_visible: $('#container')
-            });
-            </pre>
+                    <p><strong>15.</strong> Using data attributes</p>
 
-            <form action="javascript:void(0)" method="post">
-            <div>
-            <input id="datepicker-example14" type="text">
-            <div id="container" style="margin: 10px 0 0 0; height: 250px"></div>
+                    <p>Any property of the date picker can also be set via data-attributes. All you have to do is take any property
+                    described in the "Configuration" section and prefix it with "data-zdp_". One important thing to remember is that
+                    if the value of the property is an array you'll have to use <strong>double quotes</strong> inside the square
+                    brackets and therefore single quotes around the attribute - see the example below:</p>
+
+                    <pre class="brush:xml">
+                    &lt;input type="text" id="datepicker-example15" data-zdp_direction="1" data-zdp_disabled_dates='["* * * 0,6"]'>
+                    </pre>
+
+                    <pre class="brush:js">
+                    $('#datepicker-example15').Zebra_DatePicker();
+                    </pre>
+
+                    <div class="form-group"><input id="datepicker-example15" type="text" data-zdp_direction="1" data-zdp_disabled_dates='["* * * 0,6"]'></div>
+
+                </div>
+
             </div>
-
-            </form>
-
-            <p>&nbsp;</p>
-
-            <p><strong>15.</strong> Using data attributes</p>
-
-            <p>Any property of the date picker can also be set via data-attributes. All you have to do is take any property
-            described in the "Configuration" section and prefix it with "data-zdp_". One important thing to remember is that
-            if the value of the property is an array you'll have to use <strong>double quotes</strong> inside the square
-            brackets and therefore single quotes around the attribute - see the example below:</p>
-
-            <pre class="brush:xml">
-            &lt;input type="text" id="datepicker-example15" data-zdp_direction="1" data-zdp_disabled_dates='["* * * 0,6"]'>
-            </pre>
-
-            <pre class="brush:js">
-            $('#datepicker-example15').Zebra_DatePicker();
-            </pre>
-
-            <form action="javascript:void(0)" method="post">
-            <div>
-            <input id="datepicker-example15" type="text" data-zdp_direction="1" data-zdp_disabled_dates='["* * * 0,6"]'>
-            </div>
-
-            </form>
-
-            <br><br><br>
 
         </div>
 
-        <script type="text/javascript" src="public/javascript/jquery-1.12.0.js"></script>
-        <script type="text/javascript" src="../public/javascript/zebra_datepicker.js"></script>
-        <script type="text/javascript" src="public/javascript/core.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="../dist/zebra_datepicker.min.js"></script>
+        <script type="text/javascript" src="examples.js"></script>
 
     </body>
 

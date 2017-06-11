@@ -63,7 +63,7 @@ $(document).ready(function() {
 
     $('#datepicker-example13').Zebra_DatePicker({
         onChange: function(view, elements) {
-            if (view == 'days') {
+            if (view === 'days') {
                 elements.each(function() {
                     if ($(this).data('date').match(/\-24$/))
                         $(this).css({
@@ -76,7 +76,9 @@ $(document).ready(function() {
     });
 
     $('#datepicker-example14').Zebra_DatePicker({
-        always_visible: $('#container')
+        always_visible: $('#container'),
+        disabled_dates: ['* * * 0,6']   // all days, all monts, all years as long
+                                        // as the weekday is 0 or 6 (Sunday or Saturday)
     });
 
     $('#datepicker-example15').Zebra_DatePicker();
