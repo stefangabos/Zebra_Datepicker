@@ -3,8 +3,7 @@
 
 # Don't include these files when users download a release
 examples/README.md export-ignore
-examples/screenshot.png export-ignore
-examples/screenshot-flat.png export-ignore
+examples/themes.png export-ignore
 src/ export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore

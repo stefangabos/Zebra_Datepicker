@@ -1,6 +1,5 @@
 examples/README.md
-examples/screenshot.png
-examples/screenshot-flat.png
+examples/themes.png
 node_modules/*
 src/*
 .gitattributes
