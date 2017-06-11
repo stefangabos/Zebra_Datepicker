@@ -4,6 +4,8 @@
 
 *A super-lightweight, highly configurable, cross-browser date picker jQuery plugin*
 
+[![npm](https://img.shields.io/npm/v/zebra_datepicker.svg)](https://www.npmjs.com/package/zebra_datepicker) [![Total](https://img.shields.io/npm/dt/zebra_datepicker.svg)](https://www.npmjs.com/package/zebra_datepicker) [![Monthly](https://img.shields.io/npm/dm/zebra_datepicker.svg)](https://www.npmjs.com/package/zebra_datepicker) [![License](https://img.shields.io/npm/l/zebra_datepicker.svg)](https://www.npmjs.com/package/zebra_datepicker)
+
 Zebra_Datepicker is a small yet and highly configurable datepicker jQuery plugin, meant to enrich forms by adding the datepicker functionality to them. This jQuery plugin will automatically add a calendar icon to the indicated input fields which, when clicked, will open the attached datepicker. Users can easily jump between months and years due to the datepicker's intuitive interface. The selected date will be entered in the input field using the date format of choice, configurable in the datepicker's options.
 
 ## Features
@@ -31,40 +33,65 @@ Zebra_Datepicker has no dependencies other than jQuery 1.7.0+ and requires that 
 <!doctype html>
 ```
 
-## How to use
+## Installation
 
-Zebra_Datepicker is available as a [Bower package](http://bower.io/). To install it use:
-
-```
-bower install zebra_datepicker
-```
-
-Zebra_Datepicker is also available as a [npm package](https://www.npmjs.com/). To install it use:
+Zebra_Datepicker is available as a [npm package](https://www.npmjs.com/package/zebra_datepicker). To install it use:
 
 ```
 npm install zebra_datepicker
 ```
 
-Load the latest version of jQuery from a CDN and provide a fallback to a local source, like:
+Zebra_Datepicker is also available as a [Bower package](http://bower.io/). To install it use:
+
+```
+bower install zebra_datepicker
+```
+
+## How to use
+
+First, load jQuery from a CDN and provide a fallback to a local source like:
 
 ```html
-<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-<script>window.jQuery || document.write('<script src="path/to/jquery-1.12.0.js"><\/script>')</script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>window.jQuery || document.write('<script src="path/to/jquery-3.2.1.js"><\/script>')</script>
 ```
 
 Load the Zebra_Datepicker jQuery plugin:
 
 ```html
-<script type="text/javascript" src="path/to/zebra_datepicker.js"></script>
+<script src="path/to/zebra_datepicker.min.js"></script>
 ```
 
-Load the stylesheet:
+Alternatively, you can load Zebra_Datepicker from [JSDelivr CDN](https://www.jsdelivr.com/) like this:
+```html
+<!-- for the most recent version -->
+<script src="https://cdn.jsdelivr.net/gh/stefangabos/Zebra_Datepicker/dist/zebra_datepicker.min.js"></script>
+
+<!-- for a specific version -->
+<script src="https://cdn.jsdelivr.net/gh/stefangabos/Zebra_Datepicker@1.9.6/dist/zebra_datepicker.min.js"></script>
+
+<!-- replacing "min" with "src" will serve you the non-compressed version -->
+```
+
+Load the style sheet file from a local source
 
 ```html
-<link rel="stylesheet" href="path/to/zebra_datepicker.css" type="text/css">
+<link rel="stylesheet" href="path/to/theme/zebra_datepicker.min.css">
 ```
 
-Now, within the DOM-ready event, attach the Zebra_Datepicker plugin to a &lt;input type="text"> control
+...or from [JSDelivr CDN](https://www.jsdelivr.com/)
+
+```html
+<!-- for the most recent version of the "default" theme -->
+<link rel="stylesheet" href=="https://cdn.jsdelivr.net/gh/stefangabos/Zebra_Datepicker/dist/css/default/zebra_datepicker.min.css">
+
+<!-- for the most recent version of the "bootstrap" theme -->
+<link rel="stylesheet" href=="https://cdn.jsdelivr.net/gh/stefangabos/Zebra_Datepicker/dist/css/bootstrap/zebra_datepicker.min.css">
+
+<!-- replacing "min" with "src" will serve you the non-compressed version -->
+```
+
+Now, within the DOM-ready event, attach the Zebra_Datepicker plugin to a `<input type="text">` control
 
 ```javascript
 $(document).ready(function() {
@@ -76,7 +103,7 @@ $(document).ready(function() {
 });
 ```
 
-This will attach a7c0lendar and to the specified element(s). Clicking the icon, will make the date picker visible.
+This will attach a calendar and to the specified element(s). Clicking the icon, will make the date picker visible.
 
 To get a reference to the instance of Zebra_DatePicker attached to an element do:
 
@@ -84,4 +111,3 @@ To get a reference to the instance of Zebra_DatePicker attached to an element do
 var $zdp = $('#element').data('Zebra_DatePicker');
 ```
 
-Configuration options and demos on the **[project's homepage](http://stefangabos.ro/jquery/zebra-datepicker/)**
