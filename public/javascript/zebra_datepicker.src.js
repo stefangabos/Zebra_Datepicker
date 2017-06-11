@@ -1381,35 +1381,6 @@
 
                 e.preventDefault();
 
-                // clear the element's value
-                $element.val('');
-
-                // if date picker is not always visible
-                if (!plugin.settings.always_visible) {
-
-                    // reset these values
-                    default_day = null; default_month = null; default_year = null; selected_month = null; selected_year = null;
-
-                // if date picker is always visible
-                } else {
-
-                    // reset these values
-                    default_day = null; default_month = null; default_year = null;
-
-                    // remove the "selected" class from all cells that have it
-                    $('td.dp_selected', datepicker).removeClass('dp_selected');
-
-                }
-
-                // hide the date picker
-                plugin.hide();
-
-                // if a callback function exists for when clearing a date
-                if (plugin.settings.onClear && typeof plugin.settings.onClear == 'function')
-
-                    // execute the callback function and pass as argument the element the plugin is attached to
-                    plugin.settings.onClear.call($element, $element);
-
             });
 
             // if date picker is not always visible
@@ -1455,9 +1426,39 @@
          *
          *  @return void
          */
-        plugin.clear_date = function() {
+        plugin.clear_date = function(fireEvent) {
 
-            $(cleardate).trigger('click');
+            // clear the element's value
+            $element.val('');
+
+            // if date picker is not always visible
+            if (!plugin.settings.always_visible) {
+
+                // reset these values
+                default_day = null; default_month = null; default_year = null; selected_month = null; selected_year = null;
+
+                // if date picker is always visible
+            } else {
+
+                // reset these values
+                default_day = null; default_month = null; default_year = null;
+
+                // remove the "selected" class from all cells that have it
+                $('td.dp_selected', datepicker).removeClass('dp_selected');
+
+            }
+
+            // hide the date picker
+            plugin.hide();
+
+            //check whether event should be fired, default: true
+            if (fireEvent === undefined || fireEvent === null || fireEvent === true)
+
+                // if a callback function exists for when clearing a date
+                if (plugin.settings.onClear && typeof plugin.settings.onClear == 'function')
+
+                    // execute the callback function and pass as argument the element the plugin is attached to
+                    plugin.settings.onClear.call($element, $element);
 
         };
 
