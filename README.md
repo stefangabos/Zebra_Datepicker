@@ -10,7 +10,7 @@ Zebra_Datepicker is a small yet and highly configurable datepicker jQuery plugin
 
 ## Features
 
- - it is small – it weights around 25KB minified(7.9KB gzipped) offering the best ratio of features per used bytes
+ - it is small – it weights around 25KB minified (7.9KB gzipped) offering the best ratio of features per used bytes
  - it's cross-browser – works in every major browser; works also in Internet Explorer 6!
  - it's compatible with AMD and CommonJS
  - has a default color scheme that blends-in well with almost any design, and it's easily customizable through the well-organized CSS file; two additional themese are included, one of them being for use with <a href="http://twitter.github.io/bootstrap/">Twitter Bootstrap</a>
@@ -108,7 +108,7 @@ This will attach a calendar and to the specified element(s). Clicking the icon, 
 To get a reference to the instance of Zebra_DatePicker attached to an element do:
 
 ```javascript
-var $zdp = $('selector').data('Zebra_DatePicker');
+var datepicker = $('selector').data('Zebra_DatePicker');
 ```
 
 ## Configuration options
@@ -480,7 +480,7 @@ var $zdp = $('selector').data('Zebra_DatePicker');
 
 ## Events
 
-### `onChange`
+#### `onChange`
 
 Callback to be executed whenever the user changes the view (days/months/years), as well as when the user navigates by clicking on the "next"/"previous" icons in any of the views;
 
@@ -541,7 +541,7 @@ $('selector').Zebra_DatePicker({
 });
 ```
 
-### `onClear`
+#### `onClear`
 
 Callback function to be executed when the user clicks the <em>Clear</em> button.
 
@@ -549,7 +549,7 @@ The callback function takes a single argument:
 
 - a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the "this" keyword inside the callback function to refer to the element the date picker is attached to)
 
-### `onClose`
+#### `onClose`
 
 Callback function to be executed when the date picker is closed.
 
@@ -557,7 +557,7 @@ The callback function takes a single argument:
 
 - a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the "this" keyword inside the callback function to refer to the element the date picker is attached to)
 
-### `onOpen`
+#### `onOpen`
 
 Callback function to be executed when the date picker is shown.
 
@@ -565,7 +565,7 @@ The callback function takes a single argument:
 
 - a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the "this" keyword inside the callback function to refer to the element the date picker is attached to)
 
-### `onSelect`
+#### `onSelect`
 
 Callback function to be executed when a date is selected.
 
@@ -589,15 +589,15 @@ Then call a method like
 datepicker.update();
 ```
 
-### `clear_date()`
+#### `clear_date()`
 
 Clears the selected date (if any)
 
-### `destroy()`
+#### `destroy()`
 
 Removes the plugin from an element
 
-### `set_date(date)`
+#### `set_date(date)`
 
 Sets the value of the element the date picker is attached to, to the specified date;
 
@@ -605,15 +605,15 @@ The date must be in the format defined by the <em>format</em> property.
 
 The date will not be set if it is disabled (either because of <em>disabled_dates</em> or because of <em>direction</em>)
 
-### `show()`
+#### `show()`
 
 Shows the date picker (unless the <em>always_visible</em> property is set to TRUE)
 
-### `hide()`
+#### `hide()`
 
 Hides the date picker (unless the <em>always_visible</em> property is set to TRUE)
 
-### `update([options])`
+#### `update([options])`
 
 Updates configuration options at run-time, and recalculates date picker's icon position relative to the parent element. You should call this method whenever you show/hide/reposition the parent element, or alter the parent element's dimensions.
 
