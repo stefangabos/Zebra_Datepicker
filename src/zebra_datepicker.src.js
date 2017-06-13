@@ -3,13 +3,11 @@
  *
  *  Zebra_DatePicker is a small, compact and highly configurable date picker plugin for jQuery
  *
- *  Visit {@link http://stefangabos.ro/jquery/zebra-datepicker/} for more information.
- *
- *  For more resources visit {@link http://stefangabos.ro/}
+ *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.5 (last revision: May 13, 2016)
- *  @copyright  (c) 2011 - 2016 Stefan Gabos
+ *  @version    1.9.5 (last revision: June 14, 2017)
+ *  @copyright  (c) 2011 - 2017 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
  */
@@ -558,7 +556,7 @@
                             rules[i] = (rules[i].indexOf(',') > -1 ? rules[i].split(',') : new Array(rules[i]));
 
                             // iterate through the items in the rule
-                            for ( j = 0; j < rules[i].length; j++)
+                            for (j = 0; j < rules[i].length; j++)
 
                                 // if item contains a dash (defining a range)
                                 if (rules[i][j].indexOf('-') > -1) {
@@ -840,7 +838,7 @@
             if (is_disabled(first_selectable_year, first_selectable_month, first_selectable_day)) {
 
                 // loop until we find the first selectable year
-                while (is_disabled(first_selectable_year)) {
+                while (is_disabled(first_selectable_year))
 
                     // if calendar is past-only,
                     if (!start_date) {
@@ -861,8 +859,6 @@
                         first_selectable_month = 0;
 
                     }
-
-                }
 
                 // loop until we find the first selectable month
                 while (is_disabled(first_selectable_year, first_selectable_month)) {
@@ -1131,18 +1127,18 @@
                 // if the icon is visible, update its position as the parent element might have changed position
                 if (icon !== undefined) {
 
-                      // we use timeouts so that we do not call the "update" method on *every* step of the resize event
+                    // we use timeouts so that we do not call the "update" method on *every* step of the resize event
 
-                      // clear a previously set timeout
-                      clearTimeout(timeout);
+                    // clear a previously set timeout
+                    clearTimeout(timeout);
 
-                      // set timeout again
-                      timeout = setTimeout(function() {
+                    // set timeout again
+                    timeout = setTimeout(function() {
 
-                          // update the date picker
-                          plugin.update();
+                        // update the date picker
+                        plugin.update();
 
-                      }, 100);
+                    }, 100);
 
                 }
 
@@ -1201,11 +1197,11 @@
 
             // add the mouseover/mousevents to all to the date picker's cells
             // except those that are not selectable
-            datepicker.
-                delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', 'mouseover', function() {
+            datepicker
+                .delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', 'mouseover', function() {
                     $(this).addClass('dp_hover');
-                }).
-                delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', 'mouseout', function() {
+                })
+                .delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', 'mouseout', function() {
                     $(this).removeClass('dp_hover');
                 });
 
@@ -1286,6 +1282,8 @@
 
             // attach a click event for the cells in the day picker
             daypicker.delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', 'click', function() {
+
+                var matches;
 
                 // if other months are selectable and currently clicked cell contains a class with the cell's date
                 if (plugin.settings.select_other_months && $(this).attr('class') && null !== (matches = $(this).attr('class').match(/date\_([0-9]{4})(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])/)))
@@ -2076,7 +2074,9 @@
                 days_in_previous_month = new Date(selected_year, selected_month, 0).getDate(),
 
                 // how many days are there to be shown from the previous month
-                days_from_previous_month = first_day - plugin.settings.first_day_of_week;
+                days_from_previous_month = first_day - plugin.settings.first_day_of_week,
+
+                i, html, day, real_date, real_year, real_month, real_day;
 
             // the final value of how many days are there to be shown from the previous month
             days_from_previous_month = days_from_previous_month < 0 ? 7 + days_from_previous_month : days_from_previous_month;
@@ -2085,7 +2085,7 @@
             manage_header(plugin.settings.header_captions['days']);
 
             // start generating the HTML
-            var html = '<tr>';
+            html = '<tr>';
 
             // if a column featuring the number of the week is to be shown
             if (plugin.settings.show_week_number)
@@ -2096,7 +2096,7 @@
             // name of week days
             // show the abbreviated day names (or only the first two letters of the full name if no abbreviations are specified)
             // and also, take in account the value of the "first_day_of_week" property
-            for (var i = 0; i < 7; i++)
+            for (i = 0; i < 7; i++)
 
                 html += '<th>' + ($.isArray(plugin.settings.days_abbr) && undefined !== plugin.settings.days_abbr[(plugin.settings.first_day_of_week + i) % 7] ? plugin.settings.days_abbr[(plugin.settings.first_day_of_week + i) % 7] : plugin.settings.days[(plugin.settings.first_day_of_week + i) % 7].substr(0, 2)) + '</th>';
 
@@ -2115,20 +2115,20 @@
                     html += '<td class="dp_week_number">' + getWeekNumber(new Date(selected_year, selected_month, (i - days_from_previous_month + 1))) + '</td>';
 
                 // the number of the day in month
-                var day = (i - days_from_previous_month + 1);
+                day = (i - days_from_previous_month + 1);
 
                 // if dates in previous/next month can be selected, and this is one of those days
                 if (plugin.settings.select_other_months && (i < days_from_previous_month || day > days_in_month)) {
 
                     // use the Date object to normalize the date
                     // for example, 2011 05 33 will be transformed to 2011 06 02
-                    var real_date = new Date(selected_year, selected_month, day),
-                        real_year = real_date.getFullYear(),
-                        real_month = real_date.getMonth(),
-                        real_day = real_date.getDate();
+                    real_date = new Date(selected_year, selected_month, day);
+                    real_year = real_date.getFullYear();
+                    real_month = real_date.getMonth();
+                    real_day = real_date.getDate();
 
                     // extract normalized date parts and merge them
-                    real_date =  real_year + str_pad(real_month + 1, 2) + str_pad(real_day, 2);
+                    real_date = real_year + str_pad(real_month + 1, 2) + str_pad(real_day, 2);
 
                 }
 
@@ -2547,7 +2547,7 @@
                     // if the date is to be disabled, don't look any further
                     if (disabled) return;
 
-                    var rule = this;
+                    var rule = this, weekday;
 
                     // if the rules apply for the current year
                     if ($.inArray(year, rule[2]) > -1 || $.inArray('*', rule[2]) > -1)
@@ -2563,7 +2563,7 @@
                                 if (rule[3] === '*') return (disabled = true);
 
                                 // get the weekday
-                                var weekday = new Date(year, month - 1, day).getDay();
+                                weekday = new Date(year, month - 1, day).getDay();
 
                                 // if weekday is to be disabled
                                 // don't look any further
@@ -2582,7 +2582,7 @@
                     // if the date is to be enabled, don't look any further
                     if (enabled) return;
 
-                    var rule = this;
+                    var rule = this, weekday;
 
                     // if the rules apply for the current year
                     if ($.inArray(year, rule[2]) > -1 || $.inArray('*', rule[2]) > -1) {
@@ -2613,7 +2613,7 @@
                                         if (rule[3] === '*') return (enabled = true);
 
                                         // get the weekday
-                                        var weekday = new Date(year, month - 1, day).getDay();
+                                        weekday = new Date(year, month - 1, day).getDay();
 
                                         // if weekday is to be enabled
                                         // don't look any further
@@ -2819,10 +2819,10 @@
 
                 // get the "active" elements in the view (ignoring the disabled ones)
                 var elements = (view === 'days' ?
-                                    daypicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)') :
-                                        (view === 'months' ?
-                                            monthpicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)') :
-                                                yearpicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)')));
+                        daypicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)') :
+                            (view === 'months' ?
+                                monthpicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)') :
+                                    yearpicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)')));
 
                 // iterate through the active elements
                 // and attach a "date" data attribute to each element in the form of
@@ -3009,10 +3009,10 @@
          */
         var str_concat = function() {
 
-            var str = '';
+            var str = '', i;
 
             // concatenate as string
-            for (var i = 0; i < arguments.length; i++) str += (arguments[i] + '');
+            for (i = 0; i < arguments.length; i++) str += (arguments[i] + '');
 
             // return the concatenated values
             return str;
@@ -3074,7 +3074,7 @@
                 // iterate through the pair elements (as there may be more than just one)
                 $.each(plugin.settings.pair, function() {
 
-                    var $pair = $(this);
+                    var $pair = $(this), dp;
 
                     // chances are that in the beginning the pair element doesn't have the Zebra_DatePicker attached to it yet
                     // (as the "start" element is usually created before the "end" element)
@@ -3090,7 +3090,7 @@
                     else {
 
                         // reference the date picker object attached to the other element
-                        var dp = $pair.data('Zebra_DatePicker');
+                        dp = $pair.data('Zebra_DatePicker');
 
                         // update the other date picker's starting date
                         // the value depends on the original value of the "direction" attribute
