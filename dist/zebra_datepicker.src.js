@@ -32,373 +32,373 @@
 
         var defaults = {
 
-            //  setting this property to a jQuery element, will result in the date picker being always visible, the indicated
-            //  element being the date picker's container;
-            always_visible: false,
+                //  setting this property to a jQuery element, will result in the date picker being always visible, the indicated
+                //  element being the date picker's container;
+                always_visible: false,
 
-            //  by default, the date picker is injected into the <body>; use this property to tell the library to inject
-            //  the date picker into a custom element - useful when you want the date picker to open at a specific position
-            //
-            //  must be a jQuery element
-            //
-            //  default is $('body')
-            container: $('body'),
+                //  by default, the date picker is injected into the <body>; use this property to tell the library to inject
+                //  the date picker into a custom element - useful when you want the date picker to open at a specific position
+                //
+                //  must be a jQuery element
+                //
+                //  default is $('body')
+                container: $('body'),
 
-            //  dates that should have custom classes applied to them
-            //  an object in the form of
-            //  {
-            //      'myclass1': [dates_to_apply_the_custom_class_to],
-            //      'myclass2': [dates_to_apply_the_custom_class_to]
-            //  }
-            //  where "dates_to_apply_the_custom_class_to" is an array of dates in the same format as required for
-            //  "disabled_dates" property.
-            //
-            //  custom classes will be applied *only* in the day picker view and not on month/year views!
-            //  also note that the class name will have the "_disabled" suffix added if the day the class is applied to
-            //  is disabled
-            //
-            //  in order for the styles in your custom classes to be applied, make sure you are using the following syntax:
-            //
-            //  .Zebra_DatePicker .dp_daypicker td.myclass1 { .. }
-            //  .Zebra_DatePicker .dp_daypicker td.myclass1_disabled { .. }
-            //
-            //  default is FALSE, no custom classes
-            custom_classes: false,
+                //  dates that should have custom classes applied to them
+                //  an object in the form of
+                //  {
+                //      'myclass1': [dates_to_apply_the_custom_class_to],
+                //      'myclass2': [dates_to_apply_the_custom_class_to]
+                //  }
+                //  where "dates_to_apply_the_custom_class_to" is an array of dates in the same format as required for
+                //  "disabled_dates" property.
+                //
+                //  custom classes will be applied *only* in the day picker view and not on month/year views!
+                //  also note that the class name will have the "_disabled" suffix added if the day the class is applied to
+                //  is disabled
+                //
+                //  in order for the styles in your custom classes to be applied, make sure you are using the following syntax:
+                //
+                //  .Zebra_DatePicker .dp_daypicker td.myclass1 { .. }
+                //  .Zebra_DatePicker .dp_daypicker td.myclass1_disabled { .. }
+                //
+                //  default is FALSE, no custom classes
+                custom_classes: false,
 
-            //  days of the week; Sunday to Saturday
-            days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                //  days of the week; Sunday to Saturday
+                days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 
-            //  by default, the abbreviated name of a day consists of the first 2 letters from the day's full name;
-            //  while this is common for most languages, there are also exceptions for languages like Thai, Loa, Myanmar,
-            //  etc. where this is not correct; for these cases, specify an array with the abbreviations to be used for
-            //  the 7 days of the week; leave it FALSE to use the first 2 letters of a day's name as the abbreviation.
-            //
-            //  default is FALSE
-            days_abbr: false,
+                //  by default, the abbreviated name of a day consists of the first 2 letters from the day's full name;
+                //  while this is common for most languages, there are also exceptions for languages like Thai, Loa, Myanmar,
+                //  etc. where this is not correct; for these cases, specify an array with the abbreviations to be used for
+                //  the 7 days of the week; leave it FALSE to use the first 2 letters of a day's name as the abbreviation.
+                //
+                //  default is FALSE
+                days_abbr: false,
 
-            //  the position of the date picker relative to the element it is attached to. note that, regardless of this
-            //  setting, the date picker's position will be automatically adjusted to fit in the viewport, if needed.
-            //
-            //  possible values are "above" and "below"
-            //
-            //  default is "above"
-            default_position: 'above',
+                //  the position of the date picker relative to the element it is attached to. note that, regardless of this
+                //  setting, the date picker's position will be automatically adjusted to fit in the viewport, if needed.
+                //
+                //  possible values are "above" and "below"
+                //
+                //  default is "above"
+                default_position: 'above',
 
-            //  direction of the calendar
-            //
-            //  a positive or negative integer: n (a positive integer) creates a future-only calendar beginning at n days
-            //  after today; -n (a negative integer); if n is 0, the calendar has no restrictions. use boolean true for
-            //  a future-only calendar starting with today and use boolean false for a past-only calendar ending today.
-            //
-            //  you may also set this property to an array with two elements in the following combinations:
-            //
-            //  -   first item is boolean TRUE (calendar starts today), an integer > 0 (calendar starts n days after
-            //      today), or a valid date given in the format defined by the "format" attribute, using English for
-            //      month names (calendar starts at the specified date), and the second item is boolean FALSE (the calendar
-            //      has no ending date), an integer > 0 (calendar ends n days after the starting date), or a valid date
-            //      given in the format defined by the "format" attribute, using English for month names, and which occurs
-            //      after the starting date (calendar ends at the specified date)
-            //
-            //  -   first item is boolean FALSE (calendar ends today), an integer < 0 (calendar ends n days before today),
-            //      or a valid date given in the format defined by the "format" attribute, using English for month names
-            //      (calendar ends at the specified date), and the second item is an integer > 0 (calendar ends n days
-            //      before the ending date), or a valid date given in the format defined by the "format" attribute, using
-            //      English for month names  and which occurs before the starting date (calendar starts at the specified
-            //      date)
-            //
-            //  [1, 7] - calendar starts tomorrow and ends seven days after that
-            //  [true, 7] - calendar starts today and ends seven days after that
-            //  ['2013-01-01', false] - calendar starts on January 1st 2013 and has no ending date ("format" is YYYY-MM-DD)
-            //  [false, '2012-01-01'] - calendar ends today and starts on January 1st 2012 ("format" is YYYY-MM-DD)
-            //
-            //  note that "disabled_dates" property will still apply!
-            //
-            //  default is 0 (no restrictions)
-            direction: 0,
+                //  direction of the calendar
+                //
+                //  a positive or negative integer: n (a positive integer) creates a future-only calendar beginning at n days
+                //  after today; -n (a negative integer); if n is 0, the calendar has no restrictions. use boolean true for
+                //  a future-only calendar starting with today and use boolean false for a past-only calendar ending today.
+                //
+                //  you may also set this property to an array with two elements in the following combinations:
+                //
+                //  -   first item is boolean TRUE (calendar starts today), an integer > 0 (calendar starts n days after
+                //      today), or a valid date given in the format defined by the "format" attribute, using English for
+                //      month names (calendar starts at the specified date), and the second item is boolean FALSE (the calendar
+                //      has no ending date), an integer > 0 (calendar ends n days after the starting date), or a valid date
+                //      given in the format defined by the "format" attribute, using English for month names, and which occurs
+                //      after the starting date (calendar ends at the specified date)
+                //
+                //  -   first item is boolean FALSE (calendar ends today), an integer < 0 (calendar ends n days before today),
+                //      or a valid date given in the format defined by the "format" attribute, using English for month names
+                //      (calendar ends at the specified date), and the second item is an integer > 0 (calendar ends n days
+                //      before the ending date), or a valid date given in the format defined by the "format" attribute, using
+                //      English for month names  and which occurs before the starting date (calendar starts at the specified
+                //      date)
+                //
+                //  [1, 7] - calendar starts tomorrow and ends seven days after that
+                //  [true, 7] - calendar starts today and ends seven days after that
+                //  ['2013-01-01', false] - calendar starts on January 1st 2013 and has no ending date ("format" is YYYY-MM-DD)
+                //  [false, '2012-01-01'] - calendar ends today and starts on January 1st 2012 ("format" is YYYY-MM-DD)
+                //
+                //  note that "disabled_dates" property will still apply!
+                //
+                //  default is 0 (no restrictions)
+                direction: 0,
 
-            //  an array of disabled dates in the following format: 'day month year weekday' where "weekday" is optional
-            //  and can be 0-6 (Saturday to Sunday); the syntax is similar to cron's syntax: the values are separated by
-            //  spaces and may contain * (asterisk) - (dash) and , (comma) delimiters:
-            //
-            //  ['1 1 2012'] would disable January 1, 2012;
-            //  ['* 1 2012'] would disable all days in January 2012;
-            //  ['1-10 1 2012'] would disable January 1 through 10 in 2012;
-            //  ['1,10 1 2012'] would disable January 1 and 10 in 2012;
-            //  ['1-10,20,22,24 1-3 *'] would disable 1 through 10, plus the 22nd and 24th of January through March for every year;
-            //  ['* * * 0,6'] would disable all Saturdays and Sundays;
-            //  ['01 07 2012', '02 07 2012', '* 08 2012'] would disable 1st and 2nd of July 2012, and all of August of 2012
-            //
-            //  default is FALSE, no disabled dates
-            //
-            //  DISABLING ALL DATES AND NOT SPECIFYING AT LEAST ONE ENABLED DATE WILL SEND THE SCRIPT INTO AN INFINITE
-            //  LOOP SEARCHING FOR AN ENABLED DATE TO DISPLAY!
-            disabled_dates: false,
+                //  an array of disabled dates in the following format: 'day month year weekday' where "weekday" is optional
+                //  and can be 0-6 (Saturday to Sunday); the syntax is similar to cron's syntax: the values are separated by
+                //  spaces and may contain * (asterisk) - (dash) and , (comma) delimiters:
+                //
+                //  ['1 1 2012'] would disable January 1, 2012;
+                //  ['* 1 2012'] would disable all days in January 2012;
+                //  ['1-10 1 2012'] would disable January 1 through 10 in 2012;
+                //  ['1,10 1 2012'] would disable January 1 and 10 in 2012;
+                //  ['1-10,20,22,24 1-3 *'] would disable 1 through 10, plus the 22nd and 24th of January through March for every year;
+                //  ['* * * 0,6'] would disable all Saturdays and Sundays;
+                //  ['01 07 2012', '02 07 2012', '* 08 2012'] would disable 1st and 2nd of July 2012, and all of August of 2012
+                //
+                //  default is FALSE, no disabled dates
+                //
+                //  DISABLING ALL DATES AND NOT SPECIFYING AT LEAST ONE ENABLED DATE WILL SEND THE SCRIPT INTO AN INFINITE
+                //  LOOP SEARCHING FOR AN ENABLED DATE TO DISPLAY!
+                disabled_dates: false,
 
-            //  an array of enabled dates in the same format as required for "disabled_dates" property.
-            //  to be used together with the "disabled_dates" property by first setting the "disabled_dates" property to
-            //  something like "[* * * *]" (which will disable everything) and the setting the "enabled_dates" property to,
-            //  say, "[* * * 0,6]" to enable just weekends.
-            enabled_dates: false,
+                //  an array of enabled dates in the same format as required for "disabled_dates" property.
+                //  to be used together with the "disabled_dates" property by first setting the "disabled_dates" property to
+                //  something like "[* * * *]" (which will disable everything) and the setting the "enabled_dates" property to,
+                //  say, "[* * * 0,6]" to enable just weekends.
+                enabled_dates: false,
 
-            //  week's starting day
-            //
-            //  valid values are 0 to 6, Sunday to Saturday
-            //
-            //  default is 1, Monday
-            first_day_of_week: 1,
+                //  week's starting day
+                //
+                //  valid values are 0 to 6, Sunday to Saturday
+                //
+                //  default is 1, Monday
+                first_day_of_week: 1,
 
-            //  format of the returned date
-            //
-            //  accepts the following characters for date formatting: d, D, j, l, N, w, S, F, m, M, n, Y, y borrowing
-            //  syntax from PHP's "date" function.
-            //
-            //  note that when setting a date format without days ('d', 'j'), the users will be able to select only years
-            //  and months, and when setting a format without months and days ('F', 'm', 'M', 'n', 'd', 'j'), the
-            //  users will be able to select only years; likewise, when setting a date format with just months ('F', 'm',
-            //  'M', 'n') or just years ('Y', 'y'), users will be able to select only months and years, respectively.
-            //
-            //  also note that the value of the "view" property (see below) may be overridden if it is the case: a value of
-            //  "days" for the "view" property makes no sense if the date format doesn't allow the selection of days.
-            //
-            //  default is Y-m-d
-            format: 'Y-m-d',
+                //  format of the returned date
+                //
+                //  accepts the following characters for date formatting: d, D, j, l, N, w, S, F, m, M, n, Y, y borrowing
+                //  syntax from PHP's "date" function.
+                //
+                //  note that when setting a date format without days ('d', 'j'), the users will be able to select only years
+                //  and months, and when setting a format without months and days ('F', 'm', 'M', 'n', 'd', 'j'), the
+                //  users will be able to select only years; likewise, when setting a date format with just months ('F', 'm',
+                //  'M', 'n') or just years ('Y', 'y'), users will be able to select only months and years, respectively.
+                //
+                //  also note that the value of the "view" property (see below) may be overridden if it is the case: a value of
+                //  "days" for the "view" property makes no sense if the date format doesn't allow the selection of days.
+                //
+                //  default is Y-m-d
+                format: 'Y-m-d',
 
-            //  captions in the datepicker's header, for the 3 possible views: days, months, years
-            //
-            //  for each of the 3 views the following special characters may be used borrowing from PHP's "date" function's
-            //  syntax: m, n, F, M, y and Y; any of these will be replaced at runtime with the appropriate date fragment,
-            //  depending on the currently viewed date. two more special characters are also available Y1 and Y2 (upper
-            //  case representing years with 4 digits, lowercase representing years with 2 digits) which represent
-            //  "currently selected year - 7" and "currently selected year + 4" and which only make sense used in the
-            //  "years" view.
-            //
-            //  even though any of these special characters may be used in any of the 3 views, you should use m, n, F, M
-            //  for the "days" view and y, Y, Y1, Y2, y1, y2 for the "months" and "years" view or you may get unexpected
-            //  results!
-            //
-            //  Text and HTML can also be used, and will be rendered as it is, as in the example below (the library is
-            //  smart enough to not replace special characters when used in words or HTML tags):
-            //
-            //  header_captions: {
-            //      'days':     'Departure:<br>F, Y',
-            //      'months':   'Departure:<br>Y',
-            //      'years':    'Departure:<br>Y1 - Y2'
-            //  }
-            //
-            //  Default is
-            //
-            //  header_captions: {
-            //      'days':     'F, Y',
-            //      'months':   'Y',
-            //      'years':    'Y1 - Y2'
-            //  }
-            header_captions: {
-                'days':     'F, Y',
-                'months':   'Y',
-                'years':    'Y1 - Y2'
+                //  captions in the datepicker's header, for the 3 possible views: days, months, years
+                //
+                //  for each of the 3 views the following special characters may be used borrowing from PHP's "date" function's
+                //  syntax: m, n, F, M, y and Y; any of these will be replaced at runtime with the appropriate date fragment,
+                //  depending on the currently viewed date. two more special characters are also available Y1 and Y2 (upper
+                //  case representing years with 4 digits, lowercase representing years with 2 digits) which represent
+                //  "currently selected year - 7" and "currently selected year + 4" and which only make sense used in the
+                //  "years" view.
+                //
+                //  even though any of these special characters may be used in any of the 3 views, you should use m, n, F, M
+                //  for the "days" view and y, Y, Y1, Y2, y1, y2 for the "months" and "years" view or you may get unexpected
+                //  results!
+                //
+                //  Text and HTML can also be used, and will be rendered as it is, as in the example below (the library is
+                //  smart enough to not replace special characters when used in words or HTML tags):
+                //
+                //  header_captions: {
+                //      'days':     'Departure:<br>F, Y',
+                //      'months':   'Departure:<br>Y',
+                //      'years':    'Departure:<br>Y1 - Y2'
+                //  }
+                //
+                //  Default is
+                //
+                //  header_captions: {
+                //      'days':     'F, Y',
+                //      'months':   'Y',
+                //      'years':    'Y1 - Y2'
+                //  }
+                header_captions: {
+                    days:   'F, Y',
+                    months: 'Y',
+                    years:  'Y1 - Y2'
+                },
+
+                //  HTML to be used for the previous month/next month buttons
+                //
+                //  default is ['&#171;','&#187;']
+                header_navigation: ['&#171;', '&#187;'],
+
+                //  icon's position
+                //  accepted values are "left" and "right"
+                //
+                //  default is "right"
+                icon_position: 'right',
+
+                //  should the icon for opening the datepicker be inside the element?
+                //  if set to FALSE, the icon will be placed to the right of the parent element, while if set to TRUE it will
+                //  be placed to the right of the parent element, but *inside* the element itself
+                //
+                //  default is TRUE
+                inside: true,
+
+                //  the caption for the "Clear" button
+                lang_clear_date: 'Clear date',
+
+                //  months names
+                months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+
+                //  by default, the abbreviated name of a month consists of the first 3 letters from the month's full name;
+                //  while this is common for most languages, there are also exceptions for languages like Thai, Loa, Myanmar,
+                //  etc. where this is not correct; for these cases, specify an array with the abbreviations to be used for
+                //  the months of the year; leave it FALSE to use the first 3 letters of a month's name as the abbreviation.
+                //
+                //  default is FALSE
+                months_abbr: false,
+
+                //  the offset, in pixels (x, y), to shift the date picker's position relative to the top-right of the icon
+                //  that toggles the date picker or, if the icon is disabled, relative to the top-right corner of the element
+                //  the plugin is attached to.
+                //
+                //  note that this only applies if the position of element relative to the browser's viewport doesn't require
+                //  the date picker to be placed automatically so that it is visible!
+                //
+                //  default is [5, -5]
+                offset: [5, -5],
+
+                //  set whether the date picker should be shown *only* when clicking the icon
+                //  note that if you set the "show_icon" property to FALSE, you will not be able to show the date picker anymore!
+                //
+                //  default is FALSE
+                open_icon_only: false,
+
+                //  if set as a jQuery element with a Zebra_DatePicker attached, that particular date picker will use the
+                //  current date picker's value as starting date
+                //  note that the rules set in the "direction" property will still apply, only that the reference date will
+                //  not be the current system date but the value selected in the current date picker
+                //  default is FALSE (not paired with another date picker)
+                pair: false,
+
+                //  should the element the calendar is attached to, be read-only?
+                //  if set to TRUE, a date can be set only through the date picker and cannot be entered manually
+                //
+                //  default is TRUE
+                readonly_element: true,
+
+                //  should days from previous and/or next month be selectable when visible?
+                //  note that if the value of this property is set to TRUE, the value of "show_other_months" will be considered
+                //  TRUE regardless of the actual value!
+                //
+                //  default is FALSE
+                select_other_months: false,
+
+                //  should the "Clear date" button be visible?
+                //
+                //  accepted values are:
+                //
+                //  - 0 (zero) - the button for clearing a previously selected date is shown only if a previously selected date
+                //  already exists; this means that if the input the date picker is attached to is empty, and the user selects
+                //  a date for the first time, this button will not be visible; once the user picked a date and opens the date
+                //  picker again, this time the button will be visible.
+                //
+                //  - TRUE will make the button visible all the time
+                //
+                //  - FALSE will disable the button
+                //
+                //  default is "0" (without quotes)
+                show_clear_date: 0,
+
+                //  should a calendar icon be added to the elements the plugin is attached to?
+                //
+                //  default is TRUE
+                show_icon: true,
+
+                //  should days from previous and/or next month be visible?
+                //
+                //  default is TRUE
+                show_other_months: true,
+
+                //  should the "Today" button be visible?
+                //  setting it to anything but boolean FALSE will enable the button and will use the property's value as
+                //  caption for the button; setting it to FALSE will disable the button
+                //
+                //  default is "Today"
+                show_select_today: 'Today',
+
+                //  should an extra column be shown, showing the number of each week?
+                //  anything other than FALSE will enable this feature, and use the given value as column title
+                //  i.e. show_week_number: 'Wk' would enable this feature and have "Wk" as the column's title
+                //
+                //  default is FALSE
+                show_week_number: false,
+
+                //  a default date to start the date picker with
+                //  must be specified in the format defined by the "format" property, or it will be ignored!
+                //  note that this value is used only if there is no value in the field the date picker is attached to!
+                start_date: false,
+
+                //  should default values, in the input field the date picker is attached to, be deleted if they are not valid
+                //  according to "direction" and/or "disabled_dates"?
+                //
+                //  default is FALSE
+                strict: false,
+
+                //  how should the date picker start; valid values are "days", "months" and "years"
+                //  note that the date picker is always cycling days-months-years when clicking in the date picker's header,
+                //  and years-months-days when selecting dates (unless one or more of the views are missing due to the date's
+                //  format)
+                //
+                //  also note that the value of the "view" property may be overridden if the date's format requires so! (i.e.
+                //  "days" for the "view" property makes no sense if the date format doesn't allow the selection of days)
+                //
+                //  default is "days"
+                view: 'days',
+
+                //  days of the week that are considered "weekend days"
+                //  valid values are 0 to 6, Sunday to Saturday
+                //
+                //  default values are 0 and 6 (Saturday and Sunday)
+                weekend_days: [0, 6],
+
+                //  when set to TRUE, day numbers < 10 will be prefixed with 0; set to FALSE if you don't want that
+                //
+                //  default is TRUE
+                zero_pad: false,
+
+                //  callback function to be executed whenever the user changes the view (days/months/years), as well as when
+                //  the user navigates by clicking on the "next"/"previous" icons in any of the views;
+                //
+                //  the callback function called by this event takes 3 arguments - the first argument represents the current
+                //  view (can be "days", "months" or "years"), the second argument represents an array containing the "active"
+                //  elements (not disabled) from the view, as jQuery elements, allowing for easy customization and interaction
+                //  with particular cells in the date picker's view, while the third argument is a reference to the element
+                //  the date picker is attached to, as a jQuery object (deprecated - use the "this" keyword inside the callback
+                //  function to refer to the element the date picker is attached to)
+                //
+                //  for simplifying searching for particular dates, each element in the second argument will also have a
+                //  "date" data attribute whose format depends on the value of the "view" argument:
+                //  - YYYY-MM-DD for elements in the "days" view
+                //  - YYYY-MM for elements in the "months" view
+                //  - YYYY for elements in the "years" view
+                //
+                //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
+                onChange: null,
+
+                //  callback function to be executed when the user clicks the "Clear" button
+                //  the callback function takes a single argument:
+                //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
+                //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
+                //
+                //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
+                onClear: null,
+
+                //  callback function to be executed when the date picker is shown
+                //  the callback function takes a single argument:
+                //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
+                //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
+                //
+                //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
+                onOpen: null,
+
+                //  callback function to be executed when the date picker is closed, but only when the "always_visible"
+                //  property is set to FALSE
+                //  the callback function takes a single argument:
+                //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
+                //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
+                //
+                //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
+                onClose: null,
+
+                //  callback function to be executed when a date is selected
+                //  the callback function takes 5 arguments:
+                //  -   the date in the format specified by the "format" attribute;
+                //  -   the date in YYYY-MM-DD format
+                //  -   the date as a JavaScript Date object
+                //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
+                //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
+                //  -   the ISO 8601 week number of the selected date
+                //
+                //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
+                onSelect: null
+
             },
 
-            //  HTML to be used for the previous month/next month buttons
-            //
-            //  default is ['&#171;','&#187;']
-            header_navigation: ['&#171;', '&#187;'],
-
-            //  icon's position
-            //  accepted values are "left" and "right"
-            //
-            //  default is "right"
-            icon_position: 'right',
-
-            //  should the icon for opening the datepicker be inside the element?
-            //  if set to FALSE, the icon will be placed to the right of the parent element, while if set to TRUE it will
-            //  be placed to the right of the parent element, but *inside* the element itself
-            //
-            //  default is TRUE
-            inside: true,
-
-            //  the caption for the "Clear" button
-            lang_clear_date: 'Clear date',
-
-            //  months names
-            months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-
-            //  by default, the abbreviated name of a month consists of the first 3 letters from the month's full name;
-            //  while this is common for most languages, there are also exceptions for languages like Thai, Loa, Myanmar,
-            //  etc. where this is not correct; for these cases, specify an array with the abbreviations to be used for
-            //  the months of the year; leave it FALSE to use the first 3 letters of a month's name as the abbreviation.
-            //
-            //  default is FALSE
-            months_abbr: false,
-
-            //  the offset, in pixels (x, y), to shift the date picker's position relative to the top-right of the icon
-            //  that toggles the date picker or, if the icon is disabled, relative to the top-right corner of the element
-            //  the plugin is attached to.
-            //
-            //  note that this only applies if the position of element relative to the browser's viewport doesn't require
-            //  the date picker to be placed automatically so that it is visible!
-            //
-            //  default is [5, -5]
-            offset: [5, -5],
-
-            //  set whether the date picker should be shown *only* when clicking the icon
-            //  note that if you set the "show_icon" property to FALSE, you will not be able to show the date picker anymore!
-            //
-            //  default is FALSE
-            open_icon_only: false,
-
-            //  if set as a jQuery element with a Zebra_DatePicker attached, that particular date picker will use the
-            //  current date picker's value as starting date
-            //  note that the rules set in the "direction" property will still apply, only that the reference date will
-            //  not be the current system date but the value selected in the current date picker
-            //  default is FALSE (not paired with another date picker)
-            pair: false,
-
-            //  should the element the calendar is attached to, be read-only?
-            //  if set to TRUE, a date can be set only through the date picker and cannot be entered manually
-            //
-            //  default is TRUE
-            readonly_element: true,
-
-            //  should days from previous and/or next month be selectable when visible?
-            //  note that if the value of this property is set to TRUE, the value of "show_other_months" will be considered
-            //  TRUE regardless of the actual value!
-            //
-            //  default is FALSE
-            select_other_months: false,
-
-            //  should the "Clear date" button be visible?
-            //
-            //  accepted values are:
-            //
-            //  - 0 (zero) - the button for clearing a previously selected date is shown only if a previously selected date
-            //  already exists; this means that if the input the date picker is attached to is empty, and the user selects
-            //  a date for the first time, this button will not be visible; once the user picked a date and opens the date
-            //  picker again, this time the button will be visible.
-            //
-            //  - TRUE will make the button visible all the time
-            //
-            //  - FALSE will disable the button
-            //
-            //  default is "0" (without quotes)
-            show_clear_date: 0,
-
-            //  should a calendar icon be added to the elements the plugin is attached to?
-            //
-            //  default is TRUE
-            show_icon: true,
-
-            //  should days from previous and/or next month be visible?
-            //
-            //  default is TRUE
-            show_other_months: true,
-
-            //  should the "Today" button be visible?
-            //  setting it to anything but boolean FALSE will enable the button and will use the property's value as
-            //  caption for the button; setting it to FALSE will disable the button
-            //
-            //  default is "Today"
-            show_select_today: 'Today',
-
-            //  should an extra column be shown, showing the number of each week?
-            //  anything other than FALSE will enable this feature, and use the given value as column title
-            //  i.e. show_week_number: 'Wk' would enable this feature and have "Wk" as the column's title
-            //
-            //  default is FALSE
-            show_week_number: false,
-
-            //  a default date to start the date picker with
-            //  must be specified in the format defined by the "format" property, or it will be ignored!
-            //  note that this value is used only if there is no value in the field the date picker is attached to!
-            start_date: false,
-
-            //  should default values, in the input field the date picker is attached to, be deleted if they are not valid
-            //  according to "direction" and/or "disabled_dates"?
-            //
-            //  default is FALSE
-            strict: false,
-
-            //  how should the date picker start; valid values are "days", "months" and "years"
-            //  note that the date picker is always cycling days-months-years when clicking in the date picker's header,
-            //  and years-months-days when selecting dates (unless one or more of the views are missing due to the date's
-            //  format)
-            //
-            //  also note that the value of the "view" property may be overridden if the date's format requires so! (i.e.
-            //  "days" for the "view" property makes no sense if the date format doesn't allow the selection of days)
-            //
-            //  default is "days"
-            view: 'days',
-
-            //  days of the week that are considered "weekend days"
-            //  valid values are 0 to 6, Sunday to Saturday
-            //
-            //  default values are 0 and 6 (Saturday and Sunday)
-            weekend_days: [0, 6],
-
-            //  when set to TRUE, day numbers < 10 will be prefixed with 0; set to FALSE if you don't want that
-            //
-            //  default is TRUE
-            zero_pad: false,
-
-            //  callback function to be executed whenever the user changes the view (days/months/years), as well as when
-            //  the user navigates by clicking on the "next"/"previous" icons in any of the views;
-            //
-            //  the callback function called by this event takes 3 arguments - the first argument represents the current
-            //  view (can be "days", "months" or "years"), the second argument represents an array containing the "active"
-            //  elements (not disabled) from the view, as jQuery elements, allowing for easy customization and interaction
-            //  with particular cells in the date picker's view, while the third argument is a reference to the element
-            //  the date picker is attached to, as a jQuery object (deprecated - use the "this" keyword inside the callback
-            //  function to refer to the element the date picker is attached to)
-            //
-            //  for simplifying searching for particular dates, each element in the second argument will also have a
-            //  "date" data attribute whose format depends on the value of the "view" argument:
-            //  - YYYY-MM-DD for elements in the "days" view
-            //  - YYYY-MM for elements in the "months" view
-            //  - YYYY for elements in the "years" view
-            //
-            //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
-            onChange: null,
-
-            //  callback function to be executed when the user clicks the "Clear" button
-            //  the callback function takes a single argument:
-            //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
-            //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
-            //
-            //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
-            onClear: null,
-
-            //  callback function to be executed when the date picker is shown
-            //  the callback function takes a single argument:
-            //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
-            //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
-            //
-            //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
-            onOpen: null,
-
-            //  callback function to be executed when the date picker is closed, but only when the "always_visible"
-            //  property is set to FALSE
-            //  the callback function takes a single argument:
-            //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
-            //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
-            //
-            //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
-            onClose: null,
-
-            //  callback function to be executed when a date is selected
-            //  the callback function takes 5 arguments:
-            //  -   the date in the format specified by the "format" attribute;
-            //  -   the date in YYYY-MM-DD format
-            //  -   the date as a JavaScript Date object
-            //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
-            //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
-            //  -   the ISO 8601 week number of the selected date
-            //
-            //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
-            onSelect: null
-
-        };
-
-        // private properties
-        var view, datepicker, icon, header, daypicker, monthpicker, yearpicker, cleardate, current_system_month, current_system_year,
+            // private properties
+            view, datepicker, icon, header, daypicker, monthpicker, yearpicker, cleardate, current_system_month, current_system_year,
             current_system_day, first_selectable_month, first_selectable_year, first_selectable_day, selected_month, selected_year,
             default_day, default_month, default_year, enabled_dates, disabled_dates, shim, start_date, end_date, last_selectable_day,
             last_selectable_year, last_selectable_month, daypicker_cells, monthpicker_cells, yearpicker_cells, views, clickables,
@@ -419,6 +419,21 @@
          */
         var init = function(update) {
 
+            var
+
+                // the characters that may be present in the date format and that represent days, months and years
+                date_chars = {
+                    days:   ['d', 'j', 'D'],
+                    months: ['F', 'm', 'M', 'n', 't'],
+                    years:  ['o', 'Y', 'y']
+                },
+
+                // some defaults
+                has_days = false,
+                has_months = false,
+                has_years = false,
+                type = null, data, dates, k, l;
+
             // generate a random ID for each date picker (we'll use this if later a certain date picker is destroyed to
             // remove related events)
             // the code is taken from http://stackoverflow.com/a/105074
@@ -435,7 +450,7 @@
                 original_attributes['style'] = $element.attr('style');
 
                 // iterate through the element's data attributes (if any)
-                for (var data in $element.data())
+                for (data in $element.data())
 
                     // if data attribute's name starts with "zdp_"
                     if (data.indexOf('zdp_') === 0) {
@@ -460,21 +475,6 @@
             // determine the views the user can cycle through, depending on the format
             // that is, if the format doesn't contain the day, the user will be able to cycle only through years and months,
             // whereas if the format doesn't contain months nor days, the user will only be able to select years
-
-            var
-
-                // the characters that may be present in the date format and that represent days, months and years
-                date_chars = {
-                    days:   ['d', 'j', 'D'],
-                    months: ['F', 'm', 'M', 'n', 't'],
-                    years:  ['o', 'Y', 'y']
-                },
-
-                // some defaults
-                has_days = false,
-                has_months = false,
-                has_years = false,
-                type = null;
 
             // iterate through all the character blocks
             for (type in date_chars)
@@ -519,12 +519,10 @@
             // array that will hold the rules for enabling/disabling dates
             disabled_dates = []; enabled_dates = []; custom_classes = {}; custom_class_names = [];
 
-            var dates;
-
-            for (var k in plugin.settings.custom_classes) if (plugin.settings.custom_classes.hasOwnProperty(k)) custom_class_names.push(k);
+            for (k in plugin.settings.custom_classes) if (plugin.settings.custom_classes.hasOwnProperty(k)) custom_class_names.push(k);
 
             // it's the same logic for preparing the enabled/disable dates, as well as dates that have custom classes
-            for (var l = 0; l < 2 + custom_class_names.length; l++) {
+            for (l = 0; l < 2 + custom_class_names.length; l++) {
 
                 // first time we're doing disabled dates,
                 if (l === 0) dates = plugin.settings.disabled_dates;
@@ -975,13 +973,13 @@
                         // we create a wrapper for the parent element so that we can later position the icon
                         // also, make sure the wrapper inherits some important css properties of the parent element
                         var icon_wrapper = $('<span class="Zebra_DatePicker_Icon_Wrapper"></span>').css({
-                            'display':  $element.css('display'),
-                            'position': $element.css('position') === 'static' ? 'relative' : $element.css('position'),
-                            'float':    $element.css('float'),
-                            'top':      $element.css('top'),
-                            'right':    $element.css('right'),
-                            'bottom':   $element.css('bottom'),
-                            'left':     $element.css('left')
+                            display:    $element.css('display'),
+                            position:   $element.css('position') === 'static' ? 'relative' : $element.css('position'),
+                            float:      $element.css('float'),
+                            top:        $element.css('top'),
+                            right:      $element.css('right'),
+                            bottom:     $element.css('bottom'),
+                            left:       $element.css('left')
                         });
 
                         // if parent element has its "display" property set to "block"
@@ -991,11 +989,11 @@
                         // put wrapper around the element
                         // also, make sure we set some important css properties for it
                         $element.wrap(icon_wrapper).css({
-                            'position': 'relative',
-                            'top':      'auto',
-                            'right':    'auto',
-                            'bottom':   'auto',
-                            'left':     'auto'
+                            position:   'relative',
+                            top:        'auto',
+                            right:      'auto',
+                            bottom:     'auto',
+                            left:       'auto'
                         });
 
                         // create the actual calendar icon (show a disabled icon if the element is disabled)
@@ -1012,7 +1010,7 @@
                     } else clickables = $element;
 
                     // attach the click event to the clickable elements (icon and/or element)
-                    clickables.bind('click.Zebra_DatePicker_' + uniqueid, function(e) {
+                    clickables.on('click.Zebra_DatePicker_' + uniqueid, function(e) {
 
                         e.preventDefault();
 
@@ -1031,7 +1029,7 @@
                     if (!plugin.settings.readonly_element && plugin.settings.pair)
 
                         // whenever the element looses focus
-                        $element.bind('blur.Zebra_DatePicker_' + uniqueid, function() {
+                        $element.on('blur.Zebra_DatePicker_' + uniqueid, function() {
 
                             var date;
 
@@ -1086,8 +1084,8 @@
                     } else
 
                         icon.css({
-                            'top':  element_margin_top + ((element_height - icon_height) / 2),
-                            'left': element_margin_left + element_width + icon_margin_left
+                            top:    element_margin_top + ((element_height - icon_height) / 2),
+                            left:   element_margin_left + element_width + icon_margin_left
                         });
 
                     // assume the datepicker is not disabled
@@ -1119,7 +1117,7 @@
             }
 
             // update icon/date picker position on resize and/or changing orientation
-            $(window).bind('resize.Zebra_DatePicker_' + uniqueid + ', orientationchange.Zebra_DatePicker_' + uniqueid, function() {
+            $(window).on('resize.Zebra_DatePicker_' + uniqueid + ', orientationchange.Zebra_DatePicker_' + uniqueid, function() {
 
                 // hide the date picker
                 plugin.hide();
@@ -1210,7 +1208,7 @@
             disable_text_select($('td', header));
 
             // event for when clicking the "previous" button
-            $('.dp_previous', header).bind('click', function() {
+            $('.dp_previous', header).on('click', function() {
 
                 // if view is "months"
                 // decrement year by one
@@ -1237,7 +1235,7 @@
             });
 
             // attach a click event to the caption in header
-            $('.dp_caption', header).bind('click', function() {
+            $('.dp_caption', header).on('click', function() {
 
                 // if current view is "days", take the user to the next view, depending on the format
                 if (view === 'days') view = ($.inArray('months', views) > -1 ? 'months' : ($.inArray('years', views) > -1 ? 'years' : 'days'));
@@ -1254,7 +1252,7 @@
             });
 
             // event for when clicking the "next" button
-            $('.dp_next', header).bind('click', function() {
+            $('.dp_next', header).on('click', function() {
 
                 // if view is "months"
                 // increment year by 1
@@ -1356,7 +1354,7 @@
             });
 
             // function to execute when the "Today" button is clicked
-            $(selecttoday).bind('click', function(e) {
+            $(selecttoday).on('click', function(e) {
 
                 e.preventDefault();
 
@@ -1375,7 +1373,7 @@
             });
 
             // function to execute when the "Clear" button is clicked
-            $(cleardate).bind('click', function(e) {
+            $(cleardate).on('click', function(e) {
 
                 e.preventDefault();
 
@@ -1414,7 +1412,7 @@
             if (!plugin.settings.always_visible) {
 
                 // whenever anything is clicked on the page
-                $(document).bind('mousedown.Zebra_DatePicker_' + uniqueid + ', touchstart.Zebra_DatePicker_' + uniqueid, function(e) {
+                $(document).on('mousedown.Zebra_DatePicker_' + uniqueid + ', touchstart.Zebra_DatePicker_' + uniqueid, function(e) {
 
                     // if the date picker is visible
                     if (datepicker.hasClass('dp_visible')) {
@@ -1432,7 +1430,7 @@
                 });
 
                 // whenever a key is pressed on the page
-                $(document).bind('keyup.Zebra_DatePicker_' + uniqueid, function(e) {
+                $(document).on('keyup.Zebra_DatePicker_' + uniqueid, function(e) {
 
                     // if the date picker is visible
                     // and the pressed key is ESC
@@ -1477,14 +1475,14 @@
             if (plugin.settings.show_icon && !plugin.settings.always_visible) $element.unwrap();
 
             // remove associated event handlers from the element
-            $element.unbind('click.Zebra_DatePicker_' + uniqueid);
-            $element.unbind('blur.Zebra_DatePicker_' + uniqueid);
+            $element.off('click.Zebra_DatePicker_' + uniqueid);
+            $element.off('blur.Zebra_DatePicker_' + uniqueid);
 
             // remove associated event handlers from the document
-            $(document).unbind('keyup.Zebra_DatePicker_' + uniqueid);
-            $(document).unbind('mousedown.Zebra_DatePicker_' + uniqueid);
-            $(window).unbind('resize.Zebra_DatePicker_' + uniqueid);
-            $(window).unbind('orientationchange.Zebra_DatePicker_' + uniqueid);
+            $(document).off('keyup.Zebra_DatePicker_' + uniqueid);
+            $(document).off('mousedown.Zebra_DatePicker_' + uniqueid);
+            $(window).off('resize.Zebra_DatePicker_' + uniqueid);
+            $(window).off('orientationchange.Zebra_DatePicker_' + uniqueid);
 
             // remove association with the element
             $element.removeData('Zebra_DatePicker');
@@ -1633,16 +1631,16 @@
 
                     // make the date picker visible
                     datepicker.css({
-                        'left': left,
-                        'top':  top
+                        left:   left,
+                        top:    top
                     });
 
                 // if date picker is to be injected into a custom container element
                 } else
 
                     datepicker.css({
-                        'left': 0,
-                        'top':  0
+                        left:   0,
+                        top:    0
                     });
 
                 // fade-in the date picker
@@ -1926,7 +1924,7 @@
             if (browser.name === 'firefox') el.css('MozUserSelect', 'none');
 
             // if browser is Internet Explorer
-            else if (browser.name === 'explorer') el.bind('selectstart', function() { return false; });
+            else if (browser.name === 'explorer') el.on('selectstart', function() { return false; });
 
             // for the other browsers
             else el.mousedown(function() { return false; });
@@ -2413,18 +2411,18 @@
 
                     // create the iFrame
                     shim = $('<iframe>', {
-                        'src':                  'javascript:document.write("")',
-                        'scrolling':            'no',
-                        'frameborder':          0,
+                        src:            'javascript:document.write("")',
+                        scrolling:      'no',
+                        frameborder:    0,
                         css: {
-                            'zIndex':       zIndex,
-                            'position':     'absolute',
-                            'top':          -1000,
-                            'left':         -1000,
-                            'width':        datepicker.outerWidth(),
-                            'height':       datepicker.outerHeight(),
-                            'filter':       'progid:DXImageTransform.Microsoft.Alpha(opacity=0)',
-                            'display':      'none'
+                            zIndex:     zIndex,
+                            position:   'absolute',
+                            top:        -1000,
+                            left:       -1000,
+                            width:      datepicker.outerWidth(),
+                            height:     datepicker.outerHeight(),
+                            filter:     'progid:DXImageTransform.Microsoft.Alpha(opacity=0)',
+                            display:    'none'
                         }
                     });
 
@@ -2453,9 +2451,9 @@
                         // position the iFrame shim right underneath the date picker
                         // and set its display to "block"
                         shim.css({
-                            'top':      offset.top,
-                            'left':     offset.left,
-                            'display':  'block'
+                            top:        offset.top,
+                            left:       offset.left,
+                            display:    'block'
                         });
 
                 }
@@ -2767,14 +2765,14 @@
 
                     // make the month picker have the same size as the day picker
                     monthpicker.css({
-                        'width':    width,
-                        'height':   height
+                        width:  width,
+                        height: height
                     });
 
                     // make the year picker have the same size as the day picker
                     yearpicker.css({
-                        'width':    width,
-                        'height':   height
+                        width:  width,
+                        height: height
                     });
 
                     // make the header and the footer have the same size as the day picker
@@ -3096,8 +3094,8 @@
                         // the value depends on the original value of the "direction" attribute
                         // (also, if the pair date picker does not have a direction, set it to 1)
                         dp.update({
-                            'reference_date':   date,
-                            'direction':        dp.settings.direction === 0 ? 1 : dp.settings.direction
+                            reference_date: date,
+                            direction:      dp.settings.direction === 0 ? 1 : dp.settings.direction
                         });
 
                         // if the other date picker is always visible, update the visuals now
