@@ -398,11 +398,12 @@
             },
 
             // private properties
-            view, datepicker, icon, header, daypicker, monthpicker, yearpicker, cleardate, current_system_month, current_system_year,
-            current_system_day, first_selectable_month, first_selectable_year, first_selectable_day, selected_month, selected_year,
-            default_day, default_month, default_year, enabled_dates, disabled_dates, shim, start_date, end_date, last_selectable_day,
-            last_selectable_year, last_selectable_month, daypicker_cells, monthpicker_cells, yearpicker_cells, views, clickables,
-            selecttoday, footer, show_select_today, timeout, uniqueid, custom_classes, custom_class_names, original_attributes = {};
+            cleardate, clickables, current_system_day, current_system_month, current_system_year, custom_class_names = [],
+            custom_classes = {}, datepicker, daypicker, daypicker_cells, default_day, default_month, default_year, disabled_dates = [],
+            enabled_dates = [], end_date, first_selectable_day, first_selectable_month, first_selectable_year, footer, header,
+            icon, last_selectable_day, last_selectable_month, last_selectable_year, monthpicker, monthpicker_cells,
+            original_attributes = {}, selected_month, selected_year, selecttoday, shim, show_select_today, start_date,
+            timeout, uniqueid, yearpicker, yearpicker_cells, view, views = [];
 
         var plugin = this;
 
@@ -429,9 +430,6 @@
                 },
 
                 // some defaults
-                has_days = false,
-                has_months = false,
-                has_years = false,
                 type = null, data, dates, k, l;
 
             // generate a random ID for each date picker (we'll use this if later a certain date picker is destroyed to
@@ -485,39 +483,25 @@
                     // if current character exists in the "format" property
                     if (plugin.settings.format.indexOf(character) > -1)
 
-                        // set to TRUE the appropriate flag
-                        if (type === 'days') has_days = true;
-                        else if (type === 'months') has_months = true;
-                        else if (type === 'years') has_years = true;
+                        // if user can cycle through the "days" view
+                        if (type === 'days') views.push('days');
+
+                        // if user can cycle through the "months" view
+                        else if (type === 'months') views.push('months');
+
+                        // if user can cycle through the "years" view
+                        else if (type === 'years') views.push('years');
 
                 });
 
-            // if user can cycle through all the views, set the flag accordingly
-            if (has_days && has_months && has_years) views = ['years', 'months', 'days'];
-
-            // if user can cycle only through year and months, set the flag accordingly
-            else if (!has_days && has_months && has_years) views = ['years', 'months'];
-
-            // if user can cycle only through months and days, set the flag accordingly
-            else if (has_days && has_months && !has_years) views = ['months', 'days'];
-
-            // if user can only see the year picker, set the flag accordingly
-            else if (!has_days && !has_months && has_years) views = ['years'];
-
-            // if user can only see the month picker, set the flag accordingly
-            else if (!has_days && has_months && !has_years) views = ['months'];
-
             // if invalid format (no days, no months, no years) use the default where the user is able to cycle through
             // all the views
-            else views = ['years', 'months', 'days'];
+            if (views.length === 0) views = ['years', 'months', 'days'];
 
             // if the starting view is not amongst the views the user can cycle through, set the correct starting view
             if ($.inArray(plugin.settings.view, views) === -1) plugin.settings.view = views[views.length - 1];
 
             // parse the rules for disabling dates and turn them into arrays of arrays
-
-            // array that will hold the rules for enabling/disabling dates
-            disabled_dates = []; enabled_dates = []; custom_classes = {}; custom_class_names = [];
 
             for (k in plugin.settings.custom_classes) if (plugin.settings.custom_classes.hasOwnProperty(k)) custom_class_names.push(k);
 
@@ -1196,10 +1180,10 @@
             // add the mouseover/mousevents to all to the date picker's cells
             // except those that are not selectable
             datepicker
-                .delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', 'mouseover', function() {
+                .on('mouseover', 'td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', function() {
                     $(this).addClass('dp_hover');
                 })
-                .delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', 'mouseout', function() {
+                .on('mouseout', 'td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', function() {
                     $(this).removeClass('dp_hover');
                 });
 
@@ -1279,7 +1263,7 @@
             });
 
             // attach a click event for the cells in the day picker
-            daypicker.delegate('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', 'click', function() {
+            daypicker.on('click', 'td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_week_number)', function() {
 
                 var matches;
 
@@ -1295,7 +1279,7 @@
             });
 
             // attach a click event for the cells in the month picker
-            monthpicker.delegate('td:not(.dp_disabled)', 'click', function() {
+            monthpicker.on('click', 'td:not(.dp_disabled)', function() {
 
                 // get the month we've clicked on
                 var matches = $(this).attr('class').match(/dp\_month\_([0-9]+)/);
@@ -1326,7 +1310,7 @@
             });
 
             // attach a click event for the cells in the year picker
-            yearpicker.delegate('td:not(.dp_disabled)', 'click', function() {
+            yearpicker.on('click', 'td:not(.dp_disabled)', function() {
 
                 // set the selected year
                 selected_year = to_int($(this).html());
