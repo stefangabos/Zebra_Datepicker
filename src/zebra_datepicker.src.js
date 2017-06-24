@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.5 (last revision: June 14, 2017)
+ *  @version    1.9.5 (last revision: June 24, 2017)
  *  @copyright  (c) 2011 - 2017 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -1978,51 +1978,59 @@
                 f = plugin.settings.months[n - 1],
 
                 // the year (as a string)
-                y = date.getFullYear() + '';
+                y = date.getFullYear() + '',
+
+                i, chr;
 
             // iterate through the characters in the format
-            for (var i = 0; i < plugin.settings.format.length; i++) {
+            for (i = 0; i < plugin.settings.format.length; i++) {
 
                 // extract the current character
-                var chr = plugin.settings.format.charAt(i);
+                chr = plugin.settings.format.charAt(i);
 
                 // see what character it is
-                switch(chr) {
+                switch (chr) {
 
                     // year as two digits
                     case 'y': y = y.substr(2);
 
                     // year as four digits
+                    // falls through
                     case 'Y': result += y; break;
 
                     // month number, prefixed with 0
                     case 'm': n = str_pad(n, 2);
 
                     // month number, not prefixed with 0
+                    // falls through
                     case 'n': result += n; break;
 
                     // month name, three letters
                     case 'M': f = ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[n - 1] ? plugin.settings.months_abbr[n - 1] : plugin.settings.months[n - 1].substr(0, 3));
 
                     // full month name
+                    // falls through
                     case 'F': result += f; break;
 
                     // day number, prefixed with 0
                     case 'd': j = str_pad(j, 2);
 
                     // day number not prefixed with 0
+                    // falls through
                     case 'j': result += j; break;
 
                     // day name, three letters
                     case 'D': l = ($.isArray(plugin.settings.days_abbr) && undefined !== plugin.settings.days_abbr[w] ? plugin.settings.days_abbr[w] : plugin.settings.days[w].substr(0, 3));
 
                     // full day name
+                    // falls through
                     case 'l': result += l; break;
 
                     // ISO-8601 numeric representation of the day of the week, 1 - 7
                     case 'N': w++;
 
                     // day of the week, 0 - 6
+                    // falls through
                     case 'w': result += w; break;
 
                     // English ordinal suffix for the day of the month, 2 characters
@@ -2074,7 +2082,7 @@
                 // how many days are there to be shown from the previous month
                 days_from_previous_month = first_day - plugin.settings.first_day_of_week,
 
-                i, html, day, real_date, real_year, real_month, real_day;
+                i, html, day, real_date, real_year, real_month, real_day, weekday, class_name, custom_class_name;
 
             // the final value of how many days are there to be shown from the previous month
             days_from_previous_month = days_from_previous_month < 0 ? 7 + days_from_previous_month : days_from_previous_month;
@@ -2143,15 +2151,13 @@
                 // if this is a day from the current month
                 else {
 
-                    var
+                    // get the week day (0 to 6, Sunday to Saturday)
+                    weekday = (plugin.settings.first_day_of_week + i) % 7;
 
-                        // get the week day (0 to 6, Sunday to Saturday)
-                        weekday = (plugin.settings.first_day_of_week + i) % 7,
+                    class_name = '';
 
-                        class_name = '',
-
-                        // custom class, if any
-                        custom_class_name = get_custom_class(selected_year, selected_month, day);
+                    // custom class, if any
+                    custom_class_name = get_custom_class(selected_year, selected_month, day);
 
                     // if date needs to be disabled
                     if (is_disabled(selected_year, selected_month, day)) {
@@ -2223,15 +2229,15 @@
             manage_header(plugin.settings.header_captions['months']);
 
             // start generating the HTML
-            var html = '<tr>';
+            var html = '<tr>', i, class_name;
 
             // iterate through all the months
-            for (var i = 0; i < 12; i++) {
+            for (i = 0; i < 12; i++) {
 
                 // three month per row
                 if (i > 0 && i % 3 === 0) html += '</tr><tr>';
 
-                var class_name = 'dp_month_' + i;
+                class_name = 'dp_month_' + i;
 
                 // if month needs to be disabled
                 if (is_disabled(selected_year, i)) class_name += ' dp_disabled';
@@ -2278,15 +2284,15 @@
             manage_header(plugin.settings.header_captions['years']);
 
             // start generating the HTML
-            var html = '<tr>';
+            var html = '<tr>', i, class_name;
 
             // we're showing 9 years at a time, current year in the middle
-            for (var i = 0; i < 12; i++) {
+            for (i = 0; i < 12; i++) {
 
                 // three years per row
                 if (i > 0 && i % 3 === 0) html += '</tr><tr>';
 
-                var class_name = '';
+                class_name = '';
 
                 // if year needs to be disabled
                 if (is_disabled(selected_year - 7 + i)) class_name += ' dp_disabled';
@@ -2354,7 +2360,7 @@
                         // if a custom class needs to be applied to the date we're checking, don't look further
                         if (found) return;
 
-                        var rule = this;
+                        var rule = this, weekday;
 
                         // if the rules apply for the current year
                         if ($.inArray(year, rule[2]) > -1 || $.inArray('*', rule[2]) > -1)
@@ -2370,7 +2376,7 @@
                                     if (rule[3] === '*') return (found = class_name);
 
                                     // get the weekday
-                                    var weekday = new Date(year, month - 1, day).getDay();
+                                    weekday = new Date(year, month - 1, day).getDay();
 
                                     // if custom class is to be applied to weekday
                                     // don't look any further
@@ -2399,6 +2405,8 @@
          */
         var iframeShim = function(action) {
 
+            var zIndex, offset;
+
             // this is necessary only if browser is Internet Explorer 6
             if (browser.name === 'explorer' && browser.version === 6) {
 
@@ -2407,7 +2415,7 @@
                 if (!shim) {
 
                     // the iFrame has to have the element's zIndex minus 1
-                    var zIndex = to_int(datepicker.css('zIndex')) - 1;
+                    zIndex = to_int(datepicker.css('zIndex')) - 1;
 
                     // create the iFrame
                     shim = $('<iframe>', {
@@ -2446,7 +2454,7 @@
                     default:
 
                         // get date picker top and left position
-                        var offset = datepicker.offset();
+                        offset = datepicker.offset();
 
                         // position the iFrame shim right underneath the date picker
                         // and set its display to "block"
@@ -2476,6 +2484,8 @@
          */
         var is_disabled = function(year, month, day) {
 
+            var now, len, disabled, enabled;
+
             // don't check bogus values
             if ((undefined === year || isNaN(year)) && (undefined === month || isNaN(month)) && (undefined === day || isNaN(day))) return false;
 
@@ -2485,12 +2495,11 @@
             // if calendar has direction restrictions
             if (!(!$.isArray(plugin.settings.direction) && to_int(plugin.settings.direction) === 0)) {
 
-                var
-                    // normalize and merge arguments then transform the result to an integer
-                    now = to_int(str_concat(year, (typeof month !== 'undefined' ? str_pad(month, 2) : ''), (typeof day !== 'undefined' ? str_pad(day, 2) : ''))),
+                // normalize and merge arguments then transform the result to an integer
+                now = to_int(str_concat(year, (typeof month !== 'undefined' ? str_pad(month, 2) : ''), (typeof day !== 'undefined' ? str_pad(day, 2) : '')));
 
-                    // get the length of the argument
-                    len = (now + '').length;
+                // get the length of the argument
+                len = (now + '').length;
 
                 // if we're checking days
                 if (len === 8 && (
@@ -2534,7 +2543,7 @@
             if (typeof month !== 'undefined') month = month + 1;
 
             // by default, we assume the day/month/year is not enabled nor disabled
-            var disabled = false, enabled = false;
+            disabled = false, enabled = false;
 
             // if there are rules for disabling dates
             if ($.isArray(disabled_dates) && disabled_dates.length)
@@ -2739,6 +2748,8 @@
          */
         var manage_views = function() {
 
+            var width, height, elements;
+
             // if the day picker was not yet generated
             if (daypicker.text() === '' || view === 'days') {
 
@@ -2760,8 +2771,8 @@
                     generate_daypicker();
 
                     // get the day picker's width and height
-                    var width = daypicker.outerWidth(),
-                        height = daypicker.outerHeight();
+                    width = daypicker.outerWidth();
+                    height = daypicker.outerHeight();
 
                     // make the month picker have the same size as the day picker
                     monthpicker.css({
@@ -2816,11 +2827,11 @@
             if (plugin.settings.onChange && typeof plugin.settings.onChange === 'function' && undefined !== view) {
 
                 // get the "active" elements in the view (ignoring the disabled ones)
-                var elements = (view === 'days' ?
-                        daypicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)') :
-                            (view === 'months' ?
-                                monthpicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)') :
-                                    yearpicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)')));
+                elements = (view === 'days' ?
+                    daypicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)') :
+                        (view === 'months' ?
+                            monthpicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)') :
+                                yearpicker.find('td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month)')));
 
                 // iterate through the active elements
                 // and attach a "date" data attribute to each element in the form of
