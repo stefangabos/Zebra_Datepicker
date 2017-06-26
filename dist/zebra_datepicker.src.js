@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.6 (last revision: June 24, 2017)
+ *  @version    1.9.6 (last revision: June 26, 2017)
  *  @copyright  (c) 2011 - 2017 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -1340,10 +1340,14 @@
             // function to execute when the "Today" button is clicked
             $(selecttoday).on('click', function(e) {
 
+                // date might have changed since we opened the date picker
+                // so let's use whatever date is now
+                var date = new Date;
+
                 e.preventDefault();
 
                 // select the current date
-                select_date(current_system_year, current_system_month, current_system_day, 'days', $('.dp_current', daypicker));
+                select_date(date.getFullYear(), date.getMonth(), date.getDate(), 'days', $('.dp_current', daypicker));
 
                 // if date picker is always visible
                 if (plugin.settings.always_visible)
