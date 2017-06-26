@@ -2357,7 +2357,7 @@
 
                                     // if custom class is to be applied whatever the day
                                     // don't look any further
-                                    if (rule[3] === '*') return (found = class_name);
+                                    if ($.inArray('*', rule[3]) > -1 ?) return (found = class_name);
 
                                     // get the weekday
                                     weekday = new Date(year, month - 1, day).getDay();
@@ -2551,7 +2551,7 @@
 
                                 // if day is to be disabled whatever the day
                                 // don't look any further
-                                if (rule[3] === '*') return (disabled = true);
+                                if ($.inArray('*', rule[3]) > -1) return (disabled = true);
 
                                 // get the weekday
                                 weekday = new Date(year, month - 1, day).getDay();
@@ -2601,7 +2601,7 @@
 
                                         // if day is to be enabled whatever the day
                                         // don't look any further
-                                        if (rule[3] === '*') return (enabled = true);
+                                        if ($.inArray('*', rule[3]) return (enabled = true);
 
                                         // get the weekday
                                         weekday = new Date(year, month - 1, day).getDay();
