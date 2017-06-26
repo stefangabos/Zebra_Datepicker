@@ -499,7 +499,7 @@
             if (views.length === 0) views = ['years', 'months', 'days'];
 
             // if the starting view is not amongst the views the user can cycle through, set the correct starting view
-            if ($.inArray(plugin.settings.view, views) === -1) plugin.settings.view = views[views.length - 1];
+            if (views.indexOf(plugin.settings.view) === -1) plugin.settings.view = views[views.length - 1];
 
             // parse the rules for disabling dates and turn them into arrays of arrays
 
@@ -554,7 +554,7 @@
 
                                             // if value is not already among the values of the rule
                                             // add it to the rule
-                                            if ($.inArray(k, rules[i]) === -1) rules[i].push(k + '');
+                                            if (rules[i].indexOf(k) === -1) rules[i].push(k + '');
 
                                         // remove the range indicator
                                         rules[i].splice(j, 1);
@@ -1084,7 +1084,7 @@
 
             // if the "Today" button is to be shown and it makes sense to be shown
             // (the "days" view is available and "today" is not a disabled date)
-            show_select_today = (plugin.settings.show_select_today !== false && $.inArray('days', views) > -1 && !is_disabled(current_system_year, current_system_month, current_system_day) ? plugin.settings.show_select_today : false);
+            show_select_today = (plugin.settings.show_select_today !== false && views.indexOf('days') > -1 && !is_disabled(current_system_year, current_system_month, current_system_day) ? plugin.settings.show_select_today : false);
 
             // if we just needed to recompute the things above
             if (update) {
@@ -1222,13 +1222,13 @@
             $('.dp_caption', header).on('click', function() {
 
                 // if current view is "days", take the user to the next view, depending on the format
-                if (view === 'days') view = ($.inArray('months', views) > -1 ? 'months' : ($.inArray('years', views) > -1 ? 'years' : 'days'));
+                if (view === 'days') view = (views.indexOf('months') > -1 ? 'months' : (views.indexOf('years') > -1 ? 'years' : 'days'));
 
                 // if current view is "months", take the user to the next view, depending on the format
-                else if (view === 'months') view = ($.inArray('years', views) > -1 ? 'years' : ($.inArray('days', views) > -1 ? 'days' : 'months'));
+                else if (view === 'months') view = (views.indexOf('years') > -1 ? 'years' : (views.indexOf('days') > -1 ? 'days' : 'months'));
 
                 // if current view is "years", take the user to the next view, depending on the format
-                else view = ($.inArray('days', views) > -1 ? 'days' : ($.inArray('months', views) > -1 ? 'months' : 'years'));
+                else view = (views.indexOf('days') > -1 ? 'days' : (views.indexOf('months') > -1 ? 'months' : 'years'));
 
                 // generate the appropriate view
                 manage_views();
@@ -1288,7 +1288,7 @@
                 selected_month = to_int(matches[1]);
 
                 // if user can select only years and months
-                if ($.inArray('days', views) === -1)
+                if ('days', views.indexOf('days') === -1)
 
                     // put selected date in the element the plugin is attached to, and hide the date picker
                     select_date(selected_year, selected_month, 1, 'months', $(this));
@@ -1316,7 +1316,7 @@
                 selected_year = to_int($(this).html());
 
                 // if user can select only years
-                if ($.inArray('months', views) === -1)
+                if (views.indexOf('months') === -1)
 
                     // put selected date in the element the plugin is attached to, and hide the date picker
                     select_date(selected_year, 1, 1, 'years', $(this));
@@ -2147,7 +2147,7 @@
                     if (is_disabled(selected_year, selected_month, day)) {
 
                         // if day is in weekend
-                        if ($.inArray(weekday, plugin.settings.weekend_days) > -1) class_name = 'dp_weekend_disabled';
+                        if (plugin.settings.weekend_days.indexOf(weekday) > -1) class_name = 'dp_weekend_disabled';
 
                         // if work day
                         else class_name += ' dp_disabled';
@@ -2162,7 +2162,7 @@
                     } else {
 
                         // if day is in weekend
-                        if ($.inArray(weekday, plugin.settings.weekend_days) > -1) class_name = 'dp_weekend';
+                        if (plugin.settings.weekend_days.indexOf(weekday) > -1) class_name = 'dp_weekend';
 
                         // highlight the currently selected date
                         if (selected_month === default_month && selected_year === default_year && default_day === day) class_name += ' dp_selected';
@@ -2347,24 +2347,24 @@
                         var rule = this, weekday;
 
                         // if the rules apply for the current year
-                        if ($.inArray(year, rule[2]) > -1 || $.inArray('*', rule[2]) > -1)
+                        if (rule[2].indexOf(year) > -1 || rule[2].indexOf('*') > -1)
 
                             // if the rules apply for the current month
-                            if ((typeof month !== 'undefined' && $.inArray(month, rule[1]) > -1) || $.inArray('*', rule[1]) > -1)
+                            if ((typeof month !== 'undefined' && rule[1].indexOf(month) > -1) || rule[1].indexOf('*') > -1)
 
                                 // if the rules apply for the current day
-                                if ((typeof day !== 'undefined' && $.inArray(day, rule[0]) > -1) || $.inArray('*', rule[0]) > -1) {
+                                if ((typeof day !== 'undefined' && rule[0].indexOf(day) > -1) || rule[0].indexOf('*') > -1) {
 
                                     // if custom class is to be applied whatever the day
                                     // don't look any further
-                                    if (rule[3] === '*') return (found = class_name);
+                                    if (rule[3].indexOf('*') > -1) return (found = class_name);
 
                                     // get the weekday
                                     weekday = new Date(year, month - 1, day).getDay();
 
                                     // if custom class is to be applied to weekday
                                     // don't look any further
-                                    if ($.inArray(weekday, rule[3]) > -1) return (found = class_name);
+                                    if (rule[3].indexOf(weekday) > -1) return (found = class_name);
 
                                 }
 
@@ -2541,24 +2541,24 @@
                     var rule = this, weekday;
 
                     // if the rules apply for the current year
-                    if ($.inArray(year, rule[2]) > -1 || $.inArray('*', rule[2]) > -1)
+                    if (rule[2].indexOf(year) > -1 || rule[2].indexOf('*') > -1)
 
                         // if the rules apply for the current month
-                        if ((typeof month !== 'undefined' && $.inArray(month, rule[1]) > -1) || $.inArray('*', rule[1]) > -1)
+                        if ((typeof month !== 'undefined' && rule[1].indexOf(month) > -1) || rule[1].indexOf('*') > -1)
 
                             // if the rules apply for the current day
-                            if ((typeof day !== 'undefined' && $.inArray(day, rule[0]) > -1) || $.inArray('*', rule[0]) > -1) {
+                            if ((typeof day !== 'undefined' && rule[0].indexOf(day) > -1) || rule[0].indexOf('*') > -1) {
 
                                 // if day is to be disabled whatever the day
                                 // don't look any further
-                                if (rule[3] === '*') return (disabled = true);
+                                if (rule[3].indexOf('*') > -1) return (disabled = true);
 
                                 // get the weekday
                                 weekday = new Date(year, month - 1, day).getDay();
 
                                 // if weekday is to be disabled
                                 // don't look any further
-                                if ($.inArray(weekday, rule[3]) > -1) return (disabled = true);
+                                if (rule[3].indexOf(weekday) > -1) return (disabled = true);
 
                             }
 
@@ -2576,7 +2576,7 @@
                     var rule = this, weekday;
 
                     // if the rules apply for the current year
-                    if ($.inArray(year, rule[2]) > -1 || $.inArray('*', rule[2]) > -1) {
+                    if (rule[2].indexOf(year) > -1 || rule[2].indexOf('*') > -1) {
 
                         // the year is enabled
                         enabled = true;
@@ -2588,7 +2588,7 @@
                             enabled = true;
 
                             // if the rules apply for the current month
-                            if ($.inArray(month, rule[1]) > -1 || $.inArray('*', rule[1]) > -1) {
+                            if (rule[1].indexOf(month) > -1 || rule[1].indexOf('*') > -1) {
 
                                 // if we're also checking days
                                 if (typeof day !== 'undefined') {
@@ -2597,18 +2597,18 @@
                                     enabled = true;
 
                                     // if the rules apply for the current day
-                                    if ($.inArray(day, rule[0]) > -1 || $.inArray('*', rule[0]) > -1) {
+                                    if (rule[0].indexOf(day) > -1 || rule[0].indexOf('*') > -1) {
 
                                         // if day is to be enabled whatever the day
                                         // don't look any further
-                                        if (rule[3] === '*') return (enabled = true);
+                                        if (rule[3].indexOf('*') > -1) return (enabled = true);
 
                                         // get the weekday
                                         weekday = new Date(year, month - 1, day).getDay();
 
                                         // if weekday is to be enabled
                                         // don't look any further
-                                        if ($.inArray(weekday, rule[3]) > -1) return (enabled = true);
+                                        if (rule[3].indexOf(weekday) > -1) return (enabled = true);
 
                                         // if we get this far, it means the day is not enabled
                                         enabled = false;
