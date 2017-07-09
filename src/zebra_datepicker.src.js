@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.6 (last revision: June 26, 2017)
+ *  @version    1.9.6 (last revision: July 09, 2017)
  *  @copyright  (c) 2011 - 2017 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -1400,7 +1400,7 @@
             if (!plugin.settings.always_visible) {
 
                 // whenever anything is clicked on the page
-                $(document).on('mousedown.Zebra_DatePicker_' + uniqueid + ', touchstart.Zebra_DatePicker_' + uniqueid, function(e) {
+                $(document).on('mousedown.Zebra_DatePicker_' + uniqueid + ' touchstart.Zebra_DatePicker_' + uniqueid, function(e) {
 
                     // if the date picker is visible
                     if (datepicker.hasClass('dp_visible')) {
@@ -1469,6 +1469,7 @@
             // remove associated event handlers from the document
             $(document).off('keyup.Zebra_DatePicker_' + uniqueid);
             $(document).off('mousedown.Zebra_DatePicker_' + uniqueid);
+            $(document).off('touchstart.Zebra_DatePicker_' + uniqueid);
             $(window).off('resize.Zebra_DatePicker_' + uniqueid);
             $(window).off('orientationchange.Zebra_DatePicker_' + uniqueid);
 
