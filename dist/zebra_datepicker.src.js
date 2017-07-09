@@ -1394,6 +1394,9 @@
                     // execute the callback function and pass as argument the element the plugin is attached to
                     plugin.settings.onClear.call($element, $element);
 
+                // give the focus back to the parent element
+                $element.focus();
+
             });
 
             // if date picker is not always visible
