@@ -246,9 +246,11 @@
                 //  default is FALSE
                 open_icon_only: false,
 
-                //  by default, the date picker is shown when the parent element (if "open_icon_only" is not set to FALSE)
-                //  or the associated calendar icon (if "show_icon" is set to TRUE) receives focus
-                //  set this property to FALSE if you don't want this behavior.
+                //  set this property to TRUE if you want the date picker to be shown when the parent element (if
+                //  "open_icon_only" is not set to FALSE) or the associated calendar icon (if "show_icon" is set to TRUE)
+                //  receive focus.
+                //
+                //  default is FALSE
                 open_on_focus: false,
 
                 //  if set as a jQuery element with a Zebra_DatePicker attached, that particular date picker will use the
@@ -998,13 +1000,13 @@
                     // if calendar icon is not visible, the date picker will open when clicking the element
                     } else clickables = $element;
 
-                    // attach the click event to the clickable elements (icon and/or element)
+                    // attach the "click" and, if required, the "focus" event to the clickable elements (icon and/or element)
                     clickables.on('click.Zebra_DatePicker_' + uniqueid + (plugin.settings.open_on_focus ? ' focus.Zebra_DatePicker_' + uniqueid : ''), function(e) {
 
-                        // if element is not disabled
+                        // if date picker is not visible and element is not disabled
                         if (!datepicker.hasClass('dp_visible') && !$element.attr('disabled'))
 
-                            // if the date picker is not visible, show it
+                            // show the date picker
                             plugin.show();
 
                     });
