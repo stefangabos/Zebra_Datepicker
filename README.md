@@ -353,6 +353,14 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
+        <td valign="top"><strong>open_on_focus</strong></td>
+        <td valign="top"><em>boolean</em></td>
+        <td valign="top"><code>FALSE</code></td>
+        <td valign="top">
+            Set this property to <code>TRUE</code> if you want the date picker to be shown when the parent element (if <code>open_icon_only</code> is not set to <code>FALSE</code>) or the associated calendar icon (if <code>show_icon</code> is set to <code>TRUE</code>) receive focus.
+        </td>
+    </tr>
+    <tr>
         <td valign="top"><strong>pair</strong></td>
         <td valign="top"><em>object</em></td>
         <td valign="top"><code>FALSE</code><br><small>not paired with another date picker</small></td>
