@@ -1,3 +1,10 @@
+## version 1.9.6 (June 24, 2017)
+
+- performance improvements and source code tweaks
+- new folder structure
+- the home of the library is now exclusively on GitHub
+- files required in the build process are not included anymore when installing via npm nor when downloading from GitHub
+
 ## version 1.9.5 (May 13, 2016)
 
 - fixed a bug when parent elements were having the "display" property set to "block
