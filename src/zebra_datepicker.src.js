@@ -410,7 +410,7 @@
             enabled_dates = [], end_date, first_selectable_day, first_selectable_month, first_selectable_year, footer, header,
             icon, last_selectable_day, last_selectable_month, last_selectable_year, monthpicker, monthpicker_cells,
             original_attributes = {}, selected_month, selected_year, selecttoday, shim, show_select_today, start_date,
-            timeout, uniqueid, yearpicker, yearpicker_cells, view, views = [];
+            timeout, uniqueid = '', yearpicker, yearpicker_cells, view, views = [];
 
         var plugin = this;
 
@@ -442,7 +442,7 @@
             // generate a random ID for each date picker (we'll use this if later a certain date picker is destroyed to
             // remove related events)
             // the code is taken from http://stackoverflow.com/a/105074
-            uniqueid = Math.floor((1 + Math.random()) * 0x10000).toString(16);
+            for (k = 0; k < 3; k++) uniqueid += Math.floor((1 + Math.random()) * 0x10000).toString(16);
 
             // unless we're not just updating settings
             if (!update) {
