@@ -1001,7 +1001,7 @@
                     } else clickables = $element;
 
                     // attach the "click" and, if required, the "focus" event to the clickable elements (icon and/or element)
-                    clickables.on('click.Zebra_DatePicker_' + uniqueid + (plugin.settings.open_on_focus ? ' focus.Zebra_DatePicker_' + uniqueid : ''), function(e) {
+                    clickables.on('click.Zebra_DatePicker_' + uniqueid + (plugin.settings.open_on_focus ? ' focus.Zebra_DatePicker_' + uniqueid : ''), function() {
 
                         // if date picker is not visible and element is not disabled
                         if (!datepicker.hasClass('dp_visible') && !$element.attr('disabled'))
@@ -1741,7 +1741,7 @@
                 for (var i = 0; i < format_chars.length; i++)
 
                     // if character is found in the date's format
-                    if ((position = rules[i][j].indexOf(format_chars[i])) > -1)
+                    if ((position = format.indexOf(format_chars[i])) > -1)
 
                         // save it, alongside the character's position
                         matches.push({
