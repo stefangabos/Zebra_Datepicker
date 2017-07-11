@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.6 (last revision: July 09, 2017)
+ *  @version    1.9.6 (last revision: July 11, 2017)
  *  @copyright  (c) 2011 - 2017 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -240,11 +240,16 @@
                 //  default is [5, -5]
                 offset: [5, -5],
 
-                //  set whether the date picker should be shown *only* when clicking the icon
-                //  note that if you set the "show_icon" property to FALSE, you will not be able to show the date picker anymore!
+                //  set whether the date picker should be shown *only* when interacting with the icon
+                //  note that if you also set the "show_icon" property to FALSE, you will not be able to show the date picker anymore!
                 //
                 //  default is FALSE
                 open_icon_only: false,
+
+                //  by default, the date picker is shown when the parent element (if "open_icon_only" is not set to FALSE)
+                //  or the associated calendar icon (if "show_icon" is set to TRUE) receives focus
+                //  set this property to FALSE if you don't want this behavior.
+                open_on_focus: false,
 
                 //  if set as a jQuery element with a Zebra_DatePicker attached, that particular date picker will use the
                 //  current date picker's value as starting date
@@ -994,18 +999,24 @@
                     } else clickables = $element;
 
                     // attach the click event to the clickable elements (icon and/or element)
-                    clickables.on('click.Zebra_DatePicker_' + uniqueid, function(e) {
-
-                        e.preventDefault();
+                    clickables.on('click.Zebra_DatePicker_' + uniqueid + (plugin.settings.open_on_focus ? ' focus.Zebra_DatePicker_' + uniqueid : ''), function(e) {
 
                         // if element is not disabled
-                        if (!$element.attr('disabled'))
-
-                            // if the date picker is visible, hide it
-                            if (datepicker.hasClass('dp_visible')) plugin.hide();
+                        if (!datepicker.hasClass('dp_visible') && !$element.attr('disabled'))
 
                             // if the date picker is not visible, show it
-                            else plugin.show();
+                            plugin.show();
+
+                    });
+
+                    // attach a keydown event to the clickable elements (icon and/or element)
+                    clickables.on('keydown.Zebra_DatePicker_' + uniqueid, function(e) {
+
+                        // if "Tab" key was pressed and the date picker is visible
+                        if (e.keyCode === 9 && datepicker.hasClass('dp_visible'))
+
+                            // hide the date picker
+                            plugin.hide();
 
                     });
 
@@ -1349,15 +1360,6 @@
                 // select the current date
                 select_date(date.getFullYear(), date.getMonth(), date.getDate(), 'days', $('.dp_current', daypicker));
 
-                // if date picker is always visible
-                if (plugin.settings.always_visible)
-
-                    // repaint the datepicker so it centers on the currently selected date
-                    plugin.show();
-
-                // hide the date picker
-                plugin.hide();
-
             });
 
             // function to execute when the "Clear" button is clicked
@@ -1385,6 +1387,9 @@
 
                 }
 
+                // give the focus back to the parent element
+                $element.focus();
+
                 // hide the date picker
                 plugin.hide();
 
@@ -1394,9 +1399,6 @@
                     // execute the callback function and pass as argument the element the plugin is attached to
                     plugin.settings.onClear.call($element, $element);
 
-                // give the focus back to the parent element
-                $element.focus();
-
             });
 
             // if date picker is not always visible
@@ -1405,18 +1407,25 @@
                 // whenever anything is clicked on the page
                 $(document).on('mousedown.Zebra_DatePicker_' + uniqueid + ' touchstart.Zebra_DatePicker_' + uniqueid, function(e) {
 
-                    // if the date picker is visible
-                    if (datepicker.hasClass('dp_visible')) {
+                    // if
+                    if (
 
-                        // if the calendar icon is visible and we clicked it, let the onClick event of the icon to handle the event
-                        // (we want it to toggle the date picker)
-                        if (plugin.settings.show_icon && $(e.target).get(0) === icon.get(0)) return true;
+                        // date picker is visible
+                        datepicker.hasClass('dp_visible') &&
+                        (
+                            // date picker opens only on interacting with the icon, icon exists, but it is not the clicked element
+                            (plugin.settings.open_icon_only && plugin.icon && $(e.target).get(0) !== plugin.icon.get(0)) ||
 
-                        // if what's clicked is not inside the date picker
-                        // hide the date picker
-                        if ($(e.target).parents().filter('.Zebra_DatePicker').length === 0) plugin.hide();
+                            // date picker doesn't open only on interacting with the icon but the clicked element it's not the icon nor the parent element
+                            (!plugin.settings.open_icon_only && $(e.target).get(0) !== $element.get(0) && (!plugin.icon || $(e.target).get(0) !== plugin.icon.get(0)))
 
-                    }
+                        ) &&
+
+                        // and the click is not inside the calendar
+                        $(e.target).parents().filter('.Zebra_DatePicker').length === 0
+
+                    // hide the date picker
+                    ) plugin.hide();
 
                 });
 
@@ -1455,19 +1464,32 @@
          */
         plugin.destroy = function() {
 
-            // remove the attached icon (if it exists)...
-            if (undefined !== plugin.icon) plugin.icon.remove();
+            // if the calendar icon exists
+            if (undefined !== plugin.icon) {
 
-            // ...and the calendar
+                // remove associated event handlers
+                plugin.icon.off('click.Zebra_DatePicker_' + uniqueid);
+                plugin.icon.off('focus.Zebra_DatePicker_' + uniqueid);
+                plugin.icon.off('keydown.Zebra_DatePicker_' + uniqueid);
+
+                // remove the icon itself
+                plugin.icon.remove();
+
+            }
+
+            // remove the calendar
             plugin.datepicker.remove();
 
             // if calendar icon was shown and the date picker was not always visible,
-            // also remove the wrapper needed for positioning it
+            // also remove the wrapper used for positioning it
             if (plugin.settings.show_icon && !plugin.settings.always_visible) $element.unwrap();
 
             // remove associated event handlers from the element
-            $element.off('click.Zebra_DatePicker_' + uniqueid);
             $element.off('blur.Zebra_DatePicker_' + uniqueid);
+            $element.off('click.Zebra_DatePicker_' + uniqueid);
+            $element.off('focus.Zebra_DatePicker_' + uniqueid);
+            $element.off('keydown.Zebra_DatePicker_' + uniqueid);
+            $element.off('mousedown.Zebra_DatePicker_' + uniqueid);
 
             // remove associated event handlers from the document
             $(document).off('keyup.Zebra_DatePicker_' + uniqueid);
@@ -2983,6 +3005,9 @@
 
             }
 
+            // move focus to the element the plugin is attached to
+            $element.focus();
+
             // hide the date picker
             plugin.hide();
 
@@ -2995,9 +3020,6 @@
                 // execute the callback function
                 // make "this" inside the callback function refer to the element the date picker is attached to
                 plugin.settings.onSelect.call($element, selected_value, year + '-' + str_pad(month + 1, 2) + '-' + str_pad(day, 2), default_date, $element, getWeekNumber(default_date));
-
-            // move focus to the element the plugin is attached to
-            $element.focus();
 
         };
 
