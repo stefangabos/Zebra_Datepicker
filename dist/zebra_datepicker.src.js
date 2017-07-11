@@ -542,13 +542,13 @@
 
                             // if rule contains a comma, create a new array by splitting the rule by commas
                             // if there are no commas create an array containing the rule's string
-                            rules[i] = ($.inArray(',', rules[i]) > -1 ? rules[i].split(',') : new Array(rules[i]));
+                            rules[i] = (rules[i].indexOf(',') > -1 ? rules[i].split(',') : new Array(rules[i]));
 
                             // iterate through the items in the rule
                             for (j = 0; j < rules[i].length; j++)
 
                                 // if item contains a dash (defining a range)
-                                if ($.inArray('-', rules[i][j]) > -1) {
+                                if (rules[i][j].indexOf('-') > -1) {
 
                                     // get the lower and upper limits of the range
                                     limits = rules[i][j].match(/^([0-9]+)\-([0-9]+)/);
@@ -1301,7 +1301,7 @@
                 selected_month = to_int(matches[1]);
 
                 // if user can select only years and months
-                if ('days', $.inArray('days', views) === -1)
+                if ($.inArray('days', views) === -1)
 
                     // put selected date in the element the plugin is attached to, and hide the date picker
                     select_date(selected_year, selected_month, 1, 'months', $(this));
@@ -1741,7 +1741,7 @@
                 for (var i = 0; i < format_chars.length; i++)
 
                     // if character is found in the date's format
-                    if ((position = $.inArray(format_chars[i], format)) > -1)
+                    if ((position = rules[i][j].indexOf(format_chars[i])) > -1)
 
                         // save it, alongside the character's position
                         matches.push({
@@ -2389,7 +2389,7 @@
 
                                     // if custom class is to be applied whatever the day
                                     // don't look any further
-                                    if ($.inArray('*', rule[3]) > -1) return (found = class_name);
+                                    if (rule[3].indexOf('*') > -1) return (found = class_name);
 
                                     // get the weekday
                                     weekday = new Date(year, month - 1, day).getDay();
@@ -2583,7 +2583,7 @@
 
                                 // if day is to be disabled whatever the day
                                 // don't look any further
-                                if ($.inArray('*', rule[3]) > -1) return (disabled = true);
+                                if (rule[3].indexOf('*') > -1) return (disabled = true);
 
                                 // get the weekday
                                 weekday = new Date(year, month - 1, day).getDay();
@@ -2633,7 +2633,7 @@
 
                                         // if day is to be enabled whatever the day
                                         // don't look any further
-                                        if ($.inArray('*', rule[3]) > -1) return (enabled = true);
+                                        if (rule[3].indexOf('*') > -1) return (enabled = true);
 
                                         // get the weekday
                                         weekday = new Date(year, month - 1, day).getDay();
@@ -3198,14 +3198,14 @@
                     dataProp = data[i].prop;
                     this.versionSearchString = data[i].versionSearch || data[i].identity;
                     if (dataString) {
-                        if ($.inArray(data[i].subString, dataString) !== -1)
+                        if (dataString.indexOf(data[i].subString) !== -1)
                             return data[i].identity;
                     } else if (dataProp)
                         return data[i].identity;
                 }
             },
             searchVersion: function(dataString) {
-                var index = $.inArray(this.versionSearchString, dataString);
+                var index = dataString.indexOf(this.versionSearchString);
 
                 if (index === -1) return;
 
