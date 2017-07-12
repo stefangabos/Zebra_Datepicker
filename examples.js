@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     $('#datepicker-example3').Zebra_DatePicker({
         direction: true,
-        disabled_dates: ['* * * 0,6']   // all days, all monts, all years as long
+        disabled_dates: ['* * * 0,6']   // all days, all months, all years as long
                                         // as the weekday is 0 or 6 (Sunday or Saturday)
     });
 
@@ -77,7 +77,7 @@ $(document).ready(function() {
 
     $('#datepicker-example14').Zebra_DatePicker({
         always_visible: $('#container'),
-        disabled_dates: ['* * * 0,6']   // all days, all monts, all years as long
+        disabled_dates: ['* * * 0,6']   // all days, all months, all years as long
                                         // as the weekday is 0 or 6 (Sunday or Saturday)
     });
 
