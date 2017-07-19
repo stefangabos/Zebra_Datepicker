@@ -366,7 +366,8 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><code>FALSE</code><br><small>not paired with another date picker</small></td>
         <td valign="top">
             If set as one or more jQuery elements with Zebra_Datepicker attached, those particular date pickers will use the current date picker's value as starting date<br><br>
-            Note that the rules set in the <em>direction</em> property will still apply but the reference date will not be the current system date but the value selected in the current date picker.
+            Note that the rules set in the <em>direction</em> property will still apply but the reference date will not be the current system date but the value selected in the current date picker.<br><br>
+            <blockquote>Use this property only on the date picker containing the "starting date" and not also on the one with the "ending date", or the <code>direction</code> property of the second date picker will not work as expected!<blockquote>
         </td>
     </tr>
     <tr>
