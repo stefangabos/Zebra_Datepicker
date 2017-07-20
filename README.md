@@ -213,7 +213,8 @@ var datepicker = $('selector').data('Zebra_DatePicker');
             <code>[true, 7]</code> calendar starts today and ends seven days after that<br>
             <code>['2013-01-01', false]</code> calendar starts on January 1st 2013 and has no ending date ("format" is YYYY-MM-DD)<br>
             <code>[false, '2012-01-01']</code> calendar ends today and starts on January 1st 2012 ("format" is YYYY-MM-DD)<br><br>
-            <blockquote>Note that <em>disabled_dates</em> property will still apply!</blockquote>
+            <blockquote>Note that <em>disabled_dates</em> property will still apply!</blockquote><br>
+            <blockquote>Instead of <em>today</em> read <em>the reference date</em> if the date picker is the <code>pair</code> of another date picker</blockquote>
         </td>
     </tr>
     <tr>
