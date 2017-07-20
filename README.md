@@ -198,23 +198,23 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><code>0</code></td>
         <td valign="top">Direction of the calendar<br><br>
             <ul>
-                <li><code>n</code> (a positive integer) creates a future-only calendar beginning at n days after today</li>
-                <li><code>-n</code> (a negative integer) creates a past-only calendar ending n days before today</li>
+                <li><code>n</code> (a positive integer) creates a future-only calendar beginning at n days after the reference date<sup><a href="#reference_date">1</a></sup></li>
+                <li><code>-n</code> (a negative integer) creates a past-only calendar ending n days before the reference date</li>
                 <li><code>0</code> creates a calendar with no restrictions</li>
-                <li>boolean <code>true</code> creates a future-only calendar starting with today</li>
-                <li>boolean <code>false</code> for a past-only calendar ending today</li>
+                <li>boolean <code>true</code> creates a future-only calendar starting with the reference date</li>
+                <li>boolean <code>false</code> for a past-only calendar ending on the reference date</li>
             </ul>
             You may also set this property to an array with two elements in the following combinations:<br><br>
             <ul>
-                <li>first item is boolean <code>TRUE</code> (calendar starts today), a <code>positive integer</code> (calendar starts n days after today), or a <code>valid date</code> given in the format defined by the <em>format</em> attribute (calendar starts at the specified date), and the second item is boolean <code>FALSE</code> (the calendar has no ending date), a <code>positive integer</code> (calendar ends n days after the starting date), or a <code>valid date</code> given in the format defined by the <em>format</em> attribute and which occurs after the starting date (calendar ends at the specified date)</li>
-                <li>first item is boolean <code>FALSE</code> (calendar ends today), a <code>negative integer</code> (calendar ends n days before today), or a <code>valid date</code> given in the format defined by the <em>format</em> attribute (calendar ends at the specified date), and the second item is a <code>positive integer</code> (calendar ends n days before the ending date), or a <code>valid date</code> given in the format defined by the <em>format</em> attribute and which occurs before the starting date (calendar starts at the specified date)</li>
+                <li>first item is boolean <code>TRUE</code> (calendar starts on the reference date), a <code>positive integer</code> (calendar starts n days after the reference date), or a <code>valid date</code> given in the format defined by the <em>format</em> attribute (calendar starts at the specified date), and the second item is boolean <code>FALSE</code> (the calendar has no ending date), a <code>positive integer</code> (calendar ends n days after the starting date), or a <code>valid date</code> given in the format defined by the <em>format</em> attribute and which occurs after the starting date (calendar ends at the specified date)</li>
+                <li>first item is boolean <code>FALSE</code> (calendar ends on the reference date), a <code>negative integer</code> (calendar ends n days before the reference date), or a <code>valid date</code> given in the format defined by the <em>format</em> attribute (calendar ends at the specified date), and the second item is a <code>positive integer</code> (calendar ends n days before the ending date), or a <code>valid date</code> given in the format defined by the <em>format</em> attribute and which occurs before the starting date (calendar starts at the specified date)</li>
             </ul>
             <code>[1, 7]</code> calendar starts tomorrow and ends seven days after that<br>
-            <code>[true, 7]</code> calendar starts today and ends seven days after that<br>
+            <code>[true, 7]</code> calendar starts on the reference date and ends seven days after that<br>
             <code>['2013-01-01', false]</code> calendar starts on January 1st 2013 and has no ending date ("format" is YYYY-MM-DD)<br>
-            <code>[false, '2012-01-01']</code> calendar ends today and starts on January 1st 2012 ("format" is YYYY-MM-DD)<br><br>
+            <code>[false, '2012-01-01']</code> calendar ends on the reference date and starts on January 1st 2012 ("format" is YYYY-MM-DD)<br><br>
             <blockquote>Note that <em>disabled_dates</em> property will still apply!</blockquote><br>
-            <blockquote>Instead of <em>today</em> read <em>the reference date</em> if the date picker is the <code>pair</code> of another date picker</blockquote>
+            <blockquote><a name="reference_date"></a>The <em>reference date</em> is the current date unless the date picker is the <em>pair</em> of another date picker, case in which the reference date is the date selected in that date picker.</blockquote>
         </td>
     </tr>
     <tr>
