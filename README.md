@@ -83,10 +83,10 @@ Load the style sheet file from a local source
 
 ```html
 <!-- for the most recent version of the "default" theme -->
-<link rel="stylesheet" href=="https://cdn.jsdelivr.net/gh/stefangabos/Zebra_Datepicker/dist/css/default/zebra_datepicker.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/stefangabos/Zebra_Datepicker/dist/css/default/zebra_datepicker.min.css">
 
 <!-- for the most recent version of the "bootstrap" theme -->
-<link rel="stylesheet" href=="https://cdn.jsdelivr.net/gh/stefangabos/Zebra_Datepicker/dist/css/bootstrap/zebra_datepicker.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/stefangabos/Zebra_Datepicker/dist/css/bootstrap/zebra_datepicker.min.css">
 
 <!-- replacing "min" with "src" will serve you the non-compressed version -->
 ```
