@@ -43,25 +43,29 @@ $(document).ready(function() {
     });
 
     $('#datepicker-example9').Zebra_DatePicker({
-        show_week_number: 'Wk'
+        format: 'Y-m-d H:i'
     });
 
     $('#datepicker-example10').Zebra_DatePicker({
-        view: 'years'
+        show_week_number: 'Wk'
     });
 
     $('#datepicker-example11').Zebra_DatePicker({
-        format: 'm Y'
+        view: 'years'
     });
 
     $('#datepicker-example12').Zebra_DatePicker({
+        format: 'm Y'
+    });
+
+    $('#datepicker-example13').Zebra_DatePicker({
         disabled_dates: ['* * * 0,6'],
         custom_classes: {
             'myclass':  ['* * * 0,6']
         }
     });
 
-    $('#datepicker-example13').Zebra_DatePicker({
+    $('#datepicker-example14').Zebra_DatePicker({
         onChange: function(view, elements) {
             if (view === 'days') {
                 elements.each(function() {
@@ -75,12 +79,10 @@ $(document).ready(function() {
         }
     });
 
-    $('#datepicker-example14').Zebra_DatePicker({
-        always_visible: $('#container'),
-        disabled_dates: ['* * * 0,6']   // all days, all months, all years as long
-                                        // as the weekday is 0 or 6 (Sunday or Saturday)
+    $('#datepicker-example15').Zebra_DatePicker({
+        always_visible: $('#container')
     });
 
-    $('#datepicker-example15').Zebra_DatePicker();
+    $('#datepicker-example16').Zebra_DatePicker();
 
 });
