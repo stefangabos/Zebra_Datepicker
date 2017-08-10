@@ -76,9 +76,7 @@ $(document).ready(function() {
     });
 
     $('#datepicker-example14').Zebra_DatePicker({
-        always_visible: $('#container'),
-        disabled_dates: ['* * * 0,6']   // all days, all months, all years as long
-                                        // as the weekday is 0 or 6 (Sunday or Saturday)
+        always_visible: $('#container')
     });
 
     $('#datepicker-example15').Zebra_DatePicker();
