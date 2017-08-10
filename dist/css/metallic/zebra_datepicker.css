@@ -1,7 +1,8 @@
 .Zebra_DatePicker {
     position: absolute;
     background: #373737;
-    border: 3px solid #373737;
+    border-left: 3px solid #373737;
+    border-right: 3px solid #373737;
     z-index: 1200;
     top: 0;
     -webkit-border-radius: 5px;
@@ -104,25 +105,31 @@
     color: #FFF;
 }
 
-.Zebra_DatePicker .dp_daypicker,
-.Zebra_DatePicker .dp_monthpicker,
-.Zebra_DatePicker .dp_yearpicker {
-    margin-top: 3px;
+.Zebra_DatePicker .dp_timepicker {
+    border-top: 3px solid #373737;
 }
 
 .Zebra_DatePicker .dp_daypicker td, .Zebra_DatePicker .dp_daypicker th,
 .Zebra_DatePicker .dp_monthpicker td,
 .Zebra_DatePicker .dp_monthpicker th,
 .Zebra_DatePicker .dp_yearpicker td,
-.Zebra_DatePicker .dp_yearpicker th {
+.Zebra_DatePicker .dp_yearpicker th,
+.Zebra_DatePicker .dp_timepicker td,
+.Zebra_DatePicker .dp_timepicker th {
     background: #DEDEDE url(default-date.png) repeat-x top;
     width: 30px;
     border: 1px solid #BBB;
 }
 
+.Zebra_DatePicker .dp_header,
+.Zebra_DatePicker .dp_footer {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
 .Zebra_DatePicker .dp_header .dp_hover,
 .Zebra_DatePicker .dp_footer .dp_hover {
-    background: #67AABB;
+    background-color: #67AABB;
     color: #FFF;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -148,20 +155,36 @@
 
 .Zebra_DatePicker .dp_monthpicker td,
 .Zebra_DatePicker .dp_yearpicker td {
-    width: 33%;
+    width: 33.3333%;
 }
 
-.Zebra_DatePicker .dp_footer {
-    margin-top: 3px;
+.Zebra_DatePicker .dp_timepicker td {
+    width: 25%;
+}
+
+.Zebra_DatePicker .dp_timepicker td.dp_disabled {
+    color: #000;
 }
 
 .Zebra_DatePicker .dp_footer td {
     color: #FFF;
 }
 
-.Zebra_DatePicker .dp_footer td.dp_today, .Zebra_DatePicker .dp_footer td.dp_clear {
+.Zebra_DatePicker .dp_footer td.dp_today, .Zebra_DatePicker .dp_footer td.dp_clear, .Zebra_DatePicker .dp_footer td.dp_timepicker_toggler {
     color: #E0E0E0;
     padding: 3px;
+}
+
+.Zebra_DatePicker .dp_footer td.dp_timepicker_toggler {
+    background-repeat: no-repeat;
+    background-position: center center;
+    padding-left: 13px;
+    padding-right: 13px;
+    background-image: url(timepicker.png);
+}
+
+.Zebra_DatePicker .dp_footer td.dp_timepicker_toggler_calendar {
+    background-image: url(datepicker.png);
 }
 
 button.Zebra_DatePicker_Icon {

@@ -95,8 +95,8 @@
 
     .dp_daypicker,
     .dp_monthpicker,
-    .dp_yearpicker {
-        margin-top: 3px;
+    .dp_yearpicker,
+    .dp_timepicker {
 
         td, th {
             width: 30px;
@@ -105,6 +105,8 @@
 
     .dp_header,
     .dp_footer {
+        margin-top: 3px;
+        margin-bottom: 3px;
         .dp_hover {
             background: #DEDEDE;
             color: #373737;
@@ -130,16 +132,34 @@
 
     .dp_monthpicker td,
     .dp_yearpicker td {
-        width: 33%;
+        width: 33.3333%;
+    }
+
+    .dp_timepicker td {
+        width: 25%;
+
+        &.dp_disabled {
+            color: #000;
+        }
     }
 
     .dp_footer {
-        margin-top: 3px;
         td {
 
             &.dp_today,
-            &.dp_clear {
+            &.dp_clear,
+            &.dp_timepicker_toggler {
                 padding: 3px;
+            }
+            &.dp_timepicker_toggler {
+                background-repeat: no-repeat;
+                background-position: center center;
+                padding-left: 13px;
+                padding-right: 13px;
+                background-image: url(timepicker.png);
+            }
+            &.dp_timepicker_toggler_calendar {
+                background-image: url(datepicker.png);
             }
         }
     }
