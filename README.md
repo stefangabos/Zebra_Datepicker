@@ -2,11 +2,11 @@
 
 # Zebra_Datepicker
 
-*A super-lightweight, highly configurable, cross-browser date picker jQuery plugin*
+*A super-lightweight, highly configurable, cross-browser date/time picker jQuery plugin*
 
 [![npm](https://img.shields.io/npm/v/zebra_datepicker.svg)](https://www.npmjs.com/package/zebra_datepicker) [![Total](https://img.shields.io/npm/dt/zebra_datepicker.svg)](https://www.npmjs.com/package/zebra_datepicker) [![Monthly](https://img.shields.io/npm/dm/zebra_datepicker.svg)](https://www.npmjs.com/package/zebra_datepicker) [![License](https://img.shields.io/npm/l/zebra_datepicker.svg)](https://www.npmjs.com/package/zebra_datepicker)
 
-Zebra_Datepicker is a small yet and highly configurable datepicker jQuery plugin, meant to enrich forms by adding the datepicker functionality to them. This jQuery plugin will automatically add a calendar icon to the indicated input fields which, when clicked, will open the attached datepicker. Users can easily jump between months and years due to the datepicker's intuitive interface. The selected date will be entered in the input field using the date format of choice, configurable in the datepicker's options.
+Zebra_Datepicker is a small yet and highly configurable date/time picker jQuery plugin, meant to enrich forms by adding the date/time picker functionality to them. This jQuery plugin will automatically add a calendar icon to the indicated input fields which, when clicked, will open the attached datepicker. Users can easily jump between months and years due to the datepicker's intuitive interface. The selected date will be entered in the input field using the date format of choice, configurable in the datepicker's options.
 
 ## Features
 
@@ -261,7 +261,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
             Format of the returned date.<br><br>
             Accepts the following characters for date formatting: <code>d</code>, <code>D</code>, <code>j</code>, <code>l</code>, <code>N</code>, <code>w</code>, <code>S</code>, <code>F</code>, <code>m</code>, <code>M</code>, <code>n</code>, <code>Y</code>, <code>y</code>, <code>h</code>, <code>H</code>, <code>g</code>, <code>G</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>, borrowing the syntax from PHP's <a href="http://php.net/manual/en/function.date.php">date</a> function.<br><br>
             If <code>format</code> property contains time-related characters (<code>g</code>, <code>G</code>, <code>h</code>, <code>H</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>), the time picker will be automatically enabled.<br><br>
-            Note that when setting a date format without days (<code>d</code>, <code>j</code>), the users will be able to select only years and months, and when setting a format without months and days (<code>F</code>, <code>m</code>, <code>M</code>, <code>n</code>, <code>t</code>, <code>d</code>, <code>j</code>), the users will be able to select only years.<br><br>
+            Note that when setting a date format without days (<code>d</code>, <code>j</code>), the users will be able to select only years and months, and when setting a format without months and days (<code>F</code>, <code>m</code>, <code>M</code>, <code>n</code>, <code>t</code>, <code>d</code>, <code>j</code>), the users will be able to select only years. Similarly, setting a format that contains only time-related characters, will result in users being able to only select time.<br><br>
             Also note that the value of the <em>view</em> property (see below) may be overridden if it is the case: a value of <em>days</em> for the <em>view</em> property makes no sense if the date format doesn't allow the selection of days.
         </td>
     </tr>
@@ -448,6 +448,14 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top">
             A default date to start the date picker with<br><br>
             Must be specified in the format defined by the <em>format</em> property, or it will be ignored!<br><br>
+            If you have a date format that contains time and you need to set a default time but the date should be the current date, here's one way of doing it:<br><br>
+            <code>var date = new Date(); // have this somewhere</code><br><br>
+            <code>// set the start_date property like</code><br>
+            <code>start_date: date.getFullYear() + '-' +</code><br>
+            <code>&nbsp;&nbsp;(date.getMonth() + 1 < 10 ? '0' : '') +</code><br>
+            <code>&nbsp;&nbsp;(date.getMonth() + 1) + '-' +</code><br>
+            <code>&nbsp;&nbsp;(date.getDate() < 10 ? '0' : date.getDate()) +</code><br>
+            <code>&nbsp;&nbsp;' 12:00'</code><br><br>
             <blockquote>Note that this value is used only if there is no value in the field the date picker is attached to!</blockquote>
         </td>
     </tr>
