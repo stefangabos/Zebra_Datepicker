@@ -10,10 +10,10 @@ Zebra_Datepicker is a small yet and highly configurable datepicker jQuery plugin
 
 ## Features
 
- - it is small – it weights around 25KB minified (7.9KB gzipped) offering the best ratio of features per used bytes
+ - it is small – it weights around 30KB minified (9.1KB gzipped) offering the best ratio of features per used bytes
+ - it is both a date picker as well as a time picker
  - it's cross-browser – works in every major browser; works also in Internet Explorer 6!
- - it's compatible with AMD and CommonJS
- - has a default color scheme that blends-in well with almost any design, and it's easily customizable through the well-organized CSS file; two additional themese are included, one of them being for use with <a href="http://twitter.github.io/bootstrap/">Twitter Bootstrap</a>
+ - has a default color scheme that blends-in well with almost any design, and it's easily customizable through the well-organized CSS file; two additional themes are included, one of them being for use with <a href="http://twitter.github.io/bootstrap/">Twitter Bootstrap</a>
  - offers an intuitive interface allowing for easy navigation through months and years
  - offers an intuitive mechanism for disabling dates and date ranges using a syntax similar to cron's syntax
  - supports defining of custom weekend days for countries that don't have the weekend on Saturday and Sunday
@@ -22,6 +22,7 @@ Zebra_Datepicker is a small yet and highly configurable datepicker jQuery plugin
  - date pickers can be "paired" – where one or more date pickers will use the value of another date picker as starting date
  - supports internationalization
  - works by automatically attaching a small calendar icon to the indicated input fields which displays the attached datepicker when clicked.
+ - it's compatible with AMD and CommonJS
 
 ![Themes](https://raw.github.com/stefangabos/Zebra_Datepicker/master/examples/themes.png)
 
@@ -135,7 +136,8 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><code>FALSE</code></td>
         <td valign="top">
             Should the date picker be always visible?<br>
-            Setting this property to a jQuery element will result in the date picker being always visible, the indicated element acting as the date picker's container;
+            Setting this property to a jQuery element will result in the date picker being always visible, the indicated element acting as the date picker's container;<br><br>
+            <blockquote>If <code>format</code> property contains time-related characters (<code>g</code>, <code>G</code>, <code>h</code>, <code>H</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>), this property will be automatically set to <code>TRUE</code>!</blockquote>
         </td>
     </tr>
     <tr>
@@ -257,7 +259,8 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><code>"Y-m-d"</code></td>
         <td valign="top">
             Format of the returned date.<br><br>
-            Accepts the following characters for date formatting: <code>d</code>, <code>D</code>, <code>j</code>, <code>l</code>, <code>N</code>, <code>w</code>, <code>S</code>, <code>F</code>, <code>m</code>, <code>M</code>, <code>n</code>, <code>Y</code>, <code>y</code> borrowing syntax from (PHP's <a href="http://php.net/manual/en/function.date.php">date</a> function).<br><br>
+            Accepts the following characters for date formatting: <code>d</code>, <code>D</code>, <code>j</code>, <code>l</code>, <code>N</code>, <code>w</code>, <code>S</code>, <code>F</code>, <code>m</code>, <code>M</code>, <code>n</code>, <code>Y</code>, <code>y</code>, <code>h</code>, <code>H</code>, <code>g</code>, <code>G</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>, borrowing the syntax from PHP's <a href="http://php.net/manual/en/function.date.php">date</a> function.<br><br>
+            If <code>format</code> property contains time-related characters (<code>g</code>, <code>G</code>, <code>h</code>, <code>H</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>), the time picker will be automatically enabled.<br><br>
             Note that when setting a date format without days (<code>d</code>, <code>j</code>), the users will be able to select only years and months, and when setting a format without months and days (<code>F</code>, <code>m</code>, <code>M</code>, <code>n</code>, <code>t</code>, <code>d</code>, <code>j</code>), the users will be able to select only years.<br><br>
             Also note that the value of the <em>view</em> property (see below) may be overridden if it is the case: a value of <em>days</em> for the <em>view</em> property makes no sense if the date format doesn't allow the selection of days.
         </td>
