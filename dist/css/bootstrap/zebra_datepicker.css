@@ -97,16 +97,14 @@
     width: 30px;
 }
 
-.Zebra_DatePicker .dp_header,
-.Zebra_DatePicker .dp_footer {
-    margin-top: 3px;
-    margin-bottom: 3px;
-}
-
 .Zebra_DatePicker .dp_header .dp_hover,
 .Zebra_DatePicker .dp_footer .dp_hover {
     background: #DEDEDE;
     color: #373737;
+}
+
+.Zebra_DatePicker .dp_header {
+    margin-bottom: 3px;
 }
 
 .Zebra_DatePicker .dp_header .dp_previous,
@@ -129,6 +127,10 @@
 
 .Zebra_DatePicker .dp_timepicker td.dp_disabled {
     color: #000;
+}
+
+.Zebra_DatePicker .dp_footer {
+    margin-top: 3px;
 }
 
 .Zebra_DatePicker .dp_footer td.dp_today, .Zebra_DatePicker .dp_footer td.dp_clear, .Zebra_DatePicker .dp_footer td.dp_timepicker_toggler {

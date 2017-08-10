@@ -105,8 +105,6 @@
 
     .dp_header,
     .dp_footer {
-        margin-top: 3px;
-        margin-bottom: 3px;
         .dp_hover {
             background: #DEDEDE;
             color: #373737;
@@ -114,6 +112,8 @@
     }
 
     .dp_header {
+        margin-bottom: 3px;
+
         td {
         }
 
@@ -144,6 +144,8 @@
     }
 
     .dp_footer {
+        margin-top: 3px;
+
         td {
 
             &.dp_today,

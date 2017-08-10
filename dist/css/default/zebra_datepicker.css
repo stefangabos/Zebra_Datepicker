@@ -5,8 +5,7 @@
     top: 0;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    border-left: 3px solid #666;
-    border-right: 3px solid #666;
+    border: 3px solid #666;
     border-radius: 5px;
     font-family: Tahoma, Arial, Helvetica, sans-serif;
     font-size: 13px;
@@ -105,10 +104,6 @@
     color: #FFF;
 }
 
-.Zebra_DatePicker .dp_timepicker {
-    border-top: 3px solid #666;
-}
-
 .Zebra_DatePicker .dp_daypicker td, .Zebra_DatePicker .dp_daypicker th,
 .Zebra_DatePicker .dp_monthpicker td,
 .Zebra_DatePicker .dp_monthpicker th,
@@ -121,12 +116,6 @@
     border: 1px solid #7BACD2;
 }
 
-.Zebra_DatePicker .dp_header,
-.Zebra_DatePicker .dp_footer {
-    margin-top: 3px;
-    margin-bottom: 3px;
-}
-
 .Zebra_DatePicker .dp_header .dp_hover,
 .Zebra_DatePicker .dp_footer .dp_hover {
     background: #222;
@@ -134,6 +123,10 @@
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+}
+
+.Zebra_DatePicker .dp_header {
+    margin-bottom: 3px;
 }
 
 .Zebra_DatePicker .dp_header td {
@@ -164,6 +157,10 @@
 
 .Zebra_DatePicker .dp_timepicker td.dp_disabled {
     color: #000;
+}
+
+.Zebra_DatePicker .dp_footer {
+    margin-top: 3px;
 }
 
 .Zebra_DatePicker .dp_footer td {

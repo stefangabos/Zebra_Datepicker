@@ -1,8 +1,7 @@
 .Zebra_DatePicker {
     position: absolute;
     background: #373737;
-    border-left: 3px solid #373737;
-    border-right: 3px solid #373737;
+    border: 3px solid #373737;
     z-index: 1200;
     top: 0;
     -webkit-border-radius: 5px;
@@ -107,10 +106,6 @@
         }
     }
 
-    .dp_timepicker {
-        border-top: 3px solid #373737;
-    }
-
     .dp_daypicker,
     .dp_monthpicker,
     .dp_yearpicker,
@@ -125,8 +120,6 @@
 
     .dp_header,
     .dp_footer {
-        margin-top: 3px;
-        margin-bottom: 3px;
         .dp_hover {
             background-color: #67AABB;
             color: #FFF;
@@ -137,6 +130,8 @@
     }
 
     .dp_header {
+        margin-bottom: 3px;
+
         td {
             color: #E0E0E0;
         }
@@ -169,6 +164,8 @@
     }
 
     .dp_footer {
+        margin-top: 3px;
+
         td {
             color: #FFF;
 
