@@ -38,7 +38,7 @@
                 //  setting this to boolean TRUE will keep an open date picker open until the user clicks outside the
                 //  date picker.
                 //
-                //  note that when a date format is used that also involves time, this property will be automaticaly
+                //  note that when a date format is used that also involves time, this property will be automatically
                 //  set to TRUE!
                 //
                 //  default is FALSE
