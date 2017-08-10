@@ -57,7 +57,7 @@
 - added a new "onClose" event; thanks to **W. van Kuipers**
 - added touchstart event for closing the date picker on a touchevent enabled browsers; thanks **W. van Kuipers**
 - increased zIndex value to 1200, making the date picker usable with Twitter Bootstrap's modals; thanks to **Kiswono Prayogo**
-- better fix for the issues in Firefox, solved in previous release, which made transitions to not work anymore; thanks to <strong>René Jackowski</strong
+- better fix for the issues in Firefox, solved in previous release, which made transitions to not work anymore; thanks to **René Jackowski**
 
 ## version 1.9.0 (November 14, 2014)
 
