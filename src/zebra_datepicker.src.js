@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.6 (last revision: July 11, 2017)
+ *  @version    1.9.6 (last revision: August 10, 2017)
  *  @copyright  (c) 2011 - 2017 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -34,6 +34,14 @@
 
                 //  setting this property to a jQuery element, will result in the date picker being always visible, the indicated
                 //  element being the date picker's container;
+                //
+                //  setting this to boolean TRUE will keep an open date picker open until the user clicks outside the
+                //  date picker.
+                //
+                //  note that when a date format is used that also involves time, this property will be automaticaly
+                //  set to TRUE!
+                //
+                //  default is FALSE
                 always_visible: false,
 
                 //  by default, the date picker is injected into the <body>; use this property to tell the library to inject
@@ -149,13 +157,16 @@
 
                 //  format of the returned date
                 //
-                //  accepts the following characters for date formatting: d, D, j, l, N, w, S, F, m, M, n, Y, y borrowing
-                //  syntax from PHP's "date" function.
+                //  accepts the following characters for date formatting: d, D, j, l, N, w, S, F, m, M, n, Y, y, h, H,
+                //  g, G, i, s, a, A borrowing the syntax from PHP's "date" function.
                 //
                 //  note that when setting a date format without days ('d', 'j'), the users will be able to select only years
                 //  and months, and when setting a format without months and days ('F', 'm', 'M', 'n', 'd', 'j'), the
                 //  users will be able to select only years; likewise, when setting a date format with just months ('F', 'm',
                 //  'M', 'n') or just years ('Y', 'y'), users will be able to select only months and years, respectively.
+                //
+                //  setting a format that also involves time (h, H, g, G, i, s, a, A) will automatically enable the time
+                //  picker.
                 //
                 //  also note that the value of the "view" property (see below) may be overridden if it is the case: a value of
                 //  "days" for the "view" property makes no sense if the date format doesn't allow the selection of days.
@@ -316,6 +327,8 @@
                 //  a default date to start the date picker with
                 //  must be specified in the format defined by the "format" property, or it will be ignored!
                 //  note that this value is used only if there is no value in the field the date picker is attached to!
+                //
+                //  default is FALSE
                 start_date: false,
 
                 //  should default values, in the input field the date picker is attached to, be deleted if they are not valid
@@ -406,11 +419,12 @@
 
             // private properties
             cleardate, clickables, current_system_day, current_system_month, current_system_year, custom_class_names = [],
-            custom_classes = {}, datepicker, daypicker, daypicker_cells, default_day, default_month, default_year, disabled_dates = [],
-            enabled_dates = [], end_date, first_selectable_day, first_selectable_month, first_selectable_year, footer, header,
-            icon, last_selectable_day, last_selectable_month, last_selectable_year, monthpicker, monthpicker_cells,
-            original_attributes = {}, selected_month, selected_year, selecttoday, shim, show_select_today, start_date,
-            timeout, uniqueid = '', yearpicker, yearpicker_cells, view, views = [];
+            custom_classes = {}, datepicker, daypicker, daypicker_cells, default_day, default_month, default_year,
+            disabled_dates = [], enabled_dates = [], end_date, first_selectable_day, first_selectable_month,
+            first_selectable_year, footer, header, icon, last_selectable_day, last_selectable_month, last_selectable_year,
+            monthpicker, monthpicker_cells, original_attributes = {}, selected_hour, selected_minute, selected_second,
+            selected_ampm, timepicker_toggler, selected_month, selected_year, selecttoday, shim, show_select_today,
+            start_date, timeout, timepicker, timepicker_config, uniqueid = '', yearpicker, yearpicker_cells, view, views = [];
 
         var plugin = this;
 
@@ -431,9 +445,13 @@
 
                 // the characters that may be present in the date format and that represent days, months and years
                 date_chars = {
-                    days:   ['d', 'j', 'D'],
-                    months: ['F', 'm', 'M', 'n', 't'],
-                    years:  ['o', 'Y', 'y']
+                    days:       ['d', 'j', 'D'],
+                    months:     ['F', 'm', 'M', 'n', 't'],
+                    years:      ['o', 'Y', 'y'],
+                    hours:      ['G', 'g', 'H', 'h'],
+                    minutes:    ['i'],
+                    seconds:    ['s'],
+                    ampm:       ['A', 'a']
                 },
 
                 // some defaults
@@ -487,6 +505,8 @@
                 // iterate through the characters of each block
                 $.each(date_chars[type], function(index, character) {
 
+                    var i, max;
+
                     // if current character exists in the "format" property
                     if (plugin.settings.format.indexOf(character) > -1)
 
@@ -498,6 +518,62 @@
 
                         // if user can cycle through the "years" view
                         else if (type === 'years') views.push('years');
+
+                        // if time is available in the date's format
+                        else if (type === 'hours' || type === 'minutes' || type === 'seconds' || type === 'ampm') {
+
+                            // if variable is not yet initialized
+                            if (!timepicker_config) {
+
+                                // initialize the variable now
+                                timepicker_config = {is12hour: false};
+
+                                // users may access the "time" view
+                                views.push('time');
+
+                                // make the date picker be visible until the user clicks outside the date picker
+                                plugin.settings.always_visible = true;
+
+                            }
+
+                            // if hours are available in the date's format
+                            if (type === 'hours') {
+
+                                // selectable hours (12 or 24) depending on the format
+                                if (character === 'g' || character == 'h') {
+
+                                    max = 12;
+
+                                    // set a flag telling that the hour is 12 hour format
+                                    timepicker_config.is12hour = true;
+
+                                } else max = 24;
+
+                                // pre-fill the array of selectable hours
+                                timepicker_config.hours = [];
+                                for (i = (max === 12 ? 1 : 0); i < (max === 12 ? 13 : max); i++) timepicker_config.hours.push(i);
+
+                            // if minutes are available in the date's format
+                            } else if (type === 'minutes') {
+
+                                // pre-fill the array of selectable minutes
+                                timepicker_config.minutes = [];
+                                for (i = 0; i < 60; i++) timepicker_config.minutes.push(i);
+
+                            // if seconds are available in the date's format
+                            } else if (type === 'seconds') {
+
+                                // pre-fill the array of selectable seconds
+                                timepicker_config.seconds = [];
+                                for (i = 0; i < 60; i++) timepicker_config.seconds.push(i);
+
+                            // if am/pm is available in the date's format
+                            } else
+
+                                // pre-fill the array of selectable seconds
+                                timepicker_config.ampm = ['am', 'pm'];
+
+                        }
 
                 });
 
@@ -946,8 +1022,8 @@
             if (!update && (undefined !== start_date || undefined !== default_date))
                 update_dependent(undefined !== default_date ? default_date : start_date);
 
-            // if date picker is not always visible
-            if (!plugin.settings.always_visible) {
+            // if date picker is not always visible in a container
+            if (!(plugin.settings.always_visible instanceof jQuery)) {
 
                 // if we're just creating the date picker
                 if (!update) {
@@ -1152,29 +1228,30 @@
                     '<table class="dp_daypicker"></table>' +
                     '<table class="dp_monthpicker"></table>' +
                     '<table class="dp_yearpicker"></table>' +
+                    (timepicker_config ? '<table class="dp_timepicker"></table>' : '') +
                     '<table class="dp_footer"><tr>' +
                         '<td class="dp_today"' + (plugin.settings.show_clear_date !== false ? ' style="width:50%"' : '') + '>' + show_select_today + '</td>' +
                         '<td class="dp_clear"' + (show_select_today !== false ? ' style="width:50%"' : '') + '>' + plugin.settings.lang_clear_date + '</td>' +
+                        (timepicker_config ? '<td class="dp_timepicker_toggler">&nbsp;</td>' : '') +
                     '</tr></table>' +
                 '</div>';
 
             // create a jQuery object out of the HTML above and create a reference to it
             datepicker = $(html);
 
-            // a reference to the calendar, as a global property
-            plugin.datepicker = datepicker;
-
             // create references to the different parts of the date picker
             header = $('table.dp_header', datepicker);
             daypicker = $('table.dp_daypicker', datepicker);
             monthpicker = $('table.dp_monthpicker', datepicker);
             yearpicker = $('table.dp_yearpicker', datepicker);
+            timepicker = $('table.dp_timepicker', datepicker);
             footer = $('table.dp_footer', datepicker);
             selecttoday = $('td.dp_today', footer);
             cleardate = $('td.dp_clear', footer);
+            timepicker_toggler = $('td.dp_timepicker_toggler', footer);
 
-            // if date picker is not always visible
-            if (!plugin.settings.always_visible)
+            // if date picker is not always visible in a container
+            if (!(plugin.settings.always_visible instanceof jQuery))
 
                 // inject the container into the DOM
                 plugin.settings.container.append(datepicker);
@@ -1200,9 +1277,8 @@
                     $(this).removeClass('dp_hover');
                 });
 
-            // prevent text highlighting for the text in the header
-            // (for the case when user keeps clicking the "next" and "previous" buttons)
-            disable_text_select($('td', header));
+            // prevent text selection (prevent accidental select when user clicks too fast)
+            disable_text_select(datepicker);
 
             // event for when clicking the "previous" button
             $('.dp_previous', header).on('click', function() {
@@ -1372,22 +1448,20 @@
                 // clear the element's value
                 $element.val('');
 
+                // reset these values
+                default_day = null; default_month = null; default_year = null;
+
                 // if date picker is not always visible
                 if (!plugin.settings.always_visible) {
 
                     // reset these values
-                    default_day = null; default_month = null; default_year = null; selected_month = null; selected_year = null;
+                    selected_month = null; selected_year = null;
 
                 // if date picker is always visible
-                } else {
-
-                    // reset these values
-                    default_day = null; default_month = null; default_year = null;
+                } else
 
                     // remove the "selected" class from all cells that have it
                     $('td.dp_selected', datepicker).removeClass('dp_selected');
-
-                }
 
                 // give the focus back to the parent element
                 $element.focus();
@@ -1403,8 +1477,84 @@
 
             });
 
-            // if date picker is not always visible
-            if (!plugin.settings.always_visible) {
+            // if time picker is enabled
+            if (timepicker_config) {
+
+                // function to execute when the clock/calendar button is clicked in the footer
+                $(timepicker_toggler).on('click', function() {
+
+                    // if we're not in the time picker mode
+                    if (view !== 'time') {
+
+                        // switch to time picker mode
+                        view = 'time';
+                        manage_views();
+
+                    // if we are already in the time picker mode,
+                    // switch back to the standard view
+                    // (let the click on the header's caption handle things)
+                    } else $('.dp_caption', header).trigger('click');
+
+                });
+
+                // handle value increases on the time picker
+                datepicker.on('click', '.dp_time_controls_increase td, .dp_time_controls_decrease td', function() {
+
+                    var
+
+                        // are we increasing or decreasing values?
+                        increase = $(this).parent('.dp_time_controls_increase').length > 0,
+
+                        // figure out what we're increasing (hour, minutes, seconds, ampm)
+                        matches = $(this).attr('class').match(/dp\_time\_([^\s]+)/i),
+                        value_container = $('.dp_time_elements .dp_time_' + matches[1] + (matches[1] !== 'ampm' ? 's' : ''), timepicker),
+
+                        // the current value (strip the zeros in front)
+                        value = value_container.text().toLowerCase(),
+
+                        // the array with allowed values
+                        lookup = timepicker_config[matches[1] + (matches[1] !== 'ampm' ? 's' : '')],
+
+                        // the current value's position in the array of allowed values
+                        current_value_position = lookup.indexOf(matches[1] !== 'ampm' ? parseInt(value, 10) : value),
+
+                        // the next value's position in the lookup array
+                        next_value_position = current_value_position === -1 ? 0 : (increase ? (current_value_position + 1 >= lookup.length ? 0 : current_value_position + 1) : (current_value_position - 1 < 0 ? lookup.length - 1 : current_value_position - 1)),
+
+                        default_date;
+
+                    // increase/decrease the required value according to the values in the lookup array
+                    if (matches[1] === 'hour') selected_hour = lookup[next_value_position];
+                    else if (matches[1] === 'minute') selected_minute = lookup[next_value_position];
+                    else if (matches[1] === 'second') selected_second = lookup[next_value_position];
+                    else selected_ampm = lookup[next_value_position];
+
+                    // if a default day is not available and the "start_date" property is set
+                    if (!default_day && plugin.settings.start_date) {
+
+                        // check if "start_date" is valid according to the format
+                        default_date = check_date(plugin.settings.start_date);
+
+                        // ...and if it is, extract the day from there
+                        if (default_date) default_day = default_date.getDate();
+
+                    }
+
+                    // if still no value, use the current day from the system
+                    if (!default_day) default_day = new Date().getDate()
+
+                    // set the new value
+                    value_container.text(str_pad(lookup[next_value_position], 2).toUpperCase());
+
+                    // update the value in the element
+                    select_date(selected_year, selected_month, default_day);
+
+                });
+
+            }
+
+            // if date picker is not always visible in a container
+            if (!(plugin.settings.always_visible instanceof jQuery)) {
 
                 // whenever anything is clicked on the page
                 $(document).on('mousedown.Zebra_DatePicker_' + uniqueid + ' touchstart.Zebra_DatePicker_' + uniqueid, function(e) {
@@ -1427,7 +1577,7 @@
                         $(e.target).parents().filter('.Zebra_DatePicker').length === 0
 
                     // hide the date picker
-                    ) plugin.hide();
+                    ) plugin.hide(true);
 
                 });
 
@@ -1479,12 +1629,16 @@
 
             }
 
-            // remove the calendar
-            plugin.datepicker.remove();
+            // remove all events attached to the datepicker
+            // (these are the ones for increasing/decreasing values in the time picker)
+            datepicker.off();
 
-            // if calendar icon was shown and the date picker was not always visible,
+            // remove the calendar
+            datepicker.remove();
+
+            // if calendar icon was shown and the date picker was not always visible in a container,
             // also remove the wrapper used for positioning it
-            if (plugin.settings.show_icon && !plugin.settings.always_visible) $element.unwrap();
+            if (plugin.settings.show_icon && !(plugin.settings.always_visible instanceof jQuery)) $element.unwrap();
 
             // remove associated event handlers from the element
             $element.off('blur.Zebra_DatePicker_' + uniqueid);
@@ -1514,10 +1668,11 @@
          *
          *  @return void
          */
-        plugin.hide = function() {
+        plugin.hide = function(outside) {
 
-            // if date picker is not always visible
-            if (!plugin.settings.always_visible) {
+            // if date picker is not always visible or we clicked outside the date picker
+            // (the "outside" argument is TRUE when clicking outside the date picker and the "always_visible" is set to boolean TRUE)
+            if (!plugin.settings.always_visible || outside) {
 
                 // hide the iFrameShim in Internet Explorer 6
                 iframeShim('hide');
@@ -1569,7 +1724,8 @@
             view = plugin.settings.view;
 
             // get the default date, from the element, and check if it represents a valid date, according to the required format
-            var default_date = check_date($element.val() || (plugin.settings.start_date ? plugin.settings.start_date : ''));
+            var default_date = check_date($element.val() || (plugin.settings.start_date ? plugin.settings.start_date : '')),
+                current_date;
 
             // if the value represents a valid date
             if (default_date) {
@@ -1605,11 +1761,34 @@
 
             }
 
+            // whatever the case, if time picker is enabled
+            if (timepicker_config) {
+
+                // if a default date is available, use the time from there
+                if (default_date) current_date = default_date;
+
+                // use current system time otherwise
+                else current_date = new Date();
+
+                // extract time parts from it
+                selected_hour = current_date.getHours();
+                selected_minute = current_date.getMinutes();
+                selected_second = current_date.getSeconds();
+                selected_ampm = (selected_hour >= 12 ? 'pm' : 'am');
+
+                // if hour is in 12 hour format
+                if (timepicker_config.is12hour)
+
+                    // convert it to the correct value
+                    selected_hour = (selected_hour % 12 === 0 ? 12 : selected_hour % 12);
+
+            }
+
             // generate the appropriate view
             manage_views();
 
-            // if date picker is not always visible and the calendar icon is visible
-            if (!plugin.settings.always_visible) {
+            // if date picker is not always visible in a container, and the calendar icon is visible
+            if (!(plugin.settings.always_visible instanceof jQuery)) {
 
                 // if date picker is to be injected into the <body>
                 if (plugin.settings.container.is('body')) {
@@ -1723,7 +1902,7 @@
                     format = escape_regexp(plugin.settings.format),
 
                     // allowed characters in date's format
-                    format_chars = ['d', 'D', 'j', 'l', 'N', 'S', 'w', 'F', 'm', 'M', 'n', 'Y', 'y'],
+                    format_chars = ['d', 'D', 'j', 'l', 'N', 'S', 'w', 'F', 'm', 'M', 'n', 'Y', 'y', 'G', 'g', 'H', 'h', 'i', 's', 'a', 'A'],
 
                     // "matches" will contain the characters defining the date's format
                     matches = [],
@@ -1766,11 +1945,19 @@
                         case 'S': regexp.push('st|nd|rd|th'); break;
                         case 'w': regexp.push('[0-6]'); break;
                         case 'F': regexp.push('[a-z]+'); break;
-                        case 'm': regexp.push('0[1-9]|1[012]+'); break;
+                        case 'm': regexp.push('0[1-9]|1[012]'); break;
                         case 'M': regexp.push('[a-z]{3}'); break;
                         case 'n': regexp.push('[1-9]|1[012]'); break;
                         case 'Y': regexp.push('[0-9]{4}'); break;
                         case 'y': regexp.push('[0-9]{2}'); break;
+                        case 'G': regexp.push('[1-9]|1[0-9]|2[0123]'); break;
+                        case 'g': regexp.push('[0-9]|1[012]'); break;
+                        case 'H': regexp.push('0[1-9]|1[0-9]|2[0123]'); break;
+                        case 'h': regexp.push('0[0-9]|1[012]'); break;
+                        case 'i': regexp.push('0[0-9]|[12345][0-9]'); break;
+                        case 's': regexp.push('0[0-9]|[12345][0-9]'); break;
+                        case 'a': regexp.push('am|pm'); break;
+                        case 'A': regexp.push('AM|PM'); break;
 
                     }
 
@@ -1802,6 +1989,10 @@
                             original_day = 1,
                             original_month = tmpdate.getMonth() + 1,
                             original_year = tmpdate.getFullYear(),
+                            original_hours = tmpdate.getHours(),
+                            original_minutes = tmpdate.getMinutes(),
+                            original_seconds = tmpdate.getSeconds(),
+                            original_ampm,
                             english_days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
                             english_months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                             iterable,
@@ -1893,7 +2084,36 @@
 
                                     break;
 
+                                case 'G':
+                                case 'H':
+                                case 'g':
+                                case 'h':
+
+                                    // extract the hours from the value entered by the user
+                                    original_hours = to_int(segments[index + 1]);
+                                    break;
+
+                                case 'i':
+
+                                    // extract the minutes from the value entered by the user
+                                    original_minutes = to_int(segments[index + 1]);
+                                    break;
+
+                                case 's':
+
+                                    // extract the seconds from the value entered by the user
+                                    original_seconds = to_int(segments[index + 1]);
+                                    break;
+
+                                case 'a':
+                                case 'A':
+
+                                    // extract the seconds from the value entered by the user
+                                    original_ampm = segments[index + 1].toLowerCase();
+                                    break;
+
                             }
+
                         });
 
                         // if everything is ok so far
@@ -1901,7 +2121,7 @@
 
                             // generate a Date object using the values entered by the user
                             // (handle also the case when original_month and/or original_day are undefined - i.e date format is "Y-m" or "Y")
-                            var date = new Date(original_year, (original_month || 1) - 1, original_day || 1);
+                            var date = new Date(original_year, (original_month || 1) - 1, original_day || 1, original_hours + (original_ampm === 'pm' ? 12 : 0), original_minutes, original_seconds);
 
                             // if, after that, the date is the same as the date entered by the user
                             if (date.getFullYear() === original_year && date.getDate() === (original_day || 1) && date.getMonth() === ((original_month || 1) - 1))
@@ -1940,7 +2160,7 @@
             if (browser.name === 'firefox') el.css('MozUserSelect', 'none');
 
             // if browser is Internet Explorer
-            else if (browser.name === 'explorer') el.on('selectstart', function() { return false; });
+            else if (browser.name === 'explorer') $(document).on('selectstart', el, function() { return false; });
 
             // for the other browsers
             else el.mousedown(function() { return false; });
@@ -1995,6 +2215,21 @@
 
                 // the year (as a string)
                 y = date.getFullYear() + '',
+
+                // the hour, 0-23
+                h = date.getHours(),
+
+                // the hour in 12 hours format
+                h12 = h % 12 === 0 ? 12 : h % 12,
+
+                // the minute, 0-59
+                m = date.getMinutes(),
+
+                // the second, 0-59
+                s = date.getSeconds(),
+
+                // am/pm
+                a = (h >= 12 ? 'pm' : 'am'),
 
                 i, chr;
 
@@ -2062,6 +2297,30 @@
                         else result += 'th';
 
                         break;
+
+                    // hour in 12 hours format, without leading zeros
+                    case 'g': result += h12; break;
+
+                    // hour in 12 hours format, with leading zeros
+                    case 'h': result += str_pad(h12, 2); break;
+
+                    // hour in 24 hours format, without leading zeros
+                    case 'G': result += h; break;
+
+                    // hour in 24 hours format, with leading zeros
+                    case 'H': result += str_pad(h, 2); break;
+
+                    // minutes, with leading zeros
+                    case 'i': result += str_pad(m, 2); break;
+
+                    // seconds, with leading zeros
+                    case 's': result += str_pad(s, 2); break;
+
+                    // am/pm, lowercase
+                    case 'a': result += a; break;
+
+                    // am/pm, uppercase
+                    case 'A': result += a.toUpperCase(); break;
 
                     // this is probably the separator
                     default: result += chr;
@@ -2286,6 +2545,49 @@
             monthpicker.show();
 
         };
+
+        /**
+         *  Generates the time picker view, and displays it
+         *
+         *  @return void
+         *
+         *  @access private
+         */
+        var generate_timepicker = function() {
+
+            var html;
+
+            // the HTML
+            html = '<tr class="dp_time_controls dp_time_controls_increase">' +
+                (timepicker_config.hours ? '<td class="dp_time_hour">&#9650;</td>' : '') +
+                (timepicker_config.minutes ? '<td class="dp_time_minute">&#9650;</td>' : '') +
+                (timepicker_config.seconds ? '<td class="dp_time_second">&#9650;</td>' : '') +
+                (timepicker_config.ampm ? '<td class="dp_time_ampm">&#9650;</td>' : '') +
+                '</tr>';
+
+            html += '<tr class="dp_time_elements">';
+
+            if (timepicker_config.hours) html += '<td class="dp_disabled dp_time_hours">' + str_pad(selected_hour, 2) + '</td>';
+            if (timepicker_config.minutes) html += '<td class="dp_disabled dp_time_minutes">' + str_pad(selected_minute, 2) + '</td>';
+            if (timepicker_config.seconds) html += '<td class="dp_disabled dp_time_seconds">' + str_pad(selected_second, 2) + '</td>';
+            if (timepicker_config.ampm) html += '<td class="dp_disabled dp_time_ampm">' + selected_ampm.toUpperCase() + '</td>';
+
+            html += '</tr>';
+
+            html += '<tr class="dp_time_controls dp_time_controls_decrease">' +
+                (timepicker_config.hours ? '<td class="dp_time_hour">&#9660;</td>' : '') +
+                (timepicker_config.minutes ? '<td class="dp_time_minute">&#9660;</td>' : '') +
+                (timepicker_config.seconds ? '<td class="dp_time_second">&#9660;</td>' : '') +
+                (timepicker_config.ampm ? '<td class="dp_time_ampm">&#9660;</td>' : '') +
+                '</tr>';
+
+            // inject into the DOM
+            timepicker.html($(html));
+
+            // make the time picker visible
+            timepicker.show();
+
+        }
 
         /**
          *  Generates the year picker view, and displays it
@@ -2772,8 +3074,8 @@
                 // if the day picker was not yet generated
                 if (daypicker.text() === '') {
 
-                    // if date picker is not always visible
-                    if (!plugin.settings.always_visible)
+                    // if date picker is not always visible in a container
+                    if (!(plugin.settings.always_visible instanceof jQuery))
 
                         // temporarily set the date picker's left outside of view
                         // so that we can later grab its width and height
@@ -2802,6 +3104,12 @@
                         height: height
                     });
 
+                    // make the time picker have the same size as the day picker
+                    timepicker.css({
+                        width:  width,
+                        height: height + header.outerHeight(true)
+                    });
+
                     // make the header and the footer have the same size as the day picker
                     header.css('width', width);
                     footer.css('width', width);
@@ -2816,6 +3124,18 @@
                 // hide the year and the month pickers
                 monthpicker.hide();
                 yearpicker.hide();
+                timepicker.hide();
+
+                // if the time picker is enabled
+                if (timepicker_config) {
+
+                    // show the header
+                    header.show();
+
+                    // restore the clock icon
+                    timepicker_toggler.removeClass('dp_timepicker_toggler_calendar');
+
+                }
 
             // if the view is "months"
             } else if (view === 'months') {
@@ -2827,6 +3147,17 @@
                 daypicker.hide();
                 yearpicker.hide();
 
+                // if the time picker is enabled
+                if (timepicker_config) {
+
+                    // show the header
+                    header.show();
+
+                    // restore the clock icon
+                    timepicker_toggler.removeClass('dp_timepicker_toggler_calendar');
+
+                }
+
             // if the view is "years"
             } else if (view === 'years') {
 
@@ -2837,10 +3168,47 @@
                 daypicker.hide();
                 monthpicker.hide();
 
+                // if the time picker is enabled
+                if (timepicker_config) {
+
+                    // show the header
+                    header.show();
+
+                    // restore the clock icon
+                    timepicker_toggler.removeClass('dp_timepicker_toggler_calendar');
+
+                }
+
+            // if the view is "time"
+            } else if (view === 'time') {
+
+                // generate the time picker
+                generate_timepicker();
+
+                // if the "time" view is the only available view, hide the time picker toggler button
+                if (views.length === 1) timepicker_toggler.hide();
+
+                // otherwise
+                else {
+
+                    // show the time picker toggler button
+                    timepicker_toggler.show();
+
+                    // but change the icon
+                    timepicker_toggler.addClass('dp_timepicker_toggler_calendar');
+
+                }
+
+                // hide the header, day, month and year pickers
+                header.hide();
+                daypicker.hide();
+                monthpicker.hide();
+                yearpicker.hide();
+
             }
 
             // if a callback function exists for when navigating through months/years
-            if (plugin.settings.onChange && typeof plugin.settings.onChange === 'function' && undefined !== view) {
+            if (view !== 'time' && plugin.settings.onChange && typeof plugin.settings.onChange === 'function' && undefined !== view) {
 
                 // get the "active" elements in the view (ignoring the disabled ones)
                 elements = (view === 'days' ?
@@ -2903,49 +3271,62 @@
             // assume the footer is visible
             footer.show();
 
-            // if the button for clearing a previously selected date needs to be visible all the time,
-            // or the "Clear" button needs to be shown only when a date was previously selected, and now it's the case,
-            // or the date picker is always visible and the "Clear" button was not explicitly disabled
-            if (
-                plugin.settings.show_clear_date === true ||
-                (plugin.settings.show_clear_date === 0 && $element.val() !== '') ||
-                (plugin.settings.always_visible && plugin.settings.show_clear_date !== false)
-            ) {
+            // if we are in the "time" view and there are more views available
+            if (view === 'time' && views.length > 1) {
 
-                // show the "Clear" button
-                cleardate.show();
-
-                // if the "Today" button is visible
-                if (show_select_today) {
-
-                    // show it, and set it's width to 50% of the available space
-                    selecttoday.css('width', '50%');
-
-                    // the "Clear date" button only takes up 50% of the available space
-                    cleardate.css('width', '50%');
-
-                // if the "Today" button is not visible
-                } else {
-
-                    // hide the "Today" button
-                    selecttoday.hide();
-
-                    // the "Clear date" button takes up 100% of the available space
-                    cleardate.css('width', '100%');
-
-                }
-
-            // otherwise
-            } else {
-
-                // hide the "Clear" button
+                // hide the "Today" and the "Clear" buttons
+                selecttoday.hide();
                 cleardate.hide();
 
-                // if the "Today" button is visible, it will now take up all the available space
-                if (show_select_today) selecttoday.show().css('width', '100%');
+            // for the other cases
+            } else {
 
-                // if the "Today" button is also not visible, hide the footer entirely
-                else footer.hide();
+                // assume both the "Today" and "Clear" buttons are visible
+                selecttoday.show();
+                cleardate.show();
+
+                // if the button for clearing a previously selected date needs to be visible all the time,
+                // or the "Clear" button needs to be shown only when a date was previously selected, and now it's the case,
+                // or the date picker is always visible and the "Clear" button was not explicitly disabled
+                if (
+                    plugin.settings.show_clear_date === true ||
+                    (plugin.settings.show_clear_date === 0 && $element.val() !== '') ||
+                    (plugin.settings.always_visible && plugin.settings.show_clear_date !== false)
+                )
+
+                    // if the "Today" button is visible
+                    if (show_select_today) {
+
+                        // show it, and set it's width to 50% of the available space
+                        selecttoday.css('width', '50%');
+
+                        // the "Clear date" button only takes up 50% of the available space
+                        cleardate.css('width', '50%');
+
+                    // if the "Today" button is not visible
+                    } else {
+
+                        // hide the "Today" button
+                        selecttoday.hide();
+
+                        // the "Clear date" button takes up 100% of the available space
+                        cleardate.css('width', '100%');
+
+                    }
+
+                // otherwise
+                else {
+
+                    // hide the "Clear" button
+                    cleardate.hide();
+
+                    // if the "Today" button is visible, it will now take up all the available space
+                    if (show_select_today) selecttoday.css('width', '100%');
+
+                    // if the "Today" button is also not visible, hide the footer entirely
+                    else footer.hide();
+
+                }
 
             }
 
@@ -2973,7 +3354,7 @@
             var
 
                 // construct a new date object from the arguments
-                default_date = new Date(year, month, day, 12, 0, 0),
+                default_date = new Date(year, month, day, (timepicker_config && timepicker_config.hours ? selected_hour + (timepicker_config.ampm && selected_ampm === 'pm' ? 12 : 0) : 12), (timepicker_config && timepicker_config.minutes ? selected_minute : 0), (timepicker_config && timepicker_config.seconds ? selected_second : 0)),
 
                 // pointer to the cells in the current view
                 view_cells = (view === 'days' ? daypicker_cells : (view === 'months' ? monthpicker_cells : yearpicker_cells)),
@@ -2995,15 +3376,20 @@
                 selected_year = default_date.getFullYear();
                 default_day = default_date.getDate();
 
-                // remove the "selected" class from all cells in the current view
-                view_cells.removeClass('dp_selected');
+                // if "cell" is available (it isn't when called from increasing/decreasing values the time picker)
+                if (cell) {
 
-                // add the "selected" class to the currently selected cell
-                cell.addClass('dp_selected');
+                    // remove the "selected" class from all cells in the current view
+                    view_cells.removeClass('dp_selected');
 
-                // if we're on the "days" view and days from other months are selectable and one of those days was
-                // selected, repaint the datepicker so it will take us to the selected month
-                if (view === 'days' && cell.hasClass('dp_not_in_month_selectable')) plugin.show();
+                    // add the "selected" class to the currently selected cell
+                    cell.addClass('dp_selected');
+
+                    // if we're on the "days" view and days from other months are selectable and one of those days was
+                    // selected, repaint the datepicker so it will take us to the selected month
+                    if (view === 'days' && cell.hasClass('dp_not_in_month_selectable')) plugin.show();
+
+                }
 
             }
 
