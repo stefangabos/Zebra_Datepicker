@@ -1,11 +1,11 @@
 ## version 1.9.7 (TBA)
 
 - the date picker now also works as a time picker by setting time-related parts in the `format` property
-- the date picker can now also be shown when the parent element and/or the associated icon is focused by setting the newly add `open_on_focus` property to `TRUE`; see #80
+- the date picker can now also be shown when the parent element and/or the associated icon is focused by setting the newly add `open_on_focus` property to `TRUE`; see [#80](https://github.com/stefangabos/Zebra_Datepicker/issues/80)
 - fixed a bug where clearing a date would not return focus to the parent element
-- fixed memory leaks, see #81, thanks to @sszabolcs
-- fixed value of "today" being cached; see #83, thanks to @CJDennis
-- fixed possible issues by adding more randomness for each date picker's internally used ID; see #84
+- fixed memory leaks, see [#81](https://github.com/stefangabos/Zebra_Datepicker/issues/81), thanks to [@sszabolcs](https://github.com/sszabolcs)
+- fixed value of "today" being cached; see [#83](https://github.com/stefangabos/Zebra_Datepicker/issues/83), thanks to [@CJDennis](https://github.com/CJDennis)
+- fixed possible issues by adding more randomness for each date picker's internally used ID; see [#84](https://github.com/stefangabos/Zebra_Datepicker/issues/84)
 - some documentation updates
 - source code updates and tweaks because of which the plugin is now compatible with jQuery 1.7.0+ (previously it was compatible with jQuery 1.5.2+)
 
