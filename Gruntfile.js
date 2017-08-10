@@ -35,7 +35,8 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'dist/css/default/zebra_datepicker.css': 'src/css/default/zebra_datepicker.scss',
-                    'dist/css/flat/zebra_datepicker.css': 'src/css/flat/zebra_datepicker.scss'
+                    'dist/css/bootstrap/zebra_datepicker.css': 'src/css/bootstrap/zebra_datepicker.scss',
+                    'dist/css/metallic/zebra_datepicker.css': 'src/css/metallic/zebra_datepicker.scss'
                 }
             },
             minified: {
@@ -44,7 +45,8 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'dist/css/default/zebra_datepicker.min.css': 'src/css/default/zebra_datepicker.scss',
-                    'dist/css/flat/zebra_datepicker.min.css': 'src/css/flat/zebra_datepicker.scss'
+                    'dist/css/bootstrap/zebra_datepicker.min.css': 'src/css/bootstrap/zebra_datepicker.scss',
+                    'dist/css/metallic/zebra_datepicker.min.css': 'src/css/metallic/zebra_datepicker.scss'
                 }
             }
         },
@@ -111,6 +113,9 @@ module.exports = function(grunt) {
             all: {
                 files: [
                     { src: 'src/zebra_datepicker.src.js', dest: 'dist/zebra_datepicker.src.js' },
+                    { expand: true, cwd: 'src/css/default/', src: '*.png', dest: 'dist/css/default/' },
+                    { expand: true, cwd: 'src/css/bootstrap/', src: '*.png', dest: 'dist/css/bootstrap/' },
+                    { expand: true, cwd: 'src/css/metallic/', src: '*.png', dest: 'dist/css/metallic/' }
                 ]
             }
         },
