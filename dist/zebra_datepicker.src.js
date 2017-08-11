@@ -1952,7 +1952,7 @@
                         case 'y': regexp.push('[0-9]{2}'); break;
                         case 'G': regexp.push('[1-9]|1[0-9]|2[0123]'); break;
                         case 'g': regexp.push('[0-9]|1[012]'); break;
-                        case 'H': regexp.push('0[1-9]|1[0-9]|2[0123]'); break;
+                        case 'H': regexp.push('0[0-9]|1[0-9]|2[0123]'); break;
                         case 'h': regexp.push('0[0-9]|1[012]'); break;
                         case 'i': regexp.push('0[0-9]|[12345][0-9]'); break;
                         case 's': regexp.push('0[0-9]|[12345][0-9]'); break;
