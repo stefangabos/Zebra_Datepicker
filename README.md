@@ -137,6 +137,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top">
             Should the date picker be always visible?<br>
             Setting this property to a jQuery element will result in the date picker being always visible, the indicated element acting as the date picker's container;<br><br>
+            Setting this property to boolean TRUE will result in the date picker not closing when selecting a date but only when the user clicks outside the date picker.<br><br>
             <blockquote>If <code>format</code> property contains time-related characters (<code>g</code>, <code>G</code>, <code>h</code>, <code>H</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>), this property will be automatically set to <code>TRUE</code>!</blockquote>
         </td>
     </tr>

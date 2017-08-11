@@ -35,8 +35,8 @@
                 //  setting this property to a jQuery element, will result in the date picker being always visible, the indicated
                 //  element being the date picker's container;
                 //
-                //  setting this to boolean TRUE will keep an open date picker open until the user clicks outside the
-                //  date picker.
+                //  setting this to boolean TRUE will keep will result in the date picker not closing when selecting a
+                //  date but only when the user clicks outside the date picker.
                 //
                 //  note that when a date format is used that also involves time, this property will be automatically
                 //  set to TRUE!
