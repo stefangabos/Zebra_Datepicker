@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.6 (last revision: August 10, 2017)
+ *  @version    1.9.6 (last revision: August 13, 2017)
  *  @copyright  (c) 2011 - 2017 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -147,6 +147,18 @@
                 //  something like "[* * * *]" (which will disable everything) and the setting the "enabled_dates" property to,
                 //  say, "[* * * 0,6]" to enable just weekends.
                 enabled_dates: false,
+
+                //  an array of selectable hours.
+                //  default is FALSE, all hours are selectable.
+                enabled_hours: false,
+
+                //  an array of selectable minutes.
+                //  default is FALSE, all minutes are selectable.
+                enabled_minutes: false,
+
+                //  an array of selectable seconds.
+                //  default is FALSE, all seconds are selectable.
+                enabled_seconds: false,
 
                 //  week's starting day
                 //
@@ -549,23 +561,35 @@
 
                                 } else max = 24;
 
-                                // pre-fill the array of selectable hours
                                 timepicker_config.hours = [];
-                                for (i = (max === 12 ? 1 : 0); i < (max === 12 ? 13 : max); i++) timepicker_config.hours.push(i);
+
+                                // iterate through valid hours
+                                for (i = (max === 12 ? 1 : 0); i < (max === 12 ? 13 : max); i++)
+
+                                    // and add them to the lookup array if a user-defined list of values doesn't exist, or if the value is in that list
+                                    if (!$.isArray(plugin.settings.enabled_hours) || $.inArray(i, plugin.settings.enabled_hours) > -1) timepicker_config.hours.push(i);
 
                             // if minutes are available in the date's format
                             } else if (type === 'minutes') {
 
-                                // pre-fill the array of selectable minutes
                                 timepicker_config.minutes = [];
-                                for (i = 0; i < 60; i++) timepicker_config.minutes.push(i);
+
+                                // iterate through valid minutes
+                                for (i = 0; i < 60; i++)
+
+                                    // and add them to the lookup array if a user-defined list of values doesn't exist, or if the value is in that list
+                                    if (!$.isArray(plugin.settings.enabled_minutes) || $.inArray(i, plugin.settings.enabled_minutes) > -1) timepicker_config.minutes.push(i);
 
                             // if seconds are available in the date's format
                             } else if (type === 'seconds') {
 
-                                // pre-fill the array of selectable seconds
                                 timepicker_config.seconds = [];
-                                for (i = 0; i < 60; i++) timepicker_config.seconds.push(i);
+
+                                // iterate through valid minutes
+                                for (i = 0; i < 60; i++)
+
+                                    // and add them to the lookup array if a user-defined list of values doesn't exist, or if the value is in that list
+                                    if (!$.isArray(plugin.settings.enabled_seconds) || $.inArray(i, plugin.settings.enabled_seconds) > -1) timepicker_config.seconds.push(i);
 
                             // if am/pm is available in the date's format
                             } else
@@ -1781,6 +1805,11 @@
 
                     // convert it to the correct value
                     selected_hour = (selected_hour % 12 === 0 ? 12 : selected_hour % 12);
+
+                // make sure that the default values are withing the allowed range, if a range is defined
+                if ($.isArray(plugin.settings.enabled_hours) && $.inArray(selected_hour, plugin.settings.enabled_hours) === -1) selected_hour = plugin.settings.enabled_hours[0];
+                if ($.isArray(plugin.settings.enabled_minutes) && $.inArray(selected_minute, plugin.settings.enabled_minutes) === -1) selected_minute = plugin.settings.enabled_minutes[0];
+                if ($.isArray(plugin.settings.enabled_seconds) && $.inArray(selected_second, plugin.settings.enabled_seconds) === -1) selected_second = plugin.settings.enabled_seconds[0];
 
             }
 
