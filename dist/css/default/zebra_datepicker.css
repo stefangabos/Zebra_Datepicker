@@ -44,6 +44,10 @@
     opacity: 0;
 }
 
+.Zebra_DatePicker .dp_unavailable {
+    display: none;
+}
+
 .Zebra_DatePicker table {
     border-collapse: collapse;
     border-spacing: 0;
