@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.6 (last revision: August 13, 2017)
+ *  @version    1.9.6 (last revision: August 18, 2017)
  *  @copyright  (c) 2011 - 2017 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -506,6 +506,10 @@
 
             // if the element should be read-only, set the "readonly" attribute
             if (plugin.settings.readonly_element) $element.attr('readonly', 'readonly');
+
+            // initialize this as false;
+            // it matters when we're updating at run-time from a format without time to one with time
+            timepicker_config = false;
 
             // determine the views the user can cycle through, depending on the format
             // that is, if the format doesn't contain the day, the user will be able to cycle only through years and months,
@@ -1208,6 +1212,12 @@
                 $('.dp_clear', datepicker).html(plugin.settings.lang_clear_date);
                 $('.dp_today', datepicker).html(plugin.settings.show_select_today);
 
+                // if time picker needs to be available, remove the class hiding it
+                if (timepicker_config) timepicker_toggler.removeClass('dp_unavailable');
+
+                // if time picker needs to be hidden, add the class hiding it
+                else timepicker_toggler.addClass('dp_unavailable');
+
                 // don't go further
                 return;
 
@@ -1252,11 +1262,11 @@
                     '<table class="dp_daypicker"></table>' +
                     '<table class="dp_monthpicker"></table>' +
                     '<table class="dp_yearpicker"></table>' +
-                    (timepicker_config ? '<table class="dp_timepicker"></table>' : '') +
+                    '<table class="dp_timepicker' + (!timepicker_config ? ' dp_unavailable' : '') + '"></table>' +
                     '<table class="dp_footer"><tr>' +
                         '<td class="dp_today"' + (plugin.settings.show_clear_date !== false ? ' style="width:50%"' : '') + '>' + show_select_today + '</td>' +
                         '<td class="dp_clear"' + (show_select_today !== false ? ' style="width:50%"' : '') + '>' + plugin.settings.lang_clear_date + '</td>' +
-                        (timepicker_config ? '<td class="dp_timepicker_toggler">&nbsp;</td>' : '') +
+                        '<td class="dp_timepicker_toggler' + (!timepicker_config ? ' dp_unavailable' : '') + '">&nbsp;</td>' +
                     '</tr></table>' +
                 '</div>';
 
@@ -1501,81 +1511,76 @@
 
             });
 
-            // if time picker is enabled
-            if (timepicker_config) {
+            // function to execute when the clock/calendar button is clicked in the footer
+            $(timepicker_toggler).on('click', function() {
 
-                // function to execute when the clock/calendar button is clicked in the footer
-                $(timepicker_toggler).on('click', function() {
+                // if we're not in the time picker mode
+                if (view !== 'time') {
 
-                    // if we're not in the time picker mode
-                    if (view !== 'time') {
+                    // switch to time picker mode
+                    view = 'time';
+                    manage_views();
 
-                        // switch to time picker mode
-                        view = 'time';
-                        manage_views();
+                // if we are already in the time picker mode,
+                // switch back to the standard view
+                // (let the click on the header's caption handle things)
+                } else $('.dp_caption', header).trigger('click');
 
-                    // if we are already in the time picker mode,
-                    // switch back to the standard view
-                    // (let the click on the header's caption handle things)
-                    } else $('.dp_caption', header).trigger('click');
+            });
 
-                });
+            // handle value increases on the time picker
+            datepicker.on('click', '.dp_time_controls_increase td, .dp_time_controls_decrease td', function() {
 
-                // handle value increases on the time picker
-                datepicker.on('click', '.dp_time_controls_increase td, .dp_time_controls_decrease td', function() {
+                var
 
-                    var
+                    // are we increasing or decreasing values?
+                    increase = $(this).parent('.dp_time_controls_increase').length > 0,
 
-                        // are we increasing or decreasing values?
-                        increase = $(this).parent('.dp_time_controls_increase').length > 0,
+                    // figure out what we're increasing (hour, minutes, seconds, ampm)
+                    matches = $(this).attr('class').match(/dp\_time\_([^\s]+)/i),
+                    value_container = $('.dp_time_elements .dp_time_' + matches[1] + (matches[1] !== 'ampm' ? 's' : ''), timepicker),
 
-                        // figure out what we're increasing (hour, minutes, seconds, ampm)
-                        matches = $(this).attr('class').match(/dp\_time\_([^\s]+)/i),
-                        value_container = $('.dp_time_elements .dp_time_' + matches[1] + (matches[1] !== 'ampm' ? 's' : ''), timepicker),
+                    // the current value (strip the zeros in front)
+                    value = value_container.text().toLowerCase(),
 
-                        // the current value (strip the zeros in front)
-                        value = value_container.text().toLowerCase(),
+                    // the array with allowed values
+                    lookup = timepicker_config[matches[1] + (matches[1] !== 'ampm' ? 's' : '')],
 
-                        // the array with allowed values
-                        lookup = timepicker_config[matches[1] + (matches[1] !== 'ampm' ? 's' : '')],
+                    // the current value's position in the array of allowed values
+                    current_value_position = lookup.indexOf(matches[1] !== 'ampm' ? parseInt(value, 10) : value),
 
-                        // the current value's position in the array of allowed values
-                        current_value_position = lookup.indexOf(matches[1] !== 'ampm' ? parseInt(value, 10) : value),
+                    // the next value's position in the lookup array
+                    next_value_position = current_value_position === -1 ? 0 : (increase ? (current_value_position + 1 >= lookup.length ? 0 : current_value_position + 1) : (current_value_position - 1 < 0 ? lookup.length - 1 : current_value_position - 1)),
 
-                        // the next value's position in the lookup array
-                        next_value_position = current_value_position === -1 ? 0 : (increase ? (current_value_position + 1 >= lookup.length ? 0 : current_value_position + 1) : (current_value_position - 1 < 0 ? lookup.length - 1 : current_value_position - 1)),
+                    default_date;
 
-                        default_date;
+                // increase/decrease the required value according to the values in the lookup array
+                if (matches[1] === 'hour') selected_hour = lookup[next_value_position];
+                else if (matches[1] === 'minute') selected_minute = lookup[next_value_position];
+                else if (matches[1] === 'second') selected_second = lookup[next_value_position];
+                else selected_ampm = lookup[next_value_position];
 
-                    // increase/decrease the required value according to the values in the lookup array
-                    if (matches[1] === 'hour') selected_hour = lookup[next_value_position];
-                    else if (matches[1] === 'minute') selected_minute = lookup[next_value_position];
-                    else if (matches[1] === 'second') selected_second = lookup[next_value_position];
-                    else selected_ampm = lookup[next_value_position];
+                // if a default day is not available and the "start_date" property is set
+                if (!default_day && plugin.settings.start_date) {
 
-                    // if a default day is not available and the "start_date" property is set
-                    if (!default_day && plugin.settings.start_date) {
+                    // check if "start_date" is valid according to the format
+                    default_date = check_date(plugin.settings.start_date);
 
-                        // check if "start_date" is valid according to the format
-                        default_date = check_date(plugin.settings.start_date);
+                    // ...and if it is, extract the day from there
+                    if (default_date) default_day = default_date.getDate();
 
-                        // ...and if it is, extract the day from there
-                        if (default_date) default_day = default_date.getDate();
+                }
 
-                    }
+                // if still no value, use the current day from the system
+                if (!default_day) default_day = new Date().getDate()
 
-                    // if still no value, use the current day from the system
-                    if (!default_day) default_day = new Date().getDate()
+                // set the new value
+                value_container.text(str_pad(lookup[next_value_position], 2).toUpperCase());
 
-                    // set the new value
-                    value_container.text(str_pad(lookup[next_value_position], 2).toUpperCase());
+                // update the value in the element
+                select_date(selected_year, selected_month, default_day);
 
-                    // update the value in the element
-                    select_date(selected_year, selected_month, default_day);
-
-                });
-
-            }
+            });
 
             // if date picker is not always visible in a container
             if (!(plugin.settings.always_visible instanceof jQuery)) {
