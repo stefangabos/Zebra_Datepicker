@@ -3098,7 +3098,7 @@
          *
          *  @access private
          */
-        var manage_views = function(x) {
+        var manage_views = function() {
 
             var width, height, elements;
 
