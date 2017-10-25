@@ -171,11 +171,13 @@
 
             &.dp_today,
             &.dp_clear,
-            &.dp_timepicker_toggler {
+            &.dp_timepicker_toggler,
+            &.dp_confirm {
                 color: #E0E0E0;
                 padding: 3px;
             }
-            &.dp_timepicker_toggler {
+            &.dp_timepicker_toggler,
+            &.dp_confirm {
                 background-repeat: no-repeat;
                 background-position: center center;
                 padding-left: 13px;
@@ -184,6 +186,10 @@
             }
             &.dp_timepicker_toggler_calendar {
                 background-image: url(datepicker.png);
+            }
+            &.dp_confirm {
+                width: 50%;
+                background-image: url(select.png);
             }
         }
     }
