@@ -40,10 +40,6 @@
     opacity: 0;
 }
 
-.Zebra_DatePicker .dp_unavailable {
-    display: none;
-}
-
 .Zebra_DatePicker table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -66,7 +62,7 @@
 }
 
 .Zebra_DatePicker table td.dp_disabled_current {
-    color: #3A87AD !important;
+    color: rgba(58, 135, 173, 0.4) !important;
 }
 
 .Zebra_DatePicker table td.dp_not_in_month_selectable {
@@ -85,6 +81,10 @@
 .Zebra_DatePicker table td.dp_selected {
     background: #039;
     color: #FFF;
+}
+
+.Zebra_DatePicker table td.dp_selected.dp_hover {
+    color: #000;
 }
 
 .Zebra_DatePicker table td.dp_hover {
@@ -137,11 +137,11 @@
     margin-top: 3px;
 }
 
-.Zebra_DatePicker .dp_footer td.dp_today, .Zebra_DatePicker .dp_footer td.dp_clear, .Zebra_DatePicker .dp_footer td.dp_timepicker_toggler {
+.Zebra_DatePicker .dp_footer td.dp_today, .Zebra_DatePicker .dp_footer td.dp_clear, .Zebra_DatePicker .dp_footer td.dp_timepicker_toggler, .Zebra_DatePicker .dp_footer td.dp_confirm {
     padding: 3px;
 }
 
-.Zebra_DatePicker .dp_footer td.dp_timepicker_toggler {
+.Zebra_DatePicker .dp_footer td.dp_timepicker_toggler, .Zebra_DatePicker .dp_footer td.dp_confirm {
     background-repeat: no-repeat;
     background-position: center center;
     padding-left: 13px;
@@ -151,6 +151,11 @@
 
 .Zebra_DatePicker .dp_footer td.dp_timepicker_toggler_calendar {
     background-image: url(datepicker.png);
+}
+
+.Zebra_DatePicker .dp_footer td.dp_confirm {
+    width: 50%;
+    background-image: url(select.png);
 }
 
 button.Zebra_DatePicker_Icon {
