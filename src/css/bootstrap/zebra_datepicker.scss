@@ -85,6 +85,9 @@
             &.dp_selected {
                 background: #039;
                 color: #FFF;
+                &.dp_hover {
+                    color: #000;
+                }
             }
 
             &.dp_hover {
