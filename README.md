@@ -137,8 +137,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top">
             Should the date picker be always visible?<br>
             Setting this property to a jQuery element will result in the date picker being always visible, the indicated element acting as the date picker's container;<br><br>
-            Setting this property to boolean TRUE will result in the date picker not closing when selecting a date but only when the user clicks outside the date picker.<br><br>
-            <blockquote>If <code>format</code> property contains time-related characters (<code>g</code>, <code>G</code>, <code>h</code>, <code>H</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>), this property will be automatically set to <code>TRUE</code>!</blockquote>
+            Setting this property to boolean TRUE will result in the date picker not closing when selecting a date but only when the user clicks outside the date picker.
         </td>
     </tr>
     <tr>
@@ -209,7 +208,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
             </ul>
             You may also set this property to an array with two elements in the following combinations:<br><br>
             <ul>
-                <li>first item is boolean <code>TRUE</code> (calendar starts on the reference date), a <code>positive integer</code> (calendar starts n days after the reference date), or a <code>valid date</code> given in the format defined by the <em>format</em> attribute (calendar starts at the specified date), and the second item is boolean <code>FALSE</code> (the calendar has no ending date), a <code>positive integer</code> (calendar ends n days after the starting date), or a <code>valid date</code> given in the format defined by the <em>format</em> attribute and which occurs after the starting date (calendar ends at the specified date)</li>
+                <li>first item is boolean <code>TRUE</code> (calendar starts on the reference date), a <code>positive integer</code> (calendar starts n days after the reference date), or a <code>valid date</code> given in the format defined by the <em>format</em> attribute (calendar starts at the specified date), and the second item is boolean <code>FALSE</code> (the calendar has no ending date), a <code>positive integer</code> (calendar ends n days after the starting date), or a <code>valid date</code> given in the format defined by the <em>format</em> attribute and which occurs after the starting date (calendar ends at the specified date)<br><br></li>
                 <li>first item is boolean <code>FALSE</code> (calendar ends on the reference date), a <code>negative integer</code> (calendar ends n days before the reference date), or a <code>valid date</code> given in the format defined by the <em>format</em> attribute (calendar ends at the specified date), and the second item is a <code>positive integer</code> (calendar ends n days before the ending date), or a <code>valid date</code> given in the format defined by the <em>format</em> attribute and which occurs before the starting date (calendar starts at the specified date)</li>
             </ul>
             <code>[1, 7]</code> calendar starts tomorrow and ends seven days after that<br>
