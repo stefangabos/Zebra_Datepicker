@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.6 (last revision: October 25, 2017)
+ *  @version    1.9.6 (last revision: November 05, 2017)
  *  @copyright  (c) 2011 - 2017 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -1525,9 +1525,16 @@
             });
 
             // when the "confirm selection" button is clicked, hide the date picker
-            // (visible only when in the "time" view and only if a date was previously selected)
+            // (visible only when in the "time" view)
             confirm_selection.on('click', function() {
+
+                // as users may click this before making any adjustments to time, simulate time adjustment so that
+                // a value is selected
+                $('.dp_time_controls_increase td').trigger('click');
+                $('.dp_time_controls_decrease td').trigger('click');
+
                 plugin.hide();
+
             });
 
             // handle value increases on the time picker
@@ -1716,6 +1723,7 @@
 
                     // execute the callback function and pass as argument the element the plugin is attached to
                     plugin.settings.onClose.call($element, $element);
+
             }
 
         };
@@ -3208,26 +3216,34 @@
                 // generate the time picker
                 generate_timepicker();
 
-                console.log(views);
-
-                // if the "time" view is the only available view, hide the time picker toggler button
+                // if the "time" view is the only available view
                 if (views.length === 1) {
 
+                    // hide the time picker toggler button
                     timepicker_toggler.hide();
-                    confirm_selection.show();
-
-                // otherwise show the time picker toggler button, but change the icon
-                } else {
-
-                    timepicker_toggler.show().addClass('dp_timepicker_toggler_calendar');
 
                     // show the confirmation button
+                    confirm_selection.show();
+
+                // if the "time" view is not the only available view
+                } else {
+
+                    // time picker toggler button, but change the icon
+                    timepicker_toggler.show().addClass('dp_timepicker_toggler_calendar');
+
+                    // if not date is selected
                     if ($element.val() === '') {
+
+                        // hide the confirmation button
                         timepicker_toggler.css('width', '100%');
                         confirm_selection.hide();
+
                     } else {
+
+                        // show the confirmation button
                         timepicker_toggler.css('width', '50%');
                         confirm_selection.show();
+
                     }
 
                 }
