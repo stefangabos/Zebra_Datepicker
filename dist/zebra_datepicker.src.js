@@ -437,7 +437,7 @@
             last_selectable_year, monthpicker, monthpicker_cells, original_attributes = {}, selected_hour, selected_minute,
             selected_second, selected_ampm, timepicker_toggler, selected_month, selected_year, selecttoday, shim,
             show_select_today, start_date, timeout, timepicker, timepicker_config, uniqueid = '', yearpicker, yearpicker_cells,
-            view, views = [];
+            view, views;
 
         var plugin = this;
 
@@ -509,9 +509,11 @@
             // if the element should be read-only, set the "readonly" attribute
             if (plugin.settings.readonly_element) $element.attr('readonly', 'readonly');
 
-            // initialize this as false;
-            // it matters when we're updating at run-time from a format without time to one with time
+            // assume there's no timepicker
             timepicker_config = false;
+
+            // the views the user can cycle through
+            views = [];
 
             // determine the views the user can cycle through, depending on the format
             // that is, if the format doesn't contain the day, the user will be able to cycle only through years and months,
@@ -3205,6 +3207,8 @@
 
                 // generate the time picker
                 generate_timepicker();
+
+                console.log(views);
 
                 // if the "time" view is the only available view, hide the time picker toggler button
                 if (views.length === 1) {
