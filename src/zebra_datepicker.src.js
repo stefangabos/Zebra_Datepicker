@@ -3132,9 +3132,21 @@
                     // generate the day picker
                     generate_daypicker();
 
-                    // get the day picker's width and height
-                    width = daypicker.outerWidth();
-                    height = daypicker.outerHeight();
+                    // jQuery rounds values returned by  outerWidth and outerHeight
+                    // therefore, if we can get the un-rounded values, get those
+                    if (typeof daypicker[0].getBoundingClientRect !== 'undefined') {
+
+                        // get the day picker's width and height
+                        width = daypicker[0].getBoundingClientRect().width;
+                        height = daypicker[0].getBoundingClientRect().height;
+
+                    // if "getBoundingClientRect" is not available
+                    } else {
+
+                        // get the day picker's width and height
+                        width = daypicker.outerWidth(true);
+                        height = daypicker.outerHeight(true);
+                    }
 
                     // make the month picker have the same size as the day picker
                     monthpicker.css({
