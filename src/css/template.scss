@@ -85,7 +85,7 @@
 
         .dp_selected {
             @if variable-exists(dp_selected_date_background) and $dp_selected_date_background != $dp_background { background: $dp_selected_date_background; }
-            @if variable-exists(dp_selected_date_color) and $dp_selected_date_color != $dp_color { color: $dp_selected_date_color; }
+            @if variable-exists(dp_selected_date_color) { color: $dp_selected_date_color; }
         }
 
         .dp_disabled {
