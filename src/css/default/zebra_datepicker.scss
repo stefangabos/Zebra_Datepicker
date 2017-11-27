@@ -1,223 +1,53 @@
-.Zebra_DatePicker {
-    position: absolute;
-    background: #666;
-    z-index: 1200;
-    top: 0;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border: 3px solid #666;
-    border-radius: 5px;
-    font-family: Tahoma, Arial, Helvetica, sans-serif;
-    font-size: 13px;
+$dp_background: #666;
+$dp_border_radius: 4px;
+$dp_box_shadow: 0px 0px 10px #888;
+$dp_color: #222;
+$dp_font_size: 13px;
+$dp_font_family: Tahoma, Arial, Helvetica, sans-serif;
+$dp_padding_width_horizontal: 3px;
+$dp_padding_width_vertical: 3px;
 
-    & *,
-    & *:after,
-    & *:before {
-        -moz-box-sizing: content-box !important;
-        -webkit-box-sizing: content-box !important;
-        box-sizing: content-box !important;
-    }
+$dp_header_background: $dp_background;
+$dp_header_color: #fff;
+$dp_header_hover_background: lighten($dp_background, 15%);
+$dp_header_hover_color: $dp_header_color;
+$dp_header_padding: 5px;
 
-    & * {
-        margin: 0;
-        padding: 0;
-        color: #000;
-        background: transparent;
-        border: none;
+$dp_cell_border: 1px solid lighten($dp_background, 35%);
+$dp_cell_hover_background: #88a09e;
+$dp_cell_hover_color: #fff;
+$dp_cell_min_width: 25px;
+$dp_cell_padding: 5px;
 
-    }
+$dp_weekday_background: lighten($dp_background, 50%);
+$dp_weekday_color: $dp_color;
+$dp_weekday_disabled_background: lighten($dp_background, 55%);
+$dp_weekday_disabled_color: darken($dp_weekday_disabled_background, 15%);
 
-    &.dp_visible {
-        visibility: visible;
-        filter: alpha(opacity=100);
-        -khtml-opacity: 1;
-        -moz-opacity: 1;
-        opacity: 1;
-        transition: opacity 0.2s ease-in-out;
-    }
+$dp_weekend_background: lighten($dp_background, 44%);
+$dp_weekend_color: $dp_color;
+$dp_weekend_disabled_background: $dp_weekday_disabled_background;
+$dp_weekend_disabled_color: $dp_weekday_disabled_color;
 
-    &.dp_hidden {
-        visibility: hidden;
-        filter: alpha(opacity=0);
-        -khtml-opacity: 0;
-        -moz-opacity: 0;
-        opacity: 0;
-    }
+$dp_not_in_month_background: #e0e6f2;
+$dp_not_in_month_color: darken($dp_not_in_month_background, 20%);
+$dp_not_in_month_disabled_background: $dp_weekday_disabled_background;
+$dp_not_in_month_disabled_color: $dp_weekday_disabled_color;
 
-    table {
-        border-collapse: collapse;
-        border-spacing: 0;
-        width: auto;
-        table-layout: auto;
+$dp_current_date_color: #cc236b;
+$dp_current_date_disabled_color: #b56a6a;
 
-        th, td {
-            text-align: center;
-            padding: 5px 0;
-        }
+$dp_selected_date_background: #b56a6a;
+$dp_selected_date_color: $dp_cell_hover_color;
 
-        td {
-            cursor: pointer;
+$dp_heading_background: #ffcc33;
+$dp_heading_color: $dp_color;
 
-            &.dp_disabled,
-            &.dp_not_in_month,
-            &.dp_not_in_month_selectable {
-                background: #F3F3F3;
-                color: #CDCDCD;
-                cursor: default;
-            }
+$dp_time_control_background: $dp_weekday_background;
+$dp_time_control_color: $dp_weekday_color;
 
-            &.dp_disabled_current {
-                color: #E38585 !important;
-            }
+$dp_time_background: $dp_weekday_disabled_background;
+$dp_time_color: $dp_weekday_color;
+$dp_time_separator_color: $dp_cell_border;
 
-            &.dp_not_in_month_selectable {
-                cursor: pointer;
-            }
-
-            &.dp_week_number {
-                background: #FFCC33;
-                color: #000;
-                font-weight: bold;
-                cursor: text;
-            }
-
-            &.dp_weekend {
-                background: #D8D8D8;
-            }
-
-            &.dp_weekend_disabled {
-                color: #CCC;
-                cursor: default;
-            }
-
-            &.dp_current {
-                color: #C40000;
-            }
-
-            &.dp_selected {
-                background: #5A4B4B;
-                color: #FFF;
-            }
-
-            &.dp_hover {
-                background: #482424;
-                color: #FFF;
-            }
-        }
-    }
-
-    .dp_daypicker,
-    .dp_monthpicker,
-    .dp_yearpicker,
-    .dp_timepicker {
-
-        td, th {
-            background: #E8E8E8;
-            width: 30px;
-            border: 1px solid #7BACD2;
-        }
-    }
-
-    .dp_header,
-    .dp_footer {
-        .dp_hover {
-            background: #222;
-            color: #FFF;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-        }
-    }
-
-    .dp_header {
-        margin-bottom: 3px;
-
-        td {
-            color: #FFF;
-        }
-
-        .dp_previous,
-        .dp_next {
-            width: 30px;
-        }
-
-        .dp_caption {
-            font-weight: bold;
-        }
-    }
-
-    .dp_daypicker th {
-        background: #FFCC33;
-    }
-
-    .dp_monthpicker td,
-    .dp_yearpicker td {
-        width: 33.3333%;
-    }
-
-    .dp_timepicker td {
-        width: 25%;
-
-        &.dp_disabled {
-            color: #000;
-        }
-    }
-
-    .dp_footer {
-        margin-top: 3px;
-
-        td {
-            color: #FFF;
-
-            &.dp_today,
-            &.dp_clear,
-            &.dp_timepicker_toggler,
-            &.dp_confirm {
-                padding: 3px;
-            }
-            &.dp_timepicker_toggler,
-            &.dp_confirm {
-                background-repeat: no-repeat;
-                background-position: center center;
-                padding-left: 13px;
-                padding-right: 13px;
-            }
-            &.dp_timepicker_toggler {
-                background-image: url(timepicker.png);
-            }
-            &.dp_timepicker_toggler_calendar {
-                background-image: url(datepicker.png);
-            }
-            &.dp_confirm {
-                width: 50%;
-                background-image: url(select.png);
-            }
-        }
-    }
-}
-
-button.Zebra_DatePicker_Icon {
-    display: block;
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    background: url(calendar.png) no-repeat left top;
-    text-indent: -9000px;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    line-height: 0;
-    margin: 0 0 0 3px;
-
-    &.Zebra_DatePicker_Icon_Disabled {
-        background-image: url(calendar-disabled.png);
-    }
-
-    &.Zebra_DatePicker_Icon_Inside_Right {
-        margin: 0 3px 0 0;
-    }
-
-    &.Zebra_DatePicker_Icon_Inside_Left {
-        margin: 0 0 0 3px;
-    }
-}
+@import '../template'
