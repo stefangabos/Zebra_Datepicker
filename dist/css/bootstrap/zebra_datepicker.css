@@ -30,7 +30,7 @@
 
 .Zebra_DatePicker th, .Zebra_DatePicker td {
     border-radius: 4px;
-    padding: 6px;
+    padding: 5px;
     cursor: pointer;
     text-align: center;
     min-width: 25px;
@@ -107,7 +107,6 @@
 
 .Zebra_DatePicker .dp_actions td {
     border-radius: 4px;
-    padding: 5px;
 }
 
 .Zebra_DatePicker .dp_actions .dp_caption {

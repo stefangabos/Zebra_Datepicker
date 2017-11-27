@@ -28,7 +28,7 @@
 }
 
 .Zebra_DatePicker th, .Zebra_DatePicker td {
-    padding: 5px;
+    padding: 4px;
     cursor: pointer;
     text-align: center;
     min-width: 25px;
@@ -169,15 +169,15 @@
 }
 
 .Zebra_DatePicker .dp_icon.dp_confirm {
-    background-position: center -123px;
+    background-position: center -124px;
 }
 
 .Zebra_DatePicker .dp_icon.dp_view_toggler {
-    background-position: center -91px;
+    background-position: center -92px;
 }
 
 .Zebra_DatePicker .dp_icon.dp_view_toggler.dp_calendar {
-    background-position: center -59px;
+    background-position: center -60px;
 }
 
 button.Zebra_DatePicker_Icon {
