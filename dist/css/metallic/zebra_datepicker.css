@@ -3,7 +3,7 @@
     border-radius: 4px;
     box-shadow: 0px 0px 10px #888;
     color: #fff;
-    font: 13px Geneva, "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif;
+    font: 13px Tahoma, Arial, Helvetica, sans-serif;
     padding: 3px 3px;
     position: absolute;
     display: table;
@@ -28,7 +28,7 @@
 }
 
 .Zebra_DatePicker th, .Zebra_DatePicker td {
-    padding: 4px;
+    padding: 5px;
     cursor: pointer;
     text-align: center;
     min-width: 25px;
@@ -167,15 +167,15 @@
 }
 
 .Zebra_DatePicker .dp_icon.dp_confirm {
-    background-position: center -124px;
+    background-position: center -123px;
 }
 
 .Zebra_DatePicker .dp_icon.dp_view_toggler {
-    background-position: center -92px;
+    background-position: center -91px;
 }
 
 .Zebra_DatePicker .dp_icon.dp_view_toggler.dp_calendar {
-    background-position: center -60px;
+    background-position: center -59px;
 }
 
 button.Zebra_DatePicker_Icon {

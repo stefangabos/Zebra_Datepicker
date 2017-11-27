@@ -4,7 +4,7 @@
     border-radius: 4px;
     box-shadow: 0px 0px 10px #ccc;
     color: #222;
-    font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font: 13px Tahoma, Arial, Helvetica, sans-serif;
     padding: 5px 5px;
     position: absolute;
     display: table;
@@ -76,7 +76,7 @@
 .Zebra_DatePicker .dp_timepicker .dp_disabled {
     border: none;
     color: #222;
-    font-size: 42px;
+    font-size: 39px;
     font-weight: bold;
 }
 
@@ -87,7 +87,7 @@
 .Zebra_DatePicker .dp_time_separator div:after {
     content: ":";
     color: #222;
-    font-size: 40px;
+    font-size: 37px;
     left: 100%;
     position: absolute;
     z-index: 1;
