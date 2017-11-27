@@ -1262,8 +1262,8 @@
                     '<table class="dp_timepicker dp_body"></table>' +
                     '<table class="dp_footer dp_actions"><tr>' +
                         '<td class="dp_today">' + show_select_today + '</td>' +
-                        '<td class="dp_view_toggler dp_icon"></td>' +
                         '<td class="dp_clear">' + plugin.settings.lang_clear_date + '</td>' +
+                        '<td class="dp_view_toggler dp_icon"></td>' +
                         '<td class="dp_confirm dp_icon"></td>' +
                     '</tr></table>' +
                 '</div>';
