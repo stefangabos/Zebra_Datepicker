@@ -316,14 +316,6 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>header_navigation</strong></td>
-        <td valign="top"><em>Array</em></td>
-        <td valign="top"><code>['&amp;#171;', '&amp;#187;']</code></td>
-        <td valign="top">
-            HTML to be used for the previous month/next month buttons
-        </td>
-    </tr>
-    <tr>
         <td valign="top"><strong>icon_position</strong></td>
         <td valign="top"><em>string</em></td>
         <td valign="top"><code>"right"</code></td>
@@ -364,6 +356,14 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top">
             Abbreviated names of months.<br><br>
             By default, the abbreviated name of a month consists of the first 3 letters from the month's full name. While this is common for most languages, there are also exceptions for languages like Thai, Loa, Myanmar, etc. where this is not correct. For these cases, specify an array with the abbreviations to be used for the months of the year; leave it FALSE to use the first 3 letters of a month's name as the abbreviation.
+        </td>
+    </tr>
+    <tr>
+        <td valign="top"><strong>navigation</strong></td>
+        <td valign="top"><em>Array</em></td>
+        <td valign="top"><code>navigation: ['&amp;#9664;', '&amp;#9654;', '&amp;#9650;', '&amp;#9660;']</code></td>
+        <td valign="top">
+            HTML to be used for the previous/next and up/down buttons, in that order.
         </td>
     </tr>
     <tr>
