@@ -63,7 +63,7 @@ Load the Zebra_Datepicker jQuery plugin:
 <script src="path/to/zebra_datepicker.min.js"></script>
 ```
 
-Alternatively, you can load Zebra_Datepicker from [JSDelivr CDN](https://www.jsdelivr.com/) like this:
+Alternatively, you can load Zebra_Datepicker from [JSDelivr CDN](https://www.jsdelivr.com/package/npm/zebra_datepicker) like this:
 ```html
 <!-- for the most recent version -->
 <script src="https://cdn.jsdelivr.net/npm/zebra_datepicker/dist/zebra_datepicker.min.js"></script>
@@ -80,7 +80,7 @@ Load the style sheet file from a local source
 <link rel="stylesheet" href="path/to/theme/zebra_datepicker.min.css">
 ```
 
-...or from [JSDelivr CDN](https://www.jsdelivr.com/)
+...or from [JSDelivr CDN](https://www.jsdelivr.com/package/npm/zebra_datepicker)
 
 ```html
 <!-- for the most recent version of the "default" theme -->
