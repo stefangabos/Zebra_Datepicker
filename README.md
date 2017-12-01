@@ -131,7 +131,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     </thead>
     <tbody>
     <tr>
-        <td valign="top"><strong>always_visible</strong></td>
+        <td valign="top"><a name="always_visible"></a><strong>always_visible</strong></td>
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>FALSE</code></td>
         <td valign="top">
@@ -141,7 +141,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>container</strong></td>
+        <td valign="top"><a name="container"></a><strong>container</strong></td>
         <td valign="top"><em>jQuery</em></td>
         <td valign="top"><code>$('body')</code></td>
         <td valign="top">
@@ -149,7 +149,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>custom_classes</strong></td>
+        <td valign="top"><a name="custom_classes"></a><strong>custom_classes</strong></td>
         <td valign="top"><em>Array</em></td>
         <td valign="top"><code>FALSE</code></td>
         <td valign="top">
@@ -167,7 +167,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>days</strong></td>
+        <td valign="top"><a name="days"></a><strong>days</strong></td>
         <td valign="top"><em>Array</em></td>
         <td valign="top"><code>['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']</code></td>
         <td valign="top">
@@ -175,7 +175,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>days_abbr</strong></td>
+        <td valign="top"><a name="days_abbr"></a><strong>days_abbr</strong></td>
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>FALSE</code></td>
         <td valign="top">
@@ -184,7 +184,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>default_position</strong></td>
+        <td valign="top"><a name="default_position"></a><strong>default_position</strong></td>
         <td valign="top"><em>string</em></td>
         <td valign="top"><code>"above"</code></td>
         <td valign="top">
@@ -195,7 +195,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>direction</strong></td>
+        <td valign="top"><a name="direction"></a><strong>direction</strong></td>
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>0</code></td>
         <td valign="top">Direction of the calendar<br><br>
@@ -220,7 +220,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>disabled_dates</strong></td>
+        <td valign="top"><a name="disabled_dates"></a><strong>disabled_dates</strong></td>
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>FALSE</code><br><small>no disabled dates</small></td>
         <td valign="top">
@@ -237,7 +237,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>enabled_dates</strong></td>
+        <td valign="top"><a name="enabled_dates"></a><strong>enabled_dates</strong></td>
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>FALSE</code><br><small>all dates enabled</small></td>
         <td valign="top">
@@ -245,7 +245,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>enabled_hours</strong></td>
+        <td valign="top"><a name="enabled_hours"></a><strong>enabled_hours</strong></td>
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>FALSE</code><br><small>all hours are selectable</small></td>
         <td valign="top">
@@ -254,7 +254,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>enabled_minutes</strong></td>
+        <td valign="top"><a name="enabled_minutes"></a><strong>enabled_minutes</strong></td>
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>FALSE</code><br><small>all minutes are selectable</small></td>
         <td valign="top">
@@ -263,7 +263,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>enabled_seconds</strong></td>
+        <td valign="top"><a name="enabled_seconds"></a><strong>enabled_seconds</strong></td>
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>FALSE</code><br><small>all seconds are selectable</small></td>
         <td valign="top">
@@ -272,7 +272,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>first_day_of_week</strong></td>
+        <td valign="top"><a name="first_day_of_week"></a><strong>first_day_of_week</strong></td>
         <td valign="top"><em>integer</em></td>
         <td valign="top"><code>1</code><br><small>Monday</small></td>
         <td valign="top">
@@ -281,7 +281,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>format</strong></td>
+        <td valign="top"><a name="format"></a><strong>format</strong></td>
         <td valign="top"><em>string</em></td>
         <td valign="top"><code>"Y-m-d"</code></td>
         <td valign="top">
@@ -289,11 +289,11 @@ var datepicker = $('selector').data('Zebra_DatePicker');
             Accepts the following characters for date formatting: <code>d</code>, <code>D</code>, <code>j</code>, <code>l</code>, <code>N</code>, <code>w</code>, <code>S</code>, <code>F</code>, <code>m</code>, <code>M</code>, <code>n</code>, <code>Y</code>, <code>y</code>, <code>h</code>, <code>H</code>, <code>g</code>, <code>G</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>, borrowing the syntax from PHP's <a href="http://php.net/manual/en/function.date.php">date</a> function.<br><br>
             If <code>format</code> property contains time-related characters (<code>g</code>, <code>G</code>, <code>h</code>, <code>H</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>), the time picker will be automatically enabled.<br><br>
             Note that when setting a date format without days (<code>d</code>, <code>j</code>), the users will be able to select only years and months, and when setting a format without months and days (<code>F</code>, <code>m</code>, <code>M</code>, <code>n</code>, <code>t</code>, <code>d</code>, <code>j</code>), the users will be able to select only years. Similarly, setting a format that contains only time-related characters, will result in users being able to only select time.<br><br>
-            Also note that the value of the <em>view</em> property (see below) may be overridden if it is the case: a value of <em>days</em> for the <em>view</em> property makes no sense if the date format doesn't allow the selection of days.
+            Also note that the value of the <em>view</em> property may be overridden if it is the case (i.e. a value of <em>days</em> for the <em>view</em> property makes no sense if the date format doesn't allow the selection of days).
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>header_captions</strong></td>
+        <td valign="top"><a name="header_captions"></a><strong>header_captions</strong></td>
         <td valign="top"><em>object</em></td>
         <td valign="top">
             <code><small>header_captions: {</small></code><br>
@@ -316,7 +316,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>icon_position</strong></td>
+        <td valign="top"><a name="icon_position"></a><strong>icon_position</strong></td>
         <td valign="top"><em>string</em></td>
         <td valign="top"><code>"right"</code></td>
         <td valign="top">
@@ -325,7 +325,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>inside</strong></td>
+        <td valign="top"><a name="inside"></a><strong>inside</strong></td>
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>TRUE</code></td>
         <td valign="top">
@@ -334,7 +334,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>lang_clear_date</strong></td>
+        <td valign="top"><a name="lang_clear_date"></a><strong>lang_clear_date</strong></td>
         <td valign="top"><em>string</em></td>
         <td valign="top"><code>"Clear"</code></td>
         <td valign="top">
@@ -342,7 +342,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>months</strong></td>
+        <td valign="top"><a name="months"></a><strong>months</strong></td>
         <td valign="top"><em>array</em></td>
         <td valign="top"><code>['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],</code></td>
         <td valign="top">
@@ -350,7 +350,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>months_abbr</strong></td>
+        <td valign="top"><a name="months_abbr"></a><strong>months_abbr</strong></td>
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>FALSE</code></td>
         <td valign="top">
@@ -359,7 +359,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>navigation</strong></td>
+        <td valign="top"><a name="navigation"></a><strong>navigation</strong></td>
         <td valign="top"><em>Array</em></td>
         <td valign="top"><code>navigation: ['&amp;#9664;', '&amp;#9654;', '&amp;#9650;', '&amp;#9660;']</code></td>
         <td valign="top">
@@ -367,7 +367,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>offset</strong></td>
+        <td valign="top"><a name="offset"></a><strong>offset</strong></td>
         <td valign="top"><em>array</em></td>
         <td valign="top"><code>[5, -5]</code></td>
         <td valign="top">The offset, in pixels (x, y), to shift the date picker's position relative to the top-right of the icon that toggles the date picker or, if the icon is disabled, relative to the top-right corner of the element
@@ -376,7 +376,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>open_icon_only</strong></td>
+        <td valign="top"><a name="open_icon_only"></a><strong>open_icon_only</strong></td>
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>FALSE</code></td>
         <td valign="top">
@@ -384,7 +384,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>open_on_focus</strong></td>
+        <td valign="top"><a name="open_on_focus"></a><strong>open_on_focus</strong></td>
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>FALSE</code></td>
         <td valign="top">
@@ -392,7 +392,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>pair</strong></td>
+        <td valign="top"><a name="pair"></a><strong>pair</strong></td>
         <td valign="top"><em>object</em></td>
         <td valign="top"><code>FALSE</code><br><small>not paired with another date picker</small></td>
         <td valign="top">
@@ -402,7 +402,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>readonly_element</strong></td>
+        <td valign="top"><a name="readonly_element"></a><strong>readonly_element</strong></td>
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>TRUE</code></td>
         <td valign="top">
@@ -411,7 +411,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>select_other_months</strong></td>
+        <td valign="top"><a name="select_other_months"></a><strong>select_other_months</strong></td>
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>FALSE</code></td>
         <td valign="top">
@@ -420,7 +420,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>show_clear_date</strong></td>
+        <td valign="top"><a name="show_clear_date"></a><strong>show_clear_date</strong></td>
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>0</code></td>
         <td valign="top">
@@ -434,7 +434,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>show_icon</strong></td>
+        <td valign="top"><a name="show_icon"></a><strong>show_icon</strong></td>
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>TRUE</code></td>
         <td valign="top">
@@ -443,7 +443,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>show_other_months</strong></td>
+        <td valign="top"><a name="show_other_months"></a><strong>show_other_months</strong></td>
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>TRUE</code></td>
         <td valign="top">
@@ -451,7 +451,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>show_select_today</strong></td>
+        <td valign="top"><a name="show_select_today"></a><strong>show_select_today</strong></td>
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>"Today"</code></td>
         <td valign="top">
@@ -460,7 +460,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>show_week_number</strong></td>
+        <td valign="top"><a name="show_week_number"></a><strong>show_week_number</strong></td>
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>FALSE</code></td>
         <td valign="top">
@@ -469,7 +469,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>start_date</strong></td>
+        <td valign="top"><a name="start_date"></a><strong>start_date</strong></td>
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>FALSE</code></td>
         <td valign="top">
@@ -487,7 +487,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>strict</strong></td>
+        <td valign="top"><a name="strict"></a><strong>strict</strong></td>
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>FALSE</code></td>
         <td valign="top">
@@ -495,18 +495,18 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>view</strong></td>
+        <td valign="top"><a name="view"></a><strong>view</strong></td>
         <td valign="top"><em>string</em></td>
         <td valign="top"><code>"days"</code></td>
         <td valign="top">
             How should the date picker start:<br><br>
             Valid values are <code>days</code>, <code>months</code> and <code>years</code>.<br><br>
-            Note that the date picker is always cycling <code>days -> months -> years</code> when clicking in the date picker's header, and <code>years -> months -> days</code> when selecting dates (unless one or more of the views are missing due to the date's format)<br><br>
-            Also note that the value of the <em>view</em> property may be overridden if the date's format requires so! (i.e. <code>days</code> for the <em>view</em> property makes no sense if the date format doesn't allow the selection of days)
+            Note that the date picker is always cycling <code>days -> months -> years</code> when clicking in the date picker's header, and <code>years -> months -> days</code> when selecting dates (skipping the views that are missing because of the date's format)<br><br>
+            The value of the <em>view</em> property may be overridden if the date's format requires so! (i.e. <code>days</code> for the <em>view</em> property makes no sense if the date format doesn't allow the selection of days)
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>weekend_days</strong></td>
+        <td valign="top"><a name="weekend_days"></a><strong>weekend_days</strong></td>
         <td valign="top"><em>Array</em></td>
         <td valign="top"><code>[0, 6]</code><br><small>Saturday and Sunday</small></td>
         <td valign="top">
@@ -515,7 +515,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
-        <td valign="top"><strong>zero_pad</strong></td>
+        <td valign="top"><a name="zero_pad"></a><strong>zero_pad</strong></td>
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>FALSE</code></td>
         <td valign="top">
