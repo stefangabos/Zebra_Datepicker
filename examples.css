@@ -1,3 +1,7 @@
+body {
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+}
+
 .syntaxhighlighter {
     padding: 1em 0;
 }
@@ -7,7 +11,13 @@ p a {
     font-weight: bold;
 }
 
-.Zebra_DatePicker .dp_daypicker td.myclass_disabled {
+.top {
+    position: relative;
+    margin-left: 10px;
+    top: -10px;
+}
+
+.Zebra_DatePicker .dp_daypicker .myclass {
     background: #E8E8E8 url('close.png') no-repeat center center;
     text-indent: -9999px;
 }
@@ -16,3 +26,4 @@ p a {
     background: #FFF url('close.png') no-repeat center center;
     text-indent: -9999px;
 }
+

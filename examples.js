@@ -1,71 +1,65 @@
 $(document).ready(function() {
 
-    $('#datepicker-example1').Zebra_DatePicker();
+    $('#datepicker').Zebra_DatePicker();
 
-    $('#datepicker-example2').Zebra_DatePicker({
-        direction: 1    // boolean true would've made the date picker future only
-                        // but starting from today, rather than tomorrow
-    });
-
-    $('#datepicker-example3').Zebra_DatePicker({
-        direction: true,
-        disabled_dates: ['* * * 0,6']   // all days, all months, all years as long
-                                        // as the weekday is 0 or 6 (Sunday or Saturday)
-    });
-
-    $('#datepicker-example4').Zebra_DatePicker({
-        direction: [1, 10]
-    });
-
-    $('#datepicker-example5').Zebra_DatePicker({
-        // remember that the way you write down dates
-        // depends on the value of the "format" property!
-        direction: ['2012-08-01', '2012-08-12']
-    });
-
-    $('#datepicker-example6').Zebra_DatePicker({
-        // remember that the way you write down dates
-        // depends on the value of the "format" property!
-        direction: ['2012-08-01', false]
-    });
-
-    $('#datepicker-example7-start').Zebra_DatePicker({
-        direction: true,
-        pair: $('#datepicker-example7-end')
-    });
-
-    $('#datepicker-example7-end').Zebra_DatePicker({
+    $('#datepicker-future-tomorrow').Zebra_DatePicker({
         direction: 1
     });
 
-    $('#datepicker-example8').Zebra_DatePicker({
+    $('#datepicker-dynamic-interval').Zebra_DatePicker({
+        direction: [1, 10]
+    });
+
+    $('#datepicker-dates-interval').Zebra_DatePicker({
+        direction: ['2012-08-01', '2012-08-12']
+    });
+
+    $('#datepicker-after-date').Zebra_DatePicker({
+        direction: ['2012-08-01', false]
+    });
+
+    $('#datepicker-disabled-dates').Zebra_DatePicker({
+        direction: true,
+        disabled_dates: ['* * * 0,6']
+    });
+
+    $('#datepicker-range-start').Zebra_DatePicker({
+        direction: true,
+        pair: $('#datepicker-range-end')
+    });
+
+    $('#datepicker-range-end').Zebra_DatePicker({
+        direction: 1
+    });
+
+    $('#datepicker-formats').Zebra_DatePicker({
         format: 'M d, Y'
     });
 
-    $('#datepicker-example9').Zebra_DatePicker({
+    $('#datepicker-time').Zebra_DatePicker({
         format: 'Y-m-d H:i'
     });
 
-    $('#datepicker-example10').Zebra_DatePicker({
+    $('#datepicker-week-number').Zebra_DatePicker({
         show_week_number: 'Wk'
     });
 
-    $('#datepicker-example11').Zebra_DatePicker({
+    $('#datepicker-starting-view').Zebra_DatePicker({
         view: 'years'
     });
 
-    $('#datepicker-example12').Zebra_DatePicker({
+    $('#datepicker-partial-date-formats').Zebra_DatePicker({
         format: 'm Y'
     });
 
-    $('#datepicker-example13').Zebra_DatePicker({
+    $('#datepicker-custom-classes').Zebra_DatePicker({
         disabled_dates: ['* * * 0,6'],
         custom_classes: {
             'myclass':  ['* * * 0,6']
         }
     });
 
-    $('#datepicker-example14').Zebra_DatePicker({
+    $('#datepicker-on-change').Zebra_DatePicker({
         onChange: function(view, elements) {
             if (view === 'days') {
                 elements.each(function() {
@@ -79,10 +73,10 @@ $(document).ready(function() {
         }
     });
 
-    $('#datepicker-example15').Zebra_DatePicker({
+    $('#datepicker-always-visible').Zebra_DatePicker({
         always_visible: $('#container')
     });
 
-    $('#datepicker-example16').Zebra_DatePicker();
+    $('#datepicker-data-attributes').Zebra_DatePicker();
 
 });
