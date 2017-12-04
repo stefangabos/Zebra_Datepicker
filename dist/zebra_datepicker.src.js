@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.7 (last revision: December 03, 2017)
+ *  @version    1.9.7 (last revision: December 04, 2017)
  *  @copyright  (c) 2011 - 2017 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -1558,7 +1558,7 @@
                     lookup = timepicker_config[matches[1] + (matches[1] !== 'ampm' ? 's' : '')],
 
                     // the current value's position in the array of allowed values
-                    current_value_position = lookup.indexOf(matches[1] !== 'ampm' ? parseInt(value, 10) : value),
+                    current_value_position = $.inArray(lookup, matches[1] !== 'ampm' ? parseInt(value, 10) : value),
 
                     // the next value's position in the lookup array
                     next_value_position = current_value_position === -1 ? 0 : (increase ? (current_value_position + 1 >= lookup.length ? 0 : current_value_position + 1) : (current_value_position - 1 < 0 ? lookup.length - 1 : current_value_position - 1)),
@@ -1604,6 +1604,7 @@
 
                         // date picker is visible
                         !datepicker.hasClass('dp_hidden') &&
+
                         (
                             // date picker opens only on interacting with the icon, icon exists, but it is not the clicked element
                             (plugin.settings.open_icon_only && plugin.icon && $(e.target).get(0) !== plugin.icon.get(0)) ||
@@ -2499,7 +2500,7 @@
                     if (is_disabled(selected_year, selected_month, day)) class_name += ' dp_disabled';
 
                     // print the day of the month (if "day" is NaN, use an empty string instead)
-                    html += '<td' + (class_name !== '' ? ' class="' + class_name.trim() + '"' : '') + '>' + ((plugin.settings.zero_pad ? str_pad(day, 2) : day) || '&nbsp;') + '</td>';
+                    html += '<td' + (class_name !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + ((plugin.settings.zero_pad ? str_pad(day, 2) : day) || '&nbsp;') + '</td>';
 
                 }
 
@@ -2723,7 +2724,7 @@
 
                                     // if custom class is to be applied whatever the day
                                     // don't look any further
-                                    if (rule[3].indexOf('*') > -1) return (found = class_name);
+                                    if ($.inArray('*', rule[3]) > -1) return (found = class_name);
 
                                     // get the weekday
                                     weekday = new Date(year, month - 1, day).getDay();
@@ -2917,7 +2918,7 @@
 
                                 // if day is to be disabled whatever the day
                                 // don't look any further
-                                if (rule[3].indexOf('*') > -1) return (disabled = true);
+                                if ($.inArray('*', rule[3]) > -1) return (disabled = true);
 
                                 // get the weekday
                                 weekday = new Date(year, month - 1, day).getDay();
@@ -2967,7 +2968,7 @@
 
                                         // if day is to be enabled whatever the day
                                         // don't look any further
-                                        if (rule[3].indexOf('*') > -1) return (enabled = true);
+                                        if ($.inArray('*', rule[3]) > -1) return (enabled = true);
 
                                         // get the weekday
                                         weekday = new Date(year, month - 1, day).getDay();
@@ -3123,7 +3124,8 @@
                     // jQuery rounds values returned by outerWidth and outerHeight
                     // therefore, if we can get the un-rounded values, get those
                     // get the day picker's width and height
-                    if (typeof daypicker[0].getBoundingClientRect !== 'undefined') height = daypicker[0].getBoundingClientRect().height;
+                    // (we need the second check for old Internet Explorers...)
+                    if (typeof daypicker[0].getBoundingClientRect !== 'undefined' && typeof daypicker[0].getBoundingClientRect().height !== 'undefined') height = daypicker[0].getBoundingClientRect().height;
 
                     // if "getBoundingClientRect" is not available
                     // get the day picker's height
@@ -3305,6 +3307,9 @@
                 selecttoday.hide();
                 cleardate.hide();
 
+                // set the view toggler's width
+                view_toggler.css('width', $element.val() === '' ? '100%' : '50%');
+
             // for the other cases
             } else {
 
@@ -3338,7 +3343,7 @@
 
                         // the "Clear date" button takes up 100% of the available space
                         // unless the time picker is available, in which case take up 50% of the available space
-                        cleardate.css('width', views.indexOf('time') > -1 ? '50%' : '100%');
+                        cleardate.css('width', $.inArray(views, 'time') > -1 ? '50%' : '100%');
 
                     }
 
