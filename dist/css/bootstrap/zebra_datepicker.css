@@ -98,6 +98,12 @@
     margin-bottom: 5px;
 }
 
+@supports (-ms-ime-align: auto) {
+    .Zebra_DatePicker .dp_header {
+        font-family: 'Segoe UI Symbol', Tahoma, Arial, Helvetica, sans-serif;
+    }
+}
+
 .Zebra_DatePicker .dp_footer {
     margin-top: 5px;
 }
