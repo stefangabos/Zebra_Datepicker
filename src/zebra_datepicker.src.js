@@ -1558,7 +1558,7 @@
                     lookup = timepicker_config[matches[1] + (matches[1] !== 'ampm' ? 's' : '')],
 
                     // the current value's position in the array of allowed values
-                    current_value_position = $.inArray(lookup, matches[1] !== 'ampm' ? parseInt(value, 10) : value),
+                    current_value_position = $.inArray(matches[1] !== 'ampm' ? parseInt(value, 10) : value, lookup),
 
                     // the next value's position in the lookup array
                     next_value_position = current_value_position === -1 ? 0 : (increase ? (current_value_position + 1 >= lookup.length ? 0 : current_value_position + 1) : (current_value_position - 1 < 0 ? lookup.length - 1 : current_value_position - 1)),
