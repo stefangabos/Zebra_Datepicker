@@ -436,7 +436,7 @@
             first_selectable_month, first_selectable_year, footer, header, icon, last_selectable_day, last_selectable_month,
             last_selectable_year, monthpicker, monthpicker_cells, original_attributes = {}, selected_hour, selected_minute,
             selected_second, selected_ampm, view_toggler, selected_month, selected_year, selecttoday, shim,
-            show_select_today, start_date, timeout, timepicker, timepicker_config, uniqueid = '', yearpicker, yearpicker_cells,
+            show_select_today, start_date, timepicker, timepicker_config, uniqueid = '', yearpicker, yearpicker_cells,
             view, views;
 
         var plugin = this;
@@ -1225,24 +1225,6 @@
 
                 // hide the date picker
                 plugin.hide();
-
-                // if the icon is visible, update its position as the parent element might have changed position
-                if (icon !== undefined) {
-
-                    // we use timeouts so that we do not call the "update" method on *every* step of the resize event
-
-                    // clear a previously set timeout
-                    clearTimeout(timeout);
-
-                    // set timeout again
-                    timeout = setTimeout(function() {
-
-                        // update the date picker
-                        plugin.update();
-
-                    }, 100);
-
-                }
 
             });
 
