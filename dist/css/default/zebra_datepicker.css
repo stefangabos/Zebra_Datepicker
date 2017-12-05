@@ -7,6 +7,7 @@
     padding: 3px 3px;
     position: absolute;
     display: table;
+    *width: 255px;
     z-index: 1200;
 }
 
@@ -147,6 +148,11 @@
     width: 100%;
 }
 
+.Zebra_DatePicker .dp_actions .dp_previous,
+.Zebra_DatePicker .dp_actions .dp_next {
+    *padding: 0 10px;
+}
+
 .Zebra_DatePicker .dp_actions .dp_hover {
     background-color: #8c8c8c;
     color: #fff;
@@ -166,6 +172,8 @@
     height: 16px;
     background-image: url("icons.png");
     background-repeat: no-repeat;
+    text-indent: -9999px;
+    *text-indent: 0;
 }
 
 .Zebra_DatePicker .dp_icon.dp_confirm {
