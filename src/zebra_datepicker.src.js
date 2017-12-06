@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.7 (last revision: December 04, 2017)
+ *  @version    1.9.7 (last revision: December 06, 2017)
  *  @copyright  (c) 2011 - 2017 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -221,8 +221,19 @@
                     years:  'Y1 - Y2'
                 },
 
+                //  the left and right white-space around the icon
+                //  if the "inside" property is set to TRUE then the target element's padding will be altered so that
+                //  the element's left or right padding (depending on the value of "icon_position") will be 2 x icon_margin
+                //  plus the icon's width
+                //  if the "inside" property is set to FALSE, then this will be the distance between the element and the icon.
+                //  leave it to FALSE to use the element's existing padding
+                //
+                //  default is FALSE
+                icon_margin: false,
+
                 //  icon's position
                 //  accepted values are "left" and "right"
+                //  if the "inside" property is set to TRUE, this will always be "right"
                 //
                 //  default is "right"
                 icon_position: 'right',
@@ -232,7 +243,7 @@
                 //  be placed to the right of the parent element, but *inside* the element itself
                 //
                 //  default is TRUE
-                inside: true,
+                inside: false,
 
                 //  the caption for the "Clear" button
                 lang_clear_date: 'Clear date',
@@ -485,6 +496,8 @@
                 // preserve some of element's original attributes
                 original_attributes['readonly'] = $element.attr('readonly');
                 original_attributes['style'] = $element.attr('style');
+                original_attributes['padding_left'] = parseInt($element.css('paddingLeft'), 10) || 0;
+                original_attributes['padding_right'] = parseInt($element.css('paddingRight'), 10) || 0;
 
                 // iterate through the element's data attributes (if any)
                 for (data in $element.data())
@@ -1067,29 +1080,46 @@
                         if (browser.name === 'firefox' && $element.is('input[type="text"]') && $element.css('display') === 'inline') $element.css('display', 'inline-block');
 
                         // we create a wrapper for the parent element so that we can later position the icon
-                        // also, make sure the wrapper inherits some important css properties of the parent element
-                        var icon_wrapper = $('<span class="Zebra_DatePicker_Icon_Wrapper"></span>').css({
-                            display:    $element.css('display'),
-                            position:   $element.css('position') === 'static' ? 'relative' : $element.css('position'),
-                            float:      $element.css('float'),
-                            top:        $element.css('top'),
-                            right:      $element.css('right'),
-                            bottom:     $element.css('bottom'),
-                            left:       $element.css('left')
-                        });
+                        // also, make sure the wrapper inherits positioning properties of the target element
+                        var marginTop = parseInt($element.css('marginTop'), 10) || 0,
+                            marginRight = parseInt($element.css('marginRight'), 10) || 0,
+                            marginBottom = parseInt($element.css('marginBottom'), 10) || 0,
+                            marginLeft = parseInt($element.css('marginLeft'), 10) || 0,
+                            icon_wrapper = $('<span class="Zebra_DatePicker_Icon_Wrapper"></span>').css({
+                                display:        $element.css('display'),
+                                position:       $element.css('position') === 'static' ? 'relative' : $element.css('position'),
+                                float:          $element.css('float'),
+                                top:            $element.css('top'),
+                                right:          $element.css('right'),
+                                bottom:         $element.css('bottom'),
+                                left:           $element.css('left'),
+                                marginTop:      marginTop < 0 ? marginTop : 0,
+                                marginRight:    marginRight < 0 ? marginRight : 0,
+                                marginBottom:   marginBottom < 0 ? marginBottom : 0,
+                                marginLeft:     marginLeft < 0 ? marginLeft : 0,
+                                paddingTop:     marginTop,
+                                paddingRight:   marginRight,
+                                paddingBottom:  marginBottom,
+                                paddingLeft:    marginLeft,
+                            });
 
                         // if parent element has its "display" property set to "block"
                         // the wrapper has to have its "width" set
                         if ($element.css('display') === 'block') icon_wrapper.css('width', $element.outerWidth(true));
 
                         // put wrapper around the element
-                        // also, make sure we set some important css properties for it
+                        // also, reset the target element's positioning properties
                         $element.wrap(icon_wrapper).css({
-                            position:   'relative',
-                            top:        'auto',
-                            right:      'auto',
-                            bottom:     'auto',
-                            left:       'auto'
+                            position:       'relative',
+                            float:          'none',
+                            top:            'auto',
+                            right:          'auto',
+                            bottom:         'auto',
+                            left:           'auto',
+                            marginTop:      0,
+                            marginRight:    0,
+                            marginBottom:   0,
+                            marginLeft:     0,
                         });
 
                         // create the actual calendar icon (show a disabled icon if the element is disabled)
@@ -1152,46 +1182,49 @@
                     // so we get the right values below
                     icon.attr('style', '');
 
-                    // if calendar icon is to be placed *inside* the element
-                    // add an extra class to the icon
-                    if (plugin.settings.inside) icon.addClass('Zebra_DatePicker_Icon_Inside_' + (plugin.settings.icon_position === 'right' ? 'Right' : 'Left'));
-
                     var
 
                         // get element's width and height (including margins)
                         element_width = $element.outerWidth(),
                         element_height = $element.outerHeight(),
-                        element_margin_left = parseInt($element.css('marginLeft'), 10) || 0,
-                        element_margin_top = parseInt($element.css('marginTop'), 10) || 0,
 
                         // get icon's width, height and margins
                         icon_width = icon.outerWidth(),
-                        icon_height = icon.outerHeight(),
-                        icon_margin_left = parseInt(icon.css('marginLeft'), 10) || 0,
-                        icon_margin_right = parseInt(icon.css('marginRight'), 10) || 0;
+                        icon_height = icon.outerHeight();
+
+                    // set icon's vertical position
+                    icon.css('top', (element_height - icon_height) / 2);
 
                     // if icon is to be placed *inside* the element
                     // position the icon accordingly
-                    if (plugin.settings.inside) {
+                    if (plugin.settings.inside)
 
-                        // set icon's top
-                        icon.css('top', element_margin_top + ((element_height - icon_height) / 2));
+                        // if icon is to be placed on the right
+                        if (plugin.settings.icon_position === 'right') {
 
-                        // place icon to the right or to the left, according to the settings
-                        if (plugin.settings.icon_position === 'right') icon.css('right', 0);
-                        else icon.css('left', 0);
+                            // place the icon to the right, respecting the element's right padding
+                            icon.css('right', plugin.settings.icon_margin !== false ? plugin.settings.icon_margin : original_attributes['padding_right']);
+
+                            // also, adjust the element's right padding
+                            $element.css('paddingRight', ((plugin.settings.icon_margin !== false ? plugin.settings.icon_margin : original_attributes['padding_right']) * 2) + icon_width);
+
+                        // if icon is to be placed on the left
+                        } else {
+
+                            // place the icon to the left, respecting the element's left padding
+                            icon.css('left', plugin.settings.icon_margin !== false ? plugin.settings.icon_margin : original_attributes['padding_left']);
+
+                            // also, adjust the element's left padding
+                            $element.css('paddingLeft', ((plugin.settings.icon_margin !== false ? plugin.settings.icon_margin : original_attributes['padding_left']) * 2) + icon_width);
+
+                        }
 
                     // if icon is to be placed to the right of the element
                     // position the icon accordingly
-                    } else
-
-                        icon.css({
-                            top:    element_margin_top + ((element_height - icon_height) / 2),
-                            left:   element_margin_left + element_width + icon_margin_left
-                        });
+                    else icon.css('left', element_width + (plugin.settings.icon_margin !== false ? plugin.settings.icon_margin : original_attributes['padding_left']));
 
                     // assume the datepicker is not disabled
-                    icon.removeClass(' Zebra_DatePicker_Icon_Disabled');
+                    icon.removeClass('Zebra_DatePicker_Icon_Disabled');
 
                     // if element the datepicker is attached to became disabled, disable the calendar icon, too
                     if ($element.attr('disabled') === 'disabled') icon.addClass('Zebra_DatePicker_Icon_Disabled');
@@ -1683,6 +1716,8 @@
             // restore element's modified attributes
             $element.attr('readonly', original_attributes['readonly']);
             $element.attr('style', original_attributes['style'] ? original_attributes['style'] : '');
+            $element.css('paddingLeft', original_attributes['padding_left']);
+            $element.css('paddingRight', original_attributes['padding_right']);
 
         };
 
@@ -3289,7 +3324,7 @@
                 selecttoday.hide();
                 cleardate.hide();
 
-                // set the view toggler's width
+                // set the view toggler width
                 view_toggler.css('width', $element.val() === '' ? '100%' : '50%');
 
             // for the other cases
