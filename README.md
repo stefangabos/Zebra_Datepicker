@@ -316,12 +316,24 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
+        <td valign="top"><a name="icon_margin"></a><strong>icon_margin</strong></td>
+        <td valign="top"><em>mixed</em></td>
+        <td valign="top"><code>FALSE</code></td>
+        <td valign="top">
+            The left and right white-space around the icon<br><br>
+            If the <code>inside</code> property is set to <code>TRUE</code> then the target element's padding will be altered so that the element's left or right padding (depending on the value of <code>icon_position</code>) will be <code>2 x icon_margin</code> plus the icon's width.<br><br>
+            If the <code>inside</code> property is set to <code>FALSE</code>, then this will be the distance between the element and the icon.<br><br>
+            Leave it to <code>FALSE</code> to use the element's existing padding
+        </td>
+    </tr>
+    <tr>
         <td valign="top"><a name="icon_position"></a><strong>icon_position</strong></td>
         <td valign="top"><em>string</em></td>
         <td valign="top"><code>"right"</code></td>
         <td valign="top">
             Icon's position.<br>
-            Accepted values are <code>left</code> and <code>right</code>
+            Accepted values are <code>left</code> and <code>right</code><br><br>
+            <blockquote>If the <code>inside</code> property is set to <code>TRUE</code>, this will always be <code>right</code>.</blockquote>
         </td>
     </tr>
     <tr>
