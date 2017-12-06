@@ -166,7 +166,6 @@ button.Zebra_DatePicker_Icon {
     display: block;
     height: 16px;
     line-height: 0;
-    margin: 0 0 0 3px;
     padding: 0;
     position: absolute;
     text-indent: -9000px;
@@ -176,12 +175,4 @@ button.Zebra_DatePicker_Icon {
 button.Zebra_DatePicker_Icon.Zebra_DatePicker_Icon_Disabled {
     background-position: center -32px;
     cursor: default;
-}
-
-button.Zebra_DatePicker_Icon.Zebra_DatePicker_Icon_Inside_Right {
-    margin: 0 3px 0 0;
-}
-
-button.Zebra_DatePicker_Icon.Zebra_DatePicker_Icon_Inside_Left {
-    margin: 0 0 0 3px;
 }
