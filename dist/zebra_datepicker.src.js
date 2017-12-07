@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.7 (last revision: December 06, 2017)
+ *  @version    1.9.7 (last revision: December 07, 2017)
  *  @copyright  (c) 2011 - 2017 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -447,8 +447,8 @@
             first_selectable_month, first_selectable_year, footer, header, icon, last_selectable_day, last_selectable_month,
             last_selectable_year, monthpicker, monthpicker_cells, original_attributes = {}, selected_hour, selected_minute,
             selected_second, selected_ampm, view_toggler, selected_month, selected_year, selecttoday, shim,
-            show_select_today, start_date, timepicker, timepicker_config, uniqueid = '', yearpicker, yearpicker_cells,
-            view, views,
+            show_select_today, start_date, timepicker, timepicker_config, touchmove = false, uniqueid = '', yearpicker,
+            yearpicker_cells, view, views,
 
             // are we running on an iOS powered device?
             is_iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
@@ -1614,8 +1614,23 @@
             // if date picker is not always visible in a container
             if (!(plugin.settings.always_visible instanceof jQuery)) {
 
+                // if we dragged the screen
+                $(document).on('touchmove.Zebra_DatePicker_' + uniqueid, function(e) {
+
+                    // set this flag to TRUE
+                    touchmove = true;
+
+                });
+
                 // whenever anything is clicked on the page
-                $(document).on('mousedown.Zebra_DatePicker_' + uniqueid + ' touchstart.Zebra_DatePicker_' + uniqueid, function(e) {
+                $(document).on('mousedown.Zebra_DatePicker_' + uniqueid + ' touchend.Zebra_DatePicker_' + uniqueid, function(e) {
+
+                    // if this happened on a touch-enabled device and it represents the end of finger movement instead of a tap
+                    // set the "touchmove" flag to FALSE and don't go further
+                    if (e.type === 'touchend' && touchmove) return (touchmove = false);
+
+                    // always set this to FALSE here
+                    touchmove = false;
 
                     // if
                     if (
@@ -1709,7 +1724,7 @@
             // remove associated event handlers from the document
             $(document).off('keyup.Zebra_DatePicker_' + uniqueid);
             $(document).off('mousedown.Zebra_DatePicker_' + uniqueid);
-            $(document).off('touchstart.Zebra_DatePicker_' + uniqueid);
+            $(document).off('touchend.Zebra_DatePicker_' + uniqueid);
             $(window).off('resize.Zebra_DatePicker_' + uniqueid);
             $(window).off('orientationchange.Zebra_DatePicker_' + uniqueid);
 
