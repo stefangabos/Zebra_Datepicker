@@ -448,7 +448,10 @@
             last_selectable_year, monthpicker, monthpicker_cells, original_attributes = {}, selected_hour, selected_minute,
             selected_second, selected_ampm, view_toggler, selected_month, selected_year, selecttoday, shim,
             show_select_today, start_date, timepicker, timepicker_config, uniqueid = '', yearpicker, yearpicker_cells,
-            view, views;
+            view, views,
+
+            // are we running on an iOS powered device?
+            is_iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
         var plugin = this;
 
@@ -1266,9 +1269,9 @@
                 '<div class="Zebra_DatePicker">' +
                     '<table class="dp_header dp_actions">' +
                         '<tr>' +
-                            '<td class="dp_previous">' + plugin.settings.navigation[0] + '</td>' +
+                            '<td class="dp_previous">' + plugin.settings.navigation[0] + (is_iOS ? '&#xFE0E;' : '') + '</td>' +
                             '<td class="dp_caption"></td>' +
-                            '<td class="dp_next">' + plugin.settings.navigation[1] + '</td>' +
+                            '<td class="dp_next">' + plugin.settings.navigation[1] + (is_iOS ? '&#xFE0E;' : '') + '</td>' +
                         '</tr>' +
                     '</table>' +
                     '<table class="dp_daypicker' + (plugin.settings.show_week_number ? ' dp_week_numbers' : '') + ' dp_body"></table>' +
