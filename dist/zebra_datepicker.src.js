@@ -243,7 +243,7 @@
                 //  be placed to the right of the parent element, but *inside* the element itself
                 //
                 //  default is TRUE
-                inside: false,
+                inside: true,
 
                 //  the caption for the "Clear" button
                 lang_clear_date: 'Clear date',
