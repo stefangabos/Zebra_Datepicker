@@ -448,7 +448,7 @@
             last_selectable_year, monthpicker, monthpicker_cells, original_attributes = {}, selected_hour, selected_minute,
             selected_second, selected_ampm, view_toggler, selected_month, selected_year, selecttoday, shim,
             show_select_today, start_date, timepicker, timepicker_config, touchmove = false, uniqueid = '', yearpicker,
-            yearpicker_cells, view, views,
+            yearpicker_cells, view, views, is_touch = false,
 
             // are we running on an iOS powered device?
             is_iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
@@ -1145,7 +1145,13 @@
                         if (datepicker.hasClass('dp_hidden') && !$element.attr('disabled'))
 
                             // show the date picker
-                            plugin.show();
+                            setTimeout(function() {
+                                plugin.show();
+                            }, (
+                                // for touch-enabled devices when element is not readonly, wait for 600 miliseconds for
+                                // the virtual keyboard to appear and show the date picker afterwards
+                                is_touch && !plugin.settings.readonly_element ? 600 : 0
+                            ));
 
                     });
 
@@ -1627,7 +1633,14 @@
 
                     // if this happened on a touch-enabled device and it represents the end of finger movement instead of a tap
                     // set the "touchmove" flag to FALSE and don't go further
-                    if (e.type === 'touchend' && touchmove) return (touchmove = false);
+                    if (e.type === 'touchend' && touchmove) {
+
+                        // we now know that this is a touch enabled device
+                        is_touch = true;
+
+                        return (touchmove = false);
+
+                    }
 
                     // always set this to FALSE here
                     touchmove = false;
