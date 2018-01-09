@@ -2743,6 +2743,7 @@
 
             // if month is given as argument, increment it (as JavaScript uses 0 for January, 1 for February...)
             if (typeof month !== 'undefined') month = month + 1;
+            var classArr = [];
 
             // iterate through the custom classes
             for (i in custom_class_names) {
@@ -2755,9 +2756,6 @@
 
                     // iterate through the rules for which the custom class to be applied
                     $.each(custom_classes[class_name], function() {
-
-                        // if a custom class needs to be applied to the date we're checking, don't look further
-                        if (found) return;
 
                         var rule = this, weekday;
 
@@ -2772,27 +2770,27 @@
 
                                     // if custom class is to be applied whatever the day
                                     // don't look any further
-                                    if ($.inArray('*', rule[3]) > -1) return (found = class_name);
+                                    if ($.inArray('*', rule[3]) > -1) {
+                                        classArr.push(class_name);
+                                    }
 
                                     // get the weekday
                                     weekday = new Date(year, month - 1, day).getDay();
 
                                     // if custom class is to be applied to weekday
                                     // don't look any further
-                                    if ($.inArray(weekday, rule[3]) > -1) return (found = class_name);
-
+                                    if ($.inArray(weekday, rule[3]) > -1) {
+                                        classArr.push(class_name);
+                                    }
                                 }
-
                     });
-
-                // if a custom class needs to be applied to the date we're checking, don't look further
-                if (found) return found;
 
             }
 
             // return what we've found
-            return found || '';
-
+            if (classArr.length > 0)
+                return classArr.join(" ");
+            else return "";
         };
 
         /**
