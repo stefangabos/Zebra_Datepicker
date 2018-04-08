@@ -383,14 +383,15 @@
                 zero_pad: false,
 
                 //  callback function to be executed whenever the user changes the view (days/months/years), as well as when
-                //  the user navigates by clicking on the "next"/"previous" icons in any of the views;
+                //  the user navigates by clicking on the "next"/"previous" icons in any of the views
                 //
-                //  the callback function called by this event takes 3 arguments - the first argument represents the current
+                //  the callback function called by this event takes 2 arguments - the first argument represents the current
                 //  view (can be "days", "months" or "years"), the second argument represents an array containing the "active"
                 //  elements (not disabled) from the view, as jQuery elements, allowing for easy customization and interaction
-                //  with particular cells in the date picker's view, while the third argument is a reference to the element
-                //  the date picker is attached to, as a jQuery object (deprecated - use the "this" keyword inside the callback
-                //  function to refer to the element the date picker is attached to)
+                //  with particular cells in the date picker's view
+                //
+                //  the "this" keyword inside the callback function refers to the element the date picker is attached to,
+                //  as a jQuery object
                 //
                 //  for simplifying searching for particular dates, each element in the second argument will also have a
                 //  "date" data attribute whose format depends on the value of the "view" argument:
@@ -402,40 +403,32 @@
                 onChange: null,
 
                 //  callback function to be executed when the user clicks the "Clear" button
-                //  the callback function takes a single argument:
-                //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
-                //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
                 //
-                //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
+                //  the callback function takes no arguments; the "this" keyword inside the callback function refers to
+                //  the element the date picker is attached to, as a jQuery object
                 onClear: null,
 
                 //  callback function to be executed when the date picker is shown
-                //  the callback function takes a single argument:
-                //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
-                //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
                 //
-                //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
+                //  the callback function takes no arguments; the "this" keyword inside the callback function refers to
+                //  the element the date picker is attached to, as a jQuery object
                 onOpen: null,
 
                 //  callback function to be executed when the date picker is closed, but only when the "always_visible"
                 //  property is set to FALSE
-                //  the callback function takes a single argument:
-                //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
-                //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
                 //
-                //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
+                //  the callback function takes no arguments; the "this" keyword inside the callback function refers to
+                //  the element the date picker is attached to, as a jQuery object
                 onClose: null,
 
                 //  callback function to be executed when a date is selected
-                //  the callback function takes 5 arguments:
+                //  the callback function takes 3 arguments:
                 //  -   the date in the format specified by the "format" attribute;
                 //  -   the date in YYYY-MM-DD format
                 //  -   the date as a JavaScript Date object
-                //  -   a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the
-                //      "this" keyword inside the callback function to refer to the element the date picker is attached to)
-                //  -   the ISO 8601 week number of the selected date
                 //
-                //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
+                //  the "this" keyword inside the callback function refers to the element the date picker is attached to,
+                //  as a jQuery object
                 onSelect: null
 
             },
