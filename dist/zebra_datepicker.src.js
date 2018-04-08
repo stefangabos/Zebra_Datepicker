@@ -1560,6 +1560,21 @@
                 $('.dp_time_controls_increase td').trigger('click');
                 $('.dp_time_controls_decrease td').trigger('click');
 
+                // if a callback function exists for when selecting a date
+                if (plugin.settings.onSelect && typeof plugin.settings.onSelect === 'function') {
+
+                    var js_date = new Date(selected_year, selected_month, default_day,
+                        (timepicker_config && timepicker_config.hours ? selected_hour + (timepicker_config.ampm && ((selected_ampm === 'pm' && selected_hour < 12) || (selected_ampm === 'am' && selected_hour === 12)) ? 12 : 0) : 0),
+                        (timepicker_config && timepicker_config.minutes ? selected_minute : 0),
+                        (timepicker_config && timepicker_config.seconds ? selected_second : 0)
+                    );
+
+                    // execute the callback function
+                    // make "this" inside the callback function refer to the element the date picker is attached to, as a jQuery object
+                    plugin.settings.onSelect.call($element, format(js_date), selected_year + '-' + str_pad(selected_month + 1, 2) + '-' + str_pad(default_day, 2) + (timepicker_config ? ' ' + str_pad(js_date.getHours(), 2) + ':' + str_pad(js_date.getMinutes(), 2) + ':' + str_pad(js_date.getSeconds(), 2) : ''), js_date);
+
+                }
+
                 plugin.hide();
 
             });
@@ -3508,7 +3523,8 @@
             update_dependent(default_date);
 
             // if a callback function exists for when selecting a date
-            if (plugin.settings.onSelect && typeof plugin.settings.onSelect === 'function')
+            // (if time picker is enabled, we'll run the callback when the user clicks on the confirmation button)
+            if (!timepicker_config && plugin.settings.onSelect && typeof plugin.settings.onSelect === 'function')
 
                 // execute the callback function
                 // make "this" inside the callback function refer to the element the date picker is attached to
