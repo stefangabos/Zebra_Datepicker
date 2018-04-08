@@ -1,3 +1,16 @@
+## version 1.9.8 (April 08, 2018)
+
+- fixed some issues because of which the date picker was not working in IE6, 7 & 8
+- fixed an issue where on iOS and Microsoft Edge the `next` and `previous` buttons in the header were rendered as emoji characters; see https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11844964/
+- fixed some issues with the icon's positioning if the target element was explicitly positioned and/or it had margins; the icon's position now depends on the element's padding but can also be set via the newly added `icon_margin`property
+- for touch-enabled devices, when `readonly_element` is set to FALSE, wait for the virtual keyboard to appear before positioning the date picker; previously the date picker was being closed on this event
+- the date picker is not closing anymore when the screen is dragged (on touch devices)
+- fixed [#112](https://github.com/stefangabos/Zebra_Datepicker/issues/112)
+- fixed [#104](https://github.com/stefangabos/Zebra_Datepicker/issues/104)
+- fixed issue with the `onSelect` event being triggered multiple times if the time picker was enabled and not returning time when it should
+- improved user experience in examples
+- some documentation updates
+
 ## version 1.9.7 (December 03, 2017)
 
 - the date picker now also works as a time picker by setting time-related parts in the `format` property
