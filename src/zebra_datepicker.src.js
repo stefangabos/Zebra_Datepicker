@@ -1530,7 +1530,7 @@
                 if (plugin.settings.onClear && typeof plugin.settings.onClear === 'function')
 
                     // execute the callback function and pass as argument the element the plugin is attached to
-                    plugin.settings.onClear.call($element, $element);
+                    plugin.settings.onClear.call($element);
 
             });
 
@@ -1774,7 +1774,7 @@
                 if (plugin.settings.onClose && typeof plugin.settings.onClose === 'function')
 
                     // execute the callback function and pass as argument the element the plugin is attached to
-                    plugin.settings.onClose.call($element, $element);
+                    plugin.settings.onClose.call($element);
 
             }
 
@@ -1948,7 +1948,7 @@
             if (plugin.settings.onOpen && typeof plugin.settings.onOpen === 'function')
 
                 // execute the callback function and pass as argument the element the plugin is attached to
-                plugin.settings.onOpen.call($element, $element);
+                plugin.settings.onOpen.call($element);
 
         };
 
@@ -3342,7 +3342,7 @@
 
                 // execute the callback function and send as arguments the current view, the elements in the view, and
                 // the element the plugin is attached to
-                plugin.settings.onChange.call($element, view, elements, $element);
+                plugin.settings.onChange.call($element, view, elements);
 
             }
 
@@ -3512,7 +3512,7 @@
 
                 // execute the callback function
                 // make "this" inside the callback function refer to the element the date picker is attached to
-                plugin.settings.onSelect.call($element, selected_value, year + '-' + str_pad(month + 1, 2) + '-' + str_pad(day, 2), default_date, $element, getWeekNumber(default_date));
+                plugin.settings.onSelect.call($element, selected_value, year + '-' + str_pad(month + 1, 2) + '-' + str_pad(day, 2), default_date);
 
         };
 
