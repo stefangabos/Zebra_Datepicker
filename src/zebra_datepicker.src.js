@@ -1103,7 +1103,7 @@
                                 paddingTop:     marginTop,
                                 paddingRight:   marginRight,
                                 paddingBottom:  marginBottom,
-                                paddingLeft:    marginLeft,
+                                paddingLeft:    marginLeft
                             });
 
                         // if parent element has its "display" property set to "block"
@@ -1122,7 +1122,7 @@
                             marginTop:      0,
                             marginRight:    0,
                             marginBottom:   0,
-                            marginLeft:     0,
+                            marginLeft:     0
                         });
 
                         // create the actual calendar icon (show a disabled icon if the element is disabled)
@@ -1621,7 +1621,7 @@
             if (!(plugin.settings.always_visible instanceof jQuery)) {
 
                 // if we dragged the screen
-                $(document).on('touchmove.Zebra_DatePicker_' + uniqueid, function(e) {
+                $(document).on('touchmove.Zebra_DatePicker_' + uniqueid, function() {
 
                     // set this flag to TRUE
                     touchmove = true;
