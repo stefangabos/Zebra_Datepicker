@@ -2216,7 +2216,7 @@
 
                             // generate a Date object using the values entered by the user
                             // (handle also the case when original_month and/or original_day are undefined - i.e date format is "Y-m" or "Y")
-                            var date = new Date(original_year, (original_month || 1) - 1, original_day || 1, original_hours + (original_ampm === 'pm' ? 12 : 0), original_minutes, original_seconds);
+                            var date = new Date(original_year, (original_month || 1) - 1, original_day || 1, original_hours + (((original_ampm === 'pm' && original_hours < 12) || (original_ampm === 'am' && original_hours === 12)) ? 12 : 0), original_minutes, original_seconds);
 
                             // if, after that, the date is the same as the date entered by the user
                             if (date.getFullYear() === original_year && date.getDate() === (original_day || 1) && date.getMonth() === ((original_month || 1) - 1))
@@ -3443,7 +3443,11 @@
             var
 
                 // construct a new date object from the arguments
-                default_date = new Date(year, month, day, (timepicker_config && timepicker_config.hours ? selected_hour + (timepicker_config.ampm && selected_ampm === 'pm' ? 12 : 0) : 12), (timepicker_config && timepicker_config.minutes ? selected_minute : 0), (timepicker_config && timepicker_config.seconds ? selected_second : 0)),
+                default_date = new Date(year, month, day,
+                    (timepicker_config && timepicker_config.hours ? selected_hour + (timepicker_config.ampm && ((selected_ampm === 'pm' && selected_hour < 12) || (selected_ampm === 'am' && selected_hour === 12)) ? 12 : 0) : 0),
+                    (timepicker_config && timepicker_config.minutes ? selected_minute : 0),
+                    (timepicker_config && timepicker_config.seconds ? selected_second : 0)
+                ),
 
                 // pointer to the cells in the current view
                 view_cells = (rview === 'days' ? daypicker_cells : (rview === 'months' ? monthpicker_cells : yearpicker_cells)),
