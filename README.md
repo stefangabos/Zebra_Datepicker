@@ -544,11 +544,12 @@ var datepicker = $('selector').data('Zebra_DatePicker');
 
 Callback to be executed whenever the user changes the view (days/months/years), as well as when the user navigates by clicking on the "next"/"previous" icons in any of the views;
 
-The callback function called receives 3 arguments
+The callback function called receives 2 arguments
 
 - the current view (`days`, `months` or `years`)
 - an array containing the <em>active</em> elements (not disabled) from the view, as jQuery elements, allowing for easy customization and interaction with particular cells in the date picker's view
-- a reference to the element the date picker is attached to, as a jQuery object
+
+The `this` keyword inside the callback function refers to the element the date picker is attached to, as a jQuery object.
 
 For simplifying searching for particular dates, each element gets a "date" data attribute whose format depends on the value of the `view` argument as follows:
 
@@ -556,7 +557,7 @@ For simplifying searching for particular dates, each element gets a "date" data 
 - `YYYY-MM` for elements in the `months` view
 - `YYYY` for elements in the `years` view
 
-Here's how we could highlight the 24th day of each month of each year:
+Here's how we could highlight the 24<sup>th</sup> day of each month of each year:
 
 ```javascript
 $('selector').Zebra_DatePicker({
@@ -605,36 +606,31 @@ $('selector').Zebra_DatePicker({
 
 Callback function to be executed when the user clicks the <em>Clear</em> button.
 
-The callback function takes a single argument:
-
-- a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the "this" keyword inside the callback function to refer to the element the date picker is attached to)
+The callback function takes no arguments. The `this` keyword inside the callback function refers to the element the date picker is attached to, as a jQuery object.
 
 #### `onClose`
 
 Callback function to be executed when the date picker is closed.
 
-The callback function takes a single argument:
-
-- a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the "this" keyword inside the callback function to refer to the element the date picker is attached to)
+The callback function takes no arguments. The `this` keyword inside the callback function refers to the element the date picker is attached to, as a jQuery object.
 
 #### `onOpen`
 
 Callback function to be executed when the date picker is shown.
 
-The callback function takes a single argument:
-
-- a reference to the element the date picker is attached to, as a jQuery object (deprecated - use the "this" keyword inside the callback function to refer to the element the date picker is attached to)
+The callback function takes no arguments. The `this` keyword inside the callback function refers to the element the date picker is attached to, as a jQuery object.
 
 #### `onSelect`
 
 Callback function to be executed when a date is selected.
 
-The callback function takes 4 parameters:
+The callback function takes 3 arguments:
 
 - the date in the format specified by the <em>format</em> attribute
-- the date in <code>YYYY-MM-DD</code> format
+- the date in <code>YYYY-MM-DD</code> format and additionally hours, minutes and seconds if time picker is enabled
 - the date as a JavaScript Date object
-- a reference to the element the date picker is attached to, as a jQuery object
+
+`this` inside the callback function refers to the element the date picker is attached to, as a jQuery object
 
 ## Methods
 
