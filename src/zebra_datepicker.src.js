@@ -2044,7 +2044,7 @@
                         case 'd': regexp.push('0[1-9]|[12][0-9]|3[01]'); break;
                         case 'D': regexp.push('[a-z]{3}'); break;
                         case 'j': regexp.push('[1-9]|[12][0-9]|3[01]'); break;
-                        case 'l': regexp.push('[a-z]+'); break;
+                        case 'l': regexp.push('[a-z\u00C0-\u024F]+'); break;
                         case 'N': regexp.push('[1-7]'); break;
                         case 'S': regexp.push('st|nd|rd|th'); break;
                         case 'w': regexp.push('[0-6]'); break;
