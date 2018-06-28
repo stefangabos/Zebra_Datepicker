@@ -526,6 +526,9 @@
             // if the element should be read-only, set the "readonly" attribute
             if (plugin.settings.readonly_element) $element.attr('readonly', 'readonly');
 
+            // otherwise remove it (in case it is present)
+            else $element.removeAttr('readonly');
+
             // assume there's no timepicker
             timepicker_config = false;
 
