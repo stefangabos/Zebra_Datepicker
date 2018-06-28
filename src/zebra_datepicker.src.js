@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.8 (last revision: April 08, 2018)
+ *  @version    1.9.8 (last revision: June 28, 2018)
  *  @copyright  (c) 2011 - 2018 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -124,6 +124,13 @@
                 //  default is 0 (no restrictions)
                 direction: 0,
 
+                //  by default, setting a format that also involves time (h, H, g, G, i, s, a, A) will automatically enable
+                //  the time picker. if you want to use a format that involves time but you don't want the time picker, set
+                //  this property to TRUE.
+                //
+                //  default is FALSE
+                disable_time_picker: false,
+
                 //  an array of disabled dates in the following format: 'day month year weekday' where "weekday" is optional
                 //  and can be 0-6 (Saturday to Sunday); the syntax is similar to cron's syntax: the values are separated by
                 //  spaces and may contain * (asterisk) - (dash) and , (comma) delimiters:
@@ -178,7 +185,8 @@
                 //  'M', 'n') or just years ('Y', 'y'), users will be able to select only months and years, respectively.
                 //
                 //  setting a format that also involves time (h, H, g, G, i, s, a, A) will automatically enable the time
-                //  picker.
+                //  picker. if you want to use a format that involves time but you don't want the time picker, set the
+                //  "disable_time_picker" property to TRUE.
                 //
                 //  also note that the value of the "view" property (see below) may be overridden if it is the case: a value of
                 //  "days" for the "view" property makes no sense if the date format doesn't allow the selection of days.
@@ -548,8 +556,8 @@
                         // if user can cycle through the "years" view
                         else if (type === 'years') views.push('years');
 
-                        // if time is available in the date's format
-                        else if (type === 'hours' || type === 'minutes' || type === 'seconds' || type === 'ampm') {
+                        // if time is available in the date's format and time picker is not explicitly disabled
+                        else if ((type === 'hours' || type === 'minutes' || type === 'seconds' || type === 'ampm') && !plugin.settings.disable_time_picker) {
 
                             // if variable is not yet initialized
                             if (!timepicker_config) {

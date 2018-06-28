@@ -220,6 +220,13 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
+        <td valign="top"><a name="disable_time_picker"></a><strong>disable_time_picker</strong></td>
+        <td valign="top"><em>boolean</em></td>
+        <td valign="top"><code>false</code></td>
+        <td valign="top">By default, setting a format that also involves time (<code>h</code>, <code>H</code>, <code>g</code>, <code>G</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>) will automatically enable the time picker. if you want to use a format that involves time but you don't want the time picker, set this property to <code>TRUE</code>.
+        </td>
+    </tr>
+    <tr>
         <td valign="top"><a name="disabled_dates"></a><strong>disabled_dates</strong></td>
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>FALSE</code><br><small>no disabled dates</small></td>
@@ -287,7 +294,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top">
             Format of the returned date.<br><br>
             Accepts the following characters for date formatting: <code>d</code>, <code>D</code>, <code>j</code>, <code>l</code>, <code>N</code>, <code>w</code>, <code>S</code>, <code>F</code>, <code>m</code>, <code>M</code>, <code>n</code>, <code>Y</code>, <code>y</code>, <code>h</code>, <code>H</code>, <code>g</code>, <code>G</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>, borrowing the syntax from PHP's <a href="http://php.net/manual/en/function.date.php">date</a> function.<br><br>
-            If <code>format</code> property contains time-related characters (<code>g</code>, <code>G</code>, <code>h</code>, <code>H</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>), the time picker will be automatically enabled.<br><br>
+            If <code>format</code> property contains time-related characters (<code>g</code>, <code>G</code>, <code>h</code>, <code>H</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>), the time picker will be automatically enabled.<br><br><blockquote>If you want to use a format that involves time but you don't want the time picker, set the <code>disable_time_picker</code> property to TRUE.</blockquote>
             Note that when setting a date format without days (<code>d</code>, <code>j</code>), the users will be able to select only years and months, and when setting a format without months and days (<code>F</code>, <code>m</code>, <code>M</code>, <code>n</code>, <code>t</code>, <code>d</code>, <code>j</code>), the users will be able to select only years. Similarly, setting a format that contains only time-related characters, will result in users being able to only select time.<br><br>
             Also note that the value of the <em>view</em> property may be overridden if it is the case (i.e. a value of <em>days</em> for the <em>view</em> property makes no sense if the date format doesn't allow the selection of days).
         </td>
