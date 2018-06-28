@@ -1558,8 +1558,8 @@
 
                 // as users may click this before making any adjustments to time, simulate time adjustment so that
                 // a value is selected
-                $('.dp_time_controls_increase td').trigger('click');
-                $('.dp_time_controls_decrease td').trigger('click');
+                $('.dp_time_controls_increase td', timepicker).trigger('click');
+                $('.dp_time_controls_decrease td', timepicker).trigger('click');
 
                 // if a callback function exists for when selecting a date
                 if (plugin.settings.onSelect && typeof plugin.settings.onSelect === 'function') {
