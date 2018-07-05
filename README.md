@@ -710,4 +710,4 @@ datepicker.update();
 
 ## Demo
 
-See the [demos](http://stefangabos.github.io/Zebra_Datepicker/)
+See the [demos](https://stefangabos.github.io/Zebra_Datepicker/)
