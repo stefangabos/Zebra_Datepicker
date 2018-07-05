@@ -30,6 +30,12 @@ Zebra_Datepicker is a small yet and highly configurable date/time picker jQuery 
 
 ![Themes](https://raw.github.com/stefangabos/Zebra_Datepicker/master/examples/themes.png)
 
+## Sponsors
+
+Cross browser/device testing is done with
+
+[![BrowserStack](https://github.com/stefangabos/Zebra_Dialog/raw/master/examples/browserstack.png)](https://www.browserstack.com/)
+
 ## Requirements
 
 Zebra_Datepicker has no dependencies other than jQuery 1.7.0+ and requires that the page you are using the plugin on to have a strict doctype like:
