@@ -77,8 +77,8 @@ Load the Zebra_Datepicker jQuery plugin:
 
 Alternatively, you can load Zebra_Datepicker from [JSDelivr CDN](https://www.jsdelivr.com/package/npm/zebra_datepicker) like this:
 ```html
-<!-- for the most recent version -->
-<script src="https://cdn.jsdelivr.net/npm/zebra_datepicker/dist/zebra_datepicker.min.js"></script>
+<!-- for the most recent version, not recommended in production -->
+<script src="https://cdn.jsdelivr.net/npm/zebra_datepicker@latest/dist/zebra_datepicker.min.js"></script>
 
 <!-- for a specific version -->
 <script src="https://cdn.jsdelivr.net/npm/zebra_datepicker@1.9.6/dist/zebra_datepicker.min.js"></script>
@@ -96,10 +96,10 @@ Load the style sheet file from a local source
 
 ```html
 <!-- for the most recent version of the "default" theme -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/zebra_datepicker/dist/css/default/zebra_datepicker.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/zebra_datepicker@latest/dist/css/default/zebra_datepicker.min.css">
 
 <!-- for the most recent version of the "bootstrap" theme -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/zebra_datepicker/dist/css/bootstrap/zebra_datepicker.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/zebra_datepicker@latest/dist/css/bootstrap/zebra_datepicker.min.css">
 
 <!-- replacing "min" with "src" will serve you the non-compressed version -->
 ```
