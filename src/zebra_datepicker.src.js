@@ -455,15 +455,16 @@
             yearpicker_cells, view, views, is_touch = false,
 
             // are we running on an iOS powered device?
-            is_iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+            is_iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform),
 
-        var plugin = this;
+            // to avoid confusions, we use "plugin" to reference the current instance of the object
+            plugin = this,
+
+            // the jQuery version of the element
+            // "element" (without the $) will point to the DOM element
+            $element = $(element);
 
         plugin.settings = {};
-
-        // the jQuery version of the element
-        // "element" (without the $) will point to the DOM element
-        var $element = $(element);
 
         /**
          *  Constructor method. Initializes the date picker.
@@ -1150,7 +1151,7 @@
                     clickables.on('click.Zebra_DatePicker_' + uniqueid + (plugin.settings.open_on_focus ? ' focus.Zebra_DatePicker_' + uniqueid : ''), function() {
 
                         // if date picker is not visible and element is not disabled
-                        if (datepicker.hasClass('dp_hidden') && !$element.attr('disabled')) {
+                        if (datepicker.hasClass('dp_hidden') && !$element.attr('disabled'))
 
                             // if not a touch-enabled device or the element is read-only, show the date picker right away
                             if (!(is_touch && !plugin.settings.readonly_element)) plugin.show();
@@ -1167,8 +1168,6 @@
                                 }, 600);
 
                             }
-
-                        }
 
                     });
 
