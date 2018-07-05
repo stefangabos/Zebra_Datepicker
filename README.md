@@ -8,6 +8,10 @@
 
 Zebra_Datepicker is a small yet and highly configurable date/time picker jQuery plugin, meant to enrich forms by adding the date/time picker functionality to them. This jQuery plugin will automatically add a calendar icon to the indicated input fields which, when clicked, will open the attached datepicker. Users can easily jump between months and years due to the datepicker's intuitive interface. The selected date will be entered in the input field using the date format of choice, configurable in the datepicker's options.
 
+## Support the development of this project
+
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QTQH936BQDE7A)
+
 ## Features
 
  - it is small – it weights around 30KB minified (9.1KB gzipped) offering the best ratio of features per used bytes
