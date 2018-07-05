@@ -65,8 +65,8 @@ bower install zebra_datepicker --save
 First, load jQuery from a CDN and provide a fallback to a local source like:
 
 ```html
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script>window.jQuery || document.write('<script src="path/to/jquery-3.2.1.js"><\/script>')</script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>window.jQuery || document.write('<script src="path/to/jquery-3.3.1.js"><\/script>')</script>
 ```
 
 Load the Zebra_Datepicker jQuery plugin:
