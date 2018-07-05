@@ -48,14 +48,16 @@ Zebra_Datepicker has no dependencies other than jQuery 1.7.0+ and requires that 
 
 Zebra_Datepicker is available as a [npm package](https://www.npmjs.com/package/zebra_datepicker). To install it use:
 
-```
-npm install zebra_datepicker
+```bash
+# the "--save" argument adds the plugin as a dependency in packages.json
+npm install zebra_datepicker --save
 ```
 
 Zebra_Datepicker is also available as a [Bower package](http://bower.io/). To install it use:
 
-```
-bower install zebra_datepicker
+```bash
+# the "--save" argument adds the plugin as a dependency in bower.json
+bower install zebra_datepicker --save
 ```
 
 ## How to use
