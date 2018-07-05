@@ -448,7 +448,7 @@
             first_selectable_month, first_selectable_year, footer, header, icon, last_selectable_day, last_selectable_month,
             last_selectable_year, monthpicker, monthpicker_cells, original_attributes = {}, selected_hour, selected_minute,
             selected_second, selected_ampm, view_toggler, selected_month, selected_year, selecttoday, shim,
-            show_select_today, start_date, timepicker, timepicker_config, touchmove = false, uniqueid = '', yearpicker,
+            show_select_today, start_date, timeout, timepicker, timepicker_config, touchmove = false, uniqueid = '', yearpicker,
             yearpicker_cells, view, views, is_touch = false,
 
             // are we running on an iOS powered device?
@@ -1147,16 +1147,25 @@
                     clickables.on('click.Zebra_DatePicker_' + uniqueid + (plugin.settings.open_on_focus ? ' focus.Zebra_DatePicker_' + uniqueid : ''), function() {
 
                         // if date picker is not visible and element is not disabled
-                        if (datepicker.hasClass('dp_hidden') && !$element.attr('disabled'))
+                        if (datepicker.hasClass('dp_hidden') && !$element.attr('disabled')) {
 
-                            // show the date picker
-                            setTimeout(function() {
-                                plugin.show();
-                            }, (
-                                // for touch-enabled devices when element is not readonly, wait for 600 miliseconds for
-                                // the virtual keyboard to appear and show the date picker afterwards
-                                is_touch && !plugin.settings.readonly_element ? 600 : 0
-                            ));
+                            // if not a touch-enabled device or the element is read-only, show the date picker right away
+                            if (!(is_touch && !plugin.settings.readonly_element)) plugin.show();
+
+                            // if touch-enabled device and the element is not read-only
+                            else {
+
+                                // stop a previously started timeout, if any
+                                clearTimeout(timeout);
+
+                                // wait for 600 milliseconds for the virtual keyboard to appear and show the date picker afterwards
+                                timeout = setTimeout(function() {
+                                    plugin.show()
+                                }, 600);
+
+                            }
+
+                        }
 
                     });
 
