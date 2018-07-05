@@ -708,6 +708,20 @@ var datepicker = $('selector').data('Zebra_DatePicker');
 datepicker.update();
 ```
 
+## Global options
+
+If you have multiple date pickers that share common options you can set these options like this:
+
+```javascript
+// this needs to be called only once and does
+// not have to be called from within a "ready" block!
+$.fn.Zebra_DatePicker.defaults = {
+    // any valid options
+}
+```
+
+Any options set like this will be applied to **all** the newly created date picker. Obviously, options set at the creation of any new date picker would overwrite the respective defaults.
+
 ## Demo
 
 See the [demos](https://stefangabos.github.io/Zebra_Datepicker/)

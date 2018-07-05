@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.8 (last revision: July 05, 2018)
+ *  @version    1.9.9 (last revision: July 05, 2018)
  *  @copyright  (c) 2011 - 2018 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -499,7 +499,7 @@
             if (!update) {
 
                 // merge default settings with user-settings (
-                plugin.settings = $.extend({}, defaults, options);
+                plugin.settings = $.extend({}, defaults, $.fn.Zebra_DatePicker.defaults, options);
 
                 // preserve some of element's original attributes
                 original_attributes['readonly'] = $element.attr('readonly');
@@ -3775,5 +3775,8 @@
         });
 
     };
+
+    // this is used for setting global defaults, that will be applied to all date pickers
+    $.fn.Zebra_DatePicker.defaults = {};
 
 }));
