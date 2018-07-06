@@ -1,3 +1,13 @@
+## version 1.9.9 (July 06, 2018)
+
+- global defaults can now be set; see [#110](https://github.com/stefangabos/Zebra_Datepicker/issues/110) and [#94](https://github.com/stefangabos/Zebra_Datepicker/issues/94)
+- setting the `readonly_element` property to `FALSE` will now unset the `readonly` attribute from the element, if present; see [#109](https://github.com/stefangabos/Zebra_Datepicker/issues/109)
+- fixed a bug where on pages with multiple time pickers, selecting a time on one would select the time on all other time pickers that are empty; see [#115](https://github.com/stefangabos/Zebra_Datepicker/issues/115) and thank you [michealharrington](https://github.com/michealharrington)!
+- added a new `disable_time_picker` property for explicitly disabling the time picker even if format includes time-related characters; see [#118](https://github.com/stefangabos/Zebra_Datepicker/issues/118)
+- fixed an issue on Android devices; see [#116](https://github.com/stefangabos/Zebra_Datepicker/issues/116)
+- allow accented chars in weekday name; see [#120](https://github.com/stefangabos/Zebra_Datepicker/issues/120)
+- added version number as a public property - useful to find out the version number even if all you have is the minified source code; see [#96](https://github.com/stefangabos/Zebra_Datepicker/issues/96)
+
 ## version 1.9.8 (April 08, 2018)
 
 - fixed some issues because of which the date picker was not working in IE6, 7 & 8
