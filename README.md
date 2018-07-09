@@ -26,6 +26,10 @@ Zebra_Datepicker is a small yet and highly configurable date/time picker jQuery 
 
 [![Themes](https://raw.github.com/stefangabos/Zebra_Datepicker/master/examples/themes.png)](https://stefangabos.github.io/Zebra_Datepicker/)
 
+## Demo
+
+See the [demos](https://stefangabos.github.io/Zebra_Datepicker/)
+
 ## Support the development of this project
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QTQH936BQDE7A)
