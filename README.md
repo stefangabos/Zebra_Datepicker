@@ -1,12 +1,12 @@
 <img src="https://raw.githubusercontent.com/stefangabos/zebrajs/master/docs/images/logo.png" alt="zebrajs" align="right">
 
-# Zebra_Datepicker
+# Zebra Datepicker
 
 *A super-lightweight, highly configurable, cross-browser date/time picker jQuery plugin*
 
 [![npm](https://img.shields.io/npm/v/zebra_datepicker.svg)](https://www.npmjs.com/package/zebra_datepicker) [![Total](https://img.shields.io/npm/dt/zebra_datepicker.svg)](https://www.npmjs.com/package/zebra_datepicker) [![Monthly](https://img.shields.io/npm/dm/zebra_datepicker.svg)](https://www.npmjs.com/package/zebra_datepicker) [![JSDelivr](https://data.jsdelivr.com/v1/package/npm/zebra_datepicker/badge?style=rounded)](https://www.jsdelivr.com/package/npm/zebra_datepicker) [![License](https://img.shields.io/npm/l/zebra_datepicker.svg)](https://github.com/stefangabos/Zebra_Datepicker/blob/master/LICENSE.md)
 
-Zebra_Datepicker is a small yet and highly configurable date/time picker jQuery plugin, meant to enrich forms by adding the date/time picker functionality to them. This jQuery plugin will automatically add a calendar icon to the indicated input fields which, when clicked, will open the attached datepicker. Users can easily jump between months and years due to the datepicker's intuitive interface. The selected date will be entered in the input field using the date format of choice, configurable in the datepicker's options.
+Zebra_Datepicker is a small yet and highly configurable date picker / time picker jQuery plugin, meant to enrich forms by adding the date/time picker functionality to them. This jQuery plugin will automatically add a calendar icon to the indicated input fields which, when clicked, will open the attached date picker. Users can easily jump between months and years due to the date picker's intuitive interface. The selected date will be entered in the input field using the date format of choice, configurable in the date picker's options.
 
 ## Features
 
@@ -21,7 +21,7 @@ Zebra_Datepicker is a small yet and highly configurable date/time picker jQuery 
  - supports all sorts of combinations for starting and ending dates
  - date pickers can be "paired" – where one or more date pickers will use the value of another date picker as starting date
  - supports internationalization
- - works by automatically attaching a small calendar icon to the indicated input fields which displays the attached datepicker when clicked.
+ - works by automatically attaching a small calendar icon to the indicated input fields which displays the attached date picker when clicked.
  - it's compatible with AMD and CommonJS
 
 [![Themes](https://raw.github.com/stefangabos/Zebra_Datepicker/master/examples/themes.png)](https://stefangabos.github.io/Zebra_Datepicker/)
@@ -42,7 +42,7 @@ Cross browser/device testing is done with
 
 ## Requirements
 
-Zebra_Datepicker has no dependencies other than jQuery 1.7.0+ and requires that the page you are using the plugin on to have a strict doctype like:
+Zebra Datepicker has no dependencies other than jQuery 1.7.0+ and requires that the page you are using the plugin on to have a strict doctype like:
 
 ```html
 <!doctype html>
@@ -50,14 +50,14 @@ Zebra_Datepicker has no dependencies other than jQuery 1.7.0+ and requires that 
 
 ## Installation
 
-Zebra_Datepicker is available as a [npm package](https://www.npmjs.com/package/zebra_datepicker). To install it use:
+Zebra Datepicker is available as a [npm package](https://www.npmjs.com/package/zebra_datepicker). To install it use:
 
 ```bash
 # the "--save" argument adds the plugin as a dependency in packages.json
 npm install zebra_datepicker --save
 ```
 
-Zebra_Datepicker is also available as a [Bower package](http://bower.io/). To install it use:
+Zebra Datepicker is also available as a [Bower package](http://bower.io/). To install it use:
 
 ```bash
 # the "--save" argument adds the plugin as a dependency in bower.json
@@ -73,13 +73,13 @@ First, load jQuery from a CDN and provide a fallback to a local source like:
 <script>window.jQuery || document.write('<script src="path/to/jquery-3.3.1.js"><\/script>')</script>
 ```
 
-Load the Zebra_Datepicker jQuery plugin:
+Load the Zebra Datepicker jQuery plugin:
 
 ```html
 <script src="path/to/zebra_datepicker.min.js"></script>
 ```
 
-Alternatively, you can load Zebra_Datepicker from [JSDelivr CDN](https://www.jsdelivr.com/package/npm/zebra_datepicker) like this:
+Alternatively, you can load Zebra Datepicker from [JSDelivr CDN](https://www.jsdelivr.com/package/npm/zebra_datepicker) like this:
 ```html
 <!-- for the most recent version, not recommended in production -->
 <script src="https://cdn.jsdelivr.net/npm/zebra_datepicker@latest/dist/zebra_datepicker.min.js"></script>
@@ -108,7 +108,7 @@ Load the style sheet file from a local source
 <!-- replacing "min" with "src" will serve you the non-compressed version -->
 ```
 
-Now, within the DOM-ready event, attach the Zebra_Datepicker plugin to a `<input type="text">` control
+Now, within the DOM-ready event, attach the Zebra Datepicker plugin to a `<input type="text">` control
 
 ```javascript
 $(document).ready(function() {
@@ -122,7 +122,7 @@ $(document).ready(function() {
 
 This will attach a calendar and to the specified element(s). Clicking the icon, will make the date picker visible.
 
-To get a reference to the instance of Zebra_DatePicker attached to an element do:
+To get a reference to the instance of Zebra DatePicker attached to an element do:
 
 ```javascript
 var datepicker = $('selector').data('Zebra_DatePicker');
@@ -327,7 +327,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
             </small>
         </td>
         <td valign="top">
-            Captions in the datepicker's header, for the 3 possible views: <code>days</code>, <code>months</code>, <code>years</code><br><br>
+            Captions in the date picker's header, for the 3 possible views: <code>days</code>, <code>months</code>, <code>years</code><br><br>
             For each of the 3 views the following special characters may be used borrowing from PHP's <a href="http://php.net/manual/en/function.date.php">date</a> function's syntax: <code>m</code>, <code>n</code>, <code>F</code>, <code>M</code>, <code>y</code> and <code>Y</code>; any of these will be replaced at runtime with the appropriate date fragment, depending on the currently viewed date. two more special characters are also available <code>Y1</code> and <code>Y2</code> (upper case representing years with 4 digits, lowercase representing years with 2 digits) which represent <code>currently selected year - 7</code> and <code>currently selected year + 4</code> and which are used only in the <code>years</code> view.<br><br>
             Even though any of these special characters may be used in any of the 3 views, you should use <code>m</code>, <code>n</code>, <code>F</code>, <code>M</code> for the <code>days</code> view and <code>y</code>, <code>Y</code>, <code>Y1</code>, <code>Y2</code>, <code>y1</code>, <code>y2</code> for the <code>months</code> and <code>years</code> view or you may get unexpected results!<br><br>
             Text and HTML can also be used, and will be rendered as it is, as in the example below (the library is smart enough to not replace special characters when used in words or HTML tags):<br><br>
@@ -364,7 +364,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>TRUE</code></td>
         <td valign="top">
-            Should the icon for opening the datepicker be inside the element?<br><br>
+            Should the icon for opening the date picker be inside the element?<br><br>
             If set to <code>FALSE</code>, the icon will be placed to the right of the parent element, while if set to <code>TRUE</code> it will be placed to the right of the parent element, but <em>inside</em> the element itself
         </td>
     </tr>
@@ -431,7 +431,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><em>object</em></td>
         <td valign="top"><code>FALSE</code><br><small>not paired with another date picker</small></td>
         <td valign="top">
-            If set as one or more jQuery elements with Zebra_Datepicker attached, those particular date pickers will use the current date picker's value as starting date<br><br>
+            If set as one or more jQuery elements with Zebra Datepicker attached, those particular date pickers will use the current date picker's value as starting date<br><br>
             Note that the rules set in the <em>direction</em> property will still apply but the reference date will not be the current system date but the value selected in the current date picker.<br><br>
             <blockquote>Use this property only on the date picker containing the "starting date" and not also on the one with the "ending date", or the <code>direction</code> property of the second date picker will not work as expected!<blockquote>
         </td>
