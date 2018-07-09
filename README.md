@@ -30,16 +30,6 @@ Zebra_Datepicker is a small yet and highly configurable date picker / time picke
 
 See the [demos](https://stefangabos.github.io/Zebra_Datepicker/)
 
-## Support the development of this project
-
-[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QTQH936BQDE7A)
-
-## Sponsors
-
-Cross browser/device testing is done with
-
-[![BrowserStack](https://github.com/stefangabos/Zebra_Dialog/raw/master/examples/browserstack.png)](https://www.browserstack.com/)
-
 ## Requirements
 
 Zebra Datepicker has no dependencies other than jQuery 1.7.0+ and requires that the page you are using the plugin on to have a strict doctype like:
@@ -82,10 +72,12 @@ Load the Zebra Datepicker jQuery plugin:
 Alternatively, you can load Zebra Datepicker from [JSDelivr CDN](https://www.jsdelivr.com/package/npm/zebra_datepicker) like this:
 ```html
 <!-- for the most recent version, not recommended in production -->
-<script src="https://cdn.jsdelivr.net/npm/zebra_datepicker@latest/dist/zebra_datepicker.min.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/zebra_datepicker@latest/dist/zebra_datepicker.min.js"></script>
 
 <!-- for a specific version -->
-<script src="https://cdn.jsdelivr.net/npm/zebra_datepicker@1.9.6/dist/zebra_datepicker.min.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/zebra_datepicker@1.9.6/dist/zebra_datepicker.min.js"></script>
 
 <!-- replacing "min" with "src" will serve you the non-compressed version -->
 ```
@@ -100,10 +92,14 @@ Load the style sheet file from a local source
 
 ```html
 <!-- for the most recent version of the "default" theme -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/zebra_datepicker@latest/dist/css/default/zebra_datepicker.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/zebra_datepicker@latest/dist/css/default/zebra_datepicker.min.css">
 
 <!-- for the most recent version of the "bootstrap" theme -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/zebra_datepicker@latest/dist/css/bootstrap/zebra_datepicker.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/zebra_datepicker@latest/dist/css/bootstrap/zebra_datepicker.min.css">
 
 <!-- replacing "min" with "src" will serve you the non-compressed version -->
 ```
@@ -726,6 +722,12 @@ $.fn.Zebra_DatePicker.defaults = {
 
 Any options set like this will be applied to **all** the newly created date picker. Obviously, options set at the creation of any new date picker would overwrite the respective defaults.
 
-## Demo
+## Support the development of this project
 
-See the [demos](https://stefangabos.github.io/Zebra_Datepicker/)
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QTQH936BQDE7A)
+
+## Sponsors
+
+Cross browser/device testing is done with
+
+[![BrowserStack](https://github.com/stefangabos/Zebra_Dialog/raw/master/examples/browserstack.png)](https://www.browserstack.com/)
