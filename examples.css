@@ -1,20 +1,9 @@
 body {
-    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    font-family: Tahoma, Helvetica, Arial, sans-serif;
 }
 
 .syntaxhighlighter {
     padding: 1em 0;
-}
-
-p a {
-    text-decoration: underline;
-    font-weight: bold;
-}
-
-.top {
-    position: relative;
-    margin-left: 10px;
-    top: -10px;
 }
 
 .Zebra_DatePicker .dp_daypicker .myclass {
@@ -26,4 +15,3 @@ p a {
     background: #FFF url('close.png') no-repeat center center;
     text-indent: -9999px;
 }
-

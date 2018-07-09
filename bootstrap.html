@@ -7,12 +7,11 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Zebra_Datepicker is a super-lightweight, highly configurable, cross-browser date picker jQuery plugin">
-        <link rel="shortcut icon" href="favicon.ico">
-        <title>Zebra_Datepicker - a super-lightweight, highly configurable, cross-browser date picker jQuery plugin</title>
+        <meta name="description" content="Zebra Datepicker is a super-lightweight, highly configurable, cross-browser date picker jQuery plugin">
+        <title>Zebra Datepicker - a super-lightweight, highly configurable, cross-browser date picker jQuery plugin</title>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/united/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCoreDefault.min.css" />
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/zebra_datepicker@latest/dist/css/bootstrap/zebra_datepicker.css" type="text/css">
@@ -32,7 +31,17 @@
 
     <body>
 
-        <a href="https://github.com/stefangabos/Zebra_Datepicker"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Zebra Datepicker</h1>
+                <p>a super-lightweight, highly configurable, cross-browser date picker jQuery plugin</p>
+                <hr>
+                <p>
+                    <a href="https://github.com/stefangabos/Zebra_Datepicker/archive/master.zip" class="btn btn-primary btn-lg" role="button" style="text-decoration: none">Download</a>
+                    <a href="https://github.com/stefangabos/Zebra_Datepicker" class="btn btn-primary btn-lg" role="button" style="text-decoration: none">View on GitHub</a>
+                </p>
+            </div>
+        </div>
 
         <div class="container">
 
@@ -40,17 +49,13 @@
 
                 <div class="col-xs-12">
 
-                    <div class="page-header">
-                        <h1>Zebra_Datepicker Demos</h1>
-                    </div>
+                    <blockquote class="bg-warning"><small class="text-warning">See the examples with the date pickers having the <a href="index.html">default</a> theme or the <a href="metallic.html">metallic</a> theme.</small></blockquote>
 
-                    <blockquote class="bg-info"><small>See the examples using the <a href="index.html">default</a> theme or the <a href="metallic.html">metallic</a> theme.</small></blockquote>
-
-                    <p>Zebra_Datepicker is a small, compact and highly configurable datepicker jQuery plugin, meant to
-                    enrich forms by adding the datepicker functionality to them. This jQuery plugin will automatically add
-                    a calendar icon to the indicated input fields which, when clicked, will open the attached datepicker.
-                    Users can easily jump between months and years due to the datepicker’s intuitive interface. The selected
-                    date will be entered in the input field using the date format of choice, configurable in the datepicker’s options.</p>
+                    <p>Zebra Datepicker is a small, compact and highly configurable date picker / time picker jQuery plugin, meant to
+                    enrich forms by adding the date picker functionality to them. This jQuery plugin will automatically add
+                    a calendar icon to the indicated input fields which, when clicked, will open the attached date picker.
+                    Users can easily jump between months and years due to the date pickers intuitive interface. The selected
+                    date will be entered in the input field using the date format of choice, configurable in the date picker's options.</p>
 
                     <hr>
 
@@ -85,7 +90,7 @@
 
                     <p>
                         All dates are selectable, no restrictions.<br>
-                        There are <strong>a lot</strong> of things that can be <a href="https://github.com/stefangabos/Zebra_Datepicker#properties" target="_blank">configured</a>!
+                        There are <strong>a lot</strong> of things that can be <a href="https://github.com/stefangabos/Zebra_Datepicker#properties">configured</a>!
                     </p>
 
                     <pre class="brush:js">
@@ -110,7 +115,7 @@
 
                     <p>
                         All past dates, including today, are disabled.<br>
-                        Read more about using the <a href="https://github.com/stefangabos/Zebra_Datepicker#user-content-direction" target="_blank">direction</a> property.
+                        Read more about using the <a href="https://github.com/stefangabos/Zebra_Datepicker#user-content-direction">direction</a> property.
                     </p>
 
                     <pre class="brush:js">
@@ -137,7 +142,7 @@
 
                     <p>
                         The selectable dates are in the interval starting tomorrow and ending 10 days after that.<br>
-                        Read more about using the <a href="https://github.com/stefangabos/Zebra_Datepicker#user-content-direction" target="_blank">direction</a> property.
+                        Read more about using the <a href="https://github.com/stefangabos/Zebra_Datepicker#user-content-direction">direction</a> property.
                     </p>
 
                     <pre class="brush:js">
@@ -164,7 +169,7 @@
 
                     <p>
                         Dates in the <code>direction</code> property have to be written in the date picker's <a href="https://github.com/stefangabos/Zebra_Datepicker#user-content-format">date format</a>.<br>
-                        Read more about using the <a href="https://github.com/stefangabos/Zebra_Datepicker#user-content-direction" target="_blank">direction</a> property.
+                        Read more about using the <a href="https://github.com/stefangabos/Zebra_Datepicker#user-content-direction">direction</a> property.
                     </p>
 
                     <pre class="brush:js">
@@ -191,7 +196,7 @@
 
                     <p>
                         Dates in the <code>direction</code> property have to be written in the date picker's <a href="https://github.com/stefangabos/Zebra_Datepicker#user-content-format">date format</a>.<br>
-                        Read more about using the <a href="https://github.com/stefangabos/Zebra_Datepicker#user-content-direction" target="_blank">direction</a> property.
+                        Read more about using the <a href="https://github.com/stefangabos/Zebra_Datepicker#user-content-direction">direction</a> property.
                     </p>
 
                     <pre class="brush:js">
@@ -220,13 +225,13 @@
                         Allow future dates only including the current day.<br>
                         All past dates are disabled.<br>
                         Saturday and Sundays are disabled.<br>
-                        Read more about using the <a href="https://github.com/stefangabos/Zebra_Datepicker#user-content-direction" target="_blank">direction</a> property and about <a href="https://github.com/stefangabos/Zebra_Datepicker#user-content-disabled_dates" target="_blank">disabling dates</a>.
+                        Read more about using the <a href="https://github.com/stefangabos/Zebra_Datepicker#user-content-direction">direction</a> property and about <a href="https://github.com/stefangabos/Zebra_Datepicker#user-content-disabled_dates">disabling dates</a>.
                     </p>
 
                     <pre class="brush:js">
                     $('#datepicker').Zebra_DatePicker({
                         direction: true,
-                        disabled_dates: ['* * * 0,6']   // all days, all monts, all years as long
+                        disabled_dates: ['* * * 0,6']   // all days, all months, all years as long
                                                         // as the weekday is 0 or 6 (Sunday or Saturday)
                     });
                     </pre>
@@ -378,7 +383,7 @@
                     <h3><a name="week-number"></a><strong>11.</strong> Showing week numbers</h3>
 
                     <p>
-                        Show the <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> week number.
+                        Show the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> week number.
                     </p>
 
                     <pre class="brush:js">
@@ -576,7 +581,7 @@
                     <p>
                         All the properties of the date picker can also be set via <code>data-attributes</code>.<br>
 
-                        All you have to do is take any property described in the <code>Configuration</code> section and
+                        All you have to do is take any property described in the <a href="https://github.com/stefangabos/Zebra_Datepicker#configuration-options">configuration</a> section and
                         prefix it with <code>data-zdp_</code>.<br>
 
                         Remember that if the value of the property is an array, you will have to use <em>double
@@ -598,6 +603,16 @@
                             </div>
                         </div>
                     </div>
+
+                    <a href="#top" class="pull-right clearfix top small">To the top</a>
+
+                    <hr>
+
+                    <br><br><br>
+
+                    <p class="text-center"><small>copyright &copy; 2012-2018 <a href="https://github.com/stefangabos/">stefan gabos</a></small></p>
+
+                    <br>
 
                 </div>
 
