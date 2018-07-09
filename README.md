@@ -24,7 +24,7 @@ Zebra_Datepicker is a small yet and highly configurable date/time picker jQuery 
  - works by automatically attaching a small calendar icon to the indicated input fields which displays the attached datepicker when clicked.
  - it's compatible with AMD and CommonJS
 
-![Themes](https://raw.github.com/stefangabos/Zebra_Datepicker/master/examples/themes.png)
+[![Themes](https://raw.github.com/stefangabos/Zebra_Datepicker/master/examples/themes.png)](https://stefangabos.github.io/Zebra_Datepicker/)
 
 ## Support the development of this project
 
