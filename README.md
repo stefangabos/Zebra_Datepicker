@@ -104,6 +104,8 @@ Load the style sheet file from a local source
 <!-- replacing "min" with "src" will serve you the non-compressed version -->
 ```
 
+> Zebra Datepicker is also available on [cdnjs](https://cdnjs.com/libraries/Zebra_datepicker), one of the most famous free and public web front-end CDN services
+
 Now, within the DOM-ready event, attach the Zebra Datepicker plugin to a `<input type="text">` control
 
 ```javascript
