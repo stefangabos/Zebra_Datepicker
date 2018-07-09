@@ -134,7 +134,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
 
 > All parameters are optional.
 
-*Note that any of the properties below may also be set via data attributes. To do this you have prefix the name of the property you want to set with `data-zdp_`. One important thing to remember is that if the value of the property is an array you’ll have to use double quotes inside the square brackets and therefore single quotes around the attribute. See example 14 in the demos.*
+*Note that any of the properties below may also be set via data attributes. To do this you have prefix the name of the property you want to set with `data-zdp_`. One important thing to remember is that if the value of the property is an array you’ll have to use double quotes inside the square brackets and therefore single quotes around the attribute. See [example](https://stefangabos.github.io/Zebra_Datepicker/#data-attributes).*
 
 <table width"100%">
     <thead>
