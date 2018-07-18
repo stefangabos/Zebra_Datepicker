@@ -733,15 +733,3 @@ Any options set like this will be applied to **all** the newly created date pick
 Cross browser/device testing is done with
 
 [![BrowserStack](https://github.com/stefangabos/Zebra_Dialog/raw/master/examples/browserstack.png)](https://www.browserstack.com/)
-
-## Did you know?
-
-I have a few other projects that you might be interested in:
-
-### JavaScript/jQuery
-
-- [Zebra Accordion - a tiny, easily configurable, fully customizable, cross-browser jQuery accordion plugin](https://github.com/stefangabos/Zebra_Accordion)
-- [Zebra Cookie - A ridiculously small jQuery plugin for writing, reading and deleting cookies](https://github.com/stefangabos/Zebra_Cookie)
-- [Zebra Dialog - A small, compact, and highly configurable jQuery plugin for creating beautiful dialog boxes](https://github.com/stefangabos/Zebra_Dialog)
-
-### PHP
