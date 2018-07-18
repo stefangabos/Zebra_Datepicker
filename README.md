@@ -147,11 +147,11 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="always_visible"></a><strong>always_visible</strong></td>
         <td valign="top"><em>mixed</em></td>
-        <td valign="top"><code>FALSE</code></td>
+        <td valign="top"><code>false</code></td>
         <td valign="top">
             Should the date picker be always visible?<br>
             Setting this property to a jQuery element will result in the date picker being always visible, the indicated element acting as the date picker's container;<br><br>
-            Setting this property to boolean TRUE will result in the date picker not closing when selecting a date but only when the user clicks outside the date picker.
+            Setting this property to boolean <code>TRUE</code> will result in the date picker not closing when selecting a date but only when the user clicks outside the date picker.
         </td>
     </tr>
     <tr>
@@ -165,7 +165,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="custom_classes"></a><strong>custom_classes</strong></td>
         <td valign="top"><em>Array</em></td>
-        <td valign="top"><code>FALSE</code></td>
+        <td valign="top"><code>false</code></td>
         <td valign="top">
             Dates that should have custom classes applied to them.<br>
             An object in the form of<br><br>
@@ -173,8 +173,8 @@ var datepicker = $('selector').data('Zebra_DatePicker');
             <code>'myclass1': [dates_to_apply_the_custom_class_to],</code><br>
             <code>'myclass2': [dates_to_apply_the_custom_class_to]</code><br>
             <code>}</code><br><br>
-            ...where <em>dates_to_apply_the_custom_class_to</em> is an array of dates in the same format as required for the <strong>disabled_dates</strong> property.<br><br>
-            Custom classes will be applied <strong>only</strong> in the day picker view and not on month/year views! Also note that the class name will have the <em>"_disabled"</em> suffix added if the day the class is applied to is disabled.<br><br>
+            ...where <em>dates_to_apply_the_custom_class_to</em> is an array of dates in the same format as required for the <code>disabled_dates</code> property.<br><br>
+            Custom classes will be applied <strong>only</strong> in the <strong>day picker view</strong> and not on month/year views! Also note that the class name will have the <em>"_disabled"</em> suffix added if the day the class is applied to is disabled.<br><br>
             In order for the styles in your custom classes to be applied, make sure you are using the following syntax:<br><br>
             <code>.Zebra_DatePicker .dp_daypicker td.myclass1 { .. }</code><br>
             <code>.Zebra_DatePicker .dp_daypicker td.myclass1_disabled { .. }</code>
@@ -191,10 +191,10 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="days_abbr"></a><strong>days_abbr</strong></td>
         <td valign="top"><em>mixed</em></td>
-        <td valign="top"><code>FALSE</code></td>
+        <td valign="top"><code>false</code></td>
         <td valign="top">
             Abbreviated names of days.<br><br>
-            By default, the abbreviated name of a day consists of the first 2 letters from the day's full name. While this is common for most languages, there are also exceptions for languages like Thai, Loa, Myanmar, etc. where this is not correct. For these cases, specify an array with the abbreviations to be used for the 7 days of the week; leave it <code>FALSE</code> to use the first 2 letters of a day's name as the abbreviation.
+            By default, the abbreviated name of a day consists of the first 2 letters from the day's full name. While this is common for most languages, there are also exceptions for languages like Thai, Loa, Myanmar, etc. where this is not correct. For these cases, specify an array with the abbreviations to be used for the 7 days of the week; leave it <code>false</code> to use the first 2 letters of a day's name as the abbreviation.
         </td>
     </tr>
     <tr>
@@ -205,7 +205,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
             The position of the date picker relative to the element it is attached to.<br><br>
             Note that, regardless of this setting, the date picker's position will be automatically adjusted to fit in the view port, if needed.<br><br>
             Possible values are <code>above</code> and <code>below</code>.<br><br>
-            <blockquote>This property will be ignored if <strong>always_visible</strong> or <strong>container</strong> properties are set!</blockquote>
+            <blockquote>This property will be ignored if <code>always_visible</code> or <code>container</code> properties are set!</blockquote>
         </td>
     </tr>
     <tr>
@@ -222,13 +222,14 @@ var datepicker = $('selector').data('Zebra_DatePicker');
             </ul>
             You may also set this property to an array with two elements in the following combinations:<br><br>
             <ul>
-                <li>first item is boolean <code>TRUE</code> (calendar starts on the reference date), a <code>positive integer</code> (calendar starts n days after the reference date), or a <code>valid date</code> given in the format defined by the <code>format</code> attribute (calendar starts at the specified date), and the second item is boolean <code>FALSE</code> (the calendar has no ending date), a <code>positive integer</code> (calendar ends n days after the starting date), or a <code>valid date</code> given in the format defined by the <code>format</code> attribute and which occurs after the starting date (calendar ends at the specified date)<br><br></li>
-                <li>first item is boolean <code>FALSE</code> (calendar ends on the reference date), a <code>negative integer</code> (calendar ends n days before the reference date), or a <code>valid date</code> given in the format defined by the <code>format</code> attribute (calendar ends at the specified date), and the second item is a <code>positive integer</code> (calendar ends n days before the ending date), or a <code>valid date</code> given in the format defined by the <code>format</code> attribute and which occurs before the starting date (calendar starts at the specified date)</li>
+                <li>first item is boolean <code>TRUE</code> (calendar starts on the reference date), a <code>positive integer</code> (calendar starts n days after the reference date), or a <code>valid date</code> given in the format defined by the <code>format</code> attribute (calendar starts at the specified date), and the second item is boolean <code>false</code> (the calendar has no ending date), a <code>positive integer</code> (calendar ends n days after the starting date), or a <code>valid date</code> given in the format defined by the <code>format</code> attribute and which occurs after the starting date (calendar ends at the specified date)<br><br></li>
+                <li>first item is boolean <code>false</code> (calendar ends on the reference date), a <code>negative integer</code> (calendar ends n days before the reference date), or a <code>valid date</code> given in the format defined by the <code>format</code> attribute (calendar ends at the specified date), and the second item is a <code>positive integer</code> (calendar ends n days before the ending date), or a <code>valid date</code> given in the format defined by the <code>format</code> attribute and which occurs before the starting date (calendar starts at the specified date)</li>
             </ul>
+            Examples:<br><br>
             <code>[1, 7]</code> calendar starts tomorrow and ends seven days after that<br>
-            <code>[true, 7]</code> calendar starts on the reference date and ends seven days after that<br>
+            <code>[true, 7]</code> calendar starts on the <em>reference date</em> and ends seven days after that<br>
             <code>['2013-01-01', false]</code> calendar starts on January 1st 2013 and has no ending date ("format" is YYYY-MM-DD)<br>
-            <code>[false, '2012-01-01']</code> calendar ends on the reference date and starts on January 1st 2012 ("format" is YYYY-MM-DD)<br><br>
+            <code>[false, '2012-01-01']</code> calendar ends on the <em>reference date</em> and starts on January 1st 2012 ("format" is YYYY-MM-DD)<br><br>
             <blockquote>Note that <code>disabled_dates</code> property will still apply!</blockquote><br>
             <blockquote><a name="reference_date"></a>The <code>reference date</code> is the current date unless the date picker is the <code>pair</code> of another date picker, case in which the reference date is the date selected in that date picker.</blockquote>
         </td>
@@ -237,16 +238,17 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><a name="disable_time_picker"></a><strong>disable_time_picker</strong></td>
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>false</code></td>
-        <td valign="top">By default, setting a format that also involves time (<code>h</code>, <code>H</code>, <code>g</code>, <code>G</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>) will automatically enable the time picker. if you want to use a format that involves time but you don't want the time picker, set this property to <code>TRUE</code>.
+        <td valign="top">By default, setting a format that also involves time (<code>h</code>, <code>H</code>, <code>g</code>, <code>G</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>) will automatically enable the time picker. If you want to use a format that involves time but you don't want the time picker, set this property to <code>TRUE</code>.
         </td>
     </tr>
     <tr>
         <td valign="top"><a name="disabled_dates"></a><strong>disabled_dates</strong></td>
         <td valign="top"><em>mixed</em></td>
-        <td valign="top"><code>FALSE</code><br><small>no disabled dates</small></td>
+        <td valign="top"><code>false</code><br><small>no disabled dates</small></td>
         <td valign="top">
             An array of disabled dates in the following format: <code>'day month year weekday'</code> where <em>weekday</em> is optional and can be <code>0-6</code> (Saturday to Sunday).<br><br>
             The syntax is similar to cron's syntax: the values are separated by spaces and may contain <code>*</code> (asterisk) <code>-</code> (dash) and <code>,</code> (comma) delimiters.<br><br>
+            Examples:<br><br>
             <code>['1 1 2012']</code> would disable January 1, 2012<br>
             <code>['* 1 2012']</code> would disable all days in January 2012<br>
             <code>['1-10 1 2012']</code> would disable January 1 through 10 in 2012<br>
@@ -260,7 +262,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="enabled_dates"></a><strong>enabled_dates</strong></td>
         <td valign="top"><em>mixed</em></td>
-        <td valign="top"><code>FALSE</code><br><small>all dates enabled</small></td>
+        <td valign="top"><code>false</code><br><small>all dates enabled</small></td>
         <td valign="top">
             An array of enabled dates in the same format as required for <code>disabled_dates</code> property. To be used together with the <code>disabled_dates</code> property by first setting the <code>disabled_dates</code> property to something like <code>[* * * *]</code> <em>(which will disable everything)</em> and the setting the <code>enabled_dates</code> property to, say, <code>[* * * 0,6]</code> to enable just weekends.
         </td>
@@ -268,7 +270,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="enabled_hours"></a><strong>enabled_hours</strong></td>
         <td valign="top"><em>mixed</em></td>
-        <td valign="top"><code>FALSE</code><br><small>all hours are selectable</small></td>
+        <td valign="top"><code>false</code><br><small>all hours are selectable</small></td>
         <td valign="top">
             An array of selectable hours.<br><br>
             <em>Makes sense only when <code>format</code> contains one of the following characters: <code>H</code>, <code>G</code>, <code>h</code>, <code>g</code>. Valid values are between <code>0-24</code> (not padded with <code>0</code>!) when <code>format</code> contains <code>H</code> or <code>G</code> characters, and between <code>1-12</code> (not padded with <code>0</code>!) when <code>format</code> contains <code>h</code> or <code>g</code> characters.</em>
@@ -277,7 +279,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="enabled_minutes"></a><strong>enabled_minutes</strong></td>
         <td valign="top"><em>mixed</em></td>
-        <td valign="top"><code>FALSE</code><br><small>all minutes are selectable</small></td>
+        <td valign="top"><code>false</code><br><small>all minutes are selectable</small></td>
         <td valign="top">
             An array of selectable minutes.<br><br>
             <em>Makes sense only when <code>format</code> contains the <code>i</code> character. Valid values are between <code>0-59</code> (not padded with <code>0</code>!)
@@ -286,7 +288,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="enabled_seconds"></a><strong>enabled_seconds</strong></td>
         <td valign="top"><em>mixed</em></td>
-        <td valign="top"><code>FALSE</code><br><small>all seconds are selectable</small></td>
+        <td valign="top"><code>false</code><br><small>all seconds are selectable</small></td>
         <td valign="top">
             An array of selectable seconds.<br><br>
             <em>Makes sense only when <code>format</code> contains the <code>s</code> character. Valid values are between <code>0-59</code> (not padded with <code>0</code>!)
@@ -308,7 +310,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top">
             Format of the returned date.<br><br>
             Accepts the following characters for date formatting: <code>d</code>, <code>D</code>, <code>j</code>, <code>l</code>, <code>N</code>, <code>w</code>, <code>S</code>, <code>F</code>, <code>m</code>, <code>M</code>, <code>n</code>, <code>Y</code>, <code>y</code>, <code>h</code>, <code>H</code>, <code>g</code>, <code>G</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>, borrowing the syntax from PHP's <a href="http://php.net/manual/en/function.date.php">date</a> function.<br><br>
-            If <code>format</code> property contains time-related characters (<code>g</code>, <code>G</code>, <code>h</code>, <code>H</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>), the time picker will be automatically enabled.<br><br><blockquote>If you want to use a format that involves time but you don't want the time picker, set the <code>disable_time_picker</code> property to TRUE.</blockquote>
+            If <code>format</code> property contains time-related characters (<code>g</code>, <code>G</code>, <code>h</code>, <code>H</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>), the time picker will be automatically enabled.<br><br><blockquote>If you want to use a format that involves time but you don't want the time picker, set the <code>disable_time_picker</code> property to true.</blockquote>
             Note that when setting a date format without days (<code>d</code>, <code>j</code>), the users will be able to select only years and months, and when setting a format without months and days (<code>F</code>, <code>m</code>, <code>M</code>, <code>n</code>, <code>t</code>, <code>d</code>, <code>j</code>), the users will be able to select only years. Similarly, setting a format that contains only time-related characters, will result in users being able to only select time.<br><br>
             Also note that the value of the <code>view</code> property may be overridden if it is the case (i.e. a value of <code>days</code> for the <code>view</code> property makes no sense if the date format doesn't allow the selection of days).
         </td>
@@ -339,12 +341,12 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="icon_margin"></a><strong>icon_margin</strong></td>
         <td valign="top"><em>mixed</em></td>
-        <td valign="top"><code>FALSE</code></td>
+        <td valign="top"><code>false</code></td>
         <td valign="top">
             The left and right white-space around the icon<br><br>
             If the <code>inside</code> property is set to <code>TRUE</code> then the target element's padding will be altered so that the element's left or right padding (depending on the value of <code>icon_position</code>) will be <code>2 x icon_margin</code> plus the icon's width.<br><br>
-            If the <code>inside</code> property is set to <code>FALSE</code>, then this will be the distance between the element and the icon.<br><br>
-            Leave it to <code>FALSE</code> to use the element's existing padding
+            If the <code>inside</code> property is set to <code>false</code>, then this will be the distance between the element and the icon.<br><br>
+            Leave it to <code>false</code> to use the element's existing padding
         </td>
     </tr>
     <tr>
@@ -353,8 +355,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><code>"right"</code></td>
         <td valign="top">
             Icon's position.<br>
-            Accepted values are <code>left</code> and <code>right</code><br><br>
-            <blockquote>If the <code>inside</code> property is set to <code>TRUE</code>, this will always be <code>right</code>.</blockquote>
+            Accepted values are <code>left</code> and <code>right</code>
         </td>
     </tr>
     <tr>
@@ -363,7 +364,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><code>TRUE</code></td>
         <td valign="top">
             Should the icon for opening the date picker be inside the element?<br><br>
-            If set to <code>FALSE</code>, the icon will be placed to the right of the parent element, while if set to <code>TRUE</code> it will be placed to the right of the parent element, but <em>inside</em> the element itself
+            If set to <code>false</code>, the icon will be placed to the right of the parent element, while if set to <code>TRUE</code> it will be placed to the right of the parent element, but <em>inside</em> the element itself
         </td>
     </tr>
     <tr>
@@ -385,10 +386,10 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="months_abbr"></a><strong>months_abbr</strong></td>
         <td valign="top"><em>mixed</em></td>
-        <td valign="top"><code>FALSE</code></td>
+        <td valign="top"><code>false</code></td>
         <td valign="top">
             Abbreviated names of months.<br><br>
-            By default, the abbreviated name of a month consists of the first 3 letters from the month's full name. While this is common for most languages, there are also exceptions for languages like Thai, Loa, Myanmar, etc. where this is not correct. For these cases, specify an array with the abbreviations to be used for the months of the year; leave it FALSE to use the first 3 letters of a month's name as the abbreviation.
+            By default, the abbreviated name of a month consists of the first 3 letters from the month's full name. While this is common for most languages, there are also exceptions for languages like Thai, Loa, Myanmar, etc. where this is not correct. For these cases, specify an array with the abbreviations to be used for the months of the year; leave it <code>false</code> to use the first 3 letters of a month's name as the abbreviation.
         </td>
     </tr>
     <tr>
@@ -411,7 +412,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="open_icon_only"></a><strong>open_icon_only</strong></td>
         <td valign="top"><em>boolean</em></td>
-        <td valign="top"><code>FALSE</code></td>
+        <td valign="top"><code>false</code></td>
         <td valign="top">
             When set to <code>TRUE</code>, the date picker will show only when users click on the associated icon, and not also when clicking the associated element.
         </td>
@@ -419,15 +420,15 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="open_on_focus"></a><strong>open_on_focus</strong></td>
         <td valign="top"><em>boolean</em></td>
-        <td valign="top"><code>FALSE</code></td>
+        <td valign="top"><code>false</code></td>
         <td valign="top">
-            Set this property to <code>TRUE</code> if you want the date picker to be shown when the parent element (if <code>open_icon_only</code> is not set to <code>FALSE</code>) or the associated calendar icon (if <code>show_icon</code> is set to <code>TRUE</code>) receive focus.
+            Set this property to <code>TRUE</code> if you want the date picker to be shown when the parent element (if <code>open_icon_only</code> is not set to <code>false</code>) or the associated calendar icon (if <code>show_icon</code> is set to <code>TRUE</code>) receive focus.
         </td>
     </tr>
     <tr>
         <td valign="top"><a name="pair"></a><strong>pair</strong></td>
         <td valign="top"><em>object</em></td>
-        <td valign="top"><code>FALSE</code><br><small>not paired with another date picker</small></td>
+        <td valign="top"><code>false</code><br><small>not paired with another date picker</small></td>
         <td valign="top">
             If set as one or more jQuery elements with Zebra Datepicker attached, those particular date pickers will use the current date picker's value as starting date<br><br>
             Note that the rules set in the <code>direction</code> property will still apply but the reference date will not be the current system date but the value selected in the current date picker.<br><br>
@@ -446,7 +447,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="select_other_months"></a><strong>select_other_months</strong></td>
         <td valign="top"><em>boolean</em></td>
-        <td valign="top"><code>FALSE</code></td>
+        <td valign="top"><code>false</code></td>
         <td valign="top">
             Should days from previous and/or next month be selectable when visible?<br><br>
             Note that if the value of this property is set to <code>TRUE</code>, the value of <code>show_other_months</code> will be considered <code>TRUE</code> regardless of the actual value!
@@ -457,12 +458,12 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>0</code></td>
         <td valign="top">
-            Should the "Clear date" button be visible?<br><br>
+            Should the <em>Clear date</em> button be visible?<br><br>
             Accepted values are:<br><br>
             <ul>
                 <li><code>0</code> - the button for clearing a previously selected date is shown only if a previously selected date already exists; this means that if there's no date selected, this button will not be visible; once the user picked a date and opens the date picker again, this time the button will be visible.</li>
                 <li><code>TRUE</code> will make the button visible all the time</li>
-                <li><code>FALSE</code> will disable the button</li>
+                <li><code>false</code> will disable the button</li>
             </ul>
         </td>
     </tr>
@@ -488,23 +489,23 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>"Today"</code></td>
         <td valign="top">
-            Should the "Today" button be visible?<br><br>
-            Setting this property to anything but a boolean <code>FALSE</code> will enable the button and will use the property's value as caption for the button. Setting it to <code>FALSE</code> will disable the button.
+            Should the <em>Today</em> button be visible?<br><br>
+            Setting this property to anything but a boolean <code>false</code> will enable the button and will use the property's value as caption for the button. Setting it to <code>false</code> will disable the button.
         </td>
     </tr>
     <tr>
         <td valign="top"><a name="show_week_number"></a><strong>show_week_number</strong></td>
         <td valign="top"><em>mixed</em></td>
-        <td valign="top"><code>FALSE</code></td>
+        <td valign="top"><code>false</code></td>
         <td valign="top">
             Should the ISO 8601 week number be displayed?<br><br>
-            Anything other than <code>FALSE</code> will enable this feature, and use the given value as column title. For example, <code>show_week_number: 'Wk'</code> would enable this feature and have <code>Wk</code> as the column's title.
+            Anything other than <code>false</code> will enable this feature, and use the given value as column title. For example, <code>show_week_number: 'Wk'</code> would enable this feature and have <em>Wk</em> as the column's title.
         </td>
     </tr>
     <tr>
         <td valign="top"><a name="start_date"></a><strong>start_date</strong></td>
         <td valign="top"><em>mixed</em></td>
-        <td valign="top"><code>FALSE</code></td>
+        <td valign="top"><code>false</code></td>
         <td valign="top">
             A default date to start the date picker with<br><br>
             Must be specified in the format defined by the <code>format</code> property, or as a JavaScript Date object<br><br>
@@ -517,13 +518,16 @@ var datepicker = $('selector').data('Zebra_DatePicker');
             <code>&nbsp;&nbsp;(date.getMonth() + 1) + '-' +</code><br>
             <code>&nbsp;&nbsp;(date.getDate() < 10 ? '0' : date.getDate()) +</code><br>
             <code>&nbsp;&nbsp;' 12:00'</code><br><br>
+            Starting with version 1.9.11:<br><br>
+            <code>start_date: new Date()</code>
             <blockquote>Note that this value is used only if there is no value in the field the date picker is attached to!</blockquote>
+            <blockquote>The property's value can be a JavaScript Date object since version 1.9.11</blockquote>
         </td>
     </tr>
     <tr>
         <td valign="top"><a name="strict"></a><strong>strict</strong></td>
         <td valign="top"><em>boolean</em></td>
-        <td valign="top"><code>FALSE</code></td>
+        <td valign="top"><code>false</code></td>
         <td valign="top">
             Should default values, in the input field the date picker is attached to, be deleted if they are not valid according to <code>direction</code> and/or <code>disabled_dates</code>?
         </td>
@@ -551,7 +555,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="zero_pad"></a><strong>zero_pad</strong></td>
         <td valign="top"><em>boolean</em></td>
-        <td valign="top"><code>FALSE</code></td>
+        <td valign="top"><code>false</code></td>
         <td valign="top">
             Should day numbers < 10 be padded with zero?<br>
             When set to <code>TRUE</code>, day numbers < 10 will be prefixed with <code>0</code>.
@@ -564,7 +568,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
 
 #### `onChange`
 
-Callback to be executed whenever the user changes the view (days/months/years), as well as when the user navigates by clicking on the "next"/"previous" icons in any of the views;
+Callback to be executed whenever the user changes the view (days/months/years), as well as when the user navigates by clicking on the <code>next/previous</code> icons in any of the views;
 
 The callback function called receives 2 arguments
 
@@ -573,7 +577,7 @@ The callback function called receives 2 arguments
 
 The `this` keyword inside the callback function refers to the element the date picker is attached to, as a jQuery object.
 
-For simplifying searching for particular dates, each element gets a "date" data attribute whose format depends on the value of the `view` argument as follows:
+For simplifying searching for particular dates, each element gets a `date` data attribute whose format depends on the value of the `view` argument as follows:
 
 - `YYYY-MM-DD` for elements in the `days` view
 - `YYYY-MM` for elements in the `months` view
