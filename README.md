@@ -678,9 +678,11 @@ Removes the plugin from an element
 
 Sets the value of the element the date picker is attached to, to the specified date;
 
-The date must be in the format defined by the <em>format</em> property.
+The date must be in the format defined by the <code>format</code> property <strong>or</strong> a JavaScript <code>Date</code> object.
 
-The date will not be set if it is disabled (either because of <em>disabled_dates</em> or because of <em>direction</em>)
+The date will not be set if it is disabled (either because of <code>disabled_dates</code> or because of <code>direction</code> properties)
+
+<blockquote>The method's argument can be a JavaScript <code>Date</code> object since version <code>1.9.11</code></blockquote>
 
 #### `show()`
 

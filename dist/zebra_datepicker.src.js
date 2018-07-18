@@ -1813,13 +1813,16 @@
         /**
          *  Set the date picker's value
          *
-         *  Must be in the format set by the "format" property!
+         *  Must be a string representing a date in the format set by the "format" property, or a JavaScript date object.
          *
          *  @return void
          */
         plugin.set_date = function(date) {
 
             var dateObj;
+
+            // if "date" is given as a valid Date object, convert it to the required format
+            if (typeof date === 'object' && date instanceof Date) date = format(date);
 
             // if a valid date was entered, and date is not disabled
             if ((dateObj = check_date(date)) && !is_disabled(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate())) {
