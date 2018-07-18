@@ -151,7 +151,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top">
             Should the date picker be always visible?<br>
             Setting this property to a jQuery element will result in the date picker being always visible, the indicated element acting as the date picker's container;<br><br>
-            Setting this property to boolean <code>TRUE</code> will result in the date picker not closing when selecting a date but only when the user clicks outside the date picker.
+            Setting this property to boolean <code>true</code> will result in the date picker not closing when selecting a date but only when the user clicks outside the date picker.
         </td>
     </tr>
     <tr>
@@ -174,7 +174,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
             <code>'myclass2': [dates_to_apply_the_custom_class_to]</code><br>
             <code>}</code><br><br>
             ...where <em>dates_to_apply_the_custom_class_to</em> is an array of dates in the same format as required for the <code>disabled_dates</code> property.<br><br>
-            Custom classes will be applied <strong>only</strong> in the <strong>day picker view</strong> and not on month/year views! Also note that the class name will have the <em>"_disabled"</em> suffix added if the day the class is applied to is disabled.<br><br>
+            Custom classes will be applied <strong>only in the day picker view</strong> and not on month/year views! Also note that the class name will have the <em>"_disabled"</em> suffix added if the day the class is applied to is disabled.<br><br>
             In order for the styles in your custom classes to be applied, make sure you are using the following syntax:<br><br>
             <code>.Zebra_DatePicker .dp_daypicker td.myclass1 { .. }</code><br>
             <code>.Zebra_DatePicker .dp_daypicker td.myclass1_disabled { .. }</code>
@@ -200,7 +200,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="default_position"></a><strong>default_position</strong></td>
         <td valign="top"><em>string</em></td>
-        <td valign="top"><code>"above"</code></td>
+        <td valign="top"><code>'above'</code></td>
         <td valign="top">
             The position of the date picker relative to the element it is attached to.<br><br>
             Note that, regardless of this setting, the date picker's position will be automatically adjusted to fit in the view port, if needed.<br><br>
@@ -222,7 +222,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
             </ul>
             You may also set this property to an array with two elements in the following combinations:<br><br>
             <ul>
-                <li>first item is boolean <code>TRUE</code> (calendar starts on the reference date), a <code>positive integer</code> (calendar starts n days after the reference date), or a <code>valid date</code> given in the format defined by the <code>format</code> attribute (calendar starts at the specified date), and the second item is boolean <code>false</code> (the calendar has no ending date), a <code>positive integer</code> (calendar ends n days after the starting date), or a <code>valid date</code> given in the format defined by the <code>format</code> attribute and which occurs after the starting date (calendar ends at the specified date)<br><br></li>
+                <li>first item is boolean <code>true</code> (calendar starts on the reference date), a <code>positive integer</code> (calendar starts n days after the reference date), or a <code>valid date</code> given in the format defined by the <code>format</code> attribute (calendar starts at the specified date), and the second item is boolean <code>false</code> (the calendar has no ending date), a <code>positive integer</code> (calendar ends n days after the starting date), or a <code>valid date</code> given in the format defined by the <code>format</code> attribute and which occurs after the starting date (calendar ends at the specified date)<br><br></li>
                 <li>first item is boolean <code>false</code> (calendar ends on the reference date), a <code>negative integer</code> (calendar ends n days before the reference date), or a <code>valid date</code> given in the format defined by the <code>format</code> attribute (calendar ends at the specified date), and the second item is a <code>positive integer</code> (calendar ends n days before the ending date), or a <code>valid date</code> given in the format defined by the <code>format</code> attribute and which occurs before the starting date (calendar starts at the specified date)</li>
             </ul>
             Examples:<br><br>
@@ -238,7 +238,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><a name="disable_time_picker"></a><strong>disable_time_picker</strong></td>
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>false</code></td>
-        <td valign="top">By default, setting a format that also involves time (<code>h</code>, <code>H</code>, <code>g</code>, <code>G</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>) will automatically enable the time picker. If you want to use a format that involves time but you don't want the time picker, set this property to <code>TRUE</code>.
+        <td valign="top">By default, setting a format that also involves time (<code>h</code>, <code>H</code>, <code>g</code>, <code>G</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>) will automatically enable the time picker. If you want to use a format that involves time but you don't want the time picker, set this property to <code>true</code>.
         </td>
     </tr>
     <tr>
@@ -306,7 +306,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="format"></a><strong>format</strong></td>
         <td valign="top"><em>string</em></td>
-        <td valign="top"><code>"Y-m-d"</code></td>
+        <td valign="top"><code>'Y-m-d'</code></td>
         <td valign="top">
             Format of the returned date.<br><br>
             Accepts the following characters for date formatting: <code>d</code>, <code>D</code>, <code>j</code>, <code>l</code>, <code>N</code>, <code>w</code>, <code>S</code>, <code>F</code>, <code>m</code>, <code>M</code>, <code>n</code>, <code>Y</code>, <code>y</code>, <code>h</code>, <code>H</code>, <code>g</code>, <code>G</code>, <code>i</code>, <code>s</code>, <code>a</code>, <code>A</code>, borrowing the syntax from PHP's <a href="http://php.net/manual/en/function.date.php">date</a> function.<br><br>
@@ -344,7 +344,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><code>false</code></td>
         <td valign="top">
             The left and right white-space around the icon<br><br>
-            If the <code>inside</code> property is set to <code>TRUE</code> then the target element's padding will be altered so that the element's left or right padding (depending on the value of <code>icon_position</code>) will be <code>2 x icon_margin</code> plus the icon's width.<br><br>
+            If the <code>inside</code> property is set to <code>true</code> then the target element's padding will be altered so that the element's left or right padding (depending on the value of <code>icon_position</code>) will be <code>2 x icon_margin</code> plus the icon's width.<br><br>
             If the <code>inside</code> property is set to <code>false</code>, then this will be the distance between the element and the icon.<br><br>
             Leave it to <code>false</code> to use the element's existing padding
         </td>
@@ -352,7 +352,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="icon_position"></a><strong>icon_position</strong></td>
         <td valign="top"><em>string</em></td>
-        <td valign="top"><code>"right"</code></td>
+        <td valign="top"><code>'right'</code></td>
         <td valign="top">
             Icon's position.<br>
             Accepted values are <code>left</code> and <code>right</code>
@@ -361,16 +361,16 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="inside"></a><strong>inside</strong></td>
         <td valign="top"><em>boolean</em></td>
-        <td valign="top"><code>TRUE</code></td>
+        <td valign="top"><code>true</code></td>
         <td valign="top">
             Should the icon for opening the date picker be inside the element?<br><br>
-            If set to <code>false</code>, the icon will be placed to the right of the parent element, while if set to <code>TRUE</code> it will be placed to the right of the parent element, but <em>inside</em> the element itself
+            If set to <code>false</code>, the icon will be placed to the right of the parent element, while if set to <code>true</code> it will be placed to the right of the parent element, but <em>inside</em> the element itself
         </td>
     </tr>
     <tr>
         <td valign="top"><a name="lang_clear_date"></a><strong>lang_clear_date</strong></td>
         <td valign="top"><em>string</em></td>
-        <td valign="top"><code>"Clear"</code></td>
+        <td valign="top"><code>'Clear'</code></td>
         <td valign="top">
             the caption for the <em>Clear</em> button.
         </td>
@@ -414,7 +414,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>false</code></td>
         <td valign="top">
-            When set to <code>TRUE</code>, the date picker will show only when users click on the associated icon, and not also when clicking the associated element.
+            When set to <code>true</code>, the date picker will show only when users click on the associated icon, and not also when clicking the associated element.
         </td>
     </tr>
     <tr>
@@ -422,7 +422,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>false</code></td>
         <td valign="top">
-            Set this property to <code>TRUE</code> if you want the date picker to be shown when the parent element (if <code>open_icon_only</code> is not set to <code>false</code>) or the associated calendar icon (if <code>show_icon</code> is set to <code>TRUE</code>) receive focus.
+            Set this property to <code>true</code> if you want the date picker to be shown when the parent element (if <code>open_icon_only</code> is not set to <code>false</code>) or the associated calendar icon (if <code>show_icon</code> is set to <code>true</code>) receive focus.
         </td>
     </tr>
     <tr>
@@ -438,10 +438,10 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="readonly_element"></a><strong>readonly_element</strong></td>
         <td valign="top"><em>boolean</em></td>
-        <td valign="top"><code>TRUE</code></td>
+        <td valign="top"><code>true</code></td>
         <td valign="top">
             Should the element the calendar is attached to, be read-only?<br><br>
-            If set to <code>TRUE</code>, a date can be set only through the date picker and cannot be entered manually.
+            If set to <code>true</code>, a date can be set only through the date picker and cannot be entered manually.
         </td>
     </tr>
     <tr>
@@ -450,7 +450,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><code>false</code></td>
         <td valign="top">
             Should days from previous and/or next month be selectable when visible?<br><br>
-            Note that if the value of this property is set to <code>TRUE</code>, the value of <code>show_other_months</code> will be considered <code>TRUE</code> regardless of the actual value!
+            Note that if the value of this property is set to <code>true</code>, the value of <code>show_other_months</code> will be considered <code>true</code> regardless of the actual value!
         </td>
     </tr>
     <tr>
@@ -462,7 +462,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
             Accepted values are:<br><br>
             <ul>
                 <li><code>0</code> - the button for clearing a previously selected date is shown only if a previously selected date already exists; this means that if there's no date selected, this button will not be visible; once the user picked a date and opens the date picker again, this time the button will be visible.</li>
-                <li><code>TRUE</code> will make the button visible all the time</li>
+                <li><code>true</code> will make the button visible all the time</li>
                 <li><code>false</code> will disable the button</li>
             </ul>
         </td>
@@ -470,16 +470,16 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="show_icon"></a><strong>show_icon</strong></td>
         <td valign="top"><em>boolean</em></td>
-        <td valign="top"><code>TRUE</code></td>
+        <td valign="top"><code>true</code></td>
         <td valign="top">
             Should a calendar icon be added to the elements the plugin is attached to?<br><br>
-            When set to <code>TRUE</code> the plugin will attach a calendar icon to the elements the plugin is attached to.
+            When set to <code>true</code> the plugin will attach a calendar icon to the elements the plugin is attached to.
         </td>
     </tr>
     <tr>
         <td valign="top"><a name="show_other_months"></a><strong>show_other_months</strong></td>
         <td valign="top"><em>boolean</em></td>
-        <td valign="top"><code>TRUE</code></td>
+        <td valign="top"><code>true</code></td>
         <td valign="top">
             Should days from previous and/or next month be visible?
         </td>
@@ -487,7 +487,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="show_select_today"></a><strong>show_select_today</strong></td>
         <td valign="top"><em>mixed</em></td>
-        <td valign="top"><code>"Today"</code></td>
+        <td valign="top"><code>'Today'</code></td>
         <td valign="top">
             Should the <em>Today</em> button be visible?<br><br>
             Setting this property to anything but a boolean <code>false</code> will enable the button and will use the property's value as caption for the button. Setting it to <code>false</code> will disable the button.
@@ -535,7 +535,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="view"></a><strong>view</strong></td>
         <td valign="top"><em>string</em></td>
-        <td valign="top"><code>"days"</code></td>
+        <td valign="top"><code>'days'</code></td>
         <td valign="top">
             How should the date picker start:<br><br>
             Valid values are <code>days</code>, <code>months</code> and <code>years</code>.<br><br>
@@ -558,7 +558,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><code>false</code></td>
         <td valign="top">
             Should day numbers < 10 be padded with zero?<br>
-            When set to <code>TRUE</code>, day numbers < 10 will be prefixed with <code>0</code>.
+            When set to <code>true</code>, day numbers < 10 will be prefixed with <code>0</code>.
         </td>
     </tr>
     </tbody>
@@ -691,11 +691,11 @@ The date will not be set if it is disabled (either because of <code>disabled_dat
 
 #### `show()`
 
-Shows the date picker (unless the <code>always_visible</code> property is set to <code>TRUE</code>)
+Shows the date picker (unless the <code>always_visible</code> property is set to <code>true</code>)
 
 #### `hide()`
 
-Hides the date picker (unless the <code>always_visible</code> property is set to <code>TRUE</code>)
+Hides the date picker (unless the <code>always_visible</code> property is set to <code>true</code>)
 
 #### `update([options])`
 
