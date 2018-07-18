@@ -359,7 +359,7 @@
                 show_week_number: false,
 
                 //  a default date to start the date picker with
-                //  must be specified in the format defined by the "format" property, or it will be ignored!
+                //  must be specified in the format defined by the "format" property, or as a JavaScript Date object
                 //  note that this value is used only if there is no value in the field the date picker is attached to!
                 //
                 //  default is FALSE
@@ -1062,6 +1062,12 @@
                 first_selectable_day = date.getDate();
 
             }
+
+            // if "start_date" is given as JavaScript Date object...
+            if (plugin.settings.start_date && typeof plugin.settings.start_date === 'object' && plugin.settings.start_date instanceof Date)
+
+                // ...convert it the a properly formatted string
+                plugin.settings.start_date = format(plugin.settings.start_date)
 
             // get the default date, from the element, and check if it represents a valid date, according to the required format
             var default_date = check_date($element.val() || (plugin.settings.start_date ? plugin.settings.start_date : ''));
