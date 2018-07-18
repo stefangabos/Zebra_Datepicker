@@ -510,7 +510,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
             A default date to start the date picker with<br><br>
             Must be specified in the format defined by the <code>format</code> property, or as a JavaScript Date object<br><br>
             If you have a date format that contains time and you need to set a default time but the date should be the current date, here's one way of doing it:<br><br>
-            Prior to version 1.9.11:<br><br>
+            Prior to version <code>1.9.11</code>:<br><br>
             <code>var date = new Date(); // have this somewhere</code><br><br>
             <code>// set the start_date property like</code><br>
             <code>start_date: date.getFullYear() + '-' +</code><br>
@@ -518,8 +518,8 @@ var datepicker = $('selector').data('Zebra_DatePicker');
             <code>&nbsp;&nbsp;(date.getMonth() + 1) + '-' +</code><br>
             <code>&nbsp;&nbsp;(date.getDate() < 10 ? '0' : date.getDate()) +</code><br>
             <code>&nbsp;&nbsp;' 12:00'</code><br><br>
-            Starting with version 1.9.11:<br><br>
-            <code>start_date: new Date()</code>
+            Starting with version <code>1.9.11</code>:<br><br>
+            <code>start_date: new Date()</code><br><br>
             <blockquote>Note that this value is used only if there is no value in the field the date picker is attached to!</blockquote>
             <blockquote>The property's value can be a JavaScript Date object since version 1.9.11</blockquote>
         </td>
