@@ -79,4 +79,8 @@ $(document).ready(function() {
 
     $('#datepicker-data-attributes').Zebra_DatePicker();
 
+    setTimeout(function() {
+        $.Zebra_Pin($('blockquote.bg-warning'));
+    }, 500);
+
 });
