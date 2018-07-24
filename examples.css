@@ -2,6 +2,11 @@ body {
     font-family: Tahoma, Helvetica, Arial, sans-serif;
 }
 
+.info {
+    padding: 1em;
+    background: #fafafa;
+}
+
 .syntaxhighlighter {
     padding: .5em 0;
 }
@@ -17,7 +22,20 @@ body {
 }
 
 .top {
+    display: block;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 33px;
+}
+
+.top a {
+    background: #FFF;
     position: relative;
-    margin-left: 10px;
-    top: -10px;
+    top: 8px;
+    padding-right: 10px;
+}
+
+blockquote.bg-warning.Zebra_Pin {
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0 12px 6px -6px rgba(0, 0, 0, .1);
+    transition: box-shadow .25s linear;
 }

@@ -26,7 +26,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/united/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCoreDefault.min.css" />
 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/zebra_datepicker@latest/dist/css/bootstrap/zebra_datepicker.css" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/zebra_datepicker@latest/dist/css/bootstrap/zebra_datepicker.min.css" type="text/css">
         <link rel="stylesheet" href="examples.css" type="text/css">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
@@ -61,7 +61,7 @@
 
                 <div class="col-xs-12">
 
-                    <blockquote class="bg-warning"><small class="text-warning">See the examples with the date pickers having the <a href="index.html">default</a> theme or the <a href="metallic.html">metallic</a> theme.</small></blockquote>
+                    <blockquote class="bg-warning"><small class="text-warning">See the examples with the date pickers having the <a href="index.html">default</a> or the <a href="metallic.html">metallic</a> theme.</small></blockquote>
 
                     <p>Zebra Datepicker is a small, compact and highly configurable date picker / time picker jQuery plugin, meant to
                     enrich forms by adding the date picker functionality to them. This jQuery plugin will automatically add
@@ -98,7 +98,14 @@
 
                     <!-- =========================================================================================== -->
 
-                    <h3><a name="default-initialization"></a><strong>1.</strong> Default initialization</h3>
+                    <p class="info">
+                        <a name="default-initialization"></a>
+                        <em>Note that the <code>Bootstrap</code> theme does not actually require Twitter Bootstrap
+                        CSS framework to be present!<br>Its name comes from the fact that it borrows the color scheme from
+                        Twitter Bootstrap's default theme.</em>
+                    </p>
+
+                    <h3><strong>1.</strong> Default initialization</h3>
 
                     <p>
                         All dates are selectable, no restrictions.<br>
@@ -117,13 +124,14 @@
                         </div>
                     </div>
 
-                    <a href="#top" class="pull-right clearfix top small">To the top</a>
-
-                    <hr>
+                    <a name="future-tomorrow"></a>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
 
                     <!-- =========================================================================================== -->
 
-                    <h3><a name="future-tomorrow"></a><strong>2.</strong> Allow future dates only starting one day in the future</h3>
+                    <h3><strong>2.</strong> Allow future dates only, starting one day in the future</h3>
 
                     <p>
                         All past dates, including today, are disabled.<br>
@@ -144,13 +152,14 @@
                         </div>
                     </div>
 
-                    <a href="#top" class="pull-right clearfix top small">To the top</a>
-
-                    <hr>
+                    <a name="dynamic-interval"></a>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
 
                     <!-- =========================================================================================== -->
 
-                    <h3><a name="dynamic-interval"></a><strong>3. </strong> Allow dates from a dynamic interval</h3>
+                    <h3><strong>3. </strong> Allow dates from a dynamic interval</h3>
 
                     <p>
                         The selectable dates are in the interval starting tomorrow and ending 10 days after that.<br>
@@ -171,13 +180,14 @@
                         </div>
                     </div>
 
-                    <a href="#top" class="pull-right clearfix top small">To the top</a>
-
-                    <hr>
+                    <a name="dates-interval"></a>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
 
                     <!-- =========================================================================================== -->
 
-                    <h3><a name="dates-interval"></a><strong>4.</strong> Allow dates from an interval between 2 dates</h3>
+                    <h3><strong>4.</strong> Allow dates from an interval between 2 dates</h3>
 
                     <p>
                         Dates in the <code>direction</code> property have to be written in the date picker's <a href="https://github.com/stefangabos/Zebra_Datepicker#user-content-format">date format</a>.<br>
@@ -198,13 +208,14 @@
                         </div>
                     </div>
 
-                    <a href="#top" class="pull-right clearfix top small">To the top</a>
-
-                    <hr>
+                    <a name="after-date"></a>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
 
                     <!-- =========================================================================================== -->
 
-                    <h3><a name="after-date"></a><strong>5.</strong> Allow only dates that come after a certain date</h3>
+                    <h3><strong>5.</strong> Allow only dates that come after a certain date</h3>
 
                     <p>
                         Dates in the <code>direction</code> property have to be written in the date picker's <a href="https://github.com/stefangabos/Zebra_Datepicker#user-content-format">date format</a>.<br>
@@ -225,13 +236,14 @@
                         </div>
                     </div>
 
-                    <a href="#top" class="pull-right clearfix top small">To the top</a>
-
-                    <hr>
+                    <a name="disable-dates"></a>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
 
                     <!-- =========================================================================================== -->
 
-                    <h3><a name="disable-dates"></a><strong>6.</strong> Disable dates</h3>
+                    <h3><strong>6.</strong> Disable dates</h3>
 
                     <p>
                         Allow future dates only including the current day.<br>
@@ -256,13 +268,14 @@
                         </div>
                     </div>
 
-                    <a href="#top" class="pull-right clearfix top small">To the top</a>
-
-                    <hr>
+                    <a name="date-range"></a>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
 
                     <!-- =========================================================================================== -->
 
-                    <h3><a name="date-range"></a><strong>7.</strong> Date ranges (sort of)</h3>
+                    <h3><strong>7.</strong> Date ranges (sort of)</h3>
 
                     <p>The second date picker's starting date is the value of the first date picker + 1</p>
 
@@ -288,13 +301,14 @@
                         </div>
                     </div>
 
-                    <a href="#top" class="pull-right clearfix top small">To the top</a>
-
-                    <hr>
+                    <a name="date-formats"></a>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
 
                     <!-- =========================================================================================== -->
 
-                    <h3><a name="date-formats"></a><strong>8.</strong> Date formats</h3>
+                    <h3><strong>8.</strong> Date formats</h3>
 
                     <p>
                         Accepts the following characters for date formatting: <code>d</code>, <code>D</code>, <code>j</code>,
@@ -329,13 +343,14 @@
                         </div>
                     </div>
 
-                    <a href="#top" class="pull-right clearfix top small">To the top</a>
-
-                    <hr>
+                    <a name="time"></a>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
 
                     <!-- =========================================================================================== -->
 
-                    <h3><a name="time"></a><strong>9.</strong> Enabling the time picker</h3>
+                    <h3><strong>9.</strong> Enabling the time picker</h3>
 
                     <p>
                         If <code>format</code> property contains time-related characters (<code>g</code>, <code>G</code>,
@@ -357,13 +372,14 @@
                         </div>
                     </div>
 
-                    <a href="#top" class="pull-right clearfix top small">To the top</a>
-
-                    <hr>
+                    <a name="partial-formats"></a>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
 
                     <!-- =========================================================================================== -->
 
-                    <h3><a name="partial-formats"></a><strong>10.</strong> Partial date formats</h3>
+                    <h3><strong>10.</strong> Partial date formats</h3>
 
                     <p>
                         The date picker will not show views that are not present in format.<br>
@@ -386,13 +402,14 @@
                         </div>
                     </div>
 
-                    <a href="#top" class="pull-right clearfix top small">To the top</a>
-
-                    <hr>
+                    <a name="week-number"></a>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
 
                     <!-- =========================================================================================== -->
 
-                    <h3><a name="week-number"></a><strong>11.</strong> Showing week numbers</h3>
+                    <h3><strong>11.</strong> Showing week numbers</h3>
 
                     <p>
                         Show the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> week number.
@@ -412,13 +429,14 @@
                         </div>
                     </div>
 
-                    <a href="#top" class="pull-right clearfix top small">To the top</a>
-
-                    <hr>
+                    <a name="starting-view"></a>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
 
                     <!-- =========================================================================================== -->
 
-                    <h3><a name="starting-view"></a><strong>12.</strong> Changing the starting view</h3>
+                    <h3><strong>12.</strong> Changing the starting view</h3>
 
                     <p>
                         Start with the <code>years</code> view, recommended for when users need to select their birth
@@ -449,13 +467,14 @@
                         </div>
                     </div>
 
-                    <a href="#top" class="pull-right clearfix top small">To the top</a>
-
-                    <hr>
+                    <a name="custom-classes"></a>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
 
                     <!-- =========================================================================================== -->
 
-                    <h3><a name="custom-classes"></a><strong>13.</strong> Custom classes</h3>
+                    <h3><strong>13.</strong> Custom classes</h3>
 
                     <p>
                         Disable weekends and apply a custom class to Saturdays and Sundays.
@@ -478,13 +497,14 @@
                         </div>
                     </div>
 
-                    <a href="#top" class="pull-right clearfix top small">To the top</a>
-
-                    <hr>
+                    <a name="on-change"></a>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
 
                     <!-- =========================================================================================== -->
 
-                    <h3><a name="on-change"></a><strong>14.</strong> Handling the "onChange" event</h3>
+                    <h3><strong>14.</strong> Handling the "onChange" event</h3>
 
                     <p>
                         If a callback function is attached to the <code>onChange</code> event, it will be called whenever
@@ -552,13 +572,14 @@
                         </div>
                     </div>
 
-                    <a href="#top" class="pull-right clearfix top small">To the top</a>
-
-                    <hr>
+                    <a name="always-visible"></a>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
 
                     <!-- =========================================================================================== -->
 
-                    <h3><a name="always-visible"></a><strong>15.</strong> Always-visible date pickers</h3>
+                    <h3><strong>15.</strong> Always-visible date pickers</h3>
 
                     <p>
                         Set the <code>always_visible</code> property's value to a jQuery element which will act as a
@@ -582,13 +603,14 @@
                         </div>
                     </div>
 
-                    <a href="#top" class="pull-right clearfix top small">To the top</a>
-
-                    <hr>
+                    <a name="data-attributes"></a>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
 
                     <!-- =========================================================================================== -->
 
-                    <h3><a name="data-attributes"></a><strong>16.</strong> Data attributes</h3>
+                    <h3><strong>16.</strong> Data attributes</h3>
 
                     <p>
                         All the properties of the date picker can also be set via <code>data-attributes</code>.<br>
@@ -616,11 +638,9 @@
                         </div>
                     </div>
 
-                    <a href="#top" class="pull-right clearfix top small">To the top</a>
-
-                    <hr>
-
-                    <br><br><br>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
 
                     <p class="text-center">copyright &copy; 2011 - 2018 <a href="https://github.com/stefangabos/">stefan gabos</a></p>
 
@@ -633,6 +653,7 @@
         </div>
 
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/zebra_pin@2.0.0/dist/zebra_pin.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/zebra_datepicker@latest/dist/zebra_datepicker.min.js"></script>
         <script src="examples.js"></script>
 
