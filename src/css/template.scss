@@ -37,6 +37,10 @@
         width: $dp_cell_min_width;
     }
 
+    td.dp_time_ampm {
+        padding-left: 11px;
+    }
+
     .dp_body {
         @if variable-exists(dp_cell_border) {
             th, td {

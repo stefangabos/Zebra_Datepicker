@@ -36,6 +36,10 @@
     width: 25px;
 }
 
+.Zebra_DatePicker td.dp_time_ampm {
+    padding-left: 11px;
+}
+
 .Zebra_DatePicker .dp_body th, .Zebra_DatePicker .dp_body td {
     border: 1px solid #bfbfbf;
 }
