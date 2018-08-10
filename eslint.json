@@ -20,7 +20,10 @@
         "curly": ["warn", "multi"],
         "dot-location": ["warn", "property"],
         "eol-last": ["warn", "always"],
-        "indent": ["warn", 4, {"SwitchCase": 1}],
+        "indent": ["warn", 4, {
+            "SwitchCase": 1,
+            "ignoreComments": true
+        }],
         "keyword-spacing":  ["warn", {
             "before": true,
             "after": true
@@ -55,7 +58,9 @@
         }],
         "no-lonely-if": 1,
         "no-mixed-spaces-and-tabs": 1,
-        "no-multi-spaces": 1,
+        "no-multi-spaces": ["warn", {
+            "ignoreEOLComments": true
+        }],
         "no-multiple-empty-lines": ["warn", {
             "max": 1,
             "maxEOF": 1,
