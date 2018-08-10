@@ -38,6 +38,7 @@
     "grunt-newer": "*",
     "grunt-notify": "*",
     "grunt-sass": "*",
+    "node-sass": "*",
     "time-grunt": "*"
   }
 }
