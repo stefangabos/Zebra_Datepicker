@@ -31,6 +31,7 @@
     "grunt": "*",
     "grunt-cli": "*",
     "grunt-contrib-copy": "*",
+    "grunt-contrib-cssmin": "*",
     "grunt-contrib-jshint": "*",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
