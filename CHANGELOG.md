@@ -1,3 +1,11 @@
+## version 1.9.11 (August 10, 2018)
+
+- fixed [#112](https://github.com/stefangabos/Zebra_Datepicker/issues/112) - thanks [@AnthonyHache](https://github.com/AnthonyHache)!
+- fixed [#122](https://github.com/stefangabos/Zebra_Datepicker/issues/122) and now `start_date` and `set_date` methods accepts their argument also as a JavaScript `Date` object; thanks [alexanderKikhaev](https://github.com/alexanderKikhaev)!
+- fixed positioning of `AM/PM` when using 12-hour time format
+- CSS is now minified even more by using [clean-css](https://github.com/jakubpawlowicz/clean-css)
+- updated examples page
+
 ## version 1.9.9 (July 06, 2018)
 
 - global defaults can now be set; see [#110](https://github.com/stefangabos/Zebra_Datepicker/issues/110) and [#94](https://github.com/stefangabos/Zebra_Datepicker/issues/94)
