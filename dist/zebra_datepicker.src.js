@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.11 (last revision: July 25, 2018)
+ *  @version    1.9.11 (last revision: August 10, 2018)
  *  @copyright  (c) 2011 - 2018 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -16,10 +16,10 @@
     'use strict';
 
     // AMD
-    if (typeof define === 'function' && define.amd) define(['jquery'], factory);
+    if (typeof define === 'function' && define.amd) define(['jquery'], factory);    // jshint ignore:line
 
     // CommonJS
-    else if (typeof exports === 'object') factory(require('jquery'));
+    else if (typeof exports === 'object') factory(require('jquery'));   // jshint ignore:line
 
     // browser globals
     else factory(jQuery);
@@ -502,10 +502,10 @@
                 plugin.settings = $.extend({}, defaults, $.fn.Zebra_DatePicker.defaults, options);
 
                 // preserve some of element's original attributes
-                original_attributes['readonly'] = $element.attr('readonly');
-                original_attributes['style'] = $element.attr('style');
-                original_attributes['padding_left'] = parseInt($element.css('paddingLeft'), 10) || 0;
-                original_attributes['padding_right'] = parseInt($element.css('paddingRight'), 10) || 0;
+                original_attributes.readonly = $element.attr('readonly');
+                original_attributes.style = $element.attr('style');
+                original_attributes.padding_left = parseInt($element.css('paddingLeft'), 10) || 0;
+                original_attributes.padding_right = parseInt($element.css('paddingRight'), 10) || 0;
 
                 // iterate through the element's data attributes (if any)
                 for (data in $element.data())
@@ -581,7 +581,7 @@
                             if (type === 'hours') {
 
                                 // selectable hours (12 or 24) depending on the format
-                                if (character === 'g' || character == 'h') {
+                                if (character === 'g' || character === 'h') {
 
                                     max = 12;
 
@@ -1234,25 +1234,25 @@
                         if (plugin.settings.icon_position === 'right') {
 
                             // place the icon to the right, respecting the element's right padding
-                            icon.css('right', plugin.settings.icon_margin !== false ? plugin.settings.icon_margin : original_attributes['padding_right']);
+                            icon.css('right', plugin.settings.icon_margin !== false ? plugin.settings.icon_margin : original_attributes.padding_right);
 
                             // also, adjust the element's right padding
-                            $element.css('paddingRight', ((plugin.settings.icon_margin !== false ? plugin.settings.icon_margin : original_attributes['padding_right']) * 2) + icon_width);
+                            $element.css('paddingRight', ((plugin.settings.icon_margin !== false ? plugin.settings.icon_margin : original_attributes.padding_right) * 2) + icon_width);
 
                         // if icon is to be placed on the left
                         } else {
 
                             // place the icon to the left, respecting the element's left padding
-                            icon.css('left', plugin.settings.icon_margin !== false ? plugin.settings.icon_margin : original_attributes['padding_left']);
+                            icon.css('left', plugin.settings.icon_margin !== false ? plugin.settings.icon_margin : original_attributes.padding_left);
 
                             // also, adjust the element's left padding
-                            $element.css('paddingLeft', ((plugin.settings.icon_margin !== false ? plugin.settings.icon_margin : original_attributes['padding_left']) * 2) + icon_width);
+                            $element.css('paddingLeft', ((plugin.settings.icon_margin !== false ? plugin.settings.icon_margin : original_attributes.padding_left) * 2) + icon_width);
 
                         }
 
                     // if icon is to be placed to the right of the element
                     // position the icon accordingly
-                    else icon.css('left', element_width + (plugin.settings.icon_margin !== false ? plugin.settings.icon_margin : original_attributes['padding_left']));
+                    else icon.css('left', element_width + (plugin.settings.icon_margin !== false ? plugin.settings.icon_margin : original_attributes.padding_left));
 
                     // assume the datepicker is not disabled
                     icon.removeClass('Zebra_DatePicker_Icon_Disabled');
@@ -1509,7 +1509,7 @@
             selecttoday.on('click', function(e) {
 
                 // date might have changed since we opened the date picker, so always use the current date
-                var date = new Date;
+                var date = new Date();
 
                 e.preventDefault();
 
@@ -1782,10 +1782,10 @@
             $element.removeData('Zebra_DatePicker');
 
             // restore element's modified attributes
-            $element.attr('readonly', original_attributes['readonly']);
-            $element.attr('style', original_attributes['style'] ? original_attributes['style'] : '');
-            $element.css('paddingLeft', original_attributes['padding_left']);
-            $element.css('paddingRight', original_attributes['padding_right']);
+            $element.attr('readonly', original_attributes.readonly);
+            $element.attr('style', original_attributes.style ? original_attributes.style : '');
+            $element.css('paddingLeft', original_attributes.padding_left);
+            $element.css('paddingRight', original_attributes.padding_right);
 
         };
 
@@ -2378,42 +2378,42 @@
                 switch (chr) {
 
                     // year as two digits
-                    case 'y': y = y.substr(2);
+                    case 'y': y = y.substr(2);  // jshint ignore:line
 
                     // year as four digits
                     // falls through
                     case 'Y': result += y; break;
 
                     // month number, prefixed with 0
-                    case 'm': n = str_pad(n, 2);
+                    case 'm': n = str_pad(n, 2);    // jshint ignore:line
 
                     // month number, not prefixed with 0
                     // falls through
                     case 'n': result += n; break;
 
                     // month name, three letters
-                    case 'M': f = ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[n - 1] ? plugin.settings.months_abbr[n - 1] : plugin.settings.months[n - 1].substr(0, 3));
+                    case 'M': f = ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[n - 1] ? plugin.settings.months_abbr[n - 1] : plugin.settings.months[n - 1].substr(0, 3));   // jshint ignore:line
 
                     // full month name
                     // falls through
                     case 'F': result += f; break;
 
                     // day number, prefixed with 0
-                    case 'd': j = str_pad(j, 2);
+                    case 'd': j = str_pad(j, 2);    // jshint ignore:line
 
                     // day number not prefixed with 0
                     // falls through
                     case 'j': result += j; break;
 
                     // day name, three letters
-                    case 'D': l = ($.isArray(plugin.settings.days_abbr) && undefined !== plugin.settings.days_abbr[w] ? plugin.settings.days_abbr[w] : plugin.settings.days[w].substr(0, 3));
+                    case 'D': l = ($.isArray(plugin.settings.days_abbr) && undefined !== plugin.settings.days_abbr[w] ? plugin.settings.days_abbr[w] : plugin.settings.days[w].substr(0, 3));   // jshint ignore:line
 
                     // full day name
                     // falls through
                     case 'l': result += l; break;
 
                     // ISO-8601 numeric representation of the day of the week, 1 - 7
-                    case 'N': w++;
+                    case 'N': w++;  // jshint ignore:line
 
                     // day of the week, 0 - 6
                     // falls through
@@ -2498,7 +2498,7 @@
             days_from_previous_month = days_from_previous_month < 0 ? 7 + days_from_previous_month : days_from_previous_month;
 
             // manage header caption and enable/disable navigation buttons if necessary
-            manage_header(plugin.settings.header_captions['days']);
+            manage_header(plugin.settings.header_captions.days);
 
             // start generating the HTML
             html = '<tr>';
@@ -2622,7 +2622,7 @@
         var generate_monthpicker = function() {
 
             // manage header caption and enable/disable navigation buttons if necessary
-            manage_header(plugin.settings.header_captions['months']);
+            manage_header(plugin.settings.header_captions.months);
 
             // start generating the HTML
             var html = '<tr>', i, class_name;
@@ -2720,7 +2720,7 @@
         var generate_yearpicker = function() {
 
             // manage header caption and enable/disable navigation buttons if necessary
-            manage_header(plugin.settings.header_captions['years']);
+            manage_header(plugin.settings.header_captions.years);
 
             // start generating the HTML
             var html = '<tr>', i, class_name;
@@ -2982,7 +2982,7 @@
             if (typeof month !== 'undefined') month = month + 1;
 
             // by default, we assume the day/month/year is not enabled nor disabled
-            disabled = false, enabled = false;
+            disabled = false; enabled = false;
 
             // if there are rules for disabling dates
             if ($.isArray(disabled_dates) && disabled_dates.length)
@@ -3157,9 +3157,7 @@
             if (!isNaN(parseFloat(selected_year)) && isFinite(selected_year))
 
                 // replace year-related patterns
-                caption =
-
-                    caption
+                caption = caption
 
                     // year as four digits
                     .replace(/\bY\b/, selected_year)
@@ -3330,9 +3328,9 @@
                 // get the "active" elements in the view (ignoring the disabled ones)
                 elements = (view === 'days' ?
                     daypicker.find('td:not(.dp_disabled)') :
-                        (view === 'months' ?
-                            monthpicker.find('td:not(.dp_disabled)') :
-                                yearpicker.find('td:not(.dp_disabled)')));
+                    (view === 'months' ?
+                        monthpicker.find('td:not(.dp_disabled)') :
+                        yearpicker.find('td:not(.dp_disabled)')));
 
                 // iterate through the active elements
                 // and attach a "date" data attribute to each element in the form of
@@ -3677,7 +3675,9 @@
                 d = date.getDate(),
                 a, b, c, s, e, f, g, n, w;
 
-            // If month jan. or feb.
+            /* jshint ignore:start */
+
+            // if month jan. or feb.
             if (m < 3) {
 
                 a = y - 1;
@@ -3687,7 +3687,7 @@
                 e = 0;
                 f = d - 1 + 31 * (m - 1);
 
-            // If month mar. through dec.
+            // if month mar. through dec.
             } else {
 
                 a = y;
@@ -3709,6 +3709,8 @@
             else if (n > 364 + s) w = 1;
 
             else w = (n / 7 | 0) + 1;
+
+            /* jshint ignore:end */
 
             return w;
 
