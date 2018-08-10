@@ -5,6 +5,9 @@ module.exports = function(grunt) {
     // show time spent on each task
     require('time-grunt')(grunt);
 
+    // required for sass
+    const sass = require('node-sass');
+
     grunt.initConfig({
 
         // load packages.json
@@ -30,6 +33,7 @@ module.exports = function(grunt) {
         'sass': {
             expanded: {
                 options: {
+                    implementation: sass,
                     outputStyle: 'expanded',
                     indentWidth: 4
                 },
@@ -41,6 +45,7 @@ module.exports = function(grunt) {
             },
             minified: {
                 options: {
+                    implementation: sass,
                     outputStyle: 'compressed'
                 },
                 files: {
