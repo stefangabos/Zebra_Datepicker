@@ -9,4 +9,5 @@ bower.json
 eslint.json
 Gruntfile.js
 package.json
+package-lock.json
 todo.txt
