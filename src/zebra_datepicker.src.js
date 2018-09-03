@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.11 (last revision: August 10, 2018)
+ *  @version    1.9.11 (last revision: September 03, 2018)
  *  @copyright  (c) 2011 - 2018 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -1796,9 +1796,10 @@
          */
         plugin.hide = function(outside) {
 
-            // if date picker is not always visible or we clicked outside the date picker
+            // unless the date picker is not already hidden AND
+            // the date picker is not always visible or we clicked outside the date picker
             // (the "outside" argument is TRUE when clicking outside the date picker and the "always_visible" is set to boolean TRUE)
-            if (!plugin.settings.always_visible || outside) {
+            if (!datepicker.hasClass('dp_hidden') && (!plugin.settings.always_visible || outside)) {
 
                 // hide the iFrameShim in Internet Explorer 6
                 iframeShim('hide');
