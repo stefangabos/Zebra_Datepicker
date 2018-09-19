@@ -447,7 +447,7 @@
             // private properties
             cleardate, clickables, confirm_selection, current_system_day, current_system_month, current_system_year,
             custom_class_names, custom_classes = {}, datepicker, daypicker, daypicker_cells, default_day,
-            default_month, default_year, disabled_dates = [], enabled_dates = [], end_date, first_selectable_day,
+            default_month, default_year, disabled_dates, enabled_dates, end_date, first_selectable_day,
             first_selectable_month, first_selectable_year, footer, header, icon, last_selectable_day, last_selectable_month,
             last_selectable_year, monthpicker, monthpicker_cells, original_attributes = {}, selected_hour, selected_minute,
             selected_second, selected_ampm, view_toggler, selected_month, selected_year, selecttoday, shim,
@@ -494,6 +494,10 @@
             // remove related events)
             // the code is taken from http://stackoverflow.com/a/105074
             for (k = 0; k < 3; k++) uniqueid += Math.floor((1 + Math.random()) * 0x10000).toString(16);
+
+            // start by assuming there are no enabled/disabled dates
+            disabled_dates = [];
+            enabled_dates = [];
 
             // unless we're not just updating settings
             if (!update) {
@@ -640,8 +644,6 @@
             // parse the rules for disabling dates and turn them into arrays of arrays
 
             custom_class_names = [];
-            disabled_dates = [];
-            enabled_dates = [];
             for (k in plugin.settings.custom_classes) if (plugin.settings.custom_classes.hasOwnProperty(k) && custom_class_names.indexOf(k) === -1) custom_class_names.push(k);
 
             // it's the same logic for preparing the enabled/disable dates, as well as dates that have custom classes
