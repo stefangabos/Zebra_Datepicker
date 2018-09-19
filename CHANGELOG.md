@@ -1,6 +1,7 @@
 ## version 1.9.12 (TBA)
 
 - fixed [#124](https://github.com/stefangabos/Zebra_Datepicker/issues/124) where, when resizing the window, the `onClose` event would fire multiple times - thanks [@kouts](https://github.com/kouts)!
+- merged pull request [#125](https://github.com/stefangabos/Zebra_Datepicker/pull/125) by [mckey](https://github.com/mckey) fixing a bug when dynamically changing enabled/disabled dates
 
 ## version 1.9.11 (August 10, 2018)
 
