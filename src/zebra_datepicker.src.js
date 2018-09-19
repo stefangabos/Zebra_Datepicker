@@ -640,6 +640,8 @@
             // parse the rules for disabling dates and turn them into arrays of arrays
 
             custom_class_names = [];
+            disabled_dates = [];
+            enabled_dates = [];
             for (k in plugin.settings.custom_classes) if (plugin.settings.custom_classes.hasOwnProperty(k) && custom_class_names.indexOf(k) === -1) custom_class_names.push(k);
 
             // it's the same logic for preparing the enabled/disable dates, as well as dates that have custom classes
@@ -911,7 +913,7 @@
                 for (var interval in disabled_dates)
 
                     // only if there is a rule that disables *everything*
-                    if (disabled_dates[interval][0] === '*' && disabled_dates[interval][1] === '*' && disabled_dates[interval][2] === '*' && disabled_dates[interval][3] === '*') {
+                    if ($.inArray('*', disabled_dates[interval][0]) > -1 && $.inArray('*', disabled_dates[interval][1]) > -1 && $.inArray('*', disabled_dates[interval][2]) > -1 && $.inArray('*', disabled_dates[interval][3]) > -1) {
 
                         var tmpDates = [];
 
