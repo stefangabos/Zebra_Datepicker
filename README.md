@@ -445,6 +445,14 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
+        <td valign="top"><a name="rtl"></a><strong>rtl</strong></td>
+        <td valign="top"><em>boolean</em></td>
+        <td valign="top"><code>false</code></td>
+        <td valign="top">
+            Whether text should be drawn from right to left.
+        </td>
+    </tr>
+    <tr>
         <td valign="top"><a name="select_other_months"></a><strong>select_other_months</strong></td>
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>false</code></td>

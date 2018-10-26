@@ -1,5 +1,6 @@
 ## version 1.9.12 (TBA)
 
+- added support for RTL languages, fixing [#126](https://github.com/stefangabos/Zebra_Datepicker/issues/126) - thanks [@Abdox3](https://github.com/Abdox3)!
 - fixed [#124](https://github.com/stefangabos/Zebra_Datepicker/issues/124) where, when resizing the window, the `onClose` event would fire multiple times - thanks [@kouts](https://github.com/kouts)!
 - merged pull request [#125](https://github.com/stefangabos/Zebra_Datepicker/pull/125) by [mckey](https://github.com/mckey) fixing a bug when dynamically changing enabled/disabled dates
 

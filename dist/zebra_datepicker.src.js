@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.11 (last revision: September 19, 2018)
+ *  @version    1.9.11 (last revision: October 26, 2018)
  *  @copyright  (c) 2011 - 2018 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -175,7 +175,7 @@
                 //  valid values are 0 to 6, Sunday to Saturday
                 //
                 //  default is 1, Monday
-                first_day_of_week: 1,
+                first_day_of_week: 0,
 
                 //  format of the returned date
                 //
@@ -310,6 +310,11 @@
                 //
                 //  default is TRUE
                 readonly_element: true,
+
+                //  enables rtl text.
+                //
+                //  default is FALSE
+                rtl: false,
 
                 //  should days from previous and/or next month be selectable when visible?
                 //  note that if the value of this property is set to TRUE, the value of "show_other_months" will be considered
@@ -1364,7 +1369,8 @@
             disable_text_select(datepicker);
 
             // event for when clicking the "previous" button
-            $('.dp_previous', header).on('click', function() {
+            // (directions are inverted when in RTL mode)
+            $(plugin.settings.rtl ? '.dp_next' : '.dp_previous', header).on('click', function() {
 
                 // if view is "months"
                 // decrement year by one
@@ -1408,7 +1414,8 @@
             });
 
             // event for when clicking the "next" button
-            $('.dp_next', header).on('click', function() {
+            // (directions are inverted when in RTL mode)
+            $(plugin.settings.rtl ? '.dp_previous' : '.dp_next', header).on('click', function() {
 
                 // if view is "months"
                 // increment year by 1
@@ -2497,7 +2504,7 @@
                 // how many days are there to be shown from the previous month
                 days_from_previous_month = first_day - plugin.settings.first_day_of_week,
 
-                i, html, day, real_date, real_year, real_month, real_day, weekday, class_name, custom_class_name, is_weekend;
+                i, html, day, real_date, real_year, real_month, real_day, weekday, class_name, custom_class_name, is_weekend, rtl_offset;
 
             // the final value of how many days are there to be shown from the previous month
             days_from_previous_month = days_from_previous_month < 0 ? 7 + days_from_previous_month : days_from_previous_month;
@@ -2517,14 +2524,22 @@
             // name of week days
             // show the abbreviated day names (or only the first two letters of the full name if no abbreviations are specified)
             // and also, take in account the value of the "first_day_of_week" property
-            for (i = 0; i < 7; i++)
+            for (i = 0; i < 7; i++) {
 
-                html += '<th>' + ($.isArray(plugin.settings.days_abbr) && undefined !== plugin.settings.days_abbr[(plugin.settings.first_day_of_week + i) % 7] ? plugin.settings.days_abbr[(plugin.settings.first_day_of_week + i) % 7] : plugin.settings.days[(plugin.settings.first_day_of_week + i) % 7].substr(0, 2)) + '</th>';
+                // the week day's number; account for RTL
+                day = (plugin.settings.first_day_of_week + (plugin.settings.rtl ? 6 - i : i)) % 7;
+
+                html += '<th>' + ($.isArray(plugin.settings.days_abbr) && undefined !== plugin.settings.days_abbr[day] ? plugin.settings.days_abbr[day] : plugin.settings.days[day].substr(0, 2)) + '</th>';
+
+            }
 
             html += '</tr><tr>';
 
             // the calendar shows a total of 42 days
             for (i = 0; i < 42; i++) {
+
+                // we need some additional math when showing an RTL calendar
+                rtl_offset = (plugin.settings.rtl ? 6 - ((i % 7) * 2) : 0);
 
                 // seven days per row
                 if (i > 0 && i % 7 === 0) html += '</tr><tr>';
@@ -2536,7 +2551,7 @@
                     html += '<th>' + getWeekNumber(new Date(selected_year, selected_month, (i - days_from_previous_month + 1))) + '</th>';
 
                 // the number of the day in month
-                day = (i - days_from_previous_month + 1);
+                day = rtl_offset + (i - days_from_previous_month + 1);
 
                 // if dates in previous/next month can be selected, and this is one of those days
                 if (plugin.settings.select_other_months && (i < days_from_previous_month || day > days_in_month)) {
@@ -2560,9 +2575,9 @@
                 is_weekend = ($.inArray(weekday, plugin.settings.weekend_days) > -1);
 
                 // if this is a day from the previous month
-                if (i < days_from_previous_month)
+                if ((plugin.settings.rtl && day < 1) || (!plugin.settings.rtl && i < days_from_previous_month))
 
-                    html += '<td class="dp_not_in_month ' + (is_weekend ? 'dp_weekend ' : '') + (plugin.settings.select_other_months && !is_disabled(real_year, real_month, real_day) ? 'date_' + real_date : 'dp_disabled') + '">' + (plugin.settings.select_other_months || plugin.settings.show_other_months ? str_pad(days_in_previous_month - days_from_previous_month + i + 1, plugin.settings.zero_pad ? 2 : 0) : '&nbsp;') + '</td>';
+                    html += '<td class="dp_not_in_month ' + (is_weekend ? 'dp_weekend ' : '') + (plugin.settings.select_other_months && !is_disabled(real_year, real_month, real_day) ? 'date_' + real_date : 'dp_disabled') + '">' + (plugin.settings.select_other_months || plugin.settings.show_other_months ? str_pad(rtl_offset + days_in_previous_month - days_from_previous_month + i + 1, plugin.settings.zero_pad ? 2 : 0) : '&nbsp;') + '</td>';
 
                 // if this is a day from the next month
                 else if (day > days_in_month)
@@ -2630,7 +2645,7 @@
             manage_header(plugin.settings.header_captions.months);
 
             // start generating the HTML
-            var html = '<tr>', i, class_name;
+            var html = '<tr>', i, class_name, month;
 
             // iterate through all the months
             for (i = 0; i < 12; i++) {
@@ -2638,19 +2653,22 @@
                 // three month per row
                 if (i > 0 && i % 3 === 0) html += '</tr><tr>';
 
-                class_name = 'dp_month_' + i;
+                // the month, taking RTL into account
+                month = plugin.settings.rtl ? 2 + i - (2 * (i % 3)) : i;
+
+                class_name = 'dp_month_' + month;
 
                 // if month needs to be disabled
-                if (is_disabled(selected_year, i)) class_name += ' dp_disabled';
+                if (is_disabled(selected_year, month)) class_name += ' dp_disabled';
 
                 // else, if a date is already selected and this is that particular month, highlight it
-                else if (default_month !== false && default_month === i && selected_year === default_year) class_name += ' dp_selected';
+                else if (default_month !== false && default_month === month && selected_year === default_year) class_name += ' dp_selected';
 
                 // else, if this the current system month, highlight it
-                else if (current_system_month === i && current_system_year === selected_year) class_name += ' dp_current';
+                else if (current_system_month === month && current_system_year === selected_year) class_name += ' dp_current';
 
                 // first three letters of the month's name
-                html += '<td class="' + $.trim(class_name) + '">' + ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[i] ? plugin.settings.months_abbr[i] : plugin.settings.months[i].substr(0, 3)) + '</td>';
+                html += '<td class="' + $.trim(class_name) + '">' + ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[month] ? plugin.settings.months_abbr[month] : plugin.settings.months[month].substr(0, 3)) + '</td>';
 
             }
 
@@ -2685,26 +2703,29 @@
 
             // the HTML
             html = '<tr class="dp_time_controls_increase">' +
+                (plugin.settings.rtl && timepicker_config.ampm ? '<td class="dp_time_ampm dp_time_control">' + plugin.settings.navigation[2] + '</td>' : '') +
                 (timepicker_config.hours ? '<td class="dp_time_hour dp_time_control">' + plugin.settings.navigation[2] + '</td>' : '') +
                 (timepicker_config.minutes ? '<td class="dp_time_minute dp_time_control">' + plugin.settings.navigation[2] + '</td>' : '') +
                 (timepicker_config.seconds ? '<td class="dp_time_second dp_time_control">' + plugin.settings.navigation[2] + '</td>' : '') +
-                (timepicker_config.ampm ? '<td class="dp_time_ampm dp_time_control">' + plugin.settings.navigation[2] + '</td>' : '') +
+                (!plugin.settings.rtl && timepicker_config.ampm ? '<td class="dp_time_ampm dp_time_control">' + plugin.settings.navigation[2] + '</td>' : '') +
                 '</tr>';
 
             html += '<tr class="dp_time_segments">';
 
-            if (timepicker_config.hours) html += '<td class="dp_time_hours dp_disabled' + (timepicker_config.minutes || timepicker_config.seconds || timepicker_config.ampm ? ' dp_time_separator' : '') + '"><div>' + str_pad(selected_hour, 2) + '</div></td>';
-            if (timepicker_config.minutes) html += '<td class="dp_time_minutes dp_disabled' + (timepicker_config.seconds || timepicker_config.ampm ? ' dp_time_separator' : '') + '"><div>' + str_pad(selected_minute, 2) + '</div></td>';
-            if (timepicker_config.seconds) html += '<td class="dp_time_seconds dp_disabled' + (timepicker_config.ampm ? ' dp_time_separator' : '') + '"><div>' + str_pad(selected_second, 2) + '</div></td>';
-            if (timepicker_config.ampm) html += '<td class="dp_time_ampm dp_disabled">' + selected_ampm.toUpperCase() + '</td>';
+            if (plugin.settings.rtl && timepicker_config.ampm) html += '<td class="dp_time_ampm dp_disabled' + (timepicker_config.hours || timepicker_config.minutes || timepicker_config.seconds ? ' dp_time_separator' : '') + '"><div>' + selected_ampm.toUpperCase() + '</div></td>';
+            if (timepicker_config.hours) html += '<td class="dp_time_hours dp_disabled' + (timepicker_config.minutes || timepicker_config.seconds || (!plugin.settings.rtl && timepicker_config.ampm) ? ' dp_time_separator' : '') + '"><div>' + str_pad(selected_hour, 2) + '</div></td>';
+            if (timepicker_config.minutes) html += '<td class="dp_time_minutes dp_disabled' + (timepicker_config.seconds || (!plugin.settings.rtl && timepicker_config.ampm) ? ' dp_time_separator' : '') + '"><div>' + str_pad(selected_minute, 2) + '</div></td>';
+            if (timepicker_config.seconds) html += '<td class="dp_time_seconds dp_disabled' + (!plugin.settings.rtl && timepicker_config.ampm ? ' dp_time_separator' : '') + '"><div>' + str_pad(selected_second, 2) + '</div></td>';
+            if (!plugin.settings.rtl && timepicker_config.ampm) html += '<td class="dp_time_ampm dp_disabled">' + selected_ampm.toUpperCase() + '</td>';
 
             html += '</tr>';
 
             html += '<tr class="dp_time_controls_decrease">' +
+                (plugin.settings.rtl && timepicker_config.ampm ? '<td class="dp_time_ampm dp_time_control">' + plugin.settings.navigation[3] + '</td>' : '') +
                 (timepicker_config.hours ? '<td class="dp_time_hour dp_time_control">' + plugin.settings.navigation[3] + '</td>' : '') +
                 (timepicker_config.minutes ? '<td class="dp_time_minute dp_time_control">' + plugin.settings.navigation[3] + '</td>' : '') +
                 (timepicker_config.seconds ? '<td class="dp_time_second dp_time_control">' + plugin.settings.navigation[3] + '</td>' : '') +
-                (timepicker_config.ampm ? '<td class="dp_time_ampm dp_time_control">' + plugin.settings.navigation[3] + '</td>' : '') +
+                (!plugin.settings.rtl && timepicker_config.ampm ? '<td class="dp_time_ampm dp_time_control">' + plugin.settings.navigation[3] + '</td>' : '') +
                 '</tr>';
 
             // inject into the DOM
@@ -2728,27 +2749,30 @@
             manage_header(plugin.settings.header_captions.years);
 
             // start generating the HTML
-            var html = '<tr>', i, class_name;
+            var html = '<tr>', i, class_name, year;
 
-            // we're showing 9 years at a time, current year in the middle
+            // we're showing 12 years at a time, current year in the middle
             for (i = 0; i < 12; i++) {
 
                 // three years per row
                 if (i > 0 && i % 3 === 0) html += '</tr><tr>';
 
+                // the year, taking RTL into account
+                year = plugin.settings.rtl ? 2 + i - (2 * (i % 3)) : i;
+
                 class_name = '';
 
                 // if year needs to be disabled
-                if (is_disabled(selected_year - 7 + i)) class_name += ' dp_disabled';
+                if (is_disabled(selected_year - 7 + year)) class_name += ' dp_disabled';
 
                 // else, if a date is already selected and this is that particular year, highlight it
-                else if (default_year && default_year === selected_year - 7 + i) class_name += ' dp_selected';
+                else if (default_year && default_year === selected_year - 7 + year) class_name += ' dp_selected';
 
                 // else, if this is the current system year, highlight it
-                else if (current_system_year === (selected_year - 7 + i)) class_name += ' dp_current';
+                else if (current_system_year === (selected_year - 7 + year)) class_name += ' dp_current';
 
                 // first three letters of the month's name
-                html += '<td' + ($.trim(class_name) !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + (selected_year - 7 + i) + '</td>';
+                html += '<td' + ($.trim(class_name) !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + (selected_year - 7 + year) + '</td>';
 
             }
 
