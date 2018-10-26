@@ -175,7 +175,7 @@
                 //  valid values are 0 to 6, Sunday to Saturday
                 //
                 //  default is 1, Monday
-                first_day_of_week: 0,
+                first_day_of_week: 1,
 
                 //  format of the returned date
                 //
