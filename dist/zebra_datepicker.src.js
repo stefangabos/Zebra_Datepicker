@@ -494,7 +494,7 @@
                     },
 
                     // some defaults
-                    type = null, data, dates, k, l, hour_format, format_is_valid = false;
+                    type = null, data, dates, k, l, format_is_valid = false;
 
                 // generate a random ID for each date picker (we'll use this if later a certain date picker is destroyed to
                 // remove related events)
@@ -593,10 +593,8 @@
                                     // if hours are available in the date's format
                                     if (type === 'hours') {
 
-                                        // store the hour's format because we need it later to check the validity of
-                                        // the date format when using AM/PM time format
-                                        // (where the hour can be either "g" or "h" but not "G" or "H")
-                                        hour_format = character;
+                                        // store the hour's format
+                                        timepicker_config.hour_format = character;
 
                                         // selectable hours (12 or 24) depending on the format
                                         if (character === 'g' || character === 'h') {
@@ -649,10 +647,10 @@
                         });
 
                     // if time format contains hours, am/pm needs to be shown but the hours are in 24-hour format
-                    if (hour_format && timepicker_config.ampm && timepicker_config.is12hour === false)
+                    if (timepicker_config.hour_format && timepicker_config.ampm && timepicker_config.is12hour === false)
 
                         // replace the hour's format from a 24-hour format to a 12-hour format
-                        plugin.settings.format = plugin.settings.format.replace(hour_format, hour_format.toLowerCase());
+                        plugin.settings.format = plugin.settings.format.replace(timepicker_config.hour_format, timepicker_config.hour_format.toLowerCase());
 
                     // otherwise, consider the format as valid
                     else format_is_valid = true;
@@ -2445,7 +2443,7 @@
                 html += '<tr class="dp_time_segments' + (condensed ? ' dp_time_controls_condensed' : '') + '">';
 
                 if (plugin.settings.rtl && timepicker_config.ampm) html += '<td class="dp_time_ampm dp_disabled' + (timepicker_config.hours || timepicker_config.minutes || timepicker_config.seconds ? ' dp_time_separator' : '') + '"><div>' + selected_ampm.toUpperCase() + '</div></td>';
-                if (timepicker_config.hours) html += '<td class="dp_time_hours dp_disabled' + (timepicker_config.minutes || timepicker_config.seconds || (!plugin.settings.rtl && timepicker_config.ampm) ? ' dp_time_separator' : '') + '"><div>' + str_pad(selected_hour, 2) + '</div></td>';
+                if (timepicker_config.hours) html += '<td class="dp_time_hours dp_disabled' + (timepicker_config.minutes || timepicker_config.seconds || (!plugin.settings.rtl && timepicker_config.ampm) ? ' dp_time_separator' : '') + '"><div>' + (timepicker_config.hour_format === 'h' || timepicker_config.hour_format === 'H' ? str_pad(selected_hour, 2) : selected_hour) + '</div></td>';
                 if (timepicker_config.minutes) html += '<td class="dp_time_minutes dp_disabled' + (timepicker_config.seconds || (!plugin.settings.rtl && timepicker_config.ampm) ? ' dp_time_separator' : '') + '"><div>' + str_pad(selected_minute, 2) + '</div></td>';
                 if (timepicker_config.seconds) html += '<td class="dp_time_seconds dp_disabled' + (!plugin.settings.rtl && timepicker_config.ampm ? ' dp_time_separator' : '') + '"><div>' + str_pad(selected_second, 2) + '</div></td>';
                 if (!plugin.settings.rtl && timepicker_config.ampm) html += '<td class="dp_time_ampm dp_disabled">' + selected_ampm.toUpperCase() + '</td>';
