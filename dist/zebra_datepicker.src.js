@@ -170,6 +170,10 @@
                 //  default is FALSE, all seconds are selectable.
                 enabled_seconds: false,
 
+                //  allows the users to quickly navigate through months and years by clicking on the date picker's top label.
+                //  default is TRUE.
+                fast_navigation: true,
+
                 //  week's starting day
                 //
                 //  valid values are 0 to 6, Sunday to Saturday
@@ -1414,22 +1418,25 @@
 
                 });
 
-                // attach a click event to the caption in header
-                $('.dp_caption', header).on('click', function() {
+                // if "fast_navigation" is enabled, allow clicking the upper label for quickly navigating through months and years
+                if (plugin.settings.fast_navigation)
 
-                    // if current view is "days", take the user to the next view, depending on the format
-                    if (view === 'days') view = ($.inArray('months', views) > -1 ? 'months' : ($.inArray('years', views) > -1 ? 'years' : 'days'));
+                    // attach a click event to the caption in header
+                    $('.dp_caption', header).on('click', function() {
 
-                    // if current view is "months", take the user to the next view, depending on the format
-                    else if (view === 'months') view = ($.inArray('years', views) > -1 ? 'years' : ($.inArray('days', views) > -1 ? 'days' : 'months'));
+                        // if current view is "days", take the user to the next view, depending on the format
+                        if (view === 'days') view = ($.inArray('months', views) > -1 ? 'months' : ($.inArray('years', views) > -1 ? 'years' : 'days'));
 
-                    // if current view is "years", take the user to the next view, depending on the format
-                    else view = ($.inArray('days', views) > -1 ? 'days' : ($.inArray('months', views) > -1 ? 'months' : 'years'));
+                        // if current view is "months", take the user to the next view, depending on the format
+                        else if (view === 'months') view = ($.inArray('years', views) > -1 ? 'years' : ($.inArray('days', views) > -1 ? 'days' : 'months'));
 
-                    // generate the appropriate view
-                    manage_views();
+                        // if current view is "years", take the user to the next view, depending on the format
+                        else view = ($.inArray('days', views) > -1 ? 'days' : ($.inArray('months', views) > -1 ? 'months' : 'years'));
 
-                });
+                        // generate the appropriate view
+                        manage_views();
+
+                    });
 
                 // event for when clicking the "next" button
                 // (directions are inverted when in RTL mode)

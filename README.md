@@ -296,6 +296,14 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
+        <td valign="top"><a name="first_day_of_week"></a><strong>fast_navigation</strong></td>
+        <td valign="top"><em>boolean</em></td>
+        <td valign="top"><code>true</code></td>
+        <td valign="top">
+            Allows the users to quickly navigate through months and years by clicking on the date picker's top label.
+        </td>
+    </tr>
+    <tr>
         <td valign="top"><a name="first_day_of_week"></a><strong>first_day_of_week</strong></td>
         <td valign="top"><em>integer</em></td>
         <td valign="top"><code>1</code><br><small>Monday</small></td>
