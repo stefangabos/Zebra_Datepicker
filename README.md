@@ -21,6 +21,7 @@ Zebra_Datepicker is a small yet and highly configurable date picker / time picke
  - supports all sorts of combinations for starting and ending dates
  - date pickers can be "paired" – where one or more date pickers will use the value of another date picker as starting date
  - supports internationalization
+ - supports RTL languages
  - works by automatically attaching a small calendar icon to the indicated input fields which displays the attached date picker when clicked.
  - it's compatible with AMD and CommonJS
 

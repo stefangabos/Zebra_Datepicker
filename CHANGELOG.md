@@ -3,6 +3,9 @@
 - added support for RTL languages, fixing [#126](https://github.com/stefangabos/Zebra_Datepicker/issues/126) - thanks [@Abdox3](https://github.com/Abdox3)!
 - fixed [#124](https://github.com/stefangabos/Zebra_Datepicker/issues/124) where, when resizing the window, the `onClose` event would fire multiple times - thanks [@kouts](https://github.com/kouts)!
 - merged pull request [#125](https://github.com/stefangabos/Zebra_Datepicker/pull/125) by [mckey](https://github.com/mckey) fixing a bug when dynamically changing enabled/disabled dates
+- the hour in the time picker now respects the format in what regards the leading zeroes
+- fixed a bug where when having `a` or `A` the time's format *(indicating a 12-hour time)* but the hour's format is `H` or `G` *(indicating a 24-hour time)*, time picking was not working correctly; these will now be replaced automatically with `h` and `g` respectively
+- adjusted font size for the time picker and fixed spacing issues when having a time format with hours, minutes, seconds *and* am/pm
 
 ## version 1.9.11 (August 10, 2018)
 
