@@ -37,10 +37,6 @@
         width: $dp_cell_min_width;
     }
 
-    td.dp_time_ampm {
-        padding-left: 10px;
-    }
-
     .dp_body {
         @if variable-exists(dp_cell_border) {
             th, td {
@@ -81,6 +77,12 @@
         .dp_time_control {
             @if variable-exists(dp_time_control_background) and $dp_time_control_background != $dp_weekday_background { background: $dp_time_control_background; }
             @if variable-exists(dp_time_control_color) and $dp_time_control_color != $dp_weekday_color { background: $dp_time_control_color; }
+        }
+
+        .dp_time_controls_condensed {
+            td {
+                width: 25%;
+            }
         }
 
         .dp_current {
@@ -136,7 +138,7 @@
         @if variable-exists(dp_time_background) and $dp_time_background != $dp_weekday_disabled_background { background: $dp_time_background; }
         border: none;
         color: if(variable-exists(dp_time_color), $dp_time_color, if(variable-exists(dp_weekday_color), $dp_weekday_color, $dp_color));
-        font-size: ceil($dp_font_size * 3);
+        font-size: ceil($dp_font_size * 2);
         font-weight: bold;
     }
 
@@ -146,9 +148,12 @@
             &:after {
                 content: ":";
                 color: if(variable-exists(dp_time_separator_color), $dp_time_separator_color, if(variable-exists(dp_weekday_color), $dp_weekday_color, $dp_color));
-                font-size: ceil($dp_font_size * 3) - 2;
+                font-size: ceil($dp_font_size * 1.5);
                 left: 100%;
+                margin-left: 2px;
+                margin-top: -$dp_font_size;
                 position: absolute;
+                top: 50%;
                 z-index: 1;
             }
         }

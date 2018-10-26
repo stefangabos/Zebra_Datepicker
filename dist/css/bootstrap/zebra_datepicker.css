@@ -34,11 +34,11 @@
     min-width: 25px;
     width: 25px
 }
-.Zebra_DatePicker td.dp_time_ampm {
-    padding-left: 10px
-}
 .Zebra_DatePicker .dp_body .dp_not_in_month {
     color: #666
+}
+.Zebra_DatePicker .dp_body .dp_time_controls_condensed td {
+    width: 25%
 }
 .Zebra_DatePicker .dp_body .dp_current {
     color: #3a87ad
@@ -68,7 +68,7 @@
 .Zebra_DatePicker .dp_timepicker .dp_disabled {
     border: none;
     color: #222;
-    font-size: 39px;
+    font-size: 26px;
     font-weight: 700
 }
 .Zebra_DatePicker .dp_time_separator div {
@@ -77,9 +77,12 @@
 .Zebra_DatePicker .dp_time_separator div:after {
     content: ":";
     color: #222;
-    font-size: 37px;
+    font-size: 20px;
     left: 100%;
+    margin-left: 2px;
+    margin-top: -13px;
     position: absolute;
+    top: 50%;
     z-index: 1
 }
 .Zebra_DatePicker .dp_header {

@@ -2409,10 +2409,10 @@
              */
             generate_timepicker = function() {
 
-                var html;
+                var html, condensed = (timepicker_config.hours && timepicker_config.minutes && timepicker_config.seconds && timepicker_config.ampm);
 
                 // the HTML
-                html = '<tr class="dp_time_controls_increase">' +
+                html = '<tr class="dp_time_controls_increase' + (condensed ? ' dp_time_controls_condensed' : '') + '">' +
                     (plugin.settings.rtl && timepicker_config.ampm ? '<td class="dp_time_ampm dp_time_control">' + plugin.settings.navigation[2] + '</td>' : '') +
                     (timepicker_config.hours ? '<td class="dp_time_hour dp_time_control">' + plugin.settings.navigation[2] + '</td>' : '') +
                     (timepicker_config.minutes ? '<td class="dp_time_minute dp_time_control">' + plugin.settings.navigation[2] + '</td>' : '') +
@@ -2420,7 +2420,7 @@
                     (!plugin.settings.rtl && timepicker_config.ampm ? '<td class="dp_time_ampm dp_time_control">' + plugin.settings.navigation[2] + '</td>' : '') +
                     '</tr>';
 
-                html += '<tr class="dp_time_segments">';
+                html += '<tr class="dp_time_segments' + (condensed ? ' dp_time_controls_condensed' : '') + '">';
 
                 if (plugin.settings.rtl && timepicker_config.ampm) html += '<td class="dp_time_ampm dp_disabled' + (timepicker_config.hours || timepicker_config.minutes || timepicker_config.seconds ? ' dp_time_separator' : '') + '"><div>' + selected_ampm.toUpperCase() + '</div></td>';
                 if (timepicker_config.hours) html += '<td class="dp_time_hours dp_disabled' + (timepicker_config.minutes || timepicker_config.seconds || (!plugin.settings.rtl && timepicker_config.ampm) ? ' dp_time_separator' : '') + '"><div>' + str_pad(selected_hour, 2) + '</div></td>';
@@ -2430,7 +2430,7 @@
 
                 html += '</tr>';
 
-                html += '<tr class="dp_time_controls_decrease">' +
+                html += '<tr class="dp_time_controls_decrease' + (condensed ? ' dp_time_controls_condensed' : '') + '">' +
                     (plugin.settings.rtl && timepicker_config.ampm ? '<td class="dp_time_ampm dp_time_control">' + plugin.settings.navigation[3] + '</td>' : '') +
                     (timepicker_config.hours ? '<td class="dp_time_hour dp_time_control">' + plugin.settings.navigation[3] + '</td>' : '') +
                     (timepicker_config.minutes ? '<td class="dp_time_minute dp_time_control">' + plugin.settings.navigation[3] + '</td>' : '') +
