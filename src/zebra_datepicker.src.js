@@ -191,6 +191,9 @@
                 //  picker. if you want to use a format that involves time but you don't want the time picker, set the
                 //  "disable_time_picker" property to TRUE.
                 //
+                //  setting a time format containing "a" or "A" (12-hour format) but using "H" or "G" as the hour's format
+                //  will result in the hour's format being changed to "h" or "g", respectively.
+                //
                 //  also note that the value of the "view" property (see below) may be overridden if it is the case: a value of
                 //  "days" for the "view" property makes no sense if the date format doesn't allow the selection of days.
                 //
@@ -491,7 +494,7 @@
                     },
 
                     // some defaults
-                    type = null, data, dates, k, l;
+                    type = null, data, dates, k, l, hour_format, format_is_valid = false;
 
                 // generate a random ID for each date picker (we'll use this if later a certain date picker is destroyed to
                 // remove related events)
@@ -546,96 +549,115 @@
                 // the views the user can cycle through
                 views = [];
 
-                // determine the views the user can cycle through, depending on the format
-                // that is, if the format doesn't contain the day, the user will be able to cycle only through years and months,
-                // whereas if the format doesn't contain months nor days, the user will only be able to select years
+                // as long as the format is invalid
+                while (!format_is_valid) {
 
-                // iterate through all the character blocks
-                for (type in date_chars)
+                    // determine the views the user can cycle through, depending on the format
+                    // that is, if the format doesn't contain the day, the user will be able to cycle only through years and months,
+                    // whereas if the format doesn't contain months nor days, the user will only be able to select years
 
-                    // iterate through the characters of each block
-                    $.each(date_chars[type], function(index, character) {
+                    // iterate through all the character blocks
+                    for (type in date_chars)
 
-                        var i, max;
+                        // iterate through the characters of each block
+                        $.each(date_chars[type], function(index, character) {
 
-                        // if current character exists in the "format" property
-                        if (plugin.settings.format.indexOf(character) > -1)
+                            var i, max;
 
-                            // if user can cycle through the "days" view
-                            if (type === 'days') views.push('days');
+                            // if current character exists in the "format" property
+                            if (plugin.settings.format.indexOf(character) > -1)
 
-                            // if user can cycle through the "months" view
-                            else if (type === 'months') views.push('months');
+                                // if user can cycle through the "days" view
+                                if (type === 'days') views.push('days');
 
-                            // if user can cycle through the "years" view
-                            else if (type === 'years') views.push('years');
+                                // if user can cycle through the "months" view
+                                else if (type === 'months') views.push('months');
 
-                            // if time is available in the date's format and time picker is not explicitly disabled
-                            else if ((type === 'hours' || type === 'minutes' || type === 'seconds' || type === 'ampm') && !plugin.settings.disable_time_picker) {
+                                // if user can cycle through the "years" view
+                                else if (type === 'years') views.push('years');
 
-                                // if variable is not yet initialized
-                                if (!timepicker_config) {
+                                // if time is available in the date's format and time picker is not explicitly disabled
+                                else if ((type === 'hours' || type === 'minutes' || type === 'seconds' || type === 'ampm') && !plugin.settings.disable_time_picker) {
 
-                                    // initialize the variable now
-                                    timepicker_config = {is12hour: false};
+                                    // if variable is not yet initialized
+                                    if (!timepicker_config) {
 
-                                    // users may access the "time" view
-                                    views.push('time');
+                                        // initialize the variable now
+                                        timepicker_config = {is12hour: false};
+
+                                        // users may access the "time" view
+                                        views.push('time');
+
+                                    }
+
+                                    // if hours are available in the date's format
+                                    if (type === 'hours') {
+
+                                        // store the hour's format because we need it later to check the validity of
+                                        // the date format when using AM/PM time format
+                                        // (where the hour can be either "g" or "h" but not "G" or "H")
+                                        hour_format = character;
+
+                                        // selectable hours (12 or 24) depending on the format
+                                        if (character === 'g' || character === 'h') {
+
+                                            max = 12;
+
+                                            // set a flag telling that the hour is 12 hour format
+                                            timepicker_config.is12hour = true;
+
+                                        } else max = 24;
+
+                                        timepicker_config.hours = [];
+
+                                        // iterate through valid hours
+                                        for (i = (max === 12 ? 1 : 0); i < (max === 12 ? 13 : max); i++)
+
+                                            // and add them to the lookup array if a user-defined list of values doesn't exist, or if the value is in that list
+                                            if (!$.isArray(plugin.settings.enabled_hours) || $.inArray(i, plugin.settings.enabled_hours) > -1) timepicker_config.hours.push(i);
+
+                                    // if minutes are available in the date's format
+                                    } else if (type === 'minutes') {
+
+                                        timepicker_config.minutes = [];
+
+                                        // iterate through valid minutes
+                                        for (i = 0; i < 60; i++)
+
+                                            // and add them to the lookup array if a user-defined list of values doesn't exist, or if the value is in that list
+                                            if (!$.isArray(plugin.settings.enabled_minutes) || $.inArray(i, plugin.settings.enabled_minutes) > -1) timepicker_config.minutes.push(i);
+
+                                    // if seconds are available in the date's format
+                                    } else if (type === 'seconds') {
+
+                                        timepicker_config.seconds = [];
+
+                                        // iterate through valid minutes
+                                        for (i = 0; i < 60; i++)
+
+                                            // and add them to the lookup array if a user-defined list of values doesn't exist, or if the value is in that list
+                                            if (!$.isArray(plugin.settings.enabled_seconds) || $.inArray(i, plugin.settings.enabled_seconds) > -1) timepicker_config.seconds.push(i);
+
+                                    // if am/pm is available in the date's format
+                                    } else
+
+                                        // pre-fill the array of selectable seconds
+                                        timepicker_config.ampm = ['am', 'pm'];
 
                                 }
 
-                                // if hours are available in the date's format
-                                if (type === 'hours') {
+                        });
 
-                                    // selectable hours (12 or 24) depending on the format
-                                    if (character === 'g' || character === 'h') {
+                    // if time format contains hours, am/pm needs to be shown but the hours are in 24-hour format
+                    if (hour_format && timepicker_config.ampm && timepicker_config.is12hour === false)
 
-                                        max = 12;
+                        // replace the hour's format from a 24-hour format to a 12-hour format
+                        plugin.settings.format = plugin.settings.format.replace(hour_format, hour_format.toLowerCase());
 
-                                        // set a flag telling that the hour is 12 hour format
-                                        timepicker_config.is12hour = true;
+                    // otherwise, consider the format as valid
+                    else format_is_valid = true;
 
-                                    } else max = 24;
-
-                                    timepicker_config.hours = [];
-
-                                    // iterate through valid hours
-                                    for (i = (max === 12 ? 1 : 0); i < (max === 12 ? 13 : max); i++)
-
-                                        // and add them to the lookup array if a user-defined list of values doesn't exist, or if the value is in that list
-                                        if (!$.isArray(plugin.settings.enabled_hours) || $.inArray(i, plugin.settings.enabled_hours) > -1) timepicker_config.hours.push(i);
-
-                                // if minutes are available in the date's format
-                                } else if (type === 'minutes') {
-
-                                    timepicker_config.minutes = [];
-
-                                    // iterate through valid minutes
-                                    for (i = 0; i < 60; i++)
-
-                                        // and add them to the lookup array if a user-defined list of values doesn't exist, or if the value is in that list
-                                        if (!$.isArray(plugin.settings.enabled_minutes) || $.inArray(i, plugin.settings.enabled_minutes) > -1) timepicker_config.minutes.push(i);
-
-                                // if seconds are available in the date's format
-                                } else if (type === 'seconds') {
-
-                                    timepicker_config.seconds = [];
-
-                                    // iterate through valid minutes
-                                    for (i = 0; i < 60; i++)
-
-                                        // and add them to the lookup array if a user-defined list of values doesn't exist, or if the value is in that list
-                                        if (!$.isArray(plugin.settings.enabled_seconds) || $.inArray(i, plugin.settings.enabled_seconds) > -1) timepicker_config.seconds.push(i);
-
-                                // if am/pm is available in the date's format
-                                } else
-
-                                    // pre-fill the array of selectable seconds
-                                    timepicker_config.ampm = ['am', 'pm'];
-
-                            }
-
-                    });
+                }
 
                 // if invalid format (no days, no months, no years) use the default where the user is able to cycle through
                 // all the views, except time
