@@ -77,6 +77,10 @@ $(document).ready(function() {
         always_visible: $('#container')
     });
 
+    $('#datepicker-rtl-support').Zebra_DatePicker({
+        rtl: true
+    });
+
     $('#datepicker-data-attributes').Zebra_DatePicker();
 
     setTimeout(function() {
