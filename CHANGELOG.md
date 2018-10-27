@@ -3,9 +3,10 @@
 - added support for RTL languages, fixing [#126](https://github.com/stefangabos/Zebra_Datepicker/issues/126) - thanks [@Abdox3](https://github.com/Abdox3)!
 - fixed [#124](https://github.com/stefangabos/Zebra_Datepicker/issues/124) where, when resizing the window, the `onClose` event would fire multiple times - thanks [@kouts](https://github.com/kouts)!
 - merged pull request [#125](https://github.com/stefangabos/Zebra_Datepicker/pull/125) by [mckey](https://github.com/mckey) fixing a bug when dynamically changing enabled/disabled dates
-- the hour in the time picker now respects the format in what regards the leading zeroes
+- the hour in the time picker now respects the given format regarding the leading zeroes
 - added a new property called `fast_navigation` which, when set to `false`, disables the default behavior that allows the users to quickly navigate through months and years by clicking on the date picker's top label; this answers [@Leslie Cohn-Wein](https://github.com/lesliecdubs)'s **two and a half year old request** [#66](https://github.com/stefangabos/Zebra_Datepicker/issues/126)! thank you and sorry it took so long! better later than never :)
-- fixed a bug where when having `a` or `A` the time's format *(indicating a 12-hour time)* but the hour's format is `H` or `G` *(indicating a 24-hour time)*, time picking was not working correctly; these will now be replaced automatically with `h` and `g` respectively
+- added a new property called `current_date` which, when set to a date in the format of `YYYY-MM-DD` overrides the value of *Today*; this answers [@Jefferson Borges](https://github.com/JeffBorges)'s **two and a half year old request** [#74](https://github.com/stefangabos/Zebra_Datepicker/pull/74)! thank you and sorry it took so long!
+- fixed a bug where when having `a` or `A` the time's format *(indicating a 12-hour time)* but the hour's format is `H` or `G` *(indicating a 24-hour time)*, time picking was not working correctly; these will now be automatically replaced with `h` and `g` respectively
 - adjusted font size for the time picker and fixed spacing issues when having a time format with hours, minutes, seconds *and* am/pm
 
 ## version 1.9.11 (August 10, 2018)
