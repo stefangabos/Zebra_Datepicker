@@ -11,6 +11,10 @@ body {
     padding: .5em 0;
 }
 
+#container {
+    z-index: 100;
+}
+
 .Zebra_DatePicker .dp_daypicker .myclass {
     background: #E8E8E8 url('close.png') no-repeat center center;
     text-indent: -9999px;
