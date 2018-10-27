@@ -164,6 +164,14 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
+        <td valign="top"><a name="container"></a><strong>current_date</strong></td>
+        <td valign="top"><em>mixed</em></td>
+        <td valign="top"><code>false</code></td>
+        <td valign="top">
+            By default, the current date (the value of <em>Today</em>) is taken from the system where the date picker is run on.<br>Set this to a date in the format of <code>YYYY-MM-DD</code> to use a different date.
+        </td>
+    </tr>
+    <tr>
         <td valign="top"><a name="custom_classes"></a><strong>custom_classes</strong></td>
         <td valign="top"><em>Array</em></td>
         <td valign="top"><code>false</code></td>

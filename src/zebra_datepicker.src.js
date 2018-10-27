@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.11 (last revision: October 26, 2018)
+ *  @version    1.9.11 (last revision: October 27, 2018)
  *  @copyright  (c) 2011 - 2018 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -54,6 +54,12 @@
                 //
                 //  default is $('body')
                 container: $('body'),
+
+                //  by default, the current date (the value of *Today*) is taken from the system where the date picker is run on.
+                //  set this to a date in the format of 'YYYY-MM-DD' to use a different date.
+                //
+                //  default is FALSE which means "the current system's date"
+                current_date: false,
 
                 //  dates that should have custom classes applied to them
                 //  an object in the form of
@@ -758,8 +764,8 @@
 
                 var
 
-                    // cache the current system date
-                    date = new Date(),
+                    // cache the current date (which is either the system's date or a custom one, if given)
+                    date = plugin.settings.current_date !== false ? new Date(plugin.settings.current_date) : new Date(),
 
                     // when the date picker's starting date depends on the value of another date picker, this value will be
                     // set by the other date picker
@@ -1545,7 +1551,7 @@
                 selecttoday.on('click', function(e) {
 
                     // date might have changed since we opened the date picker, so always use the current date
-                    var date = new Date();
+                    var date = plugin.settings.current_date !== false ? new Date(plugin.settings.current_date) : new Date();
 
                     e.preventDefault();
 
