@@ -90,7 +90,8 @@
                             13. <a href="#custom-classes">Custom classes</a><br>
                             14. <a href="#on-change">Handling the "onChange" event</a><br>
                             15. <a href="#always-visible">Always-visible date pickers</a><br>
-                            16. <a href="#data-attributes">Data attributes</a><br>
+                            16. <a href="#rtl-support">RTL support</a><br>
+                            17. <a href="#data-attributes">Data attributes</a><br>
                         </div>
                     </div>
 
@@ -597,6 +598,34 @@
                         </div>
                     </div>
 
+                    <a name="rtl-support"></a>
+                    <div class="top">
+                        <a href="#top" class="small">⯅ To the top</a>
+                    </div>
+
+                    <!-- =========================================================================================== -->
+
+                    <h3><strong>16.</strong> RTL support</h3>
+
+                    <p>
+                        Set the <code>rtl</code> property to <code>true</code> to have the current language drawn from
+                        right to left.
+                    </p>
+
+                    <pre class="brush:js">
+                    $('#datepicker').Zebra_DatePicker({
+                        rtl: true
+                    });
+                    </pre>
+
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input id="datepicker-rtl-support" type="text" class="form-control" data-zdp_readonly_element="false">
+                            </div>
+                        </div>
+                    </div>
+
                     <a name="data-attributes"></a>
                     <div class="top">
                         <a href="#top" class="small">⯅ To the top</a>
@@ -604,7 +633,7 @@
 
                     <!-- =========================================================================================== -->
 
-                    <h3><strong>16.</strong> Data attributes</h3>
+                    <h3><strong>17.</strong> Data attributes</h3>
 
                     <p>
                         All the properties of the date picker can also be set via <code>data-attributes</code>.<br>
