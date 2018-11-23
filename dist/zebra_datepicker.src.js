@@ -2178,11 +2178,11 @@
                         // (st, nd, rd or th (works well with j))
                         case 'S':
 
-                            if (j % 10 === 1 && j !== '11') result += 'st';
+                            if (j % 10 === 1 && j !== 11) result += 'st';
 
-                            else if (j % 10 === 2 && j !== '12') result += 'nd';
+                            else if (j % 10 === 2 && j !== 12) result += 'nd';
 
-                            else if (j % 10 === 3 && j !== '13') result += 'rd';
+                            else if (j % 10 === 3 && j !== 13) result += 'rd';
 
                             else result += 'th';
 
