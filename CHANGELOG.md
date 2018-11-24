@@ -1,3 +1,7 @@
+## version 1.9.13 (TBA)
+
+- fixed [#132](https://github.com/stefangabos/Zebra_Datepicker/pull/132) where English ordinal suffixes for 11th, 12th, and 13th where incorrectly shown as 11st, 12nd, and 13rd. - thanks [@panzerchris](https://github.com/panzerchris)!
+
 ## version 1.9.12 (October 27, 2018)
 
 - added support for RTL languages, fixing [#126](https://github.com/stefangabos/Zebra_Datepicker/issues/126) - thanks [@Abdox3](https://github.com/Abdox3)!
