@@ -470,7 +470,7 @@
             last_selectable_year, monthpicker, monthpicker_cells, original_attributes = {}, selected_hour, selected_minute,
             selected_second, selected_ampm, view_toggler, selected_month, selected_year, selecttoday, shim,
             show_select_today, start_date, timeout, timepicker, timepicker_config, touchmove = false, uniqueid = '', yearpicker,
-            yearpicker_cells, view, views, is_touch = false,
+            yearpicker_cells, view, views, is_touch = false, timer_interval, timer_timeout,
 
             // are we running on an iOS powered device?
             is_iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform),
@@ -1642,58 +1642,48 @@
 
                 });
 
-                // handle value increases on the time picker
-                datepicker.on('click', '.dp_time_controls_increase td, .dp_time_controls_decrease td', function() {
+                // handle value increases/decreases on the time picker, start timers
+                datepicker.on('mousedown', '.dp_time_controls_increase td, .dp_time_controls_decrease td', function(){
 
-                    var
+                    var element = this,
+                        count = 0;
 
-                        // are we increasing or decreasing values?
-                        increase = $(this).parent('.dp_time_controls_increase').length > 0,
+                    // trigger once
+                    manage_timer_controls(element);
 
-                        // figure out what we're increasing (hour, minutes, seconds, ampm)
-                        matches = $(this).attr('class').match(/dp\_time\_([^\s]+)/i),
-                        value_container = $('.dp_time_segments .dp_time_' + matches[1] + (matches[1] !== 'ampm' ? 's' : ''), timepicker),
+                    // start with the first speed after a timeout
+                    timer_timeout = setTimeout(function() {
+                        timer_interval = setInterval(function() {
+                            manage_timer_controls(element);
+                            count++;
 
-                        // the current value (strip the zeros in front)
-                        value = value_container.text().toLowerCase(),
+                            // increase the speed
+                            if (count > 5) {
+                                clearInterval(timer_interval);
 
-                        // the array with allowed values
-                        lookup = timepicker_config[matches[1] + (matches[1] !== 'ampm' ? 's' : '')],
+                                timer_interval = setInterval(function() {
+                                    manage_timer_controls(element);
+                                    count++;
 
-                        // the current value's position in the array of allowed values
-                        current_value_position = $.inArray(matches[1] !== 'ampm' ? parseInt(value, 10) : value, lookup),
+                                    // increase the speed again
+                                    if (count > 15) {
+                                        clearInterval(timer_interval);
 
-                        // the next value's position in the lookup array
-                        next_value_position = current_value_position === -1 ? 0 : (increase ? (current_value_position + 1 >= lookup.length ? 0 : current_value_position + 1) : (current_value_position - 1 < 0 ? lookup.length - 1 : current_value_position - 1)),
+                                        timer_interval = setInterval(function() {
+                                            manage_timer_controls(element);
+                                        }, 50, element);
+                                    }
+                                }, 100, element);
+                            }
+                        }, 200, element);
+                    }, 400, element);
 
-                        default_date;
+                });
 
-                    // increase/decrease the required value according to the values in the lookup array
-                    if (matches[1] === 'hour') selected_hour = lookup[next_value_position];
-                    else if (matches[1] === 'minute') selected_minute = lookup[next_value_position];
-                    else if (matches[1] === 'second') selected_second = lookup[next_value_position];
-                    else selected_ampm = lookup[next_value_position];
-
-                    // if a default day is not available and the "start_date" property is set
-                    if (!default_day && plugin.settings.start_date) {
-
-                        // check if "start_date" is valid according to the format
-                        default_date = check_date(plugin.settings.start_date);
-
-                        // ...and if it is, extract the day from there
-                        if (default_date) default_day = default_date.getDate();
-
-                    }
-
-                    // if still no value, use the first selectable day
-                    if (!default_day) default_day = first_selectable_day;
-
-                    // set the new value
-                    value_container.text(str_pad(lookup[next_value_position], 2).toUpperCase());
-
-                    // update the value in the element
-                    select_date(selected_year, selected_month, default_day);
-
+                // clear timers
+                datepicker.on('mouseup mouseleave', '.dp_time_controls_increase td, .dp_time_controls_decrease td', function() {
+                    clearTimeout(timer_timeout);
+                    clearInterval(timer_interval);
                 });
 
                 // if date picker is not always visible in a container
@@ -3281,6 +3271,66 @@
                     }
 
                 }
+
+            },
+
+                /**
+             *  Handles time increase / decrease
+             *
+             *  @return void
+             *
+             *  @access private
+             */
+            manage_timer_controls = function(element) {
+
+                var
+
+                    // are we increasing or decreasing values?
+                    increase = $(element).parent('.dp_time_controls_increase').length > 0,
+
+                    // figure out what we're increasing (hour, minutes, seconds, ampm)
+                    matches = $(element).attr('class').match(/dp\_time\_([^\s]+)/i),
+                    value_container = $('.dp_time_segments .dp_time_' + matches[1] + (matches[1] !== 'ampm' ? 's' : ''), timepicker),
+
+                    // the current value (strip the zeros in front)
+                    value = value_container.text().toLowerCase(),
+
+                    // the array with allowed values
+                    lookup = timepicker_config[matches[1] + (matches[1] !== 'ampm' ? 's' : '')],
+
+                    // the current value's position in the array of allowed values
+                    current_value_position = $.inArray(matches[1] !== 'ampm' ? parseInt(value, 10) : value, lookup),
+
+                    // the next value's position in the lookup array
+                    next_value_position = current_value_position === -1 ? 0 : (increase ? (current_value_position + 1 >= lookup.length ? 0 : current_value_position + 1) : (current_value_position - 1 < 0 ? lookup.length - 1 : current_value_position - 1)),
+
+                    default_date;
+
+                // increase/decrease the required value according to the values in the lookup array
+                if (matches[1] === 'hour') selected_hour = lookup[next_value_position];
+                else if (matches[1] === 'minute') selected_minute = lookup[next_value_position];
+                else if (matches[1] === 'second') selected_second = lookup[next_value_position];
+                else selected_ampm = lookup[next_value_position];
+
+                // if a default day is not available and the "start_date" property is set
+                if (!default_day && plugin.settings.start_date) {
+
+                    // check if "start_date" is valid according to the format
+                    default_date = check_date(plugin.settings.start_date);
+
+                    // ...and if it is, extract the day from there
+                    if (default_date) default_day = default_date.getDate();
+
+                }
+
+                // if still no value, use the first selectable day
+                if (!default_day) default_day = first_selectable_day;
+
+                // set the new value
+                value_container.text(str_pad(lookup[next_value_position], 2).toUpperCase());
+
+                // update the value in the element
+                select_date(selected_year, selected_month, default_day);
 
             },
 
