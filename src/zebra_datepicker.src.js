@@ -1104,7 +1104,7 @@
                 if (plugin.settings.start_date && typeof plugin.settings.start_date === 'object' && plugin.settings.start_date instanceof Date)
 
                     // ...convert it the a properly formatted string
-                    plugin.settings.start_date = format(plugin.settings.start_date)
+                    plugin.settings.start_date = format(plugin.settings.start_date);
 
                 // get the default date, from the element, and check if it represents a valid date, according to the required format
                 var default_date = check_date($element.val() || (plugin.settings.start_date ? plugin.settings.start_date : ''));
@@ -1968,7 +1968,7 @@
                                     case 'y':
 
                                         // extract the year from the value entered by the user
-                                        original_year = '19' + to_int(segments[index + 1]);
+                                        original_year = to_int('20' + to_int(segments[index + 1]));
 
                                         break;
 
