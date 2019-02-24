@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.12 (last revision: November 24, 2018)
+ *  @version    1.9.13 (last revision: February 24, 2019)
  *  @copyright  (c) 2011 - 2018 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -31,7 +31,7 @@
     $.Zebra_DatePicker = function(element, options) {
 
         // so you can tell the version number even if all you have is the minified source
-        this.version = '1.9.12';
+        this.version = '1.9.13';
 
         var defaults = {
 
@@ -470,7 +470,7 @@
             last_selectable_year, monthpicker, monthpicker_cells, original_attributes = {}, selected_hour, selected_minute,
             selected_second, selected_ampm, view_toggler, selected_month, selected_year, selecttoday, shim,
             show_select_today, start_date, timeout, timepicker, timepicker_config, touchmove = false, uniqueid = '', yearpicker,
-            yearpicker_cells, view, views, is_touch = false, timer_interval, timer_timeout,
+            yearpicker_cells, view, views, is_touch = false, timer_interval,
 
             // are we running on an iOS powered device?
             is_iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform),
@@ -1642,8 +1642,8 @@
 
                 });
 
-                // handle value increases/decreases on the time picker, start timers
-                datepicker.on('mousedown', '.dp_time_controls_increase td, .dp_time_controls_decrease td', function(){
+                // handle value increases/decreases on the time picker
+                datepicker.on('mousedown', '.dp_time_controls_increase td, .dp_time_controls_decrease td', function() {
 
                     var element = this,
                         count = 0;
@@ -1651,38 +1651,46 @@
                     // trigger once
                     manage_timer_controls(element);
 
-                    // start with the first speed after a timeout
-                    timer_timeout = setTimeout(function() {
-                        timer_interval = setInterval(function() {
-                            manage_timer_controls(element);
-                            count++;
+                    // as long as the mouse button is pressed
+                    timer_interval = setInterval(function() {
 
-                            // increase the speed
-                            if (count > 5) {
-                                clearInterval(timer_interval);
+                        // update value
+                        manage_timer_controls(element);
 
-                                timer_interval = setInterval(function() {
-                                    manage_timer_controls(element);
-                                    count++;
+                        // if we updated 5 times
+                        if (++count > 5) {
 
-                                    // increase the speed again
-                                    if (count > 15) {
-                                        clearInterval(timer_interval);
+                            // increase speed
+                            clearInterval(timer_interval);
+                            timer_interval = setInterval(function() {
 
-                                        timer_interval = setInterval(function() {
-                                            manage_timer_controls(element);
-                                        }, 50, element);
-                                    }
-                                }, 100, element);
-                            }
-                        }, 200, element);
+                                // update value
+                                manage_timer_controls(element);
+
+                                // if we updated more times
+                                if (++count > 10) {
+
+                                    // increase speed
+                                    clearInterval(timer_interval);
+                                    timer_interval = setInterval(function() {
+
+                                        // update value
+                                        manage_timer_controls(element);
+
+                                    }, 100, element);
+
+                                }
+
+                            }, 200, element);
+
+                        }
+
                     }, 400, element);
 
                 });
 
                 // clear timers
                 datepicker.on('mouseup mouseleave', '.dp_time_controls_increase td, .dp_time_controls_decrease td', function() {
-                    clearTimeout(timer_timeout);
                     clearInterval(timer_interval);
                 });
 
@@ -3274,7 +3282,7 @@
 
             },
 
-                /**
+            /**
              *  Handles time increase / decrease
              *
              *  @return void
