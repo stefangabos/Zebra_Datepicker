@@ -595,9 +595,9 @@ var datepicker = $('selector').data('Zebra_DatePicker');
 
 Callback to be executed whenever the user changes the view (days/months/years), as well as when the user navigates by clicking on the <code>next/previous</code> icons in any of the views;
 
-The callback function called receives 2 arguments
+The callback function receives 2 arguments
 
-- the current view (`days`, `months` or `years`)
+- the current view (`days`, `months`, `years` or `time`)
 - an array containing the <em>active</em> elements (not disabled) from the view, as jQuery elements, allowing for easy customization and interaction with particular cells in the date picker's view
 
 The `this` keyword inside the callback function refers to the element the date picker is attached to, as a jQuery object.
@@ -607,6 +607,8 @@ For simplifying searching for particular dates, each element gets a `date` data 
 - `YYYY-MM-DD` for elements in the `days` view
 - `YYYY-MM` for elements in the `months` view
 - `YYYY` for elements in the `years` view
+
+> Note that this data attribute is not also set for elements in the `time` view.
 
 Here's how we could highlight the 24<sup>th</sup> day of each month of each year:
 
