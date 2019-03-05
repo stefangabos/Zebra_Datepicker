@@ -7,7 +7,7 @@
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
  *  @version    1.9.13 (last revision: February 24, 2019)
- *  @copyright  (c) 2011 - 2018 Stefan Gabos
+ *  @copyright  (c) 2011 - 2019 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
  */
@@ -411,12 +411,13 @@
                 //  default is TRUE
                 zero_pad: false,
 
-                //  callback function to be executed whenever the user changes the view (days/months/years), as well as when
-                //  the user navigates by clicking on the "next"/"previous" icons in any of the views
+                //  callback function to be executed whenever the user changes the view (days/months/years/time), as well
+                //  as when the user navigates by clicking on the "next"/"previous" icons in any of the views (except for
+                //  the "time" view)
                 //
-                //  the callback function called by this event takes 2 arguments - the first argument represents the current
-                //  view (can be "days", "months" or "years"), the second argument represents an array containing the "active"
-                //  elements (not disabled) from the view, as jQuery elements, allowing for easy customization and interaction
+                //  the callback function takes 2 arguments - the first argument represents the current view (can be "days",
+                //  "months", "years" or "time"), the second argument represents an array containing the "active" elements
+                //  (not disabled) from the view, as jQuery elements, allowing for easy customization and interaction
                 //  with particular cells in the date picker's view
                 //
                 //  the "this" keyword inside the callback function refers to the element the date picker is attached to,
@@ -427,6 +428,8 @@
                 //  - YYYY-MM-DD for elements in the "days" view
                 //  - YYYY-MM for elements in the "months" view
                 //  - YYYY for elements in the "years" view
+                //
+                //  note that this data attribute is not set for elements in the "time" view
                 //
                 //  the "this" keyword inside the callback function refers to the element the date picker is attached to!
                 onChange: null,
@@ -3000,7 +3003,7 @@
             },
 
             /**
-             *  Shows the appropriate view (days, months or years) according to the current value of the "view" property.
+             *  Shows the appropriate view (days, months, years or time) according to the current value of the "view" property.
              *
              *  @return void
              *
@@ -3145,15 +3148,17 @@
 
                 }
 
-                // if a callback function exists for when navigating through months/years
-                if (view !== 'time' && plugin.settings.onChange && typeof plugin.settings.onChange === 'function' && undefined !== view) {
+                // if a callback function exists for when navigating through days/months/years/time
+                if (plugin.settings.onChange && typeof plugin.settings.onChange === 'function' && undefined !== view) {
 
                     // get the "active" elements in the view (ignoring the disabled ones)
                     elements = (view === 'days' ?
                         daypicker.find('td:not(.dp_disabled)') :
                         (view === 'months' ?
                             monthpicker.find('td:not(.dp_disabled)') :
-                            yearpicker.find('td:not(.dp_disabled)')));
+                            (view === 'years' ?
+                                yearpicker.find('td:not(.dp_disabled)') :
+                                timepicker.find('.dp_time_segments td'))));
 
                     // iterate through the active elements
                     // and attach a "date" data attribute to each element in the form of
@@ -3193,7 +3198,7 @@
                             $(this).data('date', selected_year + '-' + str_pad(to_int(matches[1]) + 1, 2));
 
                         // if view is "years"
-                        } else
+                        } else if (view === 'years')
 
                             // attach a "date" data attribute to each element in the form of of YYYY for easily identifying sought elements
                             $(this).data('date', to_int($(this).text()));
