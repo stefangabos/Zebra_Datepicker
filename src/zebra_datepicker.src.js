@@ -1319,6 +1319,25 @@
                     $('.dp_clear', datepicker).html(plugin.settings.lang_clear_date);
                     $('.dp_today', datepicker).html(plugin.settings.show_select_today);
 
+                    // if the date picker is visible at this time
+                    if (datepicker.is(':visible')) {
+
+                        // store the default view when opening the date picker
+                        k = plugin.settings.view;
+
+                        // make the current view the default view
+                        plugin.settings.view = view;
+
+                        // repaint the date picker
+                        // (the "FALSE" argument tells the script to not fire the onOpen and onChange events when doing this)
+                        plugin.show(false);
+
+                        // if we had to handle the view
+                        // restore the default view
+                        plugin.settings.view = k;
+
+                    }
+
                     // don't go further
                     return;
 
@@ -3009,7 +3028,7 @@
              *
              *  @access private
              */
-            manage_views = function() {
+            manage_views = function(fire_events) {
 
                 var height, elements;
 
@@ -3149,7 +3168,8 @@
                 }
 
                 // if a callback function exists for when navigating through days/months/years/time
-                if (plugin.settings.onChange && typeof plugin.settings.onChange === 'function' && undefined !== view) {
+                // ("fire_events" is FALSE when the method was called by the "update" method)
+                if (fire_events !== false && plugin.settings.onChange && typeof plugin.settings.onChange === 'function' && undefined !== view) {
 
                     // get the "active" elements in the view (ignoring the disabled ones)
                     elements = (view === 'days' ?
@@ -3723,7 +3743,7 @@
          *
          *  @return void
          */
-        plugin.show = function() {
+        plugin.show = function(fire_events) {
 
             // always show the view defined in settings
             view = plugin.settings.view;
@@ -3795,7 +3815,7 @@
             }
 
             // generate the appropriate view
-            manage_views();
+            manage_views(fire_events);
 
             // if date picker is not always visible in a container, and the calendar icon is visible
             if (!(plugin.settings.always_visible instanceof jQuery)) {
@@ -3859,7 +3879,8 @@
             } else datepicker.removeClass('dp_hidden');
 
             // if a callback function exists for when showing the date picker
-            if (plugin.settings.onOpen && typeof plugin.settings.onOpen === 'function')
+            // ("fire_events" is FALSE when the method was called by the "update" method)
+            if (fire_events !== false && plugin.settings.onOpen && typeof plugin.settings.onOpen === 'function')
 
                 // execute the callback function and pass as argument the element the plugin is attached to
                 plugin.settings.onOpen.call($element);
