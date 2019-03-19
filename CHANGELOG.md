@@ -3,6 +3,7 @@
 - merged pull request [#135](https://github.com/stefangabos/Zebra_Datepicker/pull/135) which allows time intervals to change while mouse button is being pressed - thanks [@sebipopa](https://github.com/sebipopa)!
 - the `onChange` event is now also triggered when switching to the `time` view
 - fixed [#132](https://github.com/stefangabos/Zebra_Datepicker/pull/132) where English ordinal suffixes for 11th, 12th, and 13th where incorrectly shown as 11st, 12nd, and 13rd. - thanks [@panzerchris](https://github.com/panzerchris)!
+- calling the `update` method now repaints the date picker
 
 ## version 1.9.12 (October 27, 2018)
 
