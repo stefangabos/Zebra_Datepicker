@@ -344,7 +344,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
             </small>
         </td>
         <td valign="top">
-            Captions in the date picker's header, for the 3 possible views: <code>days</code>, <code>months</code>, <code>years</code><br><br>
+            Captions in the date picker's header, for the 3 applicable views: <code>days</code>, <code>months</code>, <code>years</code><br><br>
             For each of the 3 views the following special characters may be used borrowing from PHP's <a href="http://php.net/manual/en/function.date.php">date</a> function's syntax: <code>m</code>, <code>n</code>, <code>F</code>, <code>M</code>, <code>y</code> and <code>Y</code>; any of these will be replaced at runtime with the appropriate date fragment, depending on the currently viewed date. two more special characters are also available <code>Y1</code> and <code>Y2</code> (upper case representing years with 4 digits, lowercase representing years with 2 digits) which represent <code>currently selected year - 7</code> and <code>currently selected year + 4</code> and which are used only in the <code>years</code> view.<br><br>
             Even though any of these special characters may be used in any of the 3 views, you should use <code>m</code>, <code>n</code>, <code>F</code>, <code>M</code> for the <code>days</code> view and <code>y</code>, <code>Y</code>, <code>Y1</code>, <code>Y2</code>, <code>y1</code>, <code>y2</code> for the <code>months</code> and <code>years</code> view or you may get unexpected results!<br><br>
             Text and HTML can also be used, and will be rendered as it is, as in the example below (the library is smart enough to not replace special characters when used in words or HTML tags):<br><br>
@@ -563,7 +563,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><code>'days'</code></td>
         <td valign="top">
             How should the date picker start:<br><br>
-            Valid values are <code>days</code>, <code>months</code> and <code>years</code>.<br><br>
+            Valid values are <code>days</code>, <code>months</code>, <code>years</code> and <code>time</code>.<br><br>
             Note that the date picker is always cycling <code>days -> months -> years</code> when clicking in the date picker's header, and <code>years -> months -> days</code> when selecting dates (skipping the views that are missing because of the date's format)<br><br>
             The value of the <code>view</code> property may be overridden if the date's format requires so! (i.e. <code>days</code> for the <code>view</code> property makes no sense if the date format doesn't allow the selection of days)
         </td>
@@ -593,7 +593,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
 
 #### `onChange`
 
-Callback to be executed whenever the user changes the view (days/months/years), as well as when the user navigates by clicking on the <code>next/previous</code> icons in any of the views;
+Callback to be executed whenever the user changes the view (days/months/years/time), as well as when the user navigates by clicking on the <code>next/previous</code> icons in any of the views;
 
 The callback function receives 2 arguments
 
