@@ -1551,7 +1551,7 @@
                     if ($.inArray('months', views) === -1)
 
                         // put selected date in the element the plugin is attached to, and hide the date picker
-                        select_date(selected_year, 1, 1, 'years', $(this));
+                        select_date(selected_year, 0, 1, 'years', $(this));
 
                     else {
 
