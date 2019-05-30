@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.13 (last revision: March 18, 2019)
+ *  @version    1.9.13 (last revision: May 30, 2019)
  *  @copyright  (c) 2011 - 2019 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -1551,7 +1551,7 @@
                     if ($.inArray('months', views) === -1)
 
                         // put selected date in the element the plugin is attached to, and hide the date picker
-                        select_date(selected_year, 1, 1, 'years', $(this));
+                        select_date(selected_year, 0, 1, 'years', $(this));
 
                     else {
 
@@ -1760,7 +1760,7 @@
                             ) &&
 
                             // and the click is not inside the calendar
-                            $(e.target).parents().filter('.Zebra_DatePicker').length === 0
+                            $(e.target).closest('.Zebra_DatePicker').length === 0
 
                         // hide the date picker
                         ) plugin.hide(true);
