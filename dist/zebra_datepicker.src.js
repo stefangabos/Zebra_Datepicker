@@ -1760,7 +1760,10 @@
                             ) &&
 
                             // and the click is not inside the calendar
-                            $(e.target).closest('.Zebra_DatePicker').length === 0
+                            $(e.target).closest('.Zebra_DatePicker').length === 0 &&
+
+                            // and the click is not on a time control element
+                            !$(e.target).hasClass('dp_time_control')
 
                         // hide the date picker
                         ) plugin.hide(true);
