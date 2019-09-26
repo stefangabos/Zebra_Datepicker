@@ -2,6 +2,7 @@
 
 - the `onChange` event is now also triggered when switching to the `time` view
 - fixed [#132](https://github.com/stefangabos/Zebra_Datepicker/pull/132) where English ordinal suffixes for 11th, 12th, and 13th where incorrectly shown as 11st, 12nd, and 13rd. - thanks [@panzerchris](https://github.com/panzerchris)!
+- fixed [#148](https://github.com/stefangabos/Zebra_Datepicker/issues/148) where specifying `enabled_hours`, `enabled_minutes` and `enabled_seconds` as strings rather than integers would break the time picker
 - calling the `update` method now repaints the date picker
 - merged pull request [#135](https://github.com/stefangabos/Zebra_Datepicker/pull/135) which allows time intervals to change while mouse button is being pressed - thanks [@sebipopa](https://github.com/sebipopa)!
 - merged pull request [#139](https://github.com/stefangabos/Zebra_Datepicker/pull/139) which fixes a bug where, when having the year selector as the only available pane, the selected date would incorrectly be set to February instead of January - thanks [@duckboy81](https://github.com/duckboy81)!
