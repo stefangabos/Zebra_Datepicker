@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.13 (last revision: May 30, 2019)
+ *  @version    1.9.13 (last revision: September 26, 2019)
  *  @copyright  (c) 2011 - 2019 Stefan Gabos
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -621,6 +621,10 @@
 
                                         timepicker_config.hours = [];
 
+                                        // make sure we treat values as integers
+                                        // (or this won't work when doing $.inArray(): enabled_hours: ['11', '12', '13'])
+                                        if ($.isArray(plugin.settings.enabled_hours)) plugin.settings.enabled_hour = plugin.settings.enabled_hours.map(function(value) { return parseInt(value, 10); })
+
                                         // iterate through valid hours
                                         for (i = (max === 12 ? 1 : 0); i < (max === 12 ? 13 : max); i++)
 
@@ -632,6 +636,10 @@
 
                                         timepicker_config.minutes = [];
 
+                                        // make sure we treat values as integers
+                                        // (or this won't work when doing $.inArray(): enabled_minutes: ['11', '12', '13'])
+                                        if ($.isArray(plugin.settings.enabled_minutes)) plugin.settings.enabled_minutes = plugin.settings.enabled_minutes.map(function(value) { return parseInt(value, 10); })
+
                                         // iterate through valid minutes
                                         for (i = 0; i < 60; i++)
 
@@ -642,6 +650,10 @@
                                     } else if (type === 'seconds') {
 
                                         timepicker_config.seconds = [];
+
+                                        // make sure we treat values as integers
+                                        // (or this won't work when doing $.inArray(): enabled_seconds: ['11', '12', '13'])
+                                        if ($.isArray(plugin.settings.enabled_seconds)) plugin.settings.enabled_seconds = plugin.settings.enabled_seconds.map(function(value) { return parseInt(value, 10); })
 
                                         // iterate through valid minutes
                                         for (i = 0; i < 60; i++)
