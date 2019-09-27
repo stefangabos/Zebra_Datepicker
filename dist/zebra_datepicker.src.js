@@ -1679,8 +1679,6 @@
                 // handle value increases/decreases on the time picker
                 datepicker.on('mousedown', '.dp_time_controls_increase td, .dp_time_controls_decrease td', function(e) {
 
-                    e.stopPropagation();
-
                     var element = this,
                         count = 0;
 
@@ -1774,7 +1772,10 @@
                             ) &&
 
                             // and the click is not inside the calendar
-                            $(e.target).closest('.Zebra_DatePicker').length === 0
+                            $(e.target).closest('.Zebra_DatePicker').length === 0 &&
+
+                            // and the click is not on a time control element
+                            !$(e.target).hasClass('dp_time_control')
 
                         // hide the date picker
                         ) plugin.hide(true);
