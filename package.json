@@ -28,18 +28,18 @@
     "email": "contact@stefangabos.ro"
   },
   "devDependencies": {
-    "grunt": "*",
-    "grunt-cli": "*",
+    "grunt": "^1.1.0",
+    "grunt-cli": "^1.3.2",
     "grunt-contrib-copy": "*",
-    "grunt-contrib-cssmin": "*",
-    "grunt-contrib-jshint": "*",
-    "grunt-contrib-uglify": "*",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-uglify": "^4.0.1",
     "grunt-contrib-watch": "*",
-    "grunt-eslint": "*",
+    "grunt-eslint": "^22.0.0",
     "grunt-newer": "*",
     "grunt-notify": "*",
-    "grunt-sass": "*",
-    "node-sass": "*",
-    "time-grunt": "*"
+    "grunt-sass": "^3.1.0",
+    "node-sass": "^4.13.1",
+    "time-grunt": "^2.0.0"
   }
 }
