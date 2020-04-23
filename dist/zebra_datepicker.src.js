@@ -1677,7 +1677,7 @@
                 });
 
                 // handle value increases/decreases on the time picker
-                datepicker.on('mousedown', '.dp_time_controls_increase td, .dp_time_controls_decrease td', function(e) {
+                datepicker.on('mousedown', '.dp_time_controls_increase td, .dp_time_controls_decrease td', function() {
 
                     var element = this,
                         count = 0;
