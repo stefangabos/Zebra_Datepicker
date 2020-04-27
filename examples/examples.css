@@ -43,3 +43,22 @@ blockquote.bg-warning.Zebra_Pin {
     box-shadow: 0 12px 6px -6px rgba(0, 0, 0, .1);
     transition: box-shadow .25s linear;
 }
+
+.screenshot {
+    background: url('themes.png');
+    width: 270px;
+    height: 285px;
+    margin: 0 auto;
+}
+
+.screenshot-default {
+    background-position: left -15px;
+}
+
+.screenshot-metallic {
+    background-position: -270px -15px;
+}
+
+.screenshot-bootstrap {
+    background-position: -542px -15px;
+}
