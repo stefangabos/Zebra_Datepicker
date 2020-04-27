@@ -78,7 +78,7 @@ Alternatively, you can load Zebra Datepicker from [JSDelivr CDN](https://www.jsd
 
 <!-- for a specific version -->
 <script
-  src="https://cdn.jsdelivr.net/npm/zebra_datepicker@1.9.6/dist/zebra_datepicker.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/zebra_datepicker@1.9.13/dist/zebra_datepicker.min.js"></script>
 
 <!-- replacing "min" with "src" will serve you the non-compressed version -->
 ```
