@@ -1,4 +1,4 @@
-## version 1.9.14 (TBA)
+## version 1.9.14 (April 27, 2020)
 
 - fixed [#152](https://github.com/stefangabos/Zebra_Datepicker/issues/152) where time was not selected if left to default
 - applied correct fix from [@sebipopa](https://github.com/sebipopa) for [#145](https://github.com/stefangabos/Zebra_Datepicker/issues/145)
