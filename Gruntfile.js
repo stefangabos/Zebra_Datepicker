@@ -38,8 +38,8 @@ module.exports = function(grunt) {
                     indentWidth: 4
                 },
                 files: {
-                    'dist/css/default/zebra_datepicker.css': 'src/css/default/zebra_datepicker.scss',
                     'dist/css/bootstrap/zebra_datepicker.css': 'src/css/bootstrap/zebra_datepicker.scss',
+                    'dist/css/default/zebra_datepicker.css': 'src/css/default/zebra_datepicker.scss',
                     'dist/css/metallic/zebra_datepicker.css': 'src/css/metallic/zebra_datepicker.scss'
                 }
             },
@@ -49,8 +49,8 @@ module.exports = function(grunt) {
                     outputStyle: 'compressed'
                 },
                 files: {
-                    'dist/css/default/zebra_datepicker.min.css': 'src/css/default/zebra_datepicker.scss',
                     'dist/css/bootstrap/zebra_datepicker.min.css': 'src/css/bootstrap/zebra_datepicker.scss',
+                    'dist/css/default/zebra_datepicker.min.css': 'src/css/default/zebra_datepicker.scss',
                     'dist/css/metallic/zebra_datepicker.min.css': 'src/css/metallic/zebra_datepicker.scss'
                 }
             }
@@ -97,8 +97,8 @@ module.exports = function(grunt) {
                     level: 2
                 },
                 files: {
-                    'dist/css/default/zebra_datepicker.css': 'dist/css/default/zebra_datepicker.css',
                     'dist/css/bootstrap/zebra_datepicker.css': 'dist/css/bootstrap/zebra_datepicker.css',
+                    'dist/css/default/zebra_datepicker.css': 'dist/css/default/zebra_datepicker.css',
                     'dist/css/metallic/zebra_datepicker.css': 'dist/css/metallic/zebra_datepicker.css'
                 }
             },
@@ -118,8 +118,8 @@ module.exports = function(grunt) {
                     level: 2
                 },
                 files: {
-                    'dist/css/default/zebra_datepicker.min.css': 'dist/css/default/zebra_datepicker.min.css',
                     'dist/css/bootstrap/zebra_datepicker.min.css': 'dist/css/bootstrap/zebra_datepicker.min.css',
+                    'dist/css/default/zebra_datepicker.min.css': 'dist/css/default/zebra_datepicker.min.css',
                     'dist/css/metallic/zebra_datepicker.min.css': 'dist/css/metallic/zebra_datepicker.min.css'
                 }
             }
