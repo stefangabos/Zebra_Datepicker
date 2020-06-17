@@ -190,9 +190,29 @@ module.exports = function(grunt) {
             all: {
                 files: [
                     { src: 'src/zebra_datepicker.src.js', dest: 'dist/zebra_datepicker.src.js' },
-                    { expand: true, cwd: 'src/css/default/', src: '*.png', dest: 'dist/css/default/' },
-                    { expand: true, cwd: 'src/css/bootstrap/', src: '*.png', dest: 'dist/css/bootstrap/' },
-                    { expand: true, cwd: 'src/css/metallic/', src: '*.png', dest: 'dist/css/metallic/' }
+                    { expand: true, cwd: 'src/css/bootstrap/', src: ['*.png', '*.scss'], dest: 'dist/css/bootstrap/' },
+                    { expand: true, cwd: 'src/css/default/', src: ['*.png', '*.scss'], dest: 'dist/css/default/' },
+                    { expand: true, cwd: 'src/css/metallic/', src: ['*.png', '*.scss'], dest: 'dist/css/metallic/' }
+                ]
+            }
+        },
+
+        /***************************************************************************************************************
+         *  INCLUDES
+         *  https://github.com/vanetix/grunt-includes
+         **************************************************************************************************************/
+        'includes': {
+            all: {
+                options: {
+                    includeRegexp: /\@import \'(.*?)\'/,
+                    includePath: 'src/css/default/',
+                    filenameSuffix: '.scss',
+                    silent: true
+                },
+                files: [
+                    { cwd: 'dist/css/bootstrap', src: '*.scss', dest: 'dist/css/bootstrap/zebra_datepicker.scss' },
+                    { cwd: 'dist/css/default', src: '*.scss', dest: 'dist/css/default/zebra_datepicker.scss' },
+                    { cwd: 'dist/css/metallic', src: '*.scss', dest: 'dist/css/metallic/zebra_datepicker.scss' }
                 ]
             }
         },
@@ -227,10 +247,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-eslint');
+    grunt.loadNpmTasks('grunt-includes');
     grunt.loadNpmTasks('grunt-newer');
     grunt.loadNpmTasks('grunt-notify');
     grunt.loadNpmTasks('grunt-sass');
 
-    grunt.registerTask('default', ['sass', 'cssmin', 'eslint', 'jshint', 'uglify', 'copy', 'watch']);
+    grunt.registerTask('default', ['sass', 'cssmin', 'eslint', 'jshint', 'uglify', 'copy', 'includes', 'watch']);
 
 };

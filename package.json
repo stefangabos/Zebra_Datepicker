@@ -36,10 +36,13 @@
     "grunt-contrib-uglify": "^4.0.1",
     "grunt-contrib-watch": "*",
     "grunt-eslint": "^22.0.0",
+    "grunt-includes": "*",
     "grunt-newer": "*",
     "grunt-notify": "*",
     "grunt-sass": "^3.1.0",
-    "node-sass": "^4.13.1",
     "time-grunt": "^2.0.0"
+  },
+  "dependencies": {
+    "node-sass": "^4.14.1"
   }
 }
