@@ -162,7 +162,7 @@
     .dp_header {
         @if variable-exists(dp_padding_width_vertical) { margin-bottom: $dp_padding_width_vertical; }
 
-        // fix for Edge replacig &#9664; and &#9654; Unicode symbols with emojis
+        // fix for Edge replacing &#9664; and &#9654; Unicode symbols with emojis
         // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11844964/
         @supports (-ms-ime-align:auto) {
             font-family: 'Segoe UI Symbol', Tahoma, Arial, Helvetica, sans-serif;
