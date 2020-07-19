@@ -187,9 +187,13 @@ module.exports = function(grunt) {
          *  https://github.com/gruntjs/grunt-contrib-copy
          **************************************************************************************************************/
         'copy': {
-            all: {
+            js: {
                 files: [
-                    { src: 'src/zebra_datepicker.src.js', dest: 'dist/zebra_datepicker.src.js' },
+                    { src: 'src/zebra_datepicker.src.js', dest: 'dist/zebra_datepicker.src.js' }
+                ]
+            },
+            css: {
+                files: [
                     { expand: true, cwd: 'src/css/bootstrap/', src: ['*.png', '*.scss'], dest: 'dist/css/bootstrap/' },
                     { expand: true, cwd: 'src/css/default/', src: ['*.png', '*.scss'], dest: 'dist/css/default/' },
                     { expand: true, cwd: 'src/css/metallic/', src: ['*.png', '*.scss'], dest: 'dist/css/metallic/' }
@@ -202,9 +206,9 @@ module.exports = function(grunt) {
          *  https://github.com/vanetix/grunt-includes
          **************************************************************************************************************/
         'includes': {
-            all: {
+            css: {
                 options: {
-                    includeRegexp: /\@import \'(.*?)\'/,
+                    includeRegexp: /\@import \'(.*?)\'\;/,
                     includePath: 'src/css/default/',
                     filenameSuffix: '.scss',
                     silent: true
@@ -224,14 +228,14 @@ module.exports = function(grunt) {
         'watch': {
             js: {
                 files: ['src/zebra_datepicker.src.js'],
-                tasks: ['newer:eslint', 'newer:jshint', 'newer:uglify', 'copy', 'notify:done'],
+                tasks: ['newer:eslint', 'newer:jshint', 'newer:uglify', 'copy:js', 'notify:done'],
                 options: {
                     livereload: true
                 }
             },
             css: {
                 files: ['src/css/**/*.scss'],
-                tasks: ['sass', 'cssmin', 'notify:done'],
+                tasks: ['sass', 'cssmin', 'copy:css', 'includes:css', 'notify:done'],
                 options: {
                     livereload: true
                 }
@@ -252,6 +256,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-notify');
     grunt.loadNpmTasks('grunt-sass');
 
-    grunt.registerTask('default', ['sass', 'cssmin', 'eslint', 'jshint', 'uglify', 'copy', 'includes', 'watch']);
+    grunt.registerTask('default', ['sass', 'cssmin', 'eslint', 'jshint', 'uglify', 'copy', 'includes:css', 'watch']);
 
 };
