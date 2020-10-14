@@ -1865,15 +1865,15 @@
                         switch (match.character) {
 
                             case 'd': regexp.push('0[1-9]|[12][0-9]|3[01]'); break;
-                            case 'D': regexp.push('[a-z]{3}'); break;
+                            case 'D': regexp.push(plugin.settings.days_abbr ? plugin.settings.days_abbr.map(function(value) { return escape_regexp(value); }).join('|') : '[a-z\u00C0-\u024F]{3}'); break;
                             case 'j': regexp.push('[1-9]|[12][0-9]|3[01]'); break;
-                            case 'l': regexp.push('[a-z\u00C0-\u024F]+'); break;
+                            case 'l': regexp.push(plugin.settings.days ? plugin.settings.days.map(function(value) { return escape_regexp(value); }).join('|') : '[a-z\u00C0-\u024F]+'); break;
                             case 'N': regexp.push('[1-7]'); break;
                             case 'S': regexp.push('st|nd|rd|th'); break;
                             case 'w': regexp.push('[0-6]'); break;
-                            case 'F': regexp.push('[a-z]+'); break;
+                            case 'F': regexp.push(plugin.settings.months ? plugin.settings.months.map(function(value) { return escape_regexp(value); }).join('|') : '[a-z\u00C0-\u024F]+'); break;
                             case 'm': regexp.push('0[1-9]|1[012]'); break;
-                            case 'M': regexp.push('[a-z]{3}'); break;
+                            case 'M': regexp.push(plugin.settings.months_abbr ? plugin.settings.months_abbr.map(function(value) { return escape_regexp(value); }).join('|') : '[a-z\u00C0-\u024F]{3}'); break;
                             case 'n': regexp.push('[1-9]|1[012]'); break;
                             case 'Y': regexp.push('[0-9]{4}'); break;
                             case 'y': regexp.push('[0-9]{2}'); break;
@@ -1961,9 +1961,11 @@
                                     case 'M':
 
                                         // if day is given as day name, we'll check against the names in the used language
-                                        if (match.character === 'D' || match.character === 'l') iterable = plugin.settings.days;
+                                        if (match.character === 'D') iterable = plugin.settings.days_abbr || plugin.settings.days;
+                                        else if (match.character === 'l') iterable = plugin.settings.days;
 
                                         // if month is given as month name, we'll check against the names in the used language
+                                        else if (match.character === 'M') iterable = plugin.settings.months_abbr || plugin.settings.months;
                                         else iterable = plugin.settings.months;
 
                                         // by default, we assume the day or month was not entered correctly
@@ -1976,7 +1978,7 @@
                                             if (valid) return true;
 
                                             // if month/day was entered correctly
-                                            if (segments[index + 1].toLowerCase() === value.substring(0, (match.character === 'D' || match.character === 'M' ? 3 : value.length)).toLowerCase()) {
+                                            if (segments[index + 1].toLowerCase() === value.substring(0, ((match.character === 'D' && !plugin.settings.days_abbr) || (match.character === 'M' && !plugin.settings.months_abbr) ? 3 : value.length)).toLowerCase()) {
 
                                                 // extract the day/month from the value entered by the user
                                                 switch (match.character) {
