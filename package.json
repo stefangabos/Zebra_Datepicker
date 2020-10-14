@@ -40,9 +40,7 @@
     "grunt-newer": "*",
     "grunt-notify": "*",
     "grunt-sass": "^3.1.0",
-    "time-grunt": "^2.0.0"
-  },
-  "dependencies": {
+    "time-grunt": "^2.0.0",
     "node-sass": "^4.14.1"
   }
 }
