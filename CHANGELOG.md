@@ -1,6 +1,6 @@
 ## version 1.9.16 (October 14, 2020)
 
-- Fixed [#161](https://github.com/stefangabos/Zebra_Datepicker/issues/161) where abbreviations of days and months were incorrectly handled unless these were exactly the first 3 letters of full days/month names; thanks [nathangreaves](https://github.com/nathangreaves)!
+- fixed [#161](https://github.com/stefangabos/Zebra_Datepicker/issues/161) where abbreviations of days and months were incorrectly handled unless these were exactly the first 3 letters of full days/month names; thanks [nathangreaves](https://github.com/nathangreaves)!
 
 ## version 1.9.15 (June 17, 2020)
 
