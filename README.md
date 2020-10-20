@@ -10,7 +10,7 @@ Zebra_Datepicker is a small yet and highly configurable date picker / time picke
 
 ## Features
 
- - it is small – it weights around 30KB minified (9.1KB gzipped) offering the best ratio of features per used bytes
+ - it is small – it weighs around 30KB minified (9.1KB gzipped) offering the best ratio of features per used bytes
  - it is both a date picker as well as a time picker
  - it's cross-browser – works in every major browser; works also in Internet Explorer 6!
  - has a default color scheme that blends-in well with almost any design, and it's easily customizable through the well-organized CSS file; two additional themes are included, one of them being for use with <a href="http://twitter.github.io/bootstrap/">Twitter Bootstrap</a>
@@ -107,7 +107,7 @@ Load the style sheet file from a local source
 
 > Zebra Datepicker is also available on [cdnjs](https://cdnjs.com/libraries/Zebra_datepicker), one of the most famous free and public web front-end CDN services
 
-Now, within the DOM-ready event, attach the Zebra Datepicker plugin to a `<input type="text">` control
+Now, within the DOM-ready event, attach the Zebra Datepicker plugin to a `<input type="text">` control.
 
 ```javascript
 $(document).ready(function() {
