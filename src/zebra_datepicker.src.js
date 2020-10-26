@@ -1350,6 +1350,12 @@
 
                     }
 
+                    // in case "container" has changed
+                    if (datepicker.parent() !== plugin.settings.container)
+
+                        // remove from the old one and place in the one one
+                        plugin.settings.container.append(datepicker.detach());
+
                     // don't go further
                     return;
 
