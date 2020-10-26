@@ -1,3 +1,7 @@
+## version 1.9.17 (TBA)
+
+- fixed bug where updating `container` was not working - see [#166](https://github.com/stefangabos/Zebra_Datepicker/issues/166); thanks [Beth McIntosh](https://github.com/betheymc)!
+
 ## version 1.9.16 (October 14, 2020)
 
 - fixed [#161](https://github.com/stefangabos/Zebra_Datepicker/issues/161) where abbreviations of days and months were incorrectly handled unless these were exactly the first 3 letters of full days/month names; thanks [nathangreaves](https://github.com/nathangreaves)!
