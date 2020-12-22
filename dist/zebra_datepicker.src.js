@@ -175,6 +175,14 @@
                 //  an array of selectable seconds.
                 //  default is FALSE, all seconds are selectable.
                 enabled_seconds: false,
+            
+                // an array of selectable am/pm.
+                // Any of these will work: ['am'], ['pm'], or ['am', 'pm']
+                // default is FALSE, both are always selectable.
+                // Note that this only applies when the format is set to include am/pm (a or A)
+                // it can also be changed on .update()
+                // even when only one is enabled, onChange() will still be triggered when clicking the up or down buttons next to AM/PM on the timepicker
+                enabled_ampm: false,
 
                 //  allows the users to quickly navigate through months and years by clicking on the date picker's top label.
                 //  default is TRUE.
@@ -662,10 +670,25 @@
                                             if (!$.isArray(plugin.settings.enabled_seconds) || $.inArray(i, plugin.settings.enabled_seconds) > -1) timepicker_config.seconds.push(i);
 
                                     // if am/pm is available in the date's format
-                                    } else
+                                    } else {
+                                        timepicker_config.ampm = [];
+                                        // iterate through am/pm
+                                        if ($.isArray(plugin.settings.enabled_ampm) && $.isArray(timepicker_config.ampm)) {
+                                            for (i=0; i < plugin.settings.enabled_ampm.length; i++) {
+                                                if (plugin.settings.enabled_ampm[i].toLowerCase() === 'am' && (timepicker_config.ampm.indexOf('am') == -1)); {
+                                                    timepicker_config.ampm.push(plugin.settings.enabled_ampm[i]);
+                                                } 
+                                                if (plugin.settings.enabled_ampm[i].toLowerCase() === 'pm' && (timepicker_config.ampm.indexOf('pm') == -1)) {
+                                                    timepicker_config.ampm.push(plugin.settings.enabled_ampm[i]);
+                                                };
+                                            }
+                                        }
+                                        else {
+                                            // pre-fill the array of selectable seconds
+                                            timepicker_config.ampm = ['am', 'pm']; 
+                                        }
 
-                                        // pre-fill the array of selectable seconds
-                                        timepicker_config.ampm = ['am', 'pm'];
+                                    }
 
                                 }
 
@@ -3832,11 +3855,12 @@
                     // convert it to the correct value
                     selected_hour = (selected_hour % 12 === 0 ? 12 : selected_hour % 12);
 
-                // make sure that the default values are withing the allowed range, if a range is defined
+                // make sure that the default values are within the allowed range, if a range is defined
                 if ($.isArray(plugin.settings.enabled_hours) && $.inArray(selected_hour, plugin.settings.enabled_hours) === -1) selected_hour = plugin.settings.enabled_hours[0];
                 if ($.isArray(plugin.settings.enabled_minutes) && $.inArray(selected_minute, plugin.settings.enabled_minutes) === -1) selected_minute = plugin.settings.enabled_minutes[0];
                 if ($.isArray(plugin.settings.enabled_seconds) && $.inArray(selected_second, plugin.settings.enabled_seconds) === -1) selected_second = plugin.settings.enabled_seconds[0];
-
+                if (!!timepicker_config.ampm && $.isArray(plugin.settings.enabled_ampm) && $.inArray(selected_ampm, plugin.settings.enabled_ampm) == -1) selected_ampm = plugin.settings.enabled_ampm[0];
+                
             }
 
             // generate the appropriate view
