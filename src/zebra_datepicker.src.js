@@ -671,6 +671,9 @@
                                     // if am/pm is available in the date's format
                                     } else {
 
+                                        // we'll use this to show AM/PM or am/pm, depending on the format
+                                        timepicker_config.ampm_case = character;
+
                                         // if custom values are specified and values are "am" and/or "pm"
                                         if ($.isArray(plugin.settings.enabled_ampm) && $.grep(plugin.settings.enabled_ampm, function(value) { return $.inArray(value.toLowerCase(), ['am', 'pm']) > -1; }).length)
 
@@ -2515,11 +2518,11 @@
 
                 html += '<tr class="dp_time_segments' + (condensed ? ' dp_time_controls_condensed' : '') + '">';
 
-                if (plugin.settings.rtl && timepicker_config.ampm) html += '<td class="dp_time_ampm dp_disabled' + (timepicker_config.hours || timepicker_config.minutes || timepicker_config.seconds ? ' dp_time_separator' : '') + '"><div>' + selected_ampm.toUpperCase() + '</div></td>';
+                if (plugin.settings.rtl && timepicker_config.ampm) html += '<td class="dp_time_ampm dp_disabled' + (timepicker_config.hours || timepicker_config.minutes || timepicker_config.seconds ? ' dp_time_separator' : '') + '"><div>' + (timepicker_config.ampm_case === 'A' ? selected_ampm.toUpperCase() : selected_ampm) + '</div></td>';
                 if (timepicker_config.hours) html += '<td class="dp_time_hours dp_disabled' + (timepicker_config.minutes || timepicker_config.seconds || (!plugin.settings.rtl && timepicker_config.ampm) ? ' dp_time_separator' : '') + '"><div>' + (timepicker_config.hour_format === 'h' || timepicker_config.hour_format === 'H' ? str_pad(selected_hour, 2) : selected_hour) + '</div></td>';
                 if (timepicker_config.minutes) html += '<td class="dp_time_minutes dp_disabled' + (timepicker_config.seconds || (!plugin.settings.rtl && timepicker_config.ampm) ? ' dp_time_separator' : '') + '"><div>' + str_pad(selected_minute, 2) + '</div></td>';
                 if (timepicker_config.seconds) html += '<td class="dp_time_seconds dp_disabled' + (!plugin.settings.rtl && timepicker_config.ampm ? ' dp_time_separator' : '') + '"><div>' + str_pad(selected_second, 2) + '</div></td>';
-                if (!plugin.settings.rtl && timepicker_config.ampm) html += '<td class="dp_time_ampm dp_disabled">' + selected_ampm.toUpperCase() + '</td>';
+                if (!plugin.settings.rtl && timepicker_config.ampm) html += '<td class="dp_time_ampm dp_disabled">' + (timepicker_config.ampm_case === 'A' ? selected_ampm.toUpperCase() : selected_ampm) + '</td>';
 
                 html += '</tr>';
 
