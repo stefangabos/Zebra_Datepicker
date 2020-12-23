@@ -2287,7 +2287,7 @@
 
                 }
 
-                // return formated date
+                // return formatted date
                 return result;
 
             },
@@ -3449,7 +3449,7 @@
                     // the selected date, formatted correctly
                     selected_value = format(default_date);
 
-                // set the currently selected and formated date as the value of the element the plugin is attached to
+                // set the currently selected and formatted date as the value of the element the plugin is attached to
                 $element.val(selected_value);
 
                 // if date picker is always visible or time picker is available
