@@ -158,6 +158,13 @@
                 //  LOOP SEARCHING FOR AN ENABLED DATE TO DISPLAY!
                 disabled_dates: false,
 
+                // an array of selectable am/pm.
+                // allowed values are ['am'], ['pm'], or ['am', 'pm']
+                // default is FALSE, both are always selectable.
+                // note that this only applies when the date format includes am/pm (a or A)
+                // even when only one is enabled, onChange() will still be triggered when clicking the up/down buttons next to AM/PM on the timepicker
+                enabled_ampm: false,
+
                 //  an array of enabled dates in the same format as required for "disabled_dates" property.
                 //  to be used together with the "disabled_dates" property by first setting the "disabled_dates" property to
                 //  something like "[* * * *]" (which will disable everything) and the setting the "enabled_dates" property to,
@@ -662,10 +669,18 @@
                                             if (!$.isArray(plugin.settings.enabled_seconds) || $.inArray(i, plugin.settings.enabled_seconds) > -1) timepicker_config.seconds.push(i);
 
                                     // if am/pm is available in the date's format
-                                    } else
+                                    } else {
 
-                                        // pre-fill the array of selectable seconds
-                                        timepicker_config.ampm = ['am', 'pm'];
+                                        // if custom values are specified and values are "am" and/or "pm"
+                                        if ($.isArray(plugin.settings.enabled_ampm) && $.grep(plugin.settings.enabled_ampm, function(value) { return $.inArray(value.toLowerCase(), ['am', 'pm']) > -1; }).length)
+
+                                            // use the given value(s)
+                                            timepicker_config.ampm = plugin.settings.enabled_ampm;
+
+                                        // use default values
+                                        else timepicker_config.ampm = ['am', 'pm'];
+
+                                    }
 
                                 }
 
@@ -3832,11 +3847,11 @@
                     // convert it to the correct value
                     selected_hour = (selected_hour % 12 === 0 ? 12 : selected_hour % 12);
 
-                // make sure that the default values are withing the allowed range, if a range is defined
+                // make sure that the default values are within the allowed range, if a range is defined
                 if ($.isArray(plugin.settings.enabled_hours) && $.inArray(selected_hour, plugin.settings.enabled_hours) === -1) selected_hour = plugin.settings.enabled_hours[0];
                 if ($.isArray(plugin.settings.enabled_minutes) && $.inArray(selected_minute, plugin.settings.enabled_minutes) === -1) selected_minute = plugin.settings.enabled_minutes[0];
                 if ($.isArray(plugin.settings.enabled_seconds) && $.inArray(selected_second, plugin.settings.enabled_seconds) === -1) selected_second = plugin.settings.enabled_seconds[0];
-
+                if ($.isArray(plugin.settings.enabled_ampm) && $.inArray(selected_ampm, plugin.settings.enabled_ampm) === -1) selected_ampm = plugin.settings.enabled_ampm[0];
             }
 
             // generate the appropriate view
