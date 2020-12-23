@@ -269,6 +269,16 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
     </tr>
     <tr>
+        <td valign="top"><a name="enabled_ampm"></a><strong>enabled_ampm</strong></td>
+        <td valign="top"><em>mixed</em></td>
+        <td valign="top"><code>false</code><br><small>both am/pm are selectable</small></td>
+        <td valign="top">
+            An array of selectable am/pm.<br><br>
+            Allowed values are <code>['am']</code>, <code>['pm']</code>, or <code>['am', 'pm']</code>.<br><br>
+            <em>Applies only when <code>format</code> contains <code>A</code> or <code>a</code>. Note that even when only one is enabled, <code>onChange()</code> will still be triggered when clicking the up/down buttons next to AM/PM on the timepicker.</em>
+        </td>
+    </tr>
+    <tr>
         <td valign="top"><a name="enabled_dates"></a><strong>enabled_dates</strong></td>
         <td valign="top"><em>mixed</em></td>
         <td valign="top"><code>false</code><br><small>all dates enabled</small></td>
