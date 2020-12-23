@@ -1,4 +1,4 @@
-## version 1.9.17 (TBA)
+## version 1.9.17 (December 23, 2020)
 
 - added `enabled_ampm` option; see [#170](https://github.com/stefangabos/Zebra_Datepicker/pull/170); ; thanks [Beth McIntosh](https://github.com/betheymc)!
 - fixed bug where updating `container` was not working - see [#166](https://github.com/stefangabos/Zebra_Datepicker/issues/166); thanks [Beth McIntosh](https://github.com/betheymc)!
