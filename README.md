@@ -292,7 +292,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><code>false</code><br><small>all hours are selectable</small></td>
         <td valign="top">
             An array of selectable hours.<br><br>
-            <em>Makes sense only when <code>format</code> contains one of the following characters: <code>H</code>, <code>G</code>, <code>h</code>, <code>g</code>. Valid values are between <code>0-24</code> (not padded with <code>0</code>!) when <code>format</code> contains <code>H</code> or <code>G</code> characters, and between <code>1-12</code> (not padded with <code>0</code>!) when <code>format</code> contains <code>h</code> or <code>g</code> characters.</em>
+            <em>Applies only when <code>format</code> contains one of the following characters: <code>H</code>, <code>G</code>, <code>h</code>, <code>g</code>. Valid values are between <code>0-24</code> (not padded with <code>0</code>!) when <code>format</code> contains <code>H</code> or <code>G</code> characters, and between <code>1-12</code> (not padded with <code>0</code>!) when <code>format</code> contains <code>h</code> or <code>g</code> characters.</em>
         </td>
     </tr>
     <tr>
@@ -301,7 +301,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><code>false</code><br><small>all minutes are selectable</small></td>
         <td valign="top">
             An array of selectable minutes.<br><br>
-            <em>Makes sense only when <code>format</code> contains the <code>i</code> character. Valid values are between <code>0-59</code> (not padded with <code>0</code>!)
+            <em>Applies only when <code>format</code> contains the <code>i</code> character. Valid values are between <code>0-59</code> (not padded with <code>0</code>!)
         </td>
     </tr>
     <tr>
@@ -310,7 +310,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><code>false</code><br><small>all seconds are selectable</small></td>
         <td valign="top">
             An array of selectable seconds.<br><br>
-            <em>Makes sense only when <code>format</code> contains the <code>s</code> character. Valid values are between <code>0-59</code> (not padded with <code>0</code>!)
+            <em>Applies only when <code>format</code> contains the <code>s</code> character. Valid values are between <code>0-59</code> (not padded with <code>0</code>!)
         </td>
     </tr>
     <tr>
