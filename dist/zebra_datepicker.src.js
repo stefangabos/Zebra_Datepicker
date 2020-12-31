@@ -1038,6 +1038,9 @@
                             // because we've changed years, reset the month to December
                             first_selectable_month = 11;
 
+                            // because we've changed months, reset the day to the 1st
+                            first_selectable_day = 1;
+
                         // otherwise
                         } else {
 
@@ -1046,6 +1049,9 @@
 
                             // because we've changed years, reset the month to January
                             first_selectable_month = 0;
+
+                            // because we've changed months, reset the day to the 1st
+                            first_selectable_day = 1;
 
                         }
 
