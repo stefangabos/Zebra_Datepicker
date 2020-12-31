@@ -31,7 +31,7 @@
     $.Zebra_DatePicker = function(element, options) {
 
         // so you can tell the version number even if all you have is the minified source
-        this.version = '1.9.17';
+        this.version = '1.9.18';
 
         var defaults = {
 
