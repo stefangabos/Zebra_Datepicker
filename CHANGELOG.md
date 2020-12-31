@@ -1,3 +1,6 @@
+## version 1.9.18 (December 31, 2020)
+
+- fixed bug where certain scenarios involving `disabled_dates` and `enabled_dates` would send the script into an infinite loop; see [#171](https://github.com/stefangabos/Zebra_Datepicker/issues/171)
 ## version 1.9.17 (December 23, 2020)
 
 - added `enabled_ampm` option; see [#170](https://github.com/stefangabos/Zebra_Datepicker/pull/170); ; thanks [Beth McIntosh](https://github.com/betheymc)!
