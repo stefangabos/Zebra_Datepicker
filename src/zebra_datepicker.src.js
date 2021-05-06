@@ -1894,17 +1894,17 @@
                         // add to the array of regular expressions, based on the character
                         switch (match.character) {
 
-                            case 'd': regexp.push('0[1-9]|[12][0-9]|3[01]'); break;
+                            case 'd': regexp.push('0?[1-9]|[12][0-9]|3[01]'); break;
                             case 'D': regexp.push(plugin.settings.days_abbr ? plugin.settings.days_abbr.map(function(value) { return escape_regexp(value); }).join('|') : '[a-z\u00C0-\u024F]{3}'); break;
-                            case 'j': regexp.push('[1-9]|[12][0-9]|3[01]'); break;
+                            case 'j': regexp.push('0?[1-9]|[12][0-9]|3[01]'); break;
                             case 'l': regexp.push(plugin.settings.days ? plugin.settings.days.map(function(value) { return escape_regexp(value); }).join('|') : '[a-z\u00C0-\u024F]+'); break;
                             case 'N': regexp.push('[1-7]'); break;
                             case 'S': regexp.push('st|nd|rd|th'); break;
                             case 'w': regexp.push('[0-6]'); break;
                             case 'F': regexp.push(plugin.settings.months ? plugin.settings.months.map(function(value) { return escape_regexp(value); }).join('|') : '[a-z\u00C0-\u024F]+'); break;
-                            case 'm': regexp.push('0[1-9]|1[012]'); break;
+                            case 'm': regexp.push('0?[1-9]|1[012]'); break;
                             case 'M': regexp.push(plugin.settings.months_abbr ? plugin.settings.months_abbr.map(function(value) { return escape_regexp(value); }).join('|') : '[a-z\u00C0-\u024F]{3}'); break;
-                            case 'n': regexp.push('[1-9]|1[012]'); break;
+                            case 'n': regexp.push('0?[1-9]|1[012]'); break;
                             case 'Y': regexp.push('[0-9]{4}'); break;
                             case 'y': regexp.push('[0-9]{2}'); break;
                             case 'G': regexp.push('[1-9]|1[0-9]|2[0123]'); break;
