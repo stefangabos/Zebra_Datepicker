@@ -6,9 +6,9 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.18 (last revision: December 31, 2020)
- *  @copyright  (c) 2011 - 2020 Stefan Gabos
- *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
+ *  @version    1.9.19 (last revision: May 06, 2021)
+ *  @copyright  (c) 2011 - 2021 Stefan Gabos
+ *  @license    https://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
  */
 (function(factory) {
