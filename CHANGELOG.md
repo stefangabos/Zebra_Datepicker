@@ -1,3 +1,6 @@
+## version 1.9.19 (May 06, 2021)
+
+- the library will now allow days/months both with and without leading zeros for `d`, `j`, `m` and `n`; see [#173](https://github.com/stefangabos/Zebra_Datepicker/issues/173)
 ## version 1.9.18 (December 31, 2020)
 
 - fixed bug where certain scenarios involving `disabled_dates` and `enabled_dates` would send the script into an infinite loop; see [#171](https://github.com/stefangabos/Zebra_Datepicker/issues/171)
