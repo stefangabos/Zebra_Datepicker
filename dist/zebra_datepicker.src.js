@@ -2105,8 +2105,6 @@
              *  Prevents the possibility of selecting text on a given element. Used on the "previous" and "next" buttons
              *  where text might get accidentally selected when user quickly clicks on the buttons.
              *
-             *  Code by http://chris-barr.com/index.php/entry/disable_text_selection_with_jquery/
-             *
              *  @param  jQuery Element  el  A jQuery element on which to prevents text selection.
              *
              *  @return void
@@ -2144,7 +2142,6 @@
 
             /**
              *  Formats a JavaScript date object to the format specified by the "format" property.
-             *  Code taken from http://electricprism.com/aeron/calendar/
              *
              *  @param  date    date    A valid JavaScript date object
              *
