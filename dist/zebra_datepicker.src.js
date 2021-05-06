@@ -518,7 +518,7 @@
 
                 // generate a random ID for each date picker (we'll use this if later a certain date picker is destroyed to
                 // remove related events)
-                // the code is taken from http://stackoverflow.com/a/105074
+                // the code is taken from https://stackoverflow.com/a/105074
                 for (k = 0; k < 3; k++) uniqueid += Math.floor((1 + Math.random()) * 0x10000).toString(16);
 
                 // start by assuming there are no enabled/disabled dates
@@ -2679,7 +2679,7 @@
             /**
              *  Calculate the ISO 8601 week number for a given date.
              *
-             *  Code is based on the algorithm at http://www.tondering.dk/claus/cal/week.php#calcweekno
+             *  Code is based on the algorithm at https://www.tondering.dk/claus/cal/week.php#calcweekno
              */
             get_week_number = function(date) {
 
@@ -3621,7 +3621,7 @@
             },
 
             // since with jQuery 1.9.0 the $.browser object was removed, we rely on this piece of code from
-            // http://www.quirksmode.org/js/detect.html to detect the browser
+            // https://www.quirksmode.org/js/detect.html to detect the browser
             browser = {
                 init: function() {
                     this.name = this.searchString(this.dataBrowser) || '';
