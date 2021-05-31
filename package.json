@@ -28,8 +28,8 @@
     "email": "contact@stefangabos.ro"
   },
   "devDependencies": {
-    "grunt": "^1.4.0",
-    "grunt-cli": "^1.4.2",
+    "grunt": "^1.4.1",
+    "grunt-cli": "^1.4.3",
     "grunt-contrib-copy": "*",
     "grunt-contrib-cssmin": "^3.0.0",
     "grunt-contrib-jshint": "^2.1.0",
