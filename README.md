@@ -453,7 +453,7 @@ This project is sponsored by **Spurwing**, where their API Makes Adding Scheduli
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>false</code></td>
         <td valign="top">
-            Set this property to <code>true</code> if you want the date picker to be shown when the parent element (if <code>open_icon_only</code> is not set to <code>false</code>) or the associated calendar icon (if <code>show_icon</code> is set to <code>true</code>) receive focus.
+            Set this property to <code>true</code> if you want the date picker to be shown when the parent element (if <code>open_icon_only</code> is not set to <code>false</code>) or the associated calendar icon (if <code>show_icon</code> is not set to <code>false</code>) receive focus.
         </td>
     </tr>
     <tr>
@@ -508,11 +508,13 @@ This project is sponsored by **Spurwing**, where their API Makes Adding Scheduli
     </tr>
     <tr>
         <td valign="top"><a name="show_icon"></a><strong>show_icon</strong></td>
-        <td valign="top"><em>boolean</em></td>
-        <td valign="top"><code>true</code></td>
+        <td valign="top"><em>mixed</em></td>
+        <td valign="top"><code>Pick a date</code></td>
         <td valign="top">
             Should a calendar icon be added to the elements the plugin is attached to?<br><br>
-            When set to <code>true</code> the plugin will attach a calendar icon to the elements the plugin is attached to.
+            Set this property's value to boolean <code>false</code> if you don't want the calendar icon.<br><br>
+            Note that the text is not visible by default since <code>text-indentation</code> is set to a big negative value in the CSS, so you might want to change that in case you want to make the text visible.<br><br>
+            When <strong>not</strong> set to boolean <code>false</code> the plugin will attach a calendar icon to the elements the plugin is attached to.
         </td>
     </tr>
     <tr>
