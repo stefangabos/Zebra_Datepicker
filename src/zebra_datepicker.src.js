@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.19 (last revision: May 06, 2021)
+ *  @version    1.9.19 (last revision: September 06, 2021)
  *  @copyright  (c) 2011 - 2021 Stefan Gabos
  *  @license    https://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -361,8 +361,12 @@
 
                 //  should a calendar icon be added to the elements the plugin is attached to?
                 //
-                //  default is TRUE
-                show_icon: true,
+                //  set this property's value to boolean FALSE if you don't want the calendar icon.
+                //  note that the text is not visible by default, having `text-indentation` set to a big negative value, so
+                //  you might want to change that in case you want to make the text visible
+                //
+                //  default is 'Pick a date'
+                show_icon: 'Pick a date',
 
                 //  should days from previous and/or next month be visible?
                 //
@@ -1165,7 +1169,7 @@
                     if (!update) {
 
                         // if a calendar icon should be added to the element the plugin is attached to, create the icon now
-                        if (plugin.settings.show_icon) {
+                        if (plugin.settings.show_icon !== false) {
 
                             // strangely, in Firefox 21+ (or maybe even earlier) input elements have their "display" property
                             // set to "inline" instead of "inline-block" as do all the other browsers.
@@ -1217,7 +1221,7 @@
                             });
 
                             // create the actual calendar icon (show a disabled icon if the element is disabled)
-                            icon = $('<button type="button" class="Zebra_DatePicker_Icon' + ($element.attr('disabled') === 'disabled' ? ' Zebra_DatePicker_Icon_Disabled' : '') + '">Pick a date</button>');
+                            icon = $('<button type="button" class="Zebra_DatePicker_Icon' + ($element.attr('disabled') === 'disabled' ? ' Zebra_DatePicker_Icon_Disabled' : '') + '">' + plugin.settings.show_icon + '</button>');
 
                             // a reference to the icon, as a global property
                             plugin.icon = icon;
