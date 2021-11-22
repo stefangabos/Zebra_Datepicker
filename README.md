@@ -34,7 +34,7 @@ If you like this project please ⭐ it by clicking on the star button at the top
 If you are feeling generous, you can buy me a coffee by donating through PayPal or you can become a sponsor.<br>
 Either way - **Thank you!** 🎉
 
-[<img src="https://img.shields.io/github/stars/stefangabos/zebra_datepicker?color=green&label=star%20it%20on%20GitHub" width="132" height="20" alt="Star it on GitHub">](https://github.com/stefangabos/zebra_datepicker) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QTQH936BQDE7A) [<img src="https://img.shields.io/badge/-Sponsor-fafbfc?logo=GitHub%20Sponsors">](https://github.com/sponsors/stefangabos)
+[<img src="https://img.shields.io/github/stars/stefangabos/zebra_datepicker?color=green&label=star%20it%20on%20GitHub" width="132" height="20" alt="Star it on GitHub">](https://github.com/stefangabos/Zebra_Datepicker) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QTQH936BQDE7A) [<img src="https://img.shields.io/badge/-Sponsor-fafbfc?logo=GitHub%20Sponsors">](https://github.com/sponsors/stefangabos)
 
 ## Demo
 
