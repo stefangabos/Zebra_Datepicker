@@ -27,6 +27,15 @@ Zebra_Datepicker is a small yet and highly configurable date picker / time picke
 
 [![Themes](https://raw.github.com/stefangabos/Zebra_Datepicker/master/examples/themes.png)](https://stefangabos.github.io/Zebra_Datepicker/)
 
+## 🎂 Support the development of this library
+
+Your support means a lot and it keeps me motivated to keep working on open source projects.<br>
+If you like this project please ⭐ it by clicking on the star button at the top of the page.<br>
+If you are feeling generous, you can buy me a coffee by donating through PayPal or you can become a sponsor.<br>
+Either way - **Thank you!** 🎉
+
+[<img src="https://img.shields.io/github/stars/stefangabos/zebra_datepicker?color=green&label=star%20it%20on%20GitHub" width="132" height="20" alt="Star it on GitHub">](https://github.com/stefangabos/zebra_datepicker) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QTQH936BQDE7A) [<img src="https://img.shields.io/badge/-Sponsor-fafbfc?logo=GitHub%20Sponsors">](https://github.com/sponsors/stefangabos)
+
 ## Demo
 
 See the [demos](https://stefangabos.github.io/Zebra_Datepicker/)
@@ -769,10 +778,6 @@ $.fn.Zebra_DatePicker.defaults = {
 ```
 
 Any options set like this will be applied to **all** the newly created date picker. Obviously, options set at the creation of any new date picker would overwrite the respective defaults.
-
-## Support the development of this project
-
-[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.me/stefangabos)
 
 ## Sponsors
 
