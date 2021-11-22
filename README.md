@@ -318,7 +318,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><em>boolean</em></td>
         <td valign="top"><code>true</code></td>
         <td valign="top">
-            Allows the users to quickly navigate through months and years by clicking on the date picker's top label.
+            Allows users to quickly navigate through months and years by clicking on the date picker's top label.
         </td>
     </tr>
     <tr>
@@ -355,7 +355,7 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         </td>
         <td valign="top">
             Captions in the date picker's header, for the 3 applicable views: <code>days</code>, <code>months</code>, <code>years</code><br><br>
-            For each of the 3 views the following special characters may be used borrowing from PHP's <a href="http://php.net/manual/en/function.date.php">date</a> function's syntax: <code>m</code>, <code>n</code>, <code>F</code>, <code>M</code>, <code>y</code> and <code>Y</code>; any of these will be replaced at runtime with the appropriate date fragment, depending on the currently viewed date. two more special characters are also available <code>Y1</code> and <code>Y2</code> (upper case representing years with 4 digits, lowercase representing years with 2 digits) which represent <code>currently selected year - 7</code> and <code>currently selected year + 4</code> and which are used only in the <code>years</code> view.<br><br>
+            For each of the 3 views the following special characters may be used borrowing from PHP's <a href="http://php.net/manual/en/function.date.php">date</a> function's syntax: <code>m</code>, <code>n</code>, <code>F</code>, <code>M</code>, <code>y</code> and <code>Y</code>; any of these will be replaced at runtime with the appropriate date fragment, depending on the currently viewed date.<br><br>Two more special characters are also available <code>Y1</code> and <code>Y2</code> (upper case representing years with 4 digits, lowercase representing years with 2 digits) which represent <code>currently selected year - 7</code> and <code>currently selected year + 4</code> and which are used only in the <code>years</code> view.<br><br>
             Even though any of these special characters may be used in any of the 3 views, you should use <code>m</code>, <code>n</code>, <code>F</code>, <code>M</code> for the <code>days</code> view and <code>y</code>, <code>Y</code>, <code>Y1</code>, <code>Y2</code>, <code>y1</code>, <code>y2</code> for the <code>months</code> and <code>years</code> view or you may get unexpected results!<br><br>
             Text and HTML can also be used, and will be rendered as it is, as in the example below (the library is smart enough to not replace special characters when used in words or HTML tags):<br><br>
             <code>header_captions: {</code><br>
