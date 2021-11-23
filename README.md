@@ -27,7 +27,7 @@ Zebra_Datepicker is a small yet and highly configurable date picker / time picke
 
 [![Themes](https://raw.github.com/stefangabos/Zebra_Datepicker/master/examples/themes.png)](https://stefangabos.github.io/Zebra_Datepicker/)
 
-## 🎂 Support the development of this library
+## 🎂 Support the development of this project
 
 Your support means a lot and it keeps me motivated to keep working on open source projects.<br>
 If you like this project please ⭐ it by clicking on the star button at the top of the page.<br>
