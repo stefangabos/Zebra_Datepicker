@@ -2,6 +2,7 @@ examples/README.md
 examples/themes.png
 node_modules/*
 src/*
+.github/*
 .gitattributes
 .gitignore
 .npmignore
