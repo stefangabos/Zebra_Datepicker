@@ -5,7 +5,7 @@
   "authors": [
     "Stefan Gabos <contact@stefangabos.ro>"
   ],
-  "description": "A super-lightweight, highly configurable, cross-browser date picker jQuery plugin",
+  "description": "A super-lightweight, highly configurable, cross-browser date / time picker jQuery plugin",
   "keywords": [
     "calendar",
     "date",
