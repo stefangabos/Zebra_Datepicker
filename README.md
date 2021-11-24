@@ -1,6 +1,6 @@
 <img src="https://raw.githubusercontent.com/stefangabos/zebrajs/master/docs/images/logo.png" alt="zebrajs" align="right">
 
-# Zebra Datepicker &nbsp;[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Zebra%20Datepicker%20-%20a%20super-lightweight,%20highly%20configurable,%20cross-browser%20date/time%20picker%20jQuery%20plugin&url=https://github.com/stefangabos/Zebra_Datepicker&via=stefangabos&hashtags=jquery,datepicker,timepicker,calendar,javascript)
+# Zebra Datepicker &nbsp;[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=A+super-lightweight,+highly+configurable,+cross-browser+date/time+picker+jQuery+plugin&url=https://github.com/stefangabos/Zebra_Datepicker&via=stefangabos&hashtags=jquery,datepicker,timepicker,calendar,javascript)
 
 *A super-lightweight, highly configurable, cross-browser date/time picker jQuery plugin*
 
