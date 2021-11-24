@@ -634,7 +634,7 @@
 
                                         // make sure we treat values as integers
                                         // (or this won't work when doing $.inArray(): enabled_hours: ['11', '12', '13'])
-                                        if ($.isArray(plugin.settings.enabled_hours)) plugin.settings.enabled_hour = plugin.settings.enabled_hours.map(function(value) { return parseInt(value, 10); })
+                                        if ($.isArray(plugin.settings.enabled_hours)) plugin.settings.enabled_hour = plugin.settings.enabled_hours.map(function(value) { return parseInt(value, 10); });
 
                                         // iterate through valid hours
                                         for (i = (max === 12 ? 1 : 0); i < (max === 12 ? 13 : max); i++)
@@ -649,7 +649,7 @@
 
                                         // make sure we treat values as integers
                                         // (or this won't work when doing $.inArray(): enabled_minutes: ['11', '12', '13'])
-                                        if ($.isArray(plugin.settings.enabled_minutes)) plugin.settings.enabled_minutes = plugin.settings.enabled_minutes.map(function(value) { return parseInt(value, 10); })
+                                        if ($.isArray(plugin.settings.enabled_minutes)) plugin.settings.enabled_minutes = plugin.settings.enabled_minutes.map(function(value) { return parseInt(value, 10); });
 
                                         // iterate through valid minutes
                                         for (i = 0; i < 60; i++)
@@ -664,7 +664,7 @@
 
                                         // make sure we treat values as integers
                                         // (or this won't work when doing $.inArray(): enabled_seconds: ['11', '12', '13'])
-                                        if ($.isArray(plugin.settings.enabled_seconds)) plugin.settings.enabled_seconds = plugin.settings.enabled_seconds.map(function(value) { return parseInt(value, 10); })
+                                        if ($.isArray(plugin.settings.enabled_seconds)) plugin.settings.enabled_seconds = plugin.settings.enabled_seconds.map(function(value) { return parseInt(value, 10); });
 
                                         // iterate through valid minutes
                                         for (i = 0; i < 60; i++)
@@ -1250,7 +1250,7 @@
 
                                     // wait for 600 milliseconds for the virtual keyboard to appear and show the date picker afterwards
                                     timeout = setTimeout(function() {
-                                        plugin.show()
+                                        plugin.show();
                                     }, 600);
 
                                 }
