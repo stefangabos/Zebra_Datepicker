@@ -1,6 +1,6 @@
 {
   "name": "zebra_datepicker",
-  "description": "A super-lightweight, highly configurable, cross-browser date picker jQuery plugin",
+  "description": "A super-lightweight, highly configurable, cross-browser date / time picker jQuery plugin",
   "author": {
     "name": "Stefan Gabos",
     "email": "contact@stefangabos.ro"
