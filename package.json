@@ -42,6 +42,7 @@
     "grunt-sass": "^3.1.0",
     "json-schema": ">=0.4.0",
     "node-sass": "^7.0.1",
+    "shelljs": ">=0.8.5",
     "time-grunt": "^2.0.0"
   }
 }
