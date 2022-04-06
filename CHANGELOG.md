@@ -3,9 +3,11 @@
 - the library will now allow days/months both with and without leading zeros for `d`, `j`, `m` and `n`; see [#173](https://github.com/stefangabos/Zebra_Datepicker/issues/173)
 - updated how the `show_icon` property works so that it can now be used to set the text that appears in the icon (`button` element); see [#182](https://github.com/stefangabos/Zebra_Datepicker/issues/182)
 - fixed a minor issue with the HTML markup; see [#185](https://github.com/stefangabos/Zebra_Datepicker/issues/185)
+
 ## version 1.9.18 (December 31, 2020)
 
 - fixed bug where certain scenarios involving `disabled_dates` and `enabled_dates` would send the script into an infinite loop; see [#171](https://github.com/stefangabos/Zebra_Datepicker/issues/171)
+
 ## version 1.9.17 (December 23, 2020)
 
 - added `enabled_ampm` option; see [#170](https://github.com/stefangabos/Zebra_Datepicker/pull/170); ; thanks [Beth McIntosh](https://github.com/betheymc)!
