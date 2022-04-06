@@ -6,8 +6,8 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.19 (last revision: September 06, 2021)
- *  @copyright  (c) 2011 - 2021 Stefan Gabos
+ *  @version    1.9.19 (last revision: April 06, 2022)
+ *  @copyright  (c) 2011 - 2022 Stefan Gabos
  *  @license    https://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
  */
@@ -31,7 +31,7 @@
     $.Zebra_DatePicker = function(element, options) {
 
         // so you can tell the version number even if all you have is the minified source
-        this.version = '1.9.18';
+        this.version = '1.9.19';
 
         var defaults = {
 
@@ -2332,7 +2332,7 @@
                 if (plugin.settings.show_week_number)
 
                     // column title
-                    html += '<th>' + plugin.settings.show_week_number + '</th>';
+                    html += '<th scope="col">' + plugin.settings.show_week_number + '</th>';
 
                 // name of week days
                 // show the abbreviated day names (or only the first two letters of the full name if no abbreviations are specified)
@@ -2342,7 +2342,7 @@
                     // the week day's number; account for RTL
                     day = (plugin.settings.first_day_of_week + (plugin.settings.rtl ? 6 - i : i)) % 7;
 
-                    html += '<th>' + ($.isArray(plugin.settings.days_abbr) && undefined !== plugin.settings.days_abbr[day] ? plugin.settings.days_abbr[day] : plugin.settings.days[day].substr(0, 2)) + '</th>';
+                    html += '<th scope="col">' + ($.isArray(plugin.settings.days_abbr) && undefined !== plugin.settings.days_abbr[day] ? plugin.settings.days_abbr[day] : plugin.settings.days[day].substr(0, 2)) + '</th>';
 
                 }
 
@@ -2361,7 +2361,7 @@
                     if (i % 7 === 0 && plugin.settings.show_week_number)
 
                         // show ISO 8601 week number
-                        html += '<th>' + get_week_number(new Date(selected_year, selected_month, (i - days_from_previous_month + 1))) + '</th>';
+                        html += '<th scope="row">' + get_week_number(new Date(selected_year, selected_month, (i - days_from_previous_month + 1))) + '</th>';
 
                     // the number of the day in month
                     day = rtl_offset + (i - days_from_previous_month + 1);
