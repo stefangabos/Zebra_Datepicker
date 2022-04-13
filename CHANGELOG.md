@@ -1,4 +1,4 @@
-## version 1.9.19 (TBA)
+## version 1.9.19 (April 06, 2022)
 
 - the library will now allow days/months both with and without leading zeros for `d`, `j`, `m` and `n`; see [#173](https://github.com/stefangabos/Zebra_Datepicker/issues/173)
 - updated how the `show_icon` property works so that it can now be used to set the text that appears in the icon (`button` element); see [#182](https://github.com/stefangabos/Zebra_Datepicker/issues/182)
