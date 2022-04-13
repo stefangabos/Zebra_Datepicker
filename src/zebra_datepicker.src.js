@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.19 (last revision: April 06, 2022)
+ *  @version    1.9.19 (last revision: April 13, 2022)
  *  @copyright  (c) 2011 - 2022 Stefan Gabos
  *  @license    https://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -1451,7 +1451,7 @@
 
                 }
 
-                // add the mouseover/mousevents to all to the date picker's cells
+                // add the mouseover/mouseout events to all to the date picker's cells
                 // except those that are not selectable
                 datepicker
                     .on('mouseover', 'td:not(.dp_disabled)', function() {
