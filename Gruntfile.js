@@ -170,7 +170,7 @@ module.exports = function(grunt) {
             options: {
                 compress: true,
                 mangle: true,
-                beautify: false,
+                beautify: false
             },
             build: {
                 src: 'src/zebra_datepicker.src.js',
