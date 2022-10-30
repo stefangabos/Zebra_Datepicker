@@ -13,7 +13,7 @@ Zebra_Datepicker is a small yet and highly configurable date picker / time picke
  - it is small – it weighs around 30KB minified (9.1KB gzipped) offering the best ratio of features per used bytes
  - it is both a date picker as well as a time picker
  - it's cross-browser – works in every major browser; works also in Internet Explorer 6!
- - has a default color scheme that blends-in well with almost any design, and it's easily customizable through the well-organized CSS file; two additional themes are included, one of them being for use with <a href="http://twitter.github.io/bootstrap/">Twitter Bootstrap</a>
+ - has a default color scheme that blends-in well with almost any design, and it's easily customizable through the well-organized CSS file; two additional themes are included, one of them being for use with <a href="https://getbootstrap.com/">Twitter Bootstrap</a>
  - offers an intuitive interface allowing for easy navigation through months and years
  - offers an intuitive mechanism for disabling dates and date ranges using a syntax similar to cron's syntax
  - supports defining of custom weekend days for countries that don't have the weekend on Saturday and Sunday
