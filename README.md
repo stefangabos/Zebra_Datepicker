@@ -2,11 +2,11 @@
 
 # Zebra Datepicker &nbsp;[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=A+super-lightweight,+highly+configurable,+cross-browser+date/time+picker+jQuery+plugin&url=https://github.com/stefangabos/Zebra_Datepicker&via=stefangabos&hashtags=jquery,datepicker,timepicker,calendar,javascript)
 
-*A super-lightweight, highly configurable, cross-browser date/time picker jQuery plugin*
+*A super-lightweight, highly configurable, cross-browser date time picker jQuery plugin*
 
 [![npm](https://img.shields.io/npm/v/zebra_datepicker.svg)](https://www.npmjs.com/package/zebra_datepicker) [![Total](https://img.shields.io/npm/dt/zebra_datepicker.svg)](https://www.npmjs.com/package/zebra_datepicker) [![Monthly](https://img.shields.io/npm/dm/zebra_datepicker.svg)](https://www.npmjs.com/package/zebra_datepicker) [![JSDelivr](https://data.jsdelivr.com/v1/package/npm/zebra_datepicker/badge?style=rounded)](https://www.jsdelivr.com/package/npm/zebra_datepicker) [![License](https://img.shields.io/npm/l/zebra_datepicker.svg)](https://github.com/stefangabos/Zebra_Datepicker/blob/master/LICENSE.md)
 
-Enhance your forms with the powerful and highly-configurable Zebra Datepicker jQuery plugin. This date picker/time picker adds an intuitive calendar interface for selecting dates and times, complete with a convenient month and year jump feature. The selected date will be formatted and entered into the input field according to your specified options. Simply attach the plugin to your input fields and let the calendar icon do the rest.
+Enhance your forms with the powerful and highly-configurable Zebra Datepicker date time picker jQuery plugin. This date time picker adds an intuitive calendar interface for selecting dates and times, complete with a convenient month and year jump feature. The selected date will be formatted and entered into the input field according to your specified options. Simply attach the plugin to your input fields and let the calendar icon do the rest.
 
 ## Features
 
