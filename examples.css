@@ -2,6 +2,13 @@ body {
     font-family: Tahoma, Helvetica, Arial, sans-serif;
 }
 
+h1 small {
+    display: block;
+    font-size: 50%;
+    color: #666;
+    margin-top: 0.2em;
+}
+
 .info {
     padding: 1em;
     background: #fafafa;
