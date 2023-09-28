@@ -1422,6 +1422,9 @@
                 // create a jQuery object out of the HTML above and create a reference to it
                 datepicker = $(html);
 
+                // make the datepicker DOM element available as a reference
+                plugin.datepicker = datepicker;
+
                 // create references to the different parts of the date picker
                 header = $('table.dp_header', datepicker);
                 daypicker = $('table.dp_daypicker', datepicker);
