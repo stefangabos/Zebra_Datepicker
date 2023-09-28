@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    2.0.0 (last revision: September 28, 2023)
+ *  @version    2.1.0 (last revision: September 28, 2023)
  *  @copyright  (c) 2011 - 2023 Stefan Gabos
  *  @license    https://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -31,7 +31,7 @@
     $.Zebra_DatePicker = function(element, options) {
 
         // so you can tell the version number even if all you have is the minified source
-        this.version = '2.0.0';
+        this.version = '2.1.0';
 
         var defaults = {
 
@@ -93,13 +93,30 @@
                 //  default is FALSE
                 days_abbr: false,
 
-                //  the position of the date picker relative to the element it is attached to. note that, regardless of this
-                //  setting, the date picker's position will be automatically adjusted to fit in the viewport, if needed.
+                //  the position of the date picker relative to the element it is attached to, or relative to the date
+                //  picker icon.
                 //
-                //  possible values are "above" and "below"
+                //  possible values are
                 //
-                //  default is "above"
-                default_position: 'above',
+                //  - element_top_right
+                //  - element_bottom_right
+                //  - element_top_left
+                //  - element_bottom_left
+                //  - icon_top_right
+                //  - icon_bottom_right
+                //  - icon_top_left
+                //  - icon_bottom_left
+                //
+                //  note that if the icon is disabled, the positioning is done relative to the element!
+                //
+                //  see also the "offset" property which also has an effect on the date picker's position.
+                //
+                //  note that, regardless of this setting, the date picker's position will be automatically adjusted to
+                //  always fit in the viewport, if needed.
+                //
+                //  default is "icon_top_right" meaning that the date picker will be positioned at the top right of the
+                //  icon.
+                default_position: 'icon_top_right',
 
                 //  direction of the calendar
                 //
@@ -295,14 +312,17 @@
                 //  default is ['&#9664;', '&#9654;', '&#9650;', '&#9660;']
                 navigation: ['&#9664;', '&#9654;', '&#9650;', '&#9660;'],
 
-                //  the offset, in pixels (x, y), to shift the date picker's position relative to the top-right of the icon
-                //  that toggles the date picker or, if the icon is disabled, relative to the top-right corner of the element
-                //  the plugin is attached to.
+                //  the offset, in pixels (x, y), to shift the date picker's position after it was positioned according
+                //  to the value of the "default_position" property.
                 //
-                //  note that this only applies if the position of element relative to the browser's viewport doesn't require
-                //  the date picker to be placed automatically so that it is visible!
+                //  for optimal results, if "default_position" property contains the word "above", the value of "y" should
+                //  negative, and positive otherwise. also, if "default_position" property contains the word "right", the
+                //  value of "x" should be positive, and negative otherwise.
                 //
-                //  default is [5, -5]
+                //  note that this will have effect only if the date picker is in the browser's viewport and there is
+                //  no need for the date picker to be automatically repositioned in order to be visible!
+                //
+                //  default is [5, -5] because the default value of "default_position" is "icon_top_right"
                 offset: [5, -5],
 
                 //  set whether the date picker should be shown *only* when interacting with the icon
@@ -3801,23 +3821,49 @@
                         datepicker_width = datepicker.outerWidth(),
                         datepicker_height = datepicker.outerHeight(),
 
-                        // compute the date picker's default left and top
-                        // this will be computed relative to the icon's top-right corner (if the calendar icon exists), or
-                        // relative to the element's top-right corner otherwise, to which the offsets given at initialization
-                        // are added/subtracted
-                        left = (undefined !== icon ? icon.offset().left + icon.outerWidth(true) : $element.offset().left + $element.outerWidth(true)) + plugin.settings.offset[0],
-                        top = (undefined !== icon ? icon.offset().top : $element.offset().top) - datepicker_height + plugin.settings.offset[1],
-
                         // get browser window's width and height
                         window_width = $(window).width(),
                         window_height = $(window).height(),
 
                         // get browser window's horizontal and vertical scroll offsets
                         window_scroll_top = $(window).scrollTop(),
-                        window_scroll_left = $(window).scrollLeft();
+                        window_scroll_left = $(window).scrollLeft(),
 
-                    if (plugin.settings.default_position === 'below')
-                        top = (undefined !== icon ? icon.offset().top : $element.offset().top) + plugin.settings.offset[1];
+                        left, top,
+
+                        //  absolute positions of element and icon
+                        element_offset = $element.offset(),
+                        icon_offset = undefined !== icon ? icon.offset() : undefined;
+
+                    // compute the date picker's default left and top
+
+                    // legacy options we keep for backward compatibility
+                    if (plugin.settings.default_position === 'above') plugin.settings.default_position = 'icon_top_right';
+                    else if (plugin.settings.default_position === 'below') plugin.settings.default_position = 'icon_bottom_right';
+
+                    // if positioning is to be done relative to the element or there is no icon
+                    if (plugin.settings.default_position.indexOf('element') === 0 || undefined === icon) {
+
+                        // to the left or the right of the element?
+                        if (plugin.settings.default_position.indexOf('left') > -1) left = element_offset.left + plugin.settings.offset[0];
+                        else left = element_offset.left + $element.outerWidth(true) + plugin.settings.offset[0];
+
+                        // to the top or the bottom of the element?
+                        if (plugin.settings.default_position.indexOf('top') > -1) top = element_offset.top - datepicker_height + plugin.settings.offset[1];
+                        else top = element_offset.top + $element.outerHeight() + plugin.settings.offset[1];
+
+                    // if positioning is to be done relative to the icon
+                    } else {
+
+                        // to the left or the right of the icon?
+                        if (plugin.settings.default_position.indexOf('left') > -1) left = icon_offset.left + plugin.settings.offset[0];
+                        else left = icon_offset.left + icon.outerWidth(true) + plugin.settings.offset[0];
+
+                        // to the top or the bottom of the icon?
+                        if (plugin.settings.default_position.indexOf('bottom') > -1) top = icon_offset.top + icon.outerHeight() + plugin.settings.offset[1];
+                        else top = icon_offset.top - datepicker_height + plugin.settings.offset[1];
+
+                    }
 
                     // if date picker is outside the viewport, adjust its position so that it is visible
                     if (left + datepicker_width > window_scroll_left + window_width) left = window_scroll_left + window_width - datepicker_width;
