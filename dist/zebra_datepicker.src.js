@@ -538,7 +538,7 @@
                     },
 
                     // some defaults
-                    type = null, data, dates, k, l, format_is_valid = false;
+                    type = null, data, dates, k, l, format_is_valid = false, selectable_date_counter;
 
                 // generate a random ID for each date picker (we'll use this if later a certain date picker is destroyed to
                 // remove related events)
@@ -1050,8 +1050,14 @@
                 // if first selectable date exists but is disabled, find the actual first selectable date
                 if (is_disabled(first_selectable_year, first_selectable_month, first_selectable_day)) {
 
+                    // we're going to use this to prevent infinite loops
+                    selectable_date_counter = 0;
+
                     // loop until we find the first selectable year
-                    while (is_disabled(first_selectable_year))
+                    while (is_disabled(first_selectable_year)) {
+
+                        // if we couldn't find a valid starting date (likely because of incorrect configuration of enabled/disabled dates) stop now
+                        if (selectable_date_counter++ > 2000) break;
 
                         // if calendar is past-only,
                         if (!start_date) {
@@ -1079,8 +1085,16 @@
 
                         }
 
+                    }
+
+                    // if we didn't fail above, we're going to use this to prevent infinite loops
+                    if (selectable_date_counter < 2000) selectable_date_counter = 0;
+
                     // loop until we find the first selectable month
                     while (is_disabled(first_selectable_year, first_selectable_month)) {
+
+                        // if we couldn't find a valid starting date (likely because of incorrect configuration of enabled/disabled dates) stop now
+                        if (selectable_date_counter++ > 2000) break;
 
                         // if calendar is past-only
                         if (!start_date) {
@@ -1130,8 +1144,14 @@
 
                     }
 
+                    // if we didn't fail above, we're going to use this to prevent infinite loops
+                    if (selectable_date_counter < 2000) selectable_date_counter = 0;
+
                     // loop until we find the first selectable day
                     while (is_disabled(first_selectable_year, first_selectable_month, first_selectable_day)) {
+
+                        // if we couldn't find a valid starting date (likely because of incorrect configuration of enabled/disabled dates) stop now
+                        if (selectable_date_counter++ > 2000) break;
 
                         // if calendar is past-only, decrement the day
                         if (!start_date) first_selectable_day--;
@@ -1151,9 +1171,14 @@
 
                     }
 
+                    // if there is no valid starting date
+                    // start the date picker with current date
+                    if (selectable_date_counter > 2000) date = new Date();
+
+                    // otherwise
                     // use the Date object to normalize the date
                     // for example, 2011 05 33 will be transformed to 2011 06 02
-                    date = new Date(first_selectable_year, first_selectable_month, first_selectable_day);
+                    else date = new Date(first_selectable_year, first_selectable_month, first_selectable_day);
 
                     // re-extract date parts from the normalized date
                     // as we use them in the current loop
