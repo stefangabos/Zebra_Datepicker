@@ -634,13 +634,13 @@
 
                                         // make sure we treat values as integers
                                         // (or this won't work when doing $.inArray(): enabled_hours: ['11', '12', '13'])
-                                        if ($.isArray(plugin.settings.enabled_hours)) plugin.settings.enabled_hour = plugin.settings.enabled_hours.map(function(value) { return parseInt(value, 10); });
+                                        if (Array.isArray(plugin.settings.enabled_hours)) plugin.settings.enabled_hour = plugin.settings.enabled_hours.map(function(value) { return parseInt(value, 10); });
 
                                         // iterate through valid hours
                                         for (i = (max === 12 ? 1 : 0); i < (max === 12 ? 13 : max); i++)
 
                                             // and add them to the lookup array if a user-defined list of values doesn't exist, or if the value is in that list
-                                            if (!$.isArray(plugin.settings.enabled_hours) || $.inArray(i, plugin.settings.enabled_hours) > -1) timepicker_config.hours.push(i);
+                                            if (!Array.isArray(plugin.settings.enabled_hours) || $.inArray(i, plugin.settings.enabled_hours) > -1) timepicker_config.hours.push(i);
 
                                     // if minutes are available in the date's format
                                     } else if (type === 'minutes') {
@@ -649,13 +649,13 @@
 
                                         // make sure we treat values as integers
                                         // (or this won't work when doing $.inArray(): enabled_minutes: ['11', '12', '13'])
-                                        if ($.isArray(plugin.settings.enabled_minutes)) plugin.settings.enabled_minutes = plugin.settings.enabled_minutes.map(function(value) { return parseInt(value, 10); });
+                                        if (Array.isArray(plugin.settings.enabled_minutes)) plugin.settings.enabled_minutes = plugin.settings.enabled_minutes.map(function(value) { return parseInt(value, 10); });
 
                                         // iterate through valid minutes
                                         for (i = 0; i < 60; i++)
 
                                             // and add them to the lookup array if a user-defined list of values doesn't exist, or if the value is in that list
-                                            if (!$.isArray(plugin.settings.enabled_minutes) || $.inArray(i, plugin.settings.enabled_minutes) > -1) timepicker_config.minutes.push(i);
+                                            if (!Array.isArray(plugin.settings.enabled_minutes) || $.inArray(i, plugin.settings.enabled_minutes) > -1) timepicker_config.minutes.push(i);
 
                                     // if seconds are available in the date's format
                                     } else if (type === 'seconds') {
@@ -664,13 +664,13 @@
 
                                         // make sure we treat values as integers
                                         // (or this won't work when doing $.inArray(): enabled_seconds: ['11', '12', '13'])
-                                        if ($.isArray(plugin.settings.enabled_seconds)) plugin.settings.enabled_seconds = plugin.settings.enabled_seconds.map(function(value) { return parseInt(value, 10); });
+                                        if (Array.isArray(plugin.settings.enabled_seconds)) plugin.settings.enabled_seconds = plugin.settings.enabled_seconds.map(function(value) { return parseInt(value, 10); });
 
                                         // iterate through valid minutes
                                         for (i = 0; i < 60; i++)
 
                                             // and add them to the lookup array if a user-defined list of values doesn't exist, or if the value is in that list
-                                            if (!$.isArray(plugin.settings.enabled_seconds) || $.inArray(i, plugin.settings.enabled_seconds) > -1) timepicker_config.seconds.push(i);
+                                            if (!Array.isArray(plugin.settings.enabled_seconds) || $.inArray(i, plugin.settings.enabled_seconds) > -1) timepicker_config.seconds.push(i);
 
                                     // if am/pm is available in the date's format
                                     } else {
@@ -679,7 +679,7 @@
                                         timepicker_config.ampm_case = character;
 
                                         // if custom values are specified and values are "am" and/or "pm"
-                                        if ($.isArray(plugin.settings.enabled_ampm) && $.grep(plugin.settings.enabled_ampm, function(value) { return $.inArray(value.toLowerCase(), ['am', 'pm']) > -1; }).length)
+                                        if (Array.isArray(plugin.settings.enabled_ampm) && $.grep(plugin.settings.enabled_ampm, function(value) { return $.inArray(value.toLowerCase(), ['am', 'pm']) > -1; }).length)
 
                                             // use the given value(s)
                                             timepicker_config.ampm = plugin.settings.enabled_ampm;
@@ -729,7 +729,7 @@
                     else dates = plugin.settings.custom_classes[custom_class_names[l - 2]];
 
                     // if we have a non-empty array
-                    if ($.isArray(dates) && dates.length > 0)
+                    if (Array.isArray(dates) && dates.length > 0)
 
                         // iterate through the rules
                         $.each(dates, function() {
@@ -845,10 +845,10 @@
                 } else if (
 
                     // if direction is not given as an array and the value is an integer > 0
-                    (!$.isArray(plugin.settings.direction) && is_integer(plugin.settings.direction) && to_int(plugin.settings.direction) > 0) ||
+                    (!Array.isArray(plugin.settings.direction) && is_integer(plugin.settings.direction) && to_int(plugin.settings.direction) > 0) ||
 
                     // or direction is given as an array
-                    ($.isArray(plugin.settings.direction) && (
+                    (Array.isArray(plugin.settings.direction) && (
 
                         // and first entry is a valid date
                         (tmp_start_date = check_date(plugin.settings.direction[0])) ||
@@ -882,7 +882,7 @@
                         start_date = new Date(
                             first_selectable_year,
                             first_selectable_month,
-                            first_selectable_day + (!$.isArray(plugin.settings.direction) ? to_int(plugin.settings.direction) : to_int(plugin.settings.direction[0] === true ? 0 : plugin.settings.direction[0]))
+                            first_selectable_day + (!Array.isArray(plugin.settings.direction) ? to_int(plugin.settings.direction) : to_int(plugin.settings.direction[0] === true ? 0 : plugin.settings.direction[0]))
                         );
 
                     // re-extract the date parts
@@ -894,7 +894,7 @@
                     if (tmp_end_date && +tmp_end_date >= +start_date) end_date = tmp_end_date;
 
                     // if have information about the ending date
-                    else if (!tmp_end_date && plugin.settings.direction[1] !== false && $.isArray(plugin.settings.direction))
+                    else if (!tmp_end_date && plugin.settings.direction[1] !== false && Array.isArray(plugin.settings.direction))
 
                         // figure out the ending date
                         // use the Date object to normalize the date
@@ -918,10 +918,10 @@
                 } else if (
 
                     // if direction is not given as an array and the value is an integer < 0
-                    (!$.isArray(plugin.settings.direction) && is_integer(plugin.settings.direction) && to_int(plugin.settings.direction) < 0) ||
+                    (!Array.isArray(plugin.settings.direction) && is_integer(plugin.settings.direction) && to_int(plugin.settings.direction) < 0) ||
 
                     // or direction is given as an array
-                    ($.isArray(plugin.settings.direction) && (
+                    (Array.isArray(plugin.settings.direction) && (
 
                         // and first entry is boolean FALSE
                         plugin.settings.direction[0] === false ||
@@ -945,7 +945,7 @@
                     end_date = new Date(
                         first_selectable_year,
                         first_selectable_month,
-                        first_selectable_day + (!$.isArray(plugin.settings.direction) ? to_int(plugin.settings.direction) : to_int(plugin.settings.direction[0] === false ? 0 : plugin.settings.direction[0]))
+                        first_selectable_day + (!Array.isArray(plugin.settings.direction) ? to_int(plugin.settings.direction) : to_int(plugin.settings.direction[0] === false ? 0 : plugin.settings.direction[0]))
                     );
 
                     // re-extract the date parts
@@ -957,7 +957,7 @@
                     if (tmp_start_date && +tmp_start_date < +end_date) start_date = tmp_start_date;
 
                     // if have information about the starting date
-                    else if (!tmp_start_date && $.isArray(plugin.settings.direction))
+                    else if (!tmp_start_date && Array.isArray(plugin.settings.direction))
 
                         // figure out the staring date
                         // use the Date object to normalize the date
@@ -979,7 +979,7 @@
                     }
 
                 // if there are disabled dates
-                } else if ($.isArray(plugin.settings.disabled_dates) && plugin.settings.disabled_dates.length > 0)
+                } else if (Array.isArray(plugin.settings.disabled_dates) && plugin.settings.disabled_dates.length > 0)
 
                     // iterate through the rules for disabling dates
                     for (var interval in disabled_dates)
@@ -1852,7 +1852,7 @@
                 str_date += '';
 
                 // if value is given
-                if ($.trim(str_date) !== '') {
+                if (str_date.trim() !== '') {
 
                     var
 
@@ -2124,7 +2124,7 @@
                 else if (browser.name === 'explorer') $(document).on('selectstart', el, function() { return false; });
 
                 // for the other browsers
-                else el.mousedown(function() { return false; });
+                else el.on('mousedown', function() { return false; });
 
             },
 
@@ -2217,7 +2217,7 @@
                         case 'n': result += n; break;
 
                         // month name, three letters
-                        case 'M': f = ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[n - 1] ? plugin.settings.months_abbr[n - 1] : plugin.settings.months[n - 1].substr(0, 3));   // jshint ignore:line
+                        case 'M': f = (Array.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[n - 1] ? plugin.settings.months_abbr[n - 1] : plugin.settings.months[n - 1].substr(0, 3));   // jshint ignore:line
 
                         // full month name
                         // falls through
@@ -2231,7 +2231,7 @@
                         case 'j': result += j; break;
 
                         // day name, three letters
-                        case 'D': l = ($.isArray(plugin.settings.days_abbr) && undefined !== plugin.settings.days_abbr[w] ? plugin.settings.days_abbr[w] : plugin.settings.days[w].substr(0, 3));   // jshint ignore:line
+                        case 'D': l = (Array.isArray(plugin.settings.days_abbr) && undefined !== plugin.settings.days_abbr[w] ? plugin.settings.days_abbr[w] : plugin.settings.days[w].substr(0, 3));   // jshint ignore:line
 
                         // full day name
                         // falls through
@@ -2342,7 +2342,7 @@
                     // the week day's number; account for RTL
                     day = (plugin.settings.first_day_of_week + (plugin.settings.rtl ? 6 - i : i)) % 7;
 
-                    html += '<th scope="col">' + ($.isArray(plugin.settings.days_abbr) && undefined !== plugin.settings.days_abbr[day] ? plugin.settings.days_abbr[day] : plugin.settings.days[day].substr(0, 2)) + '</th>';
+                    html += '<th scope="col">' + (Array.isArray(plugin.settings.days_abbr) && undefined !== plugin.settings.days_abbr[day] ? plugin.settings.days_abbr[day] : plugin.settings.days[day].substr(0, 2)) + '</th>';
 
                 }
 
@@ -2421,7 +2421,7 @@
                         if (is_disabled(selected_year, selected_month, day)) class_name += ' dp_disabled';
 
                         // print the day of the month (if "day" is NaN, use an empty string instead)
-                        html += '<td' + (class_name !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + ((plugin.settings.zero_pad ? str_pad(day, 2) : day) || '&nbsp;') + '</td>';
+                        html += '<td' + (class_name !== '' ? ' class="' + class_name.trim() + '"' : '') + '>' + ((plugin.settings.zero_pad ? str_pad(day, 2) : day) || '&nbsp;') + '</td>';
 
                     }
 
@@ -2481,7 +2481,7 @@
                     else if (current_system_month === month && current_system_year === selected_year) class_name += ' dp_current';
 
                     // first three letters of the month's name
-                    html += '<td class="' + $.trim(class_name) + '">' + ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[month] ? plugin.settings.months_abbr[month] : plugin.settings.months[month].substr(0, 3)) + '</td>';
+                    html += '<td class="' + class_name.trim() + '">' + (Array.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[month] ? plugin.settings.months_abbr[month] : plugin.settings.months[month].substr(0, 3)) + '</td>';
 
                 }
 
@@ -2585,7 +2585,7 @@
                     else if (current_system_year === (selected_year - 7 + year)) class_name += ' dp_current';
 
                     // first three letters of the month's name
-                    html += '<td' + ($.trim(class_name) !== '' ? ' class="' + $.trim(class_name) + '"' : '') + '>' + (selected_year - 7 + year) + '</td>';
+                    html += '<td' + (class_name.trim() !== '' ? ' class="' + class_name.trim() + '"' : '') + '>' + (selected_year - 7 + year) + '</td>';
 
                 }
 
@@ -2633,7 +2633,7 @@
                     class_name = custom_class_names[i]; found = false;
 
                     // if there are any custom classes defined
-                    if ($.isArray(custom_classes[class_name]))
+                    if (Array.isArray(custom_classes[class_name]))
 
                         // iterate through the rules for which the custom class to be applied
                         $.each(custom_classes[class_name], function() {
@@ -2827,7 +2827,7 @@
                 else if (year < 1000) return true;
 
                 // if calendar has direction restrictions
-                if (!(!$.isArray(plugin.settings.direction) && to_int(plugin.settings.direction) === 0)) {
+                if (!(!Array.isArray(plugin.settings.direction) && to_int(plugin.settings.direction) === 0)) {
 
                     // normalize and merge arguments then transform the result to an integer
                     now = to_int(str_concat(year, (typeof month !== 'undefined' ? str_pad(month, 2) : ''), (typeof day !== 'undefined' ? str_pad(day, 2) : '')));
@@ -2880,7 +2880,7 @@
                 disabled = false; enabled = false;
 
                 // if there are rules for disabling dates
-                if ($.isArray(disabled_dates) && disabled_dates.length)
+                if (Array.isArray(disabled_dates) && disabled_dates.length)
 
                     // iterate through the rules for disabling dates
                     $.each(disabled_dates, function() {
@@ -3037,7 +3037,7 @@
 
                             // month name, three letters
                             case 'M':
-                                return ($.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[selected_month] ? plugin.settings.months_abbr[selected_month] : plugin.settings.months[selected_month].substr(0, 3));
+                                return (Array.isArray(plugin.settings.months_abbr) && undefined !== plugin.settings.months_abbr[selected_month] ? plugin.settings.months_abbr[selected_month] : plugin.settings.months[selected_month].substr(0, 3));
 
                             // unknown replace
                             default:
@@ -3858,10 +3858,10 @@
                     selected_hour = (selected_hour % 12 === 0 ? 12 : selected_hour % 12);
 
                 // make sure that the default values are within the allowed range, if a range is defined
-                if ($.isArray(plugin.settings.enabled_hours) && $.inArray(selected_hour, plugin.settings.enabled_hours) === -1) selected_hour = plugin.settings.enabled_hours[0];
-                if ($.isArray(plugin.settings.enabled_minutes) && $.inArray(selected_minute, plugin.settings.enabled_minutes) === -1) selected_minute = plugin.settings.enabled_minutes[0];
-                if ($.isArray(plugin.settings.enabled_seconds) && $.inArray(selected_second, plugin.settings.enabled_seconds) === -1) selected_second = plugin.settings.enabled_seconds[0];
-                if ($.isArray(plugin.settings.enabled_ampm) && $.inArray(selected_ampm, plugin.settings.enabled_ampm) === -1) selected_ampm = plugin.settings.enabled_ampm[0];
+                if (Array.isArray(plugin.settings.enabled_hours) && $.inArray(selected_hour, plugin.settings.enabled_hours) === -1) selected_hour = plugin.settings.enabled_hours[0];
+                if (Array.isArray(plugin.settings.enabled_minutes) && $.inArray(selected_minute, plugin.settings.enabled_minutes) === -1) selected_minute = plugin.settings.enabled_minutes[0];
+                if (Array.isArray(plugin.settings.enabled_seconds) && $.inArray(selected_second, plugin.settings.enabled_seconds) === -1) selected_second = plugin.settings.enabled_seconds[0];
+                if (Array.isArray(plugin.settings.enabled_ampm) && $.inArray(selected_ampm, plugin.settings.enabled_ampm) === -1) selected_ampm = plugin.settings.enabled_ampm[0];
             }
 
             // generate the appropriate view
