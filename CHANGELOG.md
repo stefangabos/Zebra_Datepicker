@@ -1,3 +1,7 @@
+## version 2.1.0 (September 28, 2023)
+
+- the `default_position` property now takes more options; the previous valid values are still going to work for backward compatibility; this is a response to an [older issue](https://github.com/stefangabos/Zebra_Datepicker/issues/41)
+
 ## version 2.0.0 (September 28, 2023)
 
 - this version removes some legacy code and makes it incompatible with Internet Explorer version 6, 7 and 8
