@@ -217,11 +217,25 @@ var datepicker = $('selector').data('Zebra_DatePicker');
     <tr>
         <td valign="top"><a name="default_position"></a><strong>default_position</strong></td>
         <td valign="top"><em>string</em></td>
-        <td valign="top"><code>'above'</code></td>
+        <td valign="top"><code>'icon_top_right'</code></td>
         <td valign="top">
-            The position of the date picker relative to the element it is attached to.<br><br>
-            Note that, regardless of this setting, the date picker's position will be automatically adjusted to fit in the view port, if needed.<br><br>
-            Possible values are <code>above</code> and <code>below</code>.<br><br>
+            The position of the date picker relative to the element it is attached to, or relative to the date picker icon.<br><br>
+            Possible values are<br><br>
+            <ul>
+                <li>element_top_right</li>
+                <li>element_bottom_right</li>
+                <li>element_top_left</li>
+                <li>element_bottom_left</li>
+                <li>icon_top_right</li>
+                <li>icon_bottom_right</li>
+                <li>icon_top_left</li>
+                <li>icon_bottom_left</li>
+            </ul>
+            If the icon is disabled, the positioning is done relative to the element!<br><br>
+            Also note that, regardless of this setting, the date picker's position will be automatically adjusted to always fit in the viewport, if needed.<br><br>
+            See also the <code>offset</code> property which also has an effect on the date picker's position.<br><br>
+            Default is <code>icon_top_right</code> meaning that the date picker will be positioned at the top right of the icon.<br><br>
+            <blockquote>Prior to version 2.0.1 the possible values were "above" and "below". For backward compatiblity these values are still valid and translate to "icon_top_right" and "icon_bottom_right" respectively.</blockquote><br><br>
             <blockquote>This property will be ignored if <code>always_visible</code> or <code>container</code> properties are set!</blockquote>
         </td>
     </tr>
@@ -439,9 +453,10 @@ var datepicker = $('selector').data('Zebra_DatePicker');
         <td valign="top"><a name="offset"></a><strong>offset</strong></td>
         <td valign="top"><em>array</em></td>
         <td valign="top"><code>[5, -5]</code></td>
-        <td valign="top">The offset, in pixels (x, y), to shift the date picker's position relative to the top-right of the icon that toggles the date picker or, if the icon is disabled, relative to the top-right corner of the element
-        the plugin is attached to.<br><br>
-        Note that this only applies if the position of the calendar, relative to the browser's viewport, doesn't require the date picker to be placed automatically so that it is visible!
+        <td valign="top">
+            The offset, in pixels (x, y), to shift the date picker's position after it was positioned according to the value of the <code>default_position</code> property.<br><br>
+            For optimal results, if <code>default_position</code> property contains the word <strong>"above"</strong>, the value of <code>y</code> should negative, and positive otherwise.<br><br>
+            Also, if <code>default_position</code> property contains the word <strong>"right"</strong>, the value of <code>x</code> should be positive, and negative otherwise.
         </td>
     </tr>
     <tr>
