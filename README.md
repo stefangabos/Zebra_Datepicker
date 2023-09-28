@@ -12,7 +12,7 @@ Enhance your forms with the powerful and highly-configurable Zebra Datepicker da
 
  - it is small – it weighs around 30KB minified (9.1KB gzipped) offering the best ratio of features per used bytes
  - it is both a date picker as well as a time picker
- - it's cross-browser – works in every major browser; works also in Internet Explorer 6!
+ - it's cross-browser – works in every major browser; works also in Internet Explorer 6 (as long as you are using a version of the date picker that is less than 2.0.0)!
  - has a default color scheme that blends-in well with almost any design, and it's easily customizable through the well-organized CSS file; two additional themes are included, one of them being for use with <a href="https://getbootstrap.com/">Twitter Bootstrap</a>
  - offers an intuitive interface allowing for easy navigation through months and years
  - offers an intuitive mechanism for disabling dates and date ranges using a syntax similar to cron's syntax
@@ -620,7 +620,8 @@ The callback function receives 2 arguments
 - the current view (`days`, `months`, `years` or `time`)
 - an array containing the <em>active</em> elements (not disabled) from the view, as jQuery elements, allowing for easy customization and interaction with particular cells in the date picker's view
 
-The `this` keyword inside the callback function refers to the element the date picker is attached to, as a jQuery object.
+The `this` keyword inside the callback function refers to the element the date picker is attached to, as a jQuery object.<br>
+To get the plugin's properties do `properties = this.data('Zebra_DatePicker')`.
 
 For simplifying searching for particular dates, each element gets a `date` data attribute whose format depends on the value of the `view` argument as follows:
 
@@ -679,19 +680,22 @@ $('selector').Zebra_DatePicker({
 
 Callback function to be executed when the user clicks the <em>Clear</em> button.
 
-The callback function takes no arguments. The `this` keyword inside the callback function refers to the element the date picker is attached to, as a jQuery object.
+The callback function takes no arguments. The `this` keyword inside the callback function refers to the element the date picker is attached to, as a jQuery object.<br>
+To get the plugin's properties do `properties = this.data('Zebra_DatePicker')`.
 
 #### `onClose`
 
 Callback function to be executed when the date picker is closed.
 
-The callback function takes no arguments. The `this` keyword inside the callback function refers to the element the date picker is attached to, as a jQuery object.
+The callback function takes no arguments. The `this` keyword inside the callback function refers to the element the date picker is attached to, as a jQuery object.<br>
+To get the plugin's properties do `properties = this.data('Zebra_DatePicker')`.
 
 #### `onOpen`
 
 Callback function to be executed when the date picker is shown.
 
-The callback function takes no arguments. The `this` keyword inside the callback function refers to the element the date picker is attached to, as a jQuery object.
+The callback function takes no arguments. The `this` keyword inside the callback function refers to the element the date picker is attached to, as a jQuery object.<br>
+To get the plugin's properties do `properties = this.data('Zebra_DatePicker')`.
 
 #### `onSelect`
 
@@ -703,7 +707,8 @@ The callback function takes 3 arguments:
 - the date in <code>YYYY-MM-DD</code> format and additionally hours, minutes and seconds if time picker is enabled
 - the date as a JavaScript Date object
 
-`this` inside the callback function refers to the element the date picker is attached to, as a jQuery object
+`this` inside the callback function refers to the element the date picker is attached to, as a jQuery object.<br>
+To get the plugin's properties do `properties = this.data('Zebra_DatePicker')`.
 
 ## Methods
 

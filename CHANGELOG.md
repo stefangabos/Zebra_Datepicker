@@ -1,3 +1,10 @@
+## version 2.0.0 (September 28, 2023)
+
+- this version removes some legacy code and makes it incompatible with Internet Explorer version 6, 7 and 8
+- removed code that is deprecated in newer versions of jQuery; this fixes [#178](https://github.com/stefangabos/Zebra_Datepicker/issues/178). thanks to [Roman Stefankiv](https://github.com/stefankiv) for bringing this up to me!
+- a reference to the actual datepicker DOM element is now available in the plugin's properties
+- fixed [#19](https://github.com/stefangabos/Zebra_Datepicker/issues/19) which was affecting functionality in responsive layouts and mostly when the date picker was initialized on elements that were hidden at the time of attaching the plugin to them. the fix comes from [Imran Zahid](https://github.com/imranzahid01) - thank you!
+
 ## version 1.9.19 (April 06, 2022)
 
 - the library will now allow days/months both with and without leading zeros for `d`, `j`, `m` and `n`; see [#173](https://github.com/stefangabos/Zebra_Datepicker/issues/173)
