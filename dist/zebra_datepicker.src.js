@@ -1201,10 +1201,6 @@
                                     paddingLeft:    marginLeft
                                 });
 
-                            // if parent element has its "display" property set to "block"
-                            // the wrapper has to have its "width" set
-                            if ($element.css('display') === 'block') icon_wrapper.css('width', $element.outerWidth(true));
-
                             // put wrapper around the element
                             // also, reset the target element's positioning properties
                             $element.wrap(icon_wrapper).css({
