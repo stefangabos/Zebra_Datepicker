@@ -48,7 +48,6 @@ $dp_time_color: $dp_weekday_color;
     padding: $dp_padding_width_vertical $dp_padding_width_horizontal;
     position: absolute;
     display: table;
-    *width: 255px; // for IE6 & 7
     z-index: 1200;
 
     & *,
@@ -229,11 +228,6 @@ $dp_time_color: $dp_weekday_color;
             width: 100%;
         }
 
-        .dp_previous,
-        .dp_next {
-            *padding: 0 10px; // for IE6 & 7
-        }
-
         .dp_hover {
             @if variable-exists(dp_header_hover_background) and $dp_header_hover_background != $dp_background { background-color: $dp_header_hover_background; }
             @if variable-exists(dp_header_hover_color) and $dp_header_hover_color != $dp_color { color: $dp_header_hover_color; }
@@ -256,7 +250,6 @@ $dp_time_color: $dp_weekday_color;
         background-image: url('icons.png');
         background-repeat: no-repeat;
         text-indent: -9999px;
-        *text-indent: 0; // for IE6 & 7
 
         &.dp_confirm {
             background-position: center -#{128 - $dp_header_padding};

@@ -482,7 +482,7 @@
             default_month, default_year, disabled_dates, enabled_dates, end_date, first_selectable_day,
             first_selectable_month, first_selectable_year, footer, header, icon, last_selectable_day, last_selectable_month,
             last_selectable_year, monthpicker, monthpicker_cells, original_attributes = {}, selected_hour, selected_minute,
-            selected_second, selected_ampm, view_toggler, selected_month, selected_year, selecttoday, shim,
+            selected_second, selected_ampm, view_toggler, selected_month, selected_year, selecttoday,
             show_select_today, start_date, timeout, timepicker, timepicker_config, touchmove = false, uniqueid = '', yearpicker,
             yearpicker_cells, view, views, is_touch = false, timer_interval,
 
@@ -2731,80 +2731,6 @@
             },
 
             /**
-             *  Generates an iFrame shim in Internet Explorer 6 so that the date picker appears above select boxes.
-             *
-             *  @return void
-             *
-             *  @access private
-             */
-            iframeShim = function(action) {
-
-                var zIndex, offset;
-
-                // this is necessary only if browser is Internet Explorer 6
-                if (browser.name === 'explorer' && browser.version === 6) {
-
-                    // if the iFrame was not yet created
-                    // "undefined" evaluates as FALSE
-                    if (!shim) {
-
-                        // the iFrame has to have the element's zIndex minus 1
-                        zIndex = to_int(datepicker.css('zIndex')) - 1;
-
-                        // create the iFrame
-                        shim = $('<iframe>', {
-                            src:            'javascript:document.write("")',
-                            scrolling:      'no',
-                            frameborder:    0,
-                            css: {
-                                zIndex:     zIndex,
-                                position:   'absolute',
-                                top:        -1000,
-                                left:       -1000,
-                                width:      datepicker.outerWidth(),
-                                height:     datepicker.outerHeight(),
-                                filter:     'progid:DXImageTransform.Microsoft.Alpha(opacity=0)',
-                                display:    'none'
-                            }
-                        });
-
-                        // inject iFrame into DOM
-                        $('body').append(shim);
-
-                    }
-
-                    // what do we need to do
-                    switch (action) {
-
-                        // hide the iFrame?
-                        case 'hide':
-
-                            // set the iFrame's display property to "none"
-                            shim.hide();
-
-                            break;
-
-                        // show the iFrame?
-                        default:
-
-                            // get date picker top and left position
-                            offset = datepicker.offset();
-
-                            // position the iFrame shim right underneath the date picker
-                            // and set its display to "block"
-                            shim.css({
-                                top:        offset.top,
-                                left:       offset.left,
-                                display:    'block'
-                            });
-
-                    }
-
-                }
-
-            },
-
-            /**
              *  Checks if, according to the restrictions of the calendar and/or the values defined by the "disabled_dates"
              *  property, a day, a month or a year needs to be disabled.
              *
@@ -3745,9 +3671,6 @@
             // (the "outside" argument is TRUE when clicking outside the date picker and the "always_visible" is set to boolean TRUE)
             if (!datepicker.hasClass('dp_hidden') && (!plugin.settings.always_visible || outside)) {
 
-                // hide the iFrameShim in Internet Explorer 6
-                iframeShim('hide');
-
                 // hide the date picker
                 datepicker.addClass('dp_hidden');
 
@@ -3919,11 +3842,7 @@
                     });
 
                 // fade-in the date picker
-                // for Internet Explorer < 9 show the date picker instantly or fading alters the font's weight
                 datepicker.removeClass('dp_hidden');
-
-                // show the iFrameShim in Internet Explorer 6
-                iframeShim();
 
             // if date picker is always visible, show it
             } else datepicker.removeClass('dp_hidden');
