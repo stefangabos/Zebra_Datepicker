@@ -6,8 +6,8 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    1.9.19 (last revision: April 13, 2022)
- *  @copyright  (c) 2011 - 2022 Stefan Gabos
+ *  @version    2.0.0 (last revision: September 28, 2023)
+ *  @copyright  (c) 2011 - 2023 Stefan Gabos
  *  @license    https://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
  */
@@ -31,7 +31,7 @@
     $.Zebra_DatePicker = function(element, options) {
 
         // so you can tell the version number even if all you have is the minified source
-        this.version = '1.9.19';
+        this.version = '2.0.0';
 
         var defaults = {
 
