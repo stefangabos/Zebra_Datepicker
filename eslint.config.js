@@ -1,9 +1,8 @@
-{
-    "env": {
-        "browser": true
-    },
-    "globals": {
-        "$": true
+module.exports = [{
+    "languageOptions": {
+        "globals": {
+            "$": true
+        }
     },
     "rules": {
         "array-bracket-spacing": ["warn", "never"],
@@ -107,4 +106,4 @@
         "valid-typeof": 1,
         "wrap-iife": ["warn", "inside"]
     }
-}
+}];

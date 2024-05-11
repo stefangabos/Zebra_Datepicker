@@ -6,7 +6,7 @@ src/*
 .gitattributes
 .gitignore
 .npmignore
-eslint.json
+eslint.config.js
 Gruntfile.js
 package.json
 package-lock.json
