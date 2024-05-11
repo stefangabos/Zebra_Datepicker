@@ -1,4 +1,4 @@
-## version 2.1.0 (TBA)
+## version 2.1.0 (May 11, 2024)
 
 - the `default_position` property now takes more options; the previous valid values are still going to work for backward compatibility; this is a response to an [older issue](https://github.com/stefangabos/Zebra_Datepicker/issues/41)
 - fixed an issue where the plugin could run in an infinite loop in a configuration where no selectable dates were available; this fixes [#53](https://github.com/stefangabos/Zebra_Datepicker/issues/41)
