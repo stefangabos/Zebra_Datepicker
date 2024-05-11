@@ -56,13 +56,6 @@ Zebra Datepicker is available as a [npm package](https://www.npmjs.com/package/z
 npm install zebra_datepicker --save
 ```
 
-Zebra Datepicker is also available as a [Bower package](http://bower.io/). To install it use:
-
-```bash
-# the "--save" argument adds the plugin as a dependency in bower.json
-bower install zebra_datepicker --save
-```
-
 ## How to use
 
 First, load jQuery from a CDN and provide a fallback to a local source like:
