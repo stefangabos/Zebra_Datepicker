@@ -40,7 +40,7 @@
     "grunt-newer": "*",
     "grunt-notify": "*",
     "grunt-sass": "^3.1.0",
-    "sass": "^1.77.8",
+    "sass": "^1.78.0",
     "time-grunt": "^2.0.0"
   }
 }
