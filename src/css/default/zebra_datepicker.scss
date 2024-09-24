@@ -32,7 +32,7 @@ $dp_weekend_disabled_background: $dp_weekday_disabled_background;
 $dp_weekend_disabled_color: $dp_weekday_disabled_color;
 
 $dp_not_in_month_background: #e0e6f2;
-$dp_not_in_month_color: color.adjust($dp_not_in_month_background, $lightness: 20%);
+$dp_not_in_month_color: color.adjust($dp_not_in_month_background, $lightness: -20%);
 $dp_not_in_month_disabled_background: $dp_weekday_disabled_background;
 $dp_not_in_month_disabled_color: $dp_weekday_disabled_color;
 
