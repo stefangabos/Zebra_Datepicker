@@ -56,6 +56,10 @@ module.exports = function(grunt) {
             }
         },
 
+        /***************************************************************************************************************
+         *  STRING REPLACE
+         *  https://github.com/eruizdechavez/grunt-string-replace
+         **************************************************************************************************************/
         'string-replace': {
             expanded: {
                 files: {
@@ -64,11 +68,14 @@ module.exports = function(grunt) {
                     'dist/css/metallic/zebra_datepicker.css': 'dist/css/metallic/zebra_datepicker.css'
                 },
                 options: {
-                    replacements: [
-                        {
-                            pattern: /(?<!width:\s*)\b([0-9]+)\.[0-9]+\b/g,
-                            replacement: '$1'
-                        }
+                    replacements: [{
+                        pattern: /(rgb|rgba|hsl|hsla)\(\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?/g,
+                        replacement: function(match, p1, p2, p3, p4, p5, p6, p7) {
+                            p2 = p2 ? Math.floor(parseFloat(p2)) : '0';
+                            p4 = p4 ? Math.floor(parseFloat(p4)) : '0';
+                            p6 = p6 ? Math.floor(parseFloat(p6)) : '0';
+                            return p1 + '(' + p2 + (p3 || '') + ',' + p4 + (p5 || '') + ',' + p6 + (p7 || '');
+                        }}
                     ]
                 }
             },
@@ -79,11 +86,14 @@ module.exports = function(grunt) {
                     'dist/css/metallic/zebra_datepicker.min.css': 'dist/css/metallic/zebra_datepicker.min.css'
                 },
                 options: {
-                    replacements: [
-                        {
-                            pattern: /(?<!width:\s*)\b([0-9]+)\.[0-9]+\b/g,
-                            replacement: '$1'
-                        }
+                    replacements: [{
+                        pattern: /(rgb|rgba|hsl|hsla)\(\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?/g,
+                        replacement: function(match, p1, p2, p3, p4, p5, p6, p7) {
+                            p2 = p2 ? Math.floor(parseFloat(p2)) : '0';
+                            p4 = p4 ? Math.floor(parseFloat(p4)) : '0';
+                            p6 = p6 ? Math.floor(parseFloat(p6)) : '0';
+                            return p1 + '(' + p2 + (p3 || '') + ',' + p4 + (p5 || '') + ',' + p6 + (p7 || '');
+                        }}
                     ]
                 }
             }
