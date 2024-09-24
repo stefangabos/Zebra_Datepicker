@@ -1,3 +1,7 @@
+## version 2.1.1 (TBA)
+
+- minor (non-visible) updates to the CSS files because of how the latest SASS works
+
 ## version 2.1.0 (May 11, 2024)
 
 - the `default_position` property now takes more options; the previous valid values are still going to work for backward compatibility; this is a response to an [older issue](https://github.com/stefangabos/Zebra_Datepicker/issues/41)
