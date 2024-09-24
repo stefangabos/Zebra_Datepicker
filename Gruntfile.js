@@ -69,7 +69,7 @@ module.exports = function(grunt) {
                 },
                 options: {
                     replacements: [{
-                        pattern: /(rgb|rgba|hsl|hsla)\(\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?/g,
+                        pattern: /(rgba?|hsla?)\(\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?/g,
                         replacement: function(match, p1, p2, p3, p4, p5, p6, p7) {
                             p2 = p2 ? Math.floor(parseFloat(p2)) : '0';
                             p4 = p4 ? Math.floor(parseFloat(p4)) : '0';
@@ -87,7 +87,7 @@ module.exports = function(grunt) {
                 },
                 options: {
                     replacements: [{
-                        pattern: /(rgb|rgba|hsl|hsla)\(\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?/g,
+                        pattern: /(rgba?|hsla?)\(\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?/g,
                         replacement: function(match, p1, p2, p3, p4, p5, p6, p7) {
                             p2 = p2 ? Math.floor(parseFloat(p2)) : '0';
                             p4 = p4 ? Math.floor(parseFloat(p4)) : '0';
