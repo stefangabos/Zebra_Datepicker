@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 $dp_background: #666;
 $dp_border_radius: 4px;
 $dp_box_shadow: 0px 0px 10px #888;
@@ -9,28 +11,28 @@ $dp_padding_width_vertical: 3px;
 
 $dp_header_background: $dp_background;
 $dp_header_color: #fff;
-$dp_header_hover_background: lighten($dp_background, 15%);
+$dp_header_hover_background: color.adjust($dp_background, $lightness: 15%);
 $dp_header_hover_color: $dp_header_color;
 $dp_header_padding: 5px;
 
-$dp_cell_border: 1px solid lighten($dp_background, 35%);
+$dp_cell_border: 1px solid color.adjust($dp_background, $lightness: 35%);
 $dp_cell_hover_background: #88a09e;
 $dp_cell_hover_color: #fff;
 $dp_cell_min_width: 25px;
 $dp_cell_padding: 5px;
 
-$dp_weekday_background: lighten($dp_background, 50%);
+$dp_weekday_background: color.adjust($dp_background, $lightness: 50%);
 $dp_weekday_color: $dp_color;
-$dp_weekday_disabled_background: lighten($dp_background, 55%);
-$dp_weekday_disabled_color: darken($dp_weekday_disabled_background, 15%);
+$dp_weekday_disabled_background: color.adjust($dp_background, $lightness: 55%);
+$dp_weekday_disabled_color: color.adjust($dp_weekday_disabled_background, $lightness: -15%);
 
-$dp_weekend_background: lighten($dp_background, 44%);
+$dp_weekend_background: color.adjust($dp_background, $lightness: 44%);
 $dp_weekend_color: $dp_color;
 $dp_weekend_disabled_background: $dp_weekday_disabled_background;
 $dp_weekend_disabled_color: $dp_weekday_disabled_color;
 
 $dp_not_in_month_background: #e0e6f2;
-$dp_not_in_month_color: darken($dp_not_in_month_background, 20%);
+$dp_not_in_month_color: color.adjust($dp_not_in_month_background, $lightness: 20%);
 $dp_not_in_month_disabled_background: $dp_weekday_disabled_background;
 $dp_not_in_month_disabled_color: $dp_weekday_disabled_color;
 

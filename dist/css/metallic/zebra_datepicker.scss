@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 $dp_background: #373737;
 $dp_border_radius: 4px;
 $dp_box_shadow: 0px 0px 10px #888;
@@ -7,7 +9,7 @@ $dp_font_family: Tahoma, Arial, Helvetica, sans-serif;
 $dp_padding_width_horizontal: 3px;
 $dp_padding_width_vertical: 3px;
 
-$dp_header_hover_background: lighten($dp_background, 15%);
+$dp_header_hover_background: color.adjust($dp_background, $lightness: 15%);
 $dp_header_padding: 5px;
 
 $dp_cell_border: 1px solid #bbb;
@@ -21,18 +23,18 @@ $dp_weekday_color: #666;
 $dp_weekday_disabled_background: #ececec;
 $dp_weekday_disabled_color: #ccc;
 
-$dp_weekend_background: darken($dp_weekday_background, 5%);
+$dp_weekend_background: color.adjust($dp_weekday_background, $lightness: -5%);
 $dp_weekend_color: $dp_weekday_color;
 $dp_weekend_disabled_background: $dp_weekday_disabled_background;
 $dp_weekend_disabled_color: $dp_weekday_disabled_color;
 
-$dp_not_in_month_background: lighten($dp_weekday_background, 5%);
+$dp_not_in_month_background: color.adjust($dp_weekday_background, $lightness: 5%);
 $dp_not_in_month_color: $dp_weekday_color;
 $dp_not_in_month_disabled_background: $dp_weekday_disabled_background;
 $dp_not_in_month_disabled_color: $dp_weekday_disabled_color;
 
 $dp_current_date_color: #e26261;
-$dp_current_date_disabled_color: lighten($dp_current_date_color, 25%);
+$dp_current_date_disabled_color: color.adjust($dp_current_date_color, $lightness: 25%);
 
 $dp_selected_date_background: #e26262;
 $dp_selected_date_color: $dp_cell_hover_color;
