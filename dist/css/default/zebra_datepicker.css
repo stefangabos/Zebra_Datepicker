@@ -52,14 +52,14 @@
     border-bottom: none
 }
 .Zebra_DatePicker .dp_body td {
-    background: #e6e6e6
+    background: #e5e5e5
 }
 .Zebra_DatePicker .dp_body .dp_weekend {
     background: #d6d6d6
 }
 .Zebra_DatePicker .dp_body .dp_not_in_month {
     background: #e0e6f2;
-    color: #98acd4
+    color: #98acd3
 }
 .Zebra_DatePicker .dp_body .dp_time_controls_condensed td {
     width: 25%
