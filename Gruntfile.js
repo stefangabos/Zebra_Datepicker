@@ -56,6 +56,39 @@ module.exports = function(grunt) {
             }
         },
 
+        'string-replace': {
+            expanded: {
+                files: {
+                    'dist/css/bootstrap/zebra_datepicker.css': 'dist/css/bootstrap/zebra_datepicker.css',
+                    'dist/css/default/zebra_datepicker.css': 'dist/css/default/zebra_datepicker.css',
+                    'dist/css/metallic/zebra_datepicker.css': 'dist/css/metallic/zebra_datepicker.css'
+                },
+                options: {
+                    replacements: [
+                        {
+                            pattern: /(?<!width:\s*)\b([0-9]+)\.[0-9]+\b/g,
+                            replacement: '$1'
+                        }
+                    ]
+                }
+            },
+            minified: {
+                files: {
+                    'dist/css/bootstrap/zebra_datepicker.min.css': 'dist/css/bootstrap/zebra_datepicker.min.css',
+                    'dist/css/default/zebra_datepicker.min.css': 'dist/css/default/zebra_datepicker.min.css',
+                    'dist/css/metallic/zebra_datepicker.min.css': 'dist/css/metallic/zebra_datepicker.min.css'
+                },
+                options: {
+                    replacements: [
+                        {
+                            pattern: /(?<!width:\s*)\b([0-9]+)\.[0-9]+\b/g,
+                            replacement: '$1'
+                        }
+                    ]
+                }
+            }
+        },
+
         /***************************************************************************************************************
          *  CSSMIN
          *  https://github.com/gruntjs/grunt-contrib-cssmin
@@ -239,6 +272,7 @@ module.exports = function(grunt) {
     });
 
     // register plugins
+    grunt.loadNpmTasks('grunt-string-replace');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -250,6 +284,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-notify');
     grunt.loadNpmTasks('grunt-sass');
 
-    grunt.registerTask('default', ['sass', 'cssmin', 'eslint', 'jshint', 'uglify', 'copy', 'includes:css', 'watch']);
+    grunt.registerTask('default', ['sass', 'string-replace', 'cssmin', 'eslint', 'jshint', 'uglify', 'copy', 'includes:css', 'watch']);
 
 };
