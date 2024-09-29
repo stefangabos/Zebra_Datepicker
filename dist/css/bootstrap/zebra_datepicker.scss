@@ -157,14 +157,17 @@ $dp_time_color: $dp_weekday_color;
             }
         }
 
-        .dp_hover {
-            @if variable-exists(dp_cell_hover_color) { color: $dp_cell_hover_color; }
-            @if variable-exists(dp_cell_hover_background) { background: $dp_cell_hover_background; }
-            &.dp_time_control {
-                @if variable-exists(dp_header_hover_background) and $dp_header_hover_background != $dp_background { background-color: $dp_header_hover_background; }
-                @if variable-exists(dp_header_hover_color) and $dp_header_hover_color != $dp_color { color: $dp_header_hover_color; }
+        @media (hover: hover) {
+            .dp_hover {
+                @if variable-exists(dp_cell_hover_color) { color: $dp_cell_hover_color; }
+                @if variable-exists(dp_cell_hover_background) { background: $dp_cell_hover_background; }
+                &.dp_time_control {
+                    @if variable-exists(dp_header_hover_background) and $dp_header_hover_background != $dp_background { background-color: $dp_header_hover_background; }
+                    @if variable-exists(dp_header_hover_color) and $dp_header_hover_color != $dp_color { color: $dp_header_hover_color; }
+                }
             }
         }
+
     }
 
     .dp_monthpicker,
@@ -230,9 +233,11 @@ $dp_time_color: $dp_weekday_color;
             width: 100%;
         }
 
-        .dp_hover {
-            @if variable-exists(dp_header_hover_background) and $dp_header_hover_background != $dp_background { background-color: $dp_header_hover_background; }
-            @if variable-exists(dp_header_hover_color) and $dp_header_hover_color != $dp_color { color: $dp_header_hover_color; }
+        @media (hover: hover) {
+            .dp_hover {
+                @if variable-exists(dp_header_hover_background) and $dp_header_hover_background != $dp_background { background-color: $dp_header_hover_background; }
+                @if variable-exists(dp_header_hover_color) and $dp_header_hover_color != $dp_color { color: $dp_header_hover_color; }
+            }
         }
     }
 

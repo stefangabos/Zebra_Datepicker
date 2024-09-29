@@ -79,13 +79,15 @@
 .Zebra_DatePicker .dp_body .dp_disabled.dp_current {
     color: #b56a6a
 }
-.Zebra_DatePicker .dp_body .dp_hover {
-    color: #fff;
-    background: #88a09e
-}
-.Zebra_DatePicker .dp_body .dp_hover.dp_time_control {
-    background-color: #8c8c8c;
-    color: #fff
+@media (hover:hover) {
+    .Zebra_DatePicker .dp_body .dp_hover {
+        color: #fff;
+        background: #88a09e
+    }
+    .Zebra_DatePicker .dp_body .dp_hover.dp_time_control {
+        background-color: #8c8c8c;
+        color: #fff
+    }
 }
 .Zebra_DatePicker .dp_monthpicker td,
 .Zebra_DatePicker .dp_timepicker td,
@@ -134,9 +136,11 @@
     font-weight: 700;
     width: 100%
 }
-.Zebra_DatePicker .dp_actions .dp_hover {
-    background-color: #8c8c8c;
-    color: #fff
+@media (hover:hover) {
+    .Zebra_DatePicker .dp_actions .dp_hover {
+        background-color: #8c8c8c;
+        color: #fff
+    }
 }
 .Zebra_DatePicker .dp_daypicker th {
     background: #fc3;
