@@ -1,12 +1,12 @@
 /**
  *  Zebra_DatePicker
  *
- *  Zebra_DatePicker is a small, compact and highly configurable date picker / time picker jQuery plugin
+ *  Zebra_DatePicker is a small, compact, mobile-friendly and highly configurable date picker / time picker jQuery plugin
  *
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    2.1.0 (last revision: May 11, 2024)
+ *  @version    2.2.0 (last revision: September 29, 2024)
  *  @copyright  (c) 2011 - 2024 Stefan Gabos
  *  @license    https://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -31,7 +31,7 @@
     $.Zebra_DatePicker = function(element, options) {
 
         // so you can tell the version number even if all you have is the minified source
-        this.version = '2.1.0';
+        this.version = '2.2.0';
 
         var defaults = {
 
@@ -504,7 +504,7 @@
             last_selectable_year, monthpicker, monthpicker_cells, original_attributes = {}, selected_hour, selected_minute,
             selected_second, selected_ampm, view_toggler, selected_month, selected_year, selecttoday,
             show_select_today, start_date, timeout, timepicker, timepicker_config, touchmove = false, uniqueid = '', yearpicker,
-            yearpicker_cells, view, views, is_touch = false, timer_interval,
+            yearpicker_cells, view, views, is_touch = false, is_virtual_keyboard_open = false, timer_interval,
 
             // are we running on an iOS powered device?
             is_iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform),
@@ -1275,7 +1275,7 @@
                         } else clickables = $element;
 
                         // attach the "click" and, if required, the "focus" event to the clickable elements (icon and/or element)
-                        clickables.on('click.Zebra_DatePicker_' + uniqueid + (plugin.settings.open_on_focus ? ' focus.Zebra_DatePicker_' + uniqueid : ''), function() {
+                        clickables.on('click.Zebra_DatePicker_' + uniqueid + (plugin.settings.open_on_focus ? ' focus.Zebra_DatePicker_' + uniqueid : ''), function(e) {
 
                             // if date picker is not visible and element is not disabled
                             if (datepicker.hasClass('dp_hidden') && !$element.attr('disabled'))
@@ -1286,13 +1286,25 @@
                                 // if touch-enabled device and the element is not read-only
                                 else {
 
+                                    is_virtual_keyboard_open = false;
+
                                     // stop a previously started timeout, if any
                                     clearTimeout(timeout);
 
-                                    // wait for 600 milliseconds for the virtual keyboard to appear and show the date picker afterwards
-                                    timeout = setTimeout(function() {
-                                        plugin.show();
-                                    }, 600);
+                                    // if we clicked on an input field - which will trigger the opening of the virtual keyboard
+                                    if ($(e.target).is('input[type="text"]')) {
+
+                                        // we set a flag because Firefox kept closing the virtual keyboard when clicking on the datepicker's elements
+                                        // and we use this to keep it open
+                                        is_virtual_keyboard_open = true;
+
+                                        // wait for 600 milliseconds for the virtual keyboard to appear and show the date picker afterwards
+                                        timeout = setTimeout(function() {
+                                            plugin.show();
+                                        }, 600);
+
+                                    // otherwise show the date picker right away
+                                    } else plugin.show();
 
                                 }
 
@@ -3324,6 +3336,10 @@
                     }
 
                 }
+
+                // if the date picker was open by clicking in an input field make sure we keep the focus in it or
+                // otherwise the virtual keyboard will close, trigger a "resize" event, and close the date picker
+                if (is_virtual_keyboard_open) $element.focus();
 
             },
 
