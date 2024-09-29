@@ -1,5 +1,7 @@
-## version 2.1.1 (TBA)
+## version 2.2.0 (TBA)
 
+- fixed [#192](https://github.com/stefangabos/Zebra_Datepicker/issues/192) where in Firefox the date picker was not usable if it was open by clicking on the input field and not on the icon; thanks to [mccabeservant](https://github.com/mccabeservant) for reporting this!
+- minor visual improvements on mobile devices
 - minor (non-visible) updates to the CSS files because of how the latest SASS works
 
 ## version 2.1.0 (May 11, 2024)
