@@ -272,7 +272,7 @@ module.exports = function(grunt) {
             },
             css: {
                 files: ['src/css/**/*.scss'],
-                tasks: ['sass', 'cssmin', 'copy:css', 'includes:css', 'notify:done'],
+                tasks: ['sass', 'string-replace', 'cssmin', 'copy:css', 'includes:css', 'notify:done'],
                 options: {
                     livereload: true
                 }
