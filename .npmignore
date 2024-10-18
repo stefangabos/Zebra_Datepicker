@@ -6,6 +6,7 @@ src/*
 .gitattributes
 .gitignore
 .npmignore
+.DS_Store
 eslint.config.js
 Gruntfile.js
 package.json
