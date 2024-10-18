@@ -38,9 +38,9 @@ module.exports = function(grunt) {
                     indentWidth: 4
                 },
                 files: {
-                    'dist/css/bootstrap/zebra_datepicker.css': 'src/css/bootstrap/zebra_datepicker.scss',
-                    'dist/css/default/zebra_datepicker.css': 'src/css/default/zebra_datepicker.scss',
-                    'dist/css/metallic/zebra_datepicker.css': 'src/css/metallic/zebra_datepicker.scss'
+                    'dist/css/bootstrap/zebra_datepicker.css': 'dist/css/bootstrap/zebra_datepicker.scss',
+                    'dist/css/default/zebra_datepicker.css': 'dist/css/default/zebra_datepicker.scss',
+                    'dist/css/metallic/zebra_datepicker.css': 'dist/css/metallic/zebra_datepicker.scss'
                 }
             },
             minified: {
@@ -49,9 +49,9 @@ module.exports = function(grunt) {
                     outputStyle: 'compressed'
                 },
                 files: {
-                    'dist/css/bootstrap/zebra_datepicker.min.css': 'src/css/bootstrap/zebra_datepicker.scss',
-                    'dist/css/default/zebra_datepicker.min.css': 'src/css/default/zebra_datepicker.scss',
-                    'dist/css/metallic/zebra_datepicker.min.css': 'src/css/metallic/zebra_datepicker.scss'
+                    'dist/css/bootstrap/zebra_datepicker.min.css': 'dist/css/bootstrap/zebra_datepicker.scss',
+                    'dist/css/default/zebra_datepicker.min.css': 'dist/css/default/zebra_datepicker.scss',
+                    'dist/css/metallic/zebra_datepicker.min.css': 'dist/css/metallic/zebra_datepicker.scss'
                 }
             }
         },
@@ -231,9 +231,9 @@ module.exports = function(grunt) {
             },
             css: {
                 files: [
-                    { expand: true, cwd: 'src/css/bootstrap/', src: ['*.png', '*.scss'], dest: 'dist/css/bootstrap/' },
-                    { expand: true, cwd: 'src/css/default/', src: ['*.png', '*.scss'], dest: 'dist/css/default/' },
-                    { expand: true, cwd: 'src/css/metallic/', src: ['*.png', '*.scss'], dest: 'dist/css/metallic/' }
+                    { expand: true, cwd: 'src/css/bootstrap/', src: ['*.png'], dest: 'dist/css/bootstrap/' },
+                    { expand: true, cwd: 'src/css/default/', src: ['*.png'], dest: 'dist/css/default/' },
+                    { expand: true, cwd: 'src/css/metallic/', src: ['*.png'], dest: 'dist/css/metallic/' }
                 ]
             }
         },
@@ -251,9 +251,9 @@ module.exports = function(grunt) {
                     silent: true
                 },
                 files: [
-                    { cwd: 'dist/css/bootstrap', src: '*.scss', dest: 'dist/css/bootstrap/zebra_datepicker.scss' },
-                    { cwd: 'dist/css/default', src: '*.scss', dest: 'dist/css/default/zebra_datepicker.scss' },
-                    { cwd: 'dist/css/metallic', src: '*.scss', dest: 'dist/css/metallic/zebra_datepicker.scss' }
+                    { cwd: 'src/css/bootstrap', src: '*.scss', dest: 'dist/css/bootstrap/zebra_datepicker.scss' },
+                    { cwd: 'src/css/default', src: '*.scss', dest: 'dist/css/default/zebra_datepicker.scss' },
+                    { cwd: 'src/css/metallic', src: '*.scss', dest: 'dist/css/metallic/zebra_datepicker.scss' }
                 ]
             }
         },
@@ -272,7 +272,7 @@ module.exports = function(grunt) {
             },
             css: {
                 files: ['src/css/**/*.scss'],
-                tasks: ['sass', 'string-replace', 'cssmin', 'copy:css', 'includes:css', 'notify:done'],
+                tasks: ['includes:css', 'sass', 'string-replace', 'cssmin', 'copy:css', 'notify:done'],
                 options: {
                     livereload: true
                 }
@@ -294,6 +294,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-notify');
     grunt.loadNpmTasks('grunt-sass');
 
-    grunt.registerTask('default', ['sass', 'string-replace', 'cssmin', 'eslint', 'jshint', 'uglify', 'copy', 'includes:css', 'watch']);
+    grunt.registerTask('default', ['includes:css', 'sass', 'string-replace', 'cssmin', 'eslint', 'jshint', 'uglify', 'copy', 'watch']);
 
 };
