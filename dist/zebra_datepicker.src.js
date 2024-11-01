@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    2.2.0 (last revision: September 29, 2024)
+ *  @version    2.2.0 (last revision: November 01, 2024)
  *  @copyright  (c) 2011 - 2024 Stefan Gabos
  *  @license    https://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
