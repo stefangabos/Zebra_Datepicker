@@ -28,14 +28,14 @@ module.exports = function(grunt) {
 
         /***************************************************************************************************************
          *  SASS
-         *  https://www.npmjs.org/package/grunt-sass
+         *  https://www.npmjs.org/package/grunt-sass-newer
          **************************************************************************************************************/
         'sass': {
             expanded: {
                 options: {
                     implementation: sass,
-                    outputStyle: 'expanded',
-                    indentWidth: 4
+                    style: 'expanded',
+                    api: 'modern'
                 },
                 files: {
                     'dist/css/bootstrap/zebra_datepicker.css': 'dist/css/bootstrap/zebra_datepicker.scss',
@@ -46,7 +46,8 @@ module.exports = function(grunt) {
             minified: {
                 options: {
                     implementation: sass,
-                    outputStyle: 'compressed'
+                    style: 'compressed',
+                    api: 'modern'
                 },
                 files: {
                     'dist/css/bootstrap/zebra_datepicker.min.css': 'dist/css/bootstrap/zebra_datepicker.scss',
@@ -292,7 +293,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-includes');
     grunt.loadNpmTasks('grunt-newer');
     grunt.loadNpmTasks('grunt-notify');
-    grunt.loadNpmTasks('grunt-sass');
+    grunt.loadNpmTasks('grunt-sass-modern');
 
     grunt.registerTask('default', ['includes:css', 'sass', 'string-replace', 'cssmin', 'eslint', 'jshint', 'uglify', 'copy', 'watch']);
 
