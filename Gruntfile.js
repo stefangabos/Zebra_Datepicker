@@ -62,23 +62,23 @@ module.exports = function(grunt) {
          *  https://github.com/eruizdechavez/grunt-string-replace
          **************************************************************************************************************/
         'string-replace': {
+            options: {
+                replacements: [{
+                    pattern: /(rgba?|hsla?)\(\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?/g,
+                    replacement: function(match, p1, p2, p3, p4, p5, p6, p7) {
+                        p2 = p2 ? Math.floor(parseFloat(p2)) : '0';
+                        p4 = p4 ? Math.floor(parseFloat(p4)) : '0';
+                        p6 = p6 ? Math.floor(parseFloat(p6)) : '0';
+                        return p1 + '(' + p2 + (p3 || '') + ',' + p4 + (p5 || '') + ',' + p6 + (p7 || '');
+                    }}
+                ]
+            },
             expanded: {
                 files: {
                     'dist/css/bootstrap/zebra_datepicker.css': 'dist/css/bootstrap/zebra_datepicker.css',
                     'dist/css/default/zebra_datepicker.css': 'dist/css/default/zebra_datepicker.css',
                     'dist/css/metallic/zebra_datepicker.css': 'dist/css/metallic/zebra_datepicker.css'
                 },
-                options: {
-                    replacements: [{
-                        pattern: /(rgba?|hsla?)\(\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?/g,
-                        replacement: function(match, p1, p2, p3, p4, p5, p6, p7) {
-                            p2 = p2 ? Math.floor(parseFloat(p2)) : '0';
-                            p4 = p4 ? Math.floor(parseFloat(p4)) : '0';
-                            p6 = p6 ? Math.floor(parseFloat(p6)) : '0';
-                            return p1 + '(' + p2 + (p3 || '') + ',' + p4 + (p5 || '') + ',' + p6 + (p7 || '');
-                        }}
-                    ]
-                }
             },
             minified: {
                 files: {
@@ -86,17 +86,6 @@ module.exports = function(grunt) {
                     'dist/css/default/zebra_datepicker.min.css': 'dist/css/default/zebra_datepicker.min.css',
                     'dist/css/metallic/zebra_datepicker.min.css': 'dist/css/metallic/zebra_datepicker.min.css'
                 },
-                options: {
-                    replacements: [{
-                        pattern: /(rgba?|hsla?)\(\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?\s*,\s*([0-9]*\.?[0-9]+)?(\%)?/g,
-                        replacement: function(match, p1, p2, p3, p4, p5, p6, p7) {
-                            p2 = p2 ? Math.floor(parseFloat(p2)) : '0';
-                            p4 = p4 ? Math.floor(parseFloat(p4)) : '0';
-                            p6 = p6 ? Math.floor(parseFloat(p6)) : '0';
-                            return p1 + '(' + p2 + (p3 || '') + ',' + p4 + (p5 || '') + ',' + p6 + (p7 || '');
-                        }}
-                    ]
-                }
             }
         },
 
