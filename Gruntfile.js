@@ -28,14 +28,16 @@ module.exports = function(grunt) {
 
         /***************************************************************************************************************
          *  SASS
-         *  https://www.npmjs.org/package/grunt-sass-newer
+         *  https://www.npmjs.org/package/grunt-sass-modern
          **************************************************************************************************************/
         'sass': {
+            options: {
+                implementation: sass,
+                api: 'modern'
+            },
             expanded: {
                 options: {
-                    implementation: sass,
                     style: 'expanded',
-                    api: 'modern'
                 },
                 files: {
                     'dist/css/bootstrap/zebra_datepicker.css': 'dist/css/bootstrap/zebra_datepicker.scss',
@@ -45,9 +47,7 @@ module.exports = function(grunt) {
             },
             minified: {
                 options: {
-                    implementation: sass,
                     style: 'compressed',
-                    api: 'modern'
                 },
                 files: {
                     'dist/css/bootstrap/zebra_datepicker.min.css': 'dist/css/bootstrap/zebra_datepicker.scss',
