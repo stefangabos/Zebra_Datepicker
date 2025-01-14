@@ -41,7 +41,7 @@
     "grunt-notify": "*",
     "grunt-sass-modern": "^3.3.0",
     "grunt-string-replace": "^1.3.3",
-    "sass": "^1.83.1",
+    "sass": "^1.83.4",
     "time-grunt": "^2.0.0"
   }
 }
