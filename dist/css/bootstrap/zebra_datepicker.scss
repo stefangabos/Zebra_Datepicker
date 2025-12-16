@@ -110,13 +110,13 @@ $dp_time_color: $dp_weekday_color;
         }
 
         .dp_weekend {
-            @if meta.variable-exists(dp_weekend_background) and $dp_weekend_background != (if(meta.variable_exists(dp_weekday_background), $dp_weekday_background, $dp_background)) { background: $dp_weekend_background; }
-            @if meta.variable-exists(dp_weekend_color) and $dp_weekend_color != (if(meta.variable_exists(dp_weekday_color), $dp_weekday_color, $dp_color)) { color: $dp_weekend_color; }
+            @if meta.variable-exists(dp_weekend_background) and ((meta.variable-exists(dp_weekday_background) and $dp_weekend_background != $dp_weekday_background) or (not meta.variable-exists(dp_weekday_background) and $dp_weekend_background != $dp_background)) { background: $dp_weekend_background; }
+            @if meta.variable-exists(dp_weekend_color) and ((meta.variable-exists(dp_weekday_color) and $dp_weekend_color != $dp_weekday_color) or (not meta.variable-exists(dp_weekday_color) and $dp_weekend_color != $dp_color)) { color: $dp_weekend_color; }
         }
 
         .dp_not_in_month {
-            @if meta.variable-exists(dp_not_in_month_background) and $dp_not_in_month_background != (if(meta.variable_exists(dp_weekday_background), $dp_weekday_background, $dp_background)) { background: $dp_not_in_month_background; }
-            @if meta.variable-exists(dp_not_in_month_color) and $dp_not_in_month_color != (if(meta.variable_exists(dp_weekday_color), $dp_weekday_color, $dp_color)) { color: $dp_not_in_month_color; }
+            @if meta.variable-exists(dp_not_in_month_background) and ((meta.variable-exists(dp_weekday_background) and $dp_not_in_month_background != $dp_weekday_background) or (not meta.variable-exists(dp_weekday_background) and $dp_not_in_month_background != $dp_background)) { background: $dp_not_in_month_background; }
+            @if meta.variable-exists(dp_not_in_month_color) and ((meta.variable-exists(dp_weekday_color) and $dp_not_in_month_color != $dp_weekday_color) or (not meta.variable-exists(dp_weekday_color) and $dp_not_in_month_color != $dp_color)) { color: $dp_not_in_month_color; }
         }
         .dp_time_control {
             @if meta.variable-exists(dp_time_control_background) and $dp_time_control_background != $dp_weekday_background { background: $dp_time_control_background; }
@@ -145,18 +145,18 @@ $dp_time_color: $dp_weekday_color;
             cursor: text;
 
             &.dp_not_in_month {
-                @if meta.variable-exists(dp_not_in_month_disabled_background) and $dp_not_in_month_disabled_background != (if(meta.variable_exists(dp_weekday_disabled_background), $dp_weekday_disabled_background, $dp_background)) { background: $dp_not_in_month_disabled_background; }
-                @if meta.variable-exists(dp_not_in_month_disabled_color) and $dp_not_in_month_disabled_color != (if(meta.variable_exists(dp_weekday_disabled_color), $dp_weekday_disabled_color, $dp_color)) { color: $dp_not_in_month_disabled_color; }
+                @if meta.variable-exists(dp_not_in_month_disabled_background) and ((meta.variable-exists(dp_weekday_disabled_background) and $dp_not_in_month_disabled_background != $dp_weekday_disabled_background) or (not meta.variable-exists(dp_weekday_disabled_background) and $dp_not_in_month_disabled_background != $dp_background)) { background: $dp_not_in_month_disabled_background; }
+                @if meta.variable-exists(dp_not_in_month_disabled_color) and ((meta.variable-exists(dp_weekday_disabled_color) and $dp_not_in_month_disabled_color != $dp_weekday_disabled_color) or (not meta.variable-exists(dp_weekday_disabled_color) and $dp_not_in_month_disabled_color != $dp_color)) { color: $dp_not_in_month_disabled_color; }
             }
 
             &.dp_weekend {
-                @if meta.variable-exists(dp_weekend_disabled_background) and $dp_weekend_disabled_background != (if(meta.variable_exists(dp_weekday_disabled_background), $dp_weekday_disabled_background, $dp_background)) { background: $dp_weekend_disabled_background; }
-                @if meta.variable-exists(dp_weekend_disabled_color) and $dp_weekend_disabled_color != (if(meta.variable_exists(dp_weekday_disabled_color), $dp_weekday_disabled_color, $dp_color)) { color: $dp_weekend_disabled_color; }
+                @if meta.variable-exists(dp_weekend_disabled_background) and ((meta.variable-exists(dp_weekday_disabled_background) and $dp_weekend_disabled_background != $dp_weekday_disabled_background) or (not meta.variable-exists(dp_weekday_disabled_background) and $dp_weekend_disabled_background != $dp_background)) { background: $dp_weekend_disabled_background; }
+                @if meta.variable-exists(dp_weekend_disabled_color) and ((meta.variable-exists(dp_weekday_disabled_color) and $dp_weekend_disabled_color != $dp_weekday_disabled_color) or (not meta.variable-exists(dp_weekday_disabled_color) and $dp_weekend_disabled_color != $dp_color)) { color: $dp_weekend_disabled_color; }
             }
 
             &.dp_current {
-                @if meta.variable-exists(dp_current_date_disabled_background) and $dp_current_date_disabled_background != (if(meta.variable_exists(dp_weekday_disabled_background), $dp_weekday_disabled_background, $dp_background)) { background: $dp_current_date_disabled_background; }
-                @if meta.variable-exists(dp_current_date_disabled_color) and $dp_current_date_disabled_color != (if(meta.variable_exists(dp_weekday_disabled_color), $dp_weekday_disabled_color, $dp_color)) { color: $dp_current_date_disabled_color; }
+                @if meta.variable-exists(dp_current_date_disabled_background) and ((meta.variable-exists(dp_weekday_disabled_background) and $dp_current_date_disabled_background != $dp_weekday_disabled_background) or (not meta.variable-exists(dp_weekday_disabled_background) and $dp_current_date_disabled_background != $dp_background)) { background: $dp_current_date_disabled_background; }
+                @if meta.variable-exists(dp_current_date_disabled_color) and ((meta.variable-exists(dp_weekday_disabled_color) and $dp_current_date_disabled_color != $dp_weekday_disabled_color) or (not meta.variable-exists(dp_weekday_disabled_color) and $dp_current_date_disabled_color != $dp_color)) { color: $dp_current_date_disabled_color; }
             }
         }
 
@@ -184,7 +184,7 @@ $dp_time_color: $dp_weekday_color;
     .dp_timepicker .dp_disabled {
         @if meta.variable-exists(dp_time_background) and $dp_time_background != $dp_weekday_disabled_background { background: $dp_time_background; }
         border: none;
-        color: if(meta.variable-exists(dp_time_color), $dp_time_color, if(meta.variable-exists(dp_weekday_color), $dp_weekday_color, $dp_color));
+        @if meta.variable-exists(dp_time_color) { color: $dp_time_color; } @else if meta.variable-exists(dp_weekday_color) { color: $dp_weekday_color; } @else { color: $dp_color; }
         font-size: math.ceil($dp_font_size * 2);
         font-weight: bold;
     }
@@ -194,7 +194,7 @@ $dp_time_color: $dp_weekday_color;
             position: relative;
             &:after {
                 content: ":";
-                color: if(meta.variable-exists(dp_time_separator_color), $dp_time_separator_color, if(meta.variable-exists(dp_weekday_color), $dp_weekday_color, $dp_color));
+                @if meta.variable-exists(dp_time_separator_color) { color: $dp_time_separator_color; } @else if meta.variable-exists(dp_weekday_color) { color: $dp_weekday_color; } @else { color: $dp_color; }
                 font-size: math.ceil($dp_font_size * 1.5);
                 left: 100%;
                 margin-left: 2px;
