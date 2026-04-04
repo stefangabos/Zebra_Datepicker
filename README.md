@@ -31,7 +31,8 @@ Enhance your forms with the powerful and highly-configurable Zebra Datepicker da
 
 Your support is greatly appreciated and it keeps me motivated continue working on open source projects. If you enjoy this project please star it by clicking on the star button at the top of the page. If you're feeling generous, you can also buy me a coffee through PayPal or become a sponsor.
 **Thank you for your support!** 🎉
-<br><br>
+
+I  also run [PageDrop](https://pagedrop.pro) — if you need a fast, professional website for your business, check it out.
 
 [<img src="https://img.shields.io/github/stars/stefangabos/zebra_datepicker?color=green&label=star%20it%20on%20GitHub" width="132" height="20" alt="Star it on GitHub">](https://github.com/stefangabos/Zebra_Datepicker) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QTQH936BQDE7A) [<img src="https://img.shields.io/badge/-Sponsor-fafbfc?logo=GitHub%20Sponsors">](https://github.com/sponsors/stefangabos)
 
