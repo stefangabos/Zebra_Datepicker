@@ -1,6 +1,7 @@
-## version 2.2.1 (TBA)
+## version 2.2.1 (October 31, 2026)
 
 - updates required by [latest versions of SASS](https://sass-lang.com/documentation/breaking-changes/if-function/)
+- when the date picker is always visible, the time picker no longer shows the confirmation button
 
 ## version 2.2.0 (November 01, 2024)
 
