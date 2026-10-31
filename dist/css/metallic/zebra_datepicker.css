@@ -56,10 +56,10 @@
     color: #666
 }
 .Zebra_DatePicker .dp_body .dp_weekend {
-    background: #d1d1d1
+    background: rgb(82%,82%,82%)
 }
 .Zebra_DatePicker .dp_body .dp_not_in_month {
-    background: #eaeaea
+    background: rgb(92%,92%,92%)
 }
 .Zebra_DatePicker .dp_body .dp_time_controls_condensed td {
     width: 25%
@@ -77,7 +77,7 @@
     cursor: text
 }
 .Zebra_DatePicker .dp_body .dp_disabled.dp_current {
-    color: #f5cdcc
+    color: rgb(96%,80%,80%)
 }
 @media (hover:hover) {
     .Zebra_DatePicker .dp_body .dp_hover {
@@ -86,7 +86,7 @@
     }
     .Zebra_DatePicker .dp_actions .dp_hover,
     .Zebra_DatePicker .dp_body .dp_hover.dp_time_control {
-        background-color: #5d5d5d
+        background-color: rgb(36%,36%,36%)
     }
 }
 .Zebra_DatePicker .dp_monthpicker td,

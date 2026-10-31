@@ -51,7 +51,7 @@
     cursor: text
 }
 .Zebra_DatePicker .dp_body .dp_disabled.dp_current {
-    color: #b3d5e5
+    color: rgb(70%,83%,90%)
 }
 .Zebra_DatePicker .dp_monthpicker td,
 .Zebra_DatePicker .dp_timepicker td,

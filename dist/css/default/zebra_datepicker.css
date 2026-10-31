@@ -33,7 +33,7 @@
 }
 .Zebra_DatePicker .dp_body td,
 .Zebra_DatePicker .dp_body th {
-    border: 1px solid #bfbfbf
+    border: 1px solid
 }
 .Zebra_DatePicker .dp_body td:first-child,
 .Zebra_DatePicker .dp_body th:first-child {
@@ -52,14 +52,14 @@
     border-bottom: none
 }
 .Zebra_DatePicker .dp_body td {
-    background: #e5e5e5
+    background: rgb(90%,90%,90%)
 }
 .Zebra_DatePicker .dp_body .dp_weekend {
-    background: #d6d6d6
+    background: rgb(84%,84%,84%)
 }
 .Zebra_DatePicker .dp_body .dp_not_in_month {
     background: #e0e6f2;
-    color: #98acd3
+    color: rgb(59%,67%,83%)
 }
 .Zebra_DatePicker .dp_body .dp_time_controls_condensed td {
     width: 25%
@@ -72,7 +72,7 @@
     color: #fff
 }
 .Zebra_DatePicker .dp_body .dp_disabled {
-    background: #f2f2f2;
+    background: rgb(95%,95%,95%);
     color: #ccc;
     cursor: text
 }
@@ -85,7 +85,7 @@
         background: #88a09e
     }
     .Zebra_DatePicker .dp_body .dp_hover.dp_time_control {
-        background-color: #8c8c8c;
+        background-color: rgb(55%,55%,55%);
         color: #fff
     }
 }
@@ -105,7 +105,7 @@
 }
 .Zebra_DatePicker .dp_time_separator div:after {
     content: ":";
-    color: 1px solid #bfbfbf;
+    color: 1px solid rgb(75%,75%,75%);
     font-size: 20px;
     left: 100%;
     margin-left: 2px;
@@ -138,7 +138,7 @@
 }
 @media (hover:hover) {
     .Zebra_DatePicker .dp_actions .dp_hover {
-        background-color: #8c8c8c;
+        background-color: rgb(55%,55%,55%);
         color: #fff
     }
 }

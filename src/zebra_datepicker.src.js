@@ -6,8 +6,8 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    2.2.0 (last revision: November 01, 2024)
- *  @copyright  (c) 2011 - 2024 Stefan Gabos
+ *  @version    2.2.1 (last revision: October 31, 2026)
+ *  @copyright  (c) 2011 - 2026 Stefan Gabos
  *  @license    https://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
  */
@@ -31,7 +31,7 @@
     $.Zebra_DatePicker = function(element, options) {
 
         // so you can tell the version number even if all you have is the minified source
-        this.version = '2.2.0';
+        this.version = '2.2.1';
 
         var defaults = {
 
@@ -3173,8 +3173,11 @@
                         // hide the time picker toggler button
                         view_toggler.hide();
 
+                        // if the date picker is always visible, every change is already a selection so we hide the confirmation button
+                        if (plugin.settings.always_visible) confirm_selection.hide();
+
                         // show the confirmation button
-                        confirm_selection.show();
+                        else confirm_selection.show();
 
                     // if the "time" view is not the only available view
                     } else {
@@ -3182,9 +3185,8 @@
                         // time picker toggler button, but change the icon
                         view_toggler.show().addClass('dp_calendar');
 
-                        // if no date is selected
-                        // hide the confirmation button
-                        if ($element.val() === '') confirm_selection.hide();
+                        // if no date is selected, or if the date picker is always visible and every change is already a selection, hide the confirmation button
+                        if ($element.val() === '' || plugin.settings.always_visible) confirm_selection.hide();
 
                         // show the confirmation button
                         else confirm_selection.show();
@@ -3273,8 +3275,8 @@
                     selecttoday.hide();
                     cleardate.hide();
 
-                    // set the view toggler width
-                    view_toggler.css('width', $element.val() === '' ? '100%' : '50%');
+                    // set the view toggler width, taking up all the available space when there is no confirmation button
+                    view_toggler.css('width', $element.val() === '' || plugin.settings.always_visible ? '100%' : '50%');
 
                 // for the other cases
                 } else {
@@ -3489,8 +3491,9 @@
                 update_dependent(default_date);
 
                 // if a callback function exists for when selecting a date
-                // (if time picker is enabled, we'll run the callback when the user clicks on the confirmation button)
-                if (!timepicker_config && plugin.settings.onSelect && typeof plugin.settings.onSelect === 'function')
+                // (if time picker is enabled, we'll run the callback when the user clicks on the confirmation button,
+                // unless the date picker is always visible, where there is no confirmation button)
+                if ((!timepicker_config || plugin.settings.always_visible) && plugin.settings.onSelect && typeof plugin.settings.onSelect === 'function')
 
                     // execute the callback function
                     // make "this" inside the callback function refer to the element the date picker is attached to
