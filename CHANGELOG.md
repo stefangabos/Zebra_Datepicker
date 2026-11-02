@@ -1,3 +1,7 @@
+## version 2.2.2 (November 02, 2026)
+
+- calendar icons of elements not visible when the date picker is attached are positioned once the elements become visible
+
 ## version 2.2.1 (October 31, 2026)
 
 - updates required by [latest versions of SASS](https://sass-lang.com/documentation/breaking-changes/if-function/)
