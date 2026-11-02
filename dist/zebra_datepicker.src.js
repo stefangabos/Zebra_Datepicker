@@ -6,7 +6,7 @@
  *  Read more {@link https://github.com/stefangabos/Zebra_Datepicker/ here}
  *
  *  @author     Stefan Gabos <contact@stefangabos.ro>
- *  @version    2.2.1 (last revision: October 31, 2026)
+ *  @version    2.2.2 (last revision: November 02, 2026)
  *  @copyright  (c) 2011 - 2026 Stefan Gabos
  *  @license    https://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_DatePicker
@@ -31,7 +31,7 @@
     $.Zebra_DatePicker = function(element, options) {
 
         // so you can tell the version number even if all you have is the minified source
-        this.version = '2.2.1';
+        this.version = '2.2.2';
 
         var defaults = {
 
@@ -505,6 +505,7 @@
             selected_second, selected_ampm, view_toggler, selected_month, selected_year, selecttoday,
             show_select_today, start_date, timeout, timepicker, timepicker_config, touchmove = false, uniqueid = '', yearpicker,
             yearpicker_cells, view, views, is_touch = false, is_virtual_keyboard_open = false, timer_interval,
+            icon_observer,
 
             // are we running on an iOS powered device?
             is_iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform),
@@ -1392,6 +1393,30 @@
 
                         // if element the datepicker is attached to became disabled, disable the calendar icon, too
                         if ($element.attr('disabled') === 'disabled') icon.addClass('Zebra_DatePicker_Icon_Disabled');
+
+                        // if the element is not visible (because it is in a hidden container, for example), its size is not
+                        // known and the icon could not be positioned; position it again once the element becomes visible
+                        if (!$element.is(':visible') && undefined !== window.ResizeObserver && undefined === icon_observer) {
+
+                            icon_observer = new window.ResizeObserver(function() {
+
+                                // once the element is visible
+                                if ($element.is(':visible')) {
+
+                                    // stop watching it
+                                    icon_observer.disconnect();
+                                    icon_observer = undefined;
+
+                                    // and position the icon again
+                                    plugin.update();
+
+                                }
+
+                            });
+
+                            icon_observer.observe($element[0]);
+
+                        }
 
                     }
 
@@ -3672,6 +3697,14 @@
          *  @return void
          */
         plugin.destroy = function() {
+
+            // stop watching for the element to become visible, if we were
+            if (undefined !== icon_observer) {
+
+                icon_observer.disconnect();
+                icon_observer = undefined;
+
+            }
 
             // if the calendar icon exists
             if (undefined !== plugin.icon) {
