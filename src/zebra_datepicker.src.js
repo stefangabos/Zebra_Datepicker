@@ -3449,6 +3449,8 @@
              */
             select_date = function(year, month, day, rview, cell) {
 
+                if ($element.is(':disabled')) return;
+
                 var
 
                     // construct a new date object from the arguments
