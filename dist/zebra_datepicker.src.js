@@ -1263,7 +1263,7 @@
                             });
 
                             // create the actual calendar icon (show a disabled icon if the element is disabled)
-                            icon = $('<button type="button" class="Zebra_DatePicker_Icon' + ($element.attr('disabled') === 'disabled' ? ' Zebra_DatePicker_Icon_Disabled' : '') + '">' + plugin.settings.show_icon + '</button>');
+                            icon = $('<button type="button" class="Zebra_DatePicker_Icon' + ($element.is(':disabled') ? ' Zebra_DatePicker_Icon_Disabled' : '') + '">' + plugin.settings.show_icon + '</button>');
 
                             // a reference to the icon, as a global property
                             plugin.icon = icon;
@@ -1279,7 +1279,7 @@
                         clickables.on('click.Zebra_DatePicker_' + uniqueid + (plugin.settings.open_on_focus ? ' focus.Zebra_DatePicker_' + uniqueid : ''), function(e) {
 
                             // if date picker is not visible and element is not disabled
-                            if (datepicker.hasClass('dp_hidden') && !$element.attr('disabled'))
+                            if (datepicker.hasClass('dp_hidden') && !$element.is(':disabled'))
 
                                 // if not a touch-enabled device or the element is read-only, show the date picker right away
                                 if (!(is_touch && !plugin.settings.readonly_element)) plugin.show();
@@ -1392,7 +1392,7 @@
                         icon.removeClass('Zebra_DatePicker_Icon_Disabled');
 
                         // if element the datepicker is attached to became disabled, disable the calendar icon, too
-                        if ($element.attr('disabled') === 'disabled') icon.addClass('Zebra_DatePicker_Icon_Disabled');
+                        if ($element.is(':disabled')) icon.addClass('Zebra_DatePicker_Icon_Disabled');
 
                         // if the element is not visible (because it is in a hidden container, for example), its size is not
                         // known and the icon could not be positioned; position it again once the element becomes visible
@@ -1522,7 +1522,7 @@
                     plugin.settings.container.append(datepicker);
 
                 // otherwise, if element is not disabled
-                else if (!$element.attr('disabled')) {
+                else if (!$element.is(':disabled')) {
 
                     // inject the date picker into the designated container element
                     plugin.settings.always_visible.append(datepicker);
@@ -1640,6 +1640,9 @@
                 // attach a click event for the cells in the month picker
                 monthpicker.on('click', 'td:not(.dp_disabled)', function() {
 
+                    // if the element the plugin is attached to is disabled, hide the date picker and don't go further
+                    if ($element.is(':disabled')) return plugin.hide();
+
                     // get the month we've clicked on
                     var matches = $(this).attr('class').match(/dp\_month\_([0-9]+)/);
 
@@ -1670,6 +1673,9 @@
 
                 // attach a click event for the cells in the year picker
                 yearpicker.on('click', 'td:not(.dp_disabled)', function() {
+
+                    // if the element the plugin is attached to is disabled, hide the date picker and don't go further
+                    if ($element.is(':disabled')) return plugin.hide();
 
                     // set the selected year
                     selected_year = to_int($(this).html());
@@ -1713,6 +1719,9 @@
                 cleardate.on('click', function(e) {
 
                     e.preventDefault();
+
+                    // if the element the plugin is attached to is disabled, hide the date picker and don't go further
+                    if ($element.is(':disabled')) return plugin.hide();
 
                     // clear the element's value
                     $element.val('');
@@ -1767,6 +1776,9 @@
                 // (visible only when in the "time" view)
                 confirm_selection.on('click', function() {
 
+                    // if the element the plugin is attached to is disabled, hide the date picker and don't go further
+                    if ($element.is(':disabled')) return plugin.hide();
+
                     // as users may click this before making any adjustments to time, simulate time adjustment so that
                     // a value is selected
                     $('.dp_time_controls_increase td', timepicker).first().trigger('mousedown');
@@ -1798,6 +1810,9 @@
 
                     var element = this,
                         count = 0;
+
+                    // if the element the plugin is attached to is disabled, hide the date picker and don't start the timer
+                    if ($element.is(':disabled')) return plugin.hide();
 
                     // trigger once
                     manage_timer_controls(element);
@@ -3449,7 +3464,8 @@
              */
             select_date = function(year, month, day, rview, cell) {
 
-                if ($element.is(':disabled')) return;
+                // if the element the plugin is attached to is disabled, hide the date picker and don't go further
+                if ($element.is(':disabled')) return plugin.hide();
 
                 var
 
